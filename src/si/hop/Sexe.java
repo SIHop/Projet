@@ -10,6 +10,9 @@ package si.hop;
  * @author Quentin
  */
 public enum Sexe {
-    HOMME,
-    FEMME;
+    HOMME("Homme","Monsieur"),
+    FEMME("Femme","Madame");
+    
+    Sexe(String sexe,String titre){
+    }
 }
