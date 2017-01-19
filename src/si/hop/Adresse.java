@@ -15,6 +15,7 @@ class Adresse {
     String ville;
     String departement;
     int departementNombre;
+    int codePostale;
     String Pays;
 
     public Adresse(String adresse1, String adresse2, String ville, String departement, int departementNombre, String Pays) {
