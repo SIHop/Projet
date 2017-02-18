@@ -1,3 +1,5 @@
+package DPI.Personne;
+
 import java.util.Vector;
 
 public class InformationDeContact {

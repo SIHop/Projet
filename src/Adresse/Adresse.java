@@ -1,19 +1,13 @@
-import DMA.int;
+package Adresse;
 
-class Adresse {
+public class Adresse {
 
   private String pays;
-
   private String ville;
-
   private int codePostal;
-
   private String nomVoie;
-
   private int numeroVoie;
-
   private String typeVoie;
-
   private String complement;
 
     

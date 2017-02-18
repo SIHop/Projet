@@ -1,10 +1,9 @@
-package DM;
+package DPI.DM;
 
-import GestionDexploitation.Personel;
-import java.util.Vector;
+import GestionDexploitation.Personnel;
+import java.util.ArrayList;
 import GestionDexploitation.Service;
-import String;
-import DMA.Sejour;
+import DPI.DMA.Sejour;
 
 public class FicheDeSoins {
 
@@ -15,13 +14,13 @@ public class FicheDeSoins {
    * 
    * @element-type Acte
    */
-  private Vector  listeActes;
+  private ArrayList  listeActes;
     private Service service;
     /**
    * 
    * @element-type Prescription
    */
-  private Vector  presctiption;
-    private Personel createur;
+  private ArrayList  presctiption;
+    private Personnel createur;
 
 }
