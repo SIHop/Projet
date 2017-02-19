@@ -5,14 +5,9 @@ import GestionDexploitation.Service;
 
 public class DM {
 
-  private String lettreDeSortie;
-
+    private String lettreDeSortie;
     public ArrayList myDPI;
-    /**
-   * 
-   * @element-type FicheDeSoins
-   */
-  private ArrayList listeDesFichesDeSoins;
+    private ArrayList listeDesFichesDeSoins;
 
   public DM() {
   }
