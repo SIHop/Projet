@@ -3,15 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DPI.DM;
+package Hopital;
+
+import Adresse.*;
+import Contact.*;
 
 /**
  *
  * @author Residence
  */
-public enum TypePrescription {
-  EXAMEN_SANGUIN,
-  EXAMEN_RADIOLOGIQUE,
-  MEDICAMENT,
-  CONSULTATION;
+public class Hopital {
+    private String nom;
+    private Adresse adresse;
+    private Contact contact;
+    
 }

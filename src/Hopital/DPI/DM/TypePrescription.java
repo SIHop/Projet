@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DPI;
+package Hopital.DPI.DM;
 
 /**
  *
  * @author Residence
  */
-public class IPP {
-    
+public enum TypePrescription {
+  EXAMEN_SANGUIN,
+  EXAMEN_RADIOLOGIQUE,
+  MEDICAMENT,
+  CONSULTATION;
 }

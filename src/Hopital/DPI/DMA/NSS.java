@@ -1,4 +1,4 @@
-package DPI.DMA;
+package Hopital.DPI.DMA;
 
 public class NSS {
 

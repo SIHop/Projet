@@ -1,4 +1,4 @@
-package DPI.DM;
+package Hopital.DPI.DM;
 
 import java.util.ArrayList;
 import GestionDexploitation.Service;

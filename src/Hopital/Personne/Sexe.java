@@ -1,4 +1,4 @@
-package DPI.Personne;
+package Hopital.Personne;
 
 public enum Sexe {
 

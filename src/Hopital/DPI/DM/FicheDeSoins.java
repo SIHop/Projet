@@ -1,9 +1,9 @@
-package DPI.DM;
+package Hopital.DPI.DM;
 
-import GestionDexploitation.Personnel;
+import Hopital.Personne.Personnel;
 import java.util.ArrayList;
 import GestionDexploitation.Service;
-import DPI.DMA.Sejour;
+import Hopital.DPI.DMA.Sejour;
 
 public class FicheDeSoins {
 

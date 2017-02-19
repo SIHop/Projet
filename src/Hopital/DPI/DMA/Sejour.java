@@ -1,6 +1,7 @@
-package DPI.DMA;
+package Hopital.DPI.DMA;
 
-import DPI.DM.DM;
+import Hopital.Personne.Medecin;
+import Hopital.DPI.DM.DM;
 import GestionDexploitation.*;
 import java.util.Date;
 

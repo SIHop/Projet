@@ -1,4 +1,4 @@
-package DPI.DM;
+package Hopital.DPI.DM;
 
 public class Code {
   

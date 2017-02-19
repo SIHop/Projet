@@ -1,7 +1,9 @@
-package GestionDexploitation;
+package Hopital.Personne;
 
-import DPI.Personne.*;
+import Contact.*;
+import Hopital.Personne.Sexe;
 import Adresse.*;
+import GestionDexploitation.MotDePasse;
 import java.util.ArrayList;
 
 public abstract class Personnel {
@@ -13,10 +15,10 @@ public abstract class Personnel {
     private Adresse adresse;
     private Date dateDeNaissance;
     private MotDePasse password;
-    private InformationDeContact infoDeContact;
+    private Contact contact;
     public ArrayList myFicheDeSoins;
 
-    public Personnel(String nom, String prenom, String idPersonel, Sexe sexe, Adresse adresse, Date dateDeNaissance, MotDePasse password, InformationDeContact infoDeContact, ArrayList myFicheDeSoins) {
+    public Personnel(String nom, String prenom, String idPersonel, Sexe sexe, Adresse adresse, Date dateDeNaissance, MotDePasse password, Contact contact, ArrayList myFicheDeSoins) {
         this.nom = nom;
         this.prenom = prenom;
         this.idPersonel = idPersonel;
@@ -24,7 +26,7 @@ public abstract class Personnel {
         this.adresse = adresse;
         this.dateDeNaissance = dateDeNaissance;
         this.password = password;
-        this.infoDeContact = infoDeContact;
+        this.contact = contact;
         this.myFicheDeSoins = myFicheDeSoins;
     }
 
