@@ -5,14 +5,12 @@ import java.util.ArrayList;
 
 public class DMA {
 
-    /**
-   * 
-   * @element-type Sejour
-   */
+    
     private ArrayList listeDeSejour;
     public ArrayList myDPI;
 
-  public DMA(DPI listeDePatient) {
-  }
+    public DMA(DPI listeDePatient) {
+        
+    }
 
 }
