@@ -1,12 +1,12 @@
 package DPI;
 
-import DPI.Personne.*;
 import Adresse.*;
 import DPI.DM.*;
+import DPI.DMA.*;
+import DPI.Personne.*;
+import GestionDexploitation.Lit;
 import java.util.ArrayList;
 import java.util.Date;
-import GestionDexploitation.Lit;
-import DPI.DMA.*;
 
 public class DPI {
     

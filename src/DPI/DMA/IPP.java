@@ -1,15 +1,14 @@
 package DPI.DMA;
 
-class IPP {
+public class IPP {
 
-  private int IPP;
+    private int IPP;
 
-  
-  public IPP() {
-  }
+    public IPP() {
+    }
 
-  private int generationIPP() {
-  return 0;
-  }
+    private int generationIPP() {
+        return 0;
+    }
 
 }
