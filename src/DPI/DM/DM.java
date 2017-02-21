@@ -1,19 +1,13 @@
-package DM;
+package DPI.DM;
 
-import java.util.Vector;
+import java.util.ArrayList;
 import GestionDexploitation.Service;
-import String;
 
 public class DM {
 
-  private String lettreDeSortie;
-
-    public Vector  myDPI;
-    /**
-   * 
-   * @element-type FicheDeSoins
-   */
-  private Vector  listeDesFichesDeSoins;
+    private String lettreDeSortie;
+    public ArrayList myDPI;
+    private ArrayList listeDesFichesDeSoins;
 
   public DM() {
   }
