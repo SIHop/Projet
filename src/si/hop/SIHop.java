@@ -20,17 +20,17 @@ public class SIHop {
         Connection con;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String connectionUrl = "jdbc:mysql://127.0.0.1/sihop?user=test&password=123";
+            String connectionUrl = "jdbc:mysql://mysql-sihop.alwaysdata.net/sihop_db?user=sihop&password=sihop123cbo";
             con = DriverManager.getConnection(connectionUrl);
             
             Statement stmt = null;
             ResultSet rs = null;
 
             //SQl query command
-            String SQl = "SELECT * FROM counselor";
+            String SQl = "SELECT * FROM centredesoin";
             stmt = con.createStatement();
             
-            String strSQL = "DELETE FROM counselor WHERE first_name = 'Loïc' ";
+            String strSQL = "DELETE FROM centredesoin WHERE idCentreDeSoin = 2 ";
             
             int rowsEffected = stmt.executeUpdate(strSQL);
             System.out.println(rowsEffected + "  : Rows effected");
@@ -38,7 +38,7 @@ public class SIHop {
             
             rs = stmt.executeQuery(SQl);
             while(rs.next()){
-                System.out.println(rs.getString("first_name") + " : " + rs.getString("nick_name"));
+                System.out.println(rs.getString("idCentreDeSoin") + " : " + rs.getString("idCentreDeSoin"));
             }
             
             stmt.close();
