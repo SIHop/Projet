@@ -1,9 +1,10 @@
 package DPI;
 
+import GestionDexploitation.InformationDeContact;
+import GestionDexploitation.Sexe;
 import Adresse.*;
 import DPI.DM.*;
 import DPI.DMA.*;
-import DPI.Personne.*;
 import GestionDexploitation.Lit;
 import java.util.ArrayList;
 import java.util.Date;

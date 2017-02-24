@@ -20,8 +20,7 @@ public class SIHop {
         Connection con;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String connectionUrl = "jdbc:mysql://localhost/mynewdatabase?"
-                    + "user=root&password=loic93";
+            String connectionUrl = "jdbc:mysql://127.0.0.1/sihop?user=test&password=123";
             con = DriverManager.getConnection(connectionUrl);
             
             Statement stmt = null;
