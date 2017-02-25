@@ -11,7 +11,8 @@ import java.util.Date;
 
 public class DPI {
     
-    protected String nom;
+    protected String nomNaissance;
+    protected String nomUsage;
     protected String prenom;
     protected Adresse adresse;
     protected IPP iPP;
@@ -23,8 +24,9 @@ public class DPI {
     protected ArrayList myDMA;
     protected Sexe sexe;
 
-    public DPI(String nom, String prenom, Adresse adresse, IPP iPP, Date dateDeNaissance, NSS nSecuriteSocial, InformationDeContact infoDeContact, Lit lit, ArrayList myDM, ArrayList myDMA, Sexe sexe) {
-        this.nom = nom;
+    public DPI(String nomNaissance, String nomUsage, String prenom, Adresse adresse, IPP iPP, Date dateDeNaissance, NSS nSecuriteSocial, InformationDeContact infoDeContact, Lit lit, ArrayList myDM, ArrayList myDMA, Sexe sexe) {
+        this.nomNaissance = nomNaissance;
+        this.nomUsage = nomUsage;
         this.prenom = prenom;
         this.adresse = adresse;
         this.iPP = iPP;
@@ -37,37 +39,20 @@ public class DPI {
         this.sexe = sexe;
     }
 
-    public void addDMA(DMA dma){
-        myDMA.add(dma);
-    }
-    
-    public void addDM(DM dm){
-        myDM.add(dm);
+    public String getNomNaissance() {
+        return nomNaissance;
     }
 
-    public ArrayList getMyDM() {
-        return myDM;
+    public void setNomNaissance(String nomNaissance) {
+        this.nomNaissance = nomNaissance;
     }
 
-    public void setMyDM(ArrayList myDM) {
-        this.myDM = myDM;
+    public String getNomUsage() {
+        return nomUsage;
     }
 
-    public ArrayList getMyDMA() {
-        return myDMA;
-    }
-
-    public void setMyDMA(ArrayList myDMA) {
-        this.myDMA = myDMA;
-    }
-    
-    
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setNomUsage(String nomUsage) {
+        this.nomUsage = nomUsage;
     }
 
     public String getPrenom() {
@@ -126,6 +111,22 @@ public class DPI {
         this.lit = lit;
     }
 
+    public ArrayList getMyDM() {
+        return myDM;
+    }
+
+    public void setMyDM(ArrayList myDM) {
+        this.myDM = myDM;
+    }
+
+    public ArrayList getMyDMA() {
+        return myDMA;
+    }
+
+    public void setMyDMA(ArrayList myDMA) {
+        this.myDMA = myDMA;
+    }
+
     public Sexe getSexe() {
         return sexe;
     }
@@ -133,6 +134,8 @@ public class DPI {
     public void setSexe(Sexe sexe) {
         this.sexe = sexe;
     }
+
+    
     
     
     

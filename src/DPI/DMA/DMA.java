@@ -14,7 +14,7 @@ public class DMA extends DPI {
     public ArrayList myDPI;
 
     public DMA(ArrayList listeDeSejour, ArrayList myDPI, DPI dpi) {
-        super(dpi.getNom(), dpi.getPrenom(), dpi.getAdresse(), dpi.getiPP(), dpi.getDateDeNaissance(), dpi.getnSecuriteSocial(), dpi.getInfoDeContact(), dpi.getLit(), dpi.getMyDM(), dpi.getMyDMA(), dpi.getSexe());
+        super(dpi.getNomNaissance(), dpi.getNomUsage(), dpi.getPrenom(), dpi.getAdresse(), dpi.getiPP(), dpi.getDateDeNaissance(), dpi.getnSecuriteSocial(), dpi.getInfoDeContact(), dpi.getLit(), dpi.getMyDM(), dpi.getMyDMA(), dpi.getSexe());
         this.listeDeSejour = listeDeSejour;
         this.myDPI = myDPI;
     }
