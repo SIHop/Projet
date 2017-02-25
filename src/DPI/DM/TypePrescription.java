@@ -7,11 +7,11 @@ package DPI.DM;
 
 /**
  *
- * @author Residence
+ * @author Deniz
  */
 public enum TypePrescription {
-  EXAMEN_SANGUIN,
-  EXAMEN_RADIOLOGIQUE,
-  MEDICAMENT,
-  CONSULTATION;
+    EXAMEN_SANGUIN,
+    EXAMEN_RADIOLOGIQUE,
+    MEDICAMENT,
+    CONSULTATION;  
 }

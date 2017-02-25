@@ -1,23 +1,46 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package DPI.DM;
 
+import DPI.DPI;
+import dm.DPI;
 import java.util.ArrayList;
-import GestionDexploitation.Service;
 
-public class DM {
 
-    private String lettreDeSortie;
-    public ArrayList myDPI;
-    private ArrayList listeDesFichesDeSoins;
-
-  public DM() {
-  }
-
-  public FicheDeSoins afficher(Service service) {
-  return null;
-  }
-
-  public boolean archivageDM() {
-  return false;
-  }
-
+public class DM extends DPI{
+    private String lettreDeSortie; 
+    private ArrayList listeDesFichesDeSoins ; 
+    private boolean décèsPatient;
+    
+    public DM(String lettreDeSortie, ArrayList listeDesFichesDeSoins){
+        this.lettreDeSortie = lettreDeSortie; 
+        this.listeDesFichesDeSoins = listeDesFichesDeSoins;
+        décèsPatient = false; 
+    }
+    
+    public String getLettreDeSortie(){
+        return lettreDeSortie;
+    }
+    public String setLettreDeSortie(String dmLettreDeSortie){
+        lettreDeSortie = dmLettreDeSortie;
+        return dmLettreDeSortie;
+    }
+    
+   public boolean archivageDM(){
+        if (décèsPatient = true ){
+            return true; 
+        }
+        else{
+            return false;
+        }
+    }
+    
+    
+    public static void main(String[] args) {
+      
+    }
+    
 }
