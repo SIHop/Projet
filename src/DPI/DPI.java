@@ -44,6 +44,22 @@ public class DPI {
     public void addDM(DM dm){
         myDM.add(dm);
     }
+
+    public ArrayList getMyDM() {
+        return myDM;
+    }
+
+    public void setMyDM(ArrayList myDM) {
+        this.myDM = myDM;
+    }
+
+    public ArrayList getMyDMA() {
+        return myDMA;
+    }
+
+    public void setMyDMA(ArrayList myDMA) {
+        this.myDMA = myDMA;
+    }
     
     
     public String getNom() {

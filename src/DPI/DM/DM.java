@@ -6,7 +6,6 @@
 package DPI.DM;
 
 import DPI.DPI;
-import dm.DPI;
 import java.util.ArrayList;
 
 
@@ -14,12 +13,15 @@ public class DM extends DPI{
     private String lettreDeSortie; 
     private ArrayList listeDesFichesDeSoins ; 
     private boolean décèsPatient;
-    
-    public DM(String lettreDeSortie, ArrayList listeDesFichesDeSoins){
-        this.lettreDeSortie = lettreDeSortie; 
+
+    public DM(String lettreDeSortie, ArrayList listeDesFichesDeSoins, boolean décèsPatient, DPI dpi) {
+        super(dpi.getNom(), dpi.getPrenom(), dpi.getAdresse(), dpi.getiPP(), dpi.getDateDeNaissance(), dpi.getnSecuriteSocial(), dpi.getInfoDeContact(), dpi.getLit(), dpi.getMyDM(), dpi.getMyDMA(), dpi.getSexe());
+        this.lettreDeSortie = lettreDeSortie;
         this.listeDesFichesDeSoins = listeDesFichesDeSoins;
-        décèsPatient = false; 
+        this.décèsPatient = décèsPatient;
     }
+    
+    
     
     public String getLettreDeSortie(){
         return lettreDeSortie;
