@@ -11,17 +11,17 @@ import java.util.Date;
 
 public class DPI {
     
-    private String nom;
-    private String prenom;
-    private Adresse adresse;
-    private IPP iPP;
-    private Date dateDeNaissance;
-    private NSS nSecuriteSocial;
-    private InformationDeContact infoDeContact;
-    private Lit lit;
-    private ArrayList myDM;
-    private ArrayList myDMA;
-    private Sexe sexe;
+    protected String nom;
+    protected String prenom;
+    protected Adresse adresse;
+    protected IPP iPP;
+    protected Date dateDeNaissance;
+    protected NSS nSecuriteSocial;
+    protected InformationDeContact infoDeContact;
+    protected Lit lit;
+    protected ArrayList myDM;
+    protected ArrayList myDMA;
+    protected Sexe sexe;
 
     public DPI(String nom, String prenom, Adresse adresse, IPP iPP, Date dateDeNaissance, NSS nSecuriteSocial, InformationDeContact infoDeContact, Lit lit, ArrayList myDM, ArrayList myDMA, Sexe sexe) {
         this.nom = nom;

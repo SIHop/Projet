@@ -18,15 +18,15 @@ public class ConnectionHygieSQL {
     /**
 	 * URL de connection
 	 */
-	private static String url = "jdbc:mysql://localhost:3306/sihop";
+	private static String url = "jdbc:mysql://mysql-sihop.alwaysdata.net:3306/sihop_db";
 	/**
 	 * Nom du user
 	 */
-	private static String user = "root";
+	private static String user = "sihop";
 	/**
 	 * Mot de passe du user
 	 */
-	private static String passwd = "loic93";
+	private static String passwd = "sihop123cbo";
 	/**
 	 * Objet Connection
 	 */
