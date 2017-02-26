@@ -23,14 +23,14 @@ public class testDB {
         ArrayList<String> arg = new ArrayList<String>();
         ArrayList<String> val = new ArrayList<String>();
         arg.add("idPersonnel"); 
-        val.add("100000003");
+        val.add("1");
         
         arg.add("idService");
-        val.add("38100111");
+        val.add("38300111");
         
         Personnel p = personelDAO.find(arg, val);
         Medecin m = (Medecin)p;
-        System.out.println(m.getnSP());
+        System.out.println(m.toString());
         
     }
     

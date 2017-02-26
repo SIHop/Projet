@@ -1,14 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DPI.DMA;
 
-/**
- *
- * @author Residence
- */
-class LettreDeSortie {
-    
+import Adresse.Adresse;
+
+public class LettreDeSortie {
+
+    private int idPersonnel;
+    private Adresse adressePatient;
+    private DMA patient;
+    private String lettre;
+
+    public LettreDeSortie(int idPersonnel, Adresse adressePatient, DMA patient, String lettre) {
+        this.idPersonnel = idPersonnel;
+        this.adressePatient = adressePatient;
+        this.patient = patient;
+        this.lettre = lettre;
+    }
+
 }

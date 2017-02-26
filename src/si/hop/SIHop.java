@@ -6,6 +6,7 @@
 package si.hop;
 
 import java.sql.*;
+import java.time.Year;
 
 /**
  *
@@ -17,39 +18,24 @@ public class SIHop {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Connection con;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            String connectionUrl = "jdbc:mysql://mysql-sihop.alwaysdata.net/sihop_db?user=sihop&password=sihop123cbo";
-            con = DriverManager.getConnection(connectionUrl);
-            
-            Statement stmt = null;
-            ResultSet rs = null;
-
-            //SQl query command
-            String SQl = "SELECT * FROM centredesoin";
-            stmt = con.createStatement();
-            
-            String strSQL = "DELETE FROM centredesoin WHERE idCentreDeSoin = 2 ";
-            
-            int rowsEffected = stmt.executeUpdate(strSQL);
-            System.out.println(rowsEffected + "  : Rows effected");
-            
-            
-            rs = stmt.executeQuery(SQl);
-            while(rs.next()){
-                System.out.println(rs.getString("idCentreDeSoin") + " : " + rs.getString("idCentreDeSoin"));
-            }
-            
-            stmt.close();
-            
-            
-        } catch (SQLException e) {
-            System.out.println("SQL Esxception" + e.toString());
-        } catch (ClassNotFoundException cE) {
-            System.out.println("Class not found exception" + cE.toString());
+        int maxIPP = 1612345;
+        int annee = maxIPP;
+        while (annee > 100) {
+            System.out.println(annee % 10);
+            annee = annee / 10;
         }
-
+        System.out.println(annee);
+        int year = Year.now().getValue();
+        System.out.println(year);
+        annee += 2000;
+        if(year == annee){
+            maxIPP += 1;
+            System.out.println("valeur finale : " + maxIPP);
+        } else {
+            year = year - 2000;
+            maxIPP = year*100000+1;
+            System.out.println("valeur finale : " + maxIPP);
+        }
     }
 
 }
