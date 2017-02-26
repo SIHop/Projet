@@ -5,7 +5,9 @@
  */
 package GestionnaireDB;
 
+import Adresse.Adresse;
 import GestionDexploitation.Personnel;
+import GestionDexploitation.Service;
 
 /**
  *
@@ -17,4 +19,11 @@ public class DAOFactory {
         return new PersonelDAO();
     }
     
+    public static DAO<Service> getServiceDAO(){
+        return new ServiceDAO();
+    }
+    
+    public static DAO<Adresse> getAdresseDAO(){
+        return new AdressePersonnelDAO();
+    }
 }
