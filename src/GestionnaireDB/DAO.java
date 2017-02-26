@@ -32,7 +32,7 @@ public interface DAO<T> {
      * @param val liste des valeur des argument de recherche /!\ même ordre que
      * arg /!\
      */
-    public abstract ArrayList<T> findMultiple(String[] arg, String[] val);
+    public abstract ArrayList<T> findMultiple(ArrayList<String> arg, ArrayList<String> val);
 
     /**
      * Crée une entré dans la basse de donnée a partir de l'objet envoyer
