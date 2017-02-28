@@ -6,10 +6,7 @@
 package GestionnaireDB;
 
 import GestionDexploitation.Lit;
-import GestionDexploitation.Localisation;
-import GestionDexploitation.Personnel;
 import GestionDexploitation.Service;
-import GestionDexploitation.TypeService;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -21,15 +18,14 @@ import java.util.logging.Logger;
  *
  * @author Loïc
  */
-public class ServiceDAO implements DAO<Service> {
+public class LitDAO implements DAO<Lit> {
 
     private String query = "";
-    DAO<Lit> litDAO = DAOFactory.getLitDAO();
 
     @Override
-    public Service find(ArrayList<String> arg, ArrayList<String> val) {
-        //Crée la requete pour recupére le service qui respecte tout les contrainte
-        this.query = "SELECT * FROM service WHERE ";
+    public Lit find(ArrayList<String> arg, ArrayList<String> val) {
+        //Crée la requete pour recupére le lit qui respecte tout les contrainte
+        this.query = "SELECT * FROM Lit WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
             for (int i = 1; i < arg.size(); i++) {
@@ -44,13 +40,7 @@ public class ServiceDAO implements DAO<Service> {
 
             if (rs.isBeforeFirst()) {
                 rs.first();
-                //Recolte des info pour instancier liste de lit
-                ArrayList<String> argL = new ArrayList<>();
-                argL.add("idService");
-                ArrayList<String> valL = new ArrayList<>();
-                valL.add(rs.getString("idService"));
-
-                return new Service(rs.getString("idService"), rs.getString("nomService"), rs.getString("idResponsable"), new Localisation("bat", "eta", "couloir"), litDAO.findMultiple(argL, valL), null, TypeService.valueOf(rs.getString("typeService")));
+                return new Lit(rs.getString("idLit"), rs.getBoolean("estOccuper"), rs.getString("cote").charAt(0), null, rs.getString("idService"), rs.getString("IPP"));
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
@@ -63,9 +53,11 @@ public class ServiceDAO implements DAO<Service> {
     }
 
     @Override
-    public ArrayList<Service> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
-        //Crée la requete pour recupére les personelles qui respecte toutes les contraintes
-        this.query = "SELECT * FROM service where ";
+    public ArrayList<Lit> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
+        ArrayList<Lit> retour = new ArrayList<>();
+
+        //Crée la requete pour recupére la liste de lit qui respecte tout les contrainte
+        this.query = "SELECT * FROM Lit WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
             for (int i = 1; i < arg.size(); i++) {
@@ -74,21 +66,15 @@ public class ServiceDAO implements DAO<Service> {
         }
         System.out.println(query);
 
-        ArrayList<Service> retour = new ArrayList<>();
-
         try {
             Statement stmt = ServiceDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    //Recolte des info pour instancier liste de lit
-                    ArrayList<String> argL = new ArrayList<>();
-                    argL.add("idService");
-                    ArrayList<String> valL = new ArrayList<>();
-                    valL.add(rs.getString("idService"));
-                    retour.add(new Service(rs.getString("idService"), rs.getString("nomService"), "1", new Localisation("bat", "eta", "couloir"), litDAO.findMultiple(argL, valL), null, TypeService.valueOf(rs.getString("typeService"))));
+                    retour.add(new Lit(rs.getString("idLit"), rs.getBoolean("estOccuper"), rs.getString("cote").charAt(0), null, rs.getString("idService"), rs.getString("IPP")));
                 }
+
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
@@ -97,13 +83,18 @@ public class ServiceDAO implements DAO<Service> {
         } catch (NullPointerException e) {
             System.out.println("Pas de résultats correspondent");
         }
-        return retour;
+        return null;
     }
 
     @Override
-    public Service create(Service obj) {
-        this.query = "INSERT INTO service (idService, idCentreDeSoin, typeService,nomService,idResponsable)"
-                + " VALUES (" + obj.getCodeService() + ",1," + obj.getTypeService().toString() + "," + obj.getNomService() + "," + obj.getResponsable().getIdPersonel() + ")";
+    public Lit create(Lit obj) {
+        int occuper = 0;
+        if (obj.isIsOccuped()) {
+            occuper = 1;
+        }
+
+        this.query = "INSERT INTO Lit (idLit, IPP, idService,estOccuper,cote)"
+                + " VALUES (" + obj.getIdentifient() + "," + obj.getIPPoccupent() + "," + obj.getService().getCodeService() + "," + occuper + "," + obj.getCote() + ")";
 
         Statement stmt;
         try {
@@ -116,8 +107,15 @@ public class ServiceDAO implements DAO<Service> {
     }
 
     @Override
-    public Service update(Service obj) {
-        this.query = "UPDATE service SET typeService = " + obj.getTypeService().toString() + ", nomService = " + obj.getNomService() + ", idResponsable = " + obj.getResponsable().getIdPersonel() + "WHERE idService = " + obj.getCodeService();
+    public Lit update(Lit obj) {
+        int occuper = 0;
+        if (obj.isIsOccuped()) {
+            occuper = 1;
+        }
+
+        this.query = "UPDATE Lit SET IPP = " + obj.getIPPoccupent() + ", idService = " + obj.getService().getCodeService() + ", estOccuper = "
+                + occuper + ", cote = " + obj.getCote() + "WHERE idLit = " + obj.getIdentifient();
+
         Statement stmt;
         try {
             stmt = ServiceDAO.connect.createStatement();
@@ -130,8 +128,8 @@ public class ServiceDAO implements DAO<Service> {
     }
 
     @Override
-    public Service delete(Service obj) {
-        this.query = "DELETE FROM service WHERE idService = " + obj.getCodeService();
+    public Lit delete(Lit obj) {
+        this.query = "DELETE FROM Lit WHERE idLit = " + obj.getIdentifient();
 
         Statement stmt;
         try {
@@ -146,14 +144,14 @@ public class ServiceDAO implements DAO<Service> {
 
     @Override
     public int getMaxId() {
-        this.query = "SELECT max(idService) FROM service";
+        this.query = "SELECT max(idLit) FROM Lit";
 
         Statement stmt;
         try {
             stmt = PersonelDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             rs.first();
-            return Integer.parseInt(rs.getString("max(idService)"));
+            return Integer.parseInt(rs.getString("max(idLit)"));
         } catch (SQLException ex) {
             Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

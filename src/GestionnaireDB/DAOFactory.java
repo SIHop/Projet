@@ -6,6 +6,7 @@
 package GestionnaireDB;
 
 import Adresse.Adresse;
+import GestionDexploitation.Lit;
 import GestionDexploitation.Personnel;
 import GestionDexploitation.Service;
 
@@ -25,5 +26,9 @@ public class DAOFactory {
     
     public static DAO<Adresse> getAdresseDAO(){
         return new AdressePersonnelDAO();
+    }
+    
+    public static DAO<Lit> getLitDAO(){
+        return new LitDAO();
     }
 }

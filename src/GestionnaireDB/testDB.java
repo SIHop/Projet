@@ -21,8 +21,8 @@ public class testDB {
      */
     public static void main(String[] args) {
         DAO<Personnel> personelDAO = DAOFactory.getPersonelDAO();
-        ArrayList<String> arg = new ArrayList<String>();
-        ArrayList<String> val = new ArrayList<String>();
+        ArrayList<String> arg = new ArrayList<>();
+        ArrayList<String> val = new ArrayList<>();
         arg.add("idPersonnel"); 
         val.add("1");
         
@@ -31,6 +31,8 @@ public class testDB {
         
         Personnel p = personelDAO.find(arg, val);
         SecretaireMedicale sm = (SecretaireMedicale)p;
+        
+        System.out.println(personelDAO.getMaxId());
         
        
         System.out.println(sm.getAdresse().getPays() + " " + sm.getAdresse().getCodePostal() + " " + sm.getAdresse().getVille() + " " + sm.getAdresse().getNumeroVoie() + " "+ sm.getAdresse().getTypeVoie() + " "+ sm.getAdresse().getNomVoie() + " " + sm.getAdresse().getComplement());

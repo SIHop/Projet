@@ -47,7 +47,7 @@ public class PersonelDAO implements DAO<Personnel> {
         System.out.println(query);
 
         try {
-            Statement stmt = this.connect.createStatement();
+            Statement stmt = PersonelDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.isBeforeFirst()) {
@@ -117,7 +117,7 @@ public class PersonelDAO implements DAO<Personnel> {
         ArrayList<Personnel> retour = new ArrayList<>();
 
         try {
-            Statement stmt = this.connect.createStatement();
+            Statement stmt = PersonelDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.isBeforeFirst()) {
@@ -139,7 +139,7 @@ public class PersonelDAO implements DAO<Personnel> {
     public Personnel create(Personnel obj) {
         if (obj instanceof Medecin) {
             this.query = "INSERT INTO personnel (niveauSpecialisation, typePersonnel, idPersonnel,idService,motDePasse,prenom,nomNaissance,nomUsage,sexe,dateNaissance,telephone,mail)"
-                    + "VALUES ("
+                    + " VALUES ("
                     + ((Medecin) obj).getType().toString() + "," + "Medecin," + obj.getIdPersonel() + "," + ((Medecin) obj).getService().getCodeService() + "," + obj.getPassword().getPassword() + ","
                     + obj.getPrenom() + "," + obj.getNom() + "," + obj.getNom() + "," + obj.getSexe().toString() + "," + obj.getDateDeNaissance().toString() + obj.getInfoDeContact().getNumeroFixe() + "," + obj.getInfoDeContact().getEmail()
                     + ")";
@@ -171,7 +171,7 @@ public class PersonelDAO implements DAO<Personnel> {
 
         Statement stmt;
         try {
-            stmt = this.connect.createStatement();
+            stmt = PersonelDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
             Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -185,28 +185,28 @@ public class PersonelDAO implements DAO<Personnel> {
         if (obj instanceof Medecin) {
             this.query = "UPDATE personnel SET niveauSpecialisation =" + ((Medecin) obj).getType().toString() + ",idService = " + ((Medecin) obj).getService().getCodeService()
                     + ",motDePasse =" + obj.getPassword().getPassword() + ",prenom =" + obj.getPrenom() + ",nomNaissance =" + obj.getNom() + ",nomUsage = " + obj.getNom() + ",sexe =" + obj.getSexe().toString()
-                    + ",dateNaissance =" + obj.getDateDeNaissance().toString() + ",telephone =" + obj.getInfoDeContact().getNumeroFixe() + ",mail =" + obj.getInfoDeContact().getEmail();
+                    + ",dateNaissance =" + obj.getDateDeNaissance().toString() + ",telephone =" + obj.getInfoDeContact().getNumeroFixe() + ",mail =" + obj.getInfoDeContact().getEmail() + " WHERE idPersonnel = " + obj.getIdPersonel();
         } else if (obj instanceof Infirmier) {
             this.query = "UPDATE personnel SET niveauSpecialisation =" + ((Infirmier) obj).getType().toString() + ",idService = " + ((Infirmier) obj).getService().getCodeService()
                     + ",motDePasse =" + obj.getPassword().getPassword() + ",prenom =" + obj.getPrenom() + ",nomNaissance =" + obj.getNom() + ",nomUsage = " + obj.getNom() + ",sexe =" + obj.getSexe().toString()
-                    + ",dateNaissance =" + obj.getDateDeNaissance().toString() + ",telephone =" + obj.getInfoDeContact().getNumeroFixe() + ",mail =" + obj.getInfoDeContact().getEmail();
+                    + ",dateNaissance =" + obj.getDateDeNaissance().toString() + ",telephone =" + obj.getInfoDeContact().getNumeroFixe() + ",mail =" + obj.getInfoDeContact().getEmail() + " WHERE idPersonnel = " + obj.getIdPersonel();
         } else if (obj instanceof AideSoignante) {
             this.query = "UPDATE personnel SET idService = " + ((AideSoignante) obj).getService().getCodeService()
                     + ",motDePasse =" + obj.getPassword().getPassword() + ",prenom =" + obj.getPrenom() + ",nomNaissance =" + obj.getNom() + ",nomUsage = " + obj.getNom() + ",sexe =" + obj.getSexe().toString()
-                    + ",dateNaissance =" + obj.getDateDeNaissance().toString() + ",telephone =" + obj.getInfoDeContact().getNumeroFixe() + ",mail =" + obj.getInfoDeContact().getEmail();
+                    + ",dateNaissance =" + obj.getDateDeNaissance().toString() + ",telephone =" + obj.getInfoDeContact().getNumeroFixe() + ",mail =" + obj.getInfoDeContact().getEmail() + " WHERE idPersonnel = " + obj.getIdPersonel();
         } else if (obj instanceof SecretaireMedicale) {
             this.query = "UPDATE personnel SET idService = " + ((SecretaireMedicale) obj).getService().getCodeService()
                     + ",motDePasse =" + obj.getPassword().getPassword() + ",prenom =" + obj.getPrenom() + ",nomNaissance =" + obj.getNom() + ",nomUsage = " + obj.getNom() + ",sexe =" + obj.getSexe().toString()
-                    + ",dateNaissance =" + obj.getDateDeNaissance().toString() + ",telephone =" + obj.getInfoDeContact().getNumeroFixe() + ",mail =" + obj.getInfoDeContact().getEmail();
+                    + ",dateNaissance =" + obj.getDateDeNaissance().toString() + ",telephone =" + obj.getInfoDeContact().getNumeroFixe() + ",mail =" + obj.getInfoDeContact().getEmail() + " WHERE idPersonnel = " + obj.getIdPersonel();
         } else {//SA
             this.query = "UPDATE personnel SET bureau = " + ((SecretaireAdministratif) obj).getBureau() + ",idService = " + ((SecretaireAdministratif) obj).getService().getCodeService()
                     + ",motDePasse =" + obj.getPassword().getPassword() + ",prenom =" + obj.getPrenom() + ",nomNaissance =" + obj.getNom() + ",nomUsage = " + obj.getNom() + ",sexe =" + obj.getSexe().toString()
-                    + ",dateNaissance =" + obj.getDateDeNaissance().toString() + ",telephone =" + obj.getInfoDeContact().getNumeroFixe() + ",mail =" + obj.getInfoDeContact().getEmail();
+                    + ",dateNaissance =" + obj.getDateDeNaissance().toString() + ",telephone =" + obj.getInfoDeContact().getNumeroFixe() + ",mail =" + obj.getInfoDeContact().getEmail() + " WHERE idPersonnel = " + obj.getIdPersonel();
         }
 
         Statement stmt;
         try {
-            stmt = this.connect.createStatement();
+            stmt = PersonelDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
             Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -221,13 +221,30 @@ public class PersonelDAO implements DAO<Personnel> {
 
         Statement stmt;
         try {
-            stmt = this.connect.createStatement();
+            stmt = PersonelDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
             Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return obj;
+    }
+
+    @Override
+    public int getMaxId() {
+        this.query = "SELECT max(idPersonnel) FROM personnel"; 
+
+        Statement stmt;
+        try {
+            stmt = PersonelDAO.connect.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            rs.first();
+            return Integer.parseInt(rs.getString("max(idPersonnel)"));
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return -1;
     }
 
 }
