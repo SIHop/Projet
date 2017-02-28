@@ -52,5 +52,11 @@ public interface DAO<T> {
      * Supprime une entrée de la base en fonction de l'objet fournis
      */
     public abstract T delete(T obj);
+    
+    /**
+     * Renvoie l'id maximum de la table en forme de String
+     * @return id max, où -1 si la requete a échouer
+     */
+    public abstract int getMaxId();
 
 }
