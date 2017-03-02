@@ -22,7 +22,7 @@ public class AdressePatientDAO implements DAO<Adresse>{
 
     @Override
     public Adresse find(ArrayList<String> arg, ArrayList<String> val) {
-        //Crée la requete pour recupére l'adresse de personnel qui respecte tout les contrainte
+        //Crée la requete pour recupére l'adresse de patient qui respecte tout les contrainte
         this.query = "SELECT * FROM adressepatient WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
