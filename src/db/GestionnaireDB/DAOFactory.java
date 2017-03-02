@@ -31,4 +31,7 @@ public class DAOFactory {
     public static DAO<Lit> getLitDAO(){
         return new LitDAO();
     }
+    public static DAO<Adresse> getAdressePatient(){
+        return new AdressePatientDAO();
+    }
 }
