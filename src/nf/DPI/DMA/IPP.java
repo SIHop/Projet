@@ -8,6 +8,12 @@ import java.util.Collections;
 public class IPP {
 
     private int IPP;
+    
+    //a suprimer
+    public IPP(int ipp){
+        this.IPP = ipp;
+    }
+    
 
 //    public IPP(DPI dpi) {
 //        this.IPP = dpi.getiPP().generationIPP();
@@ -36,5 +42,12 @@ public class IPP {
 //            return year*100000+1;
 //        }
 //    }
+
+    /**
+     * @return the IPP
+     */
+    public int getIPP() {
+        return IPP;
+    }
 
 }
