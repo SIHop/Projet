@@ -37,8 +37,6 @@ public class SIHop {
             System.out.println("valeur finale : " + maxIPP);
         }
         
-        Acte acte = new Acte(1,1,"23",null);
-        
     }
 
 }

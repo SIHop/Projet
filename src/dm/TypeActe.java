@@ -1,0 +1,36 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dm;
+
+/**
+ *
+ * @author Quentin Guille - Thibaut Jacques - Deniz Geres - Edith Jacob
+ */
+public enum TypeActe {
+    // valeurs de l'enum :
+
+    /**
+     *
+     */
+    DIAGNOSTIQUE("Diagnostique"),
+
+    /**
+     *
+     */
+    THERAPEUTIQUE("Thérapeutique");
+    
+    // attributs de l'enum :
+    private String typeActe;
+
+    private TypeActe(String typeActe) {
+        this.typeActe = typeActe;
+    }
+    
+    @Override
+    public String toString(){
+        return this.typeActe;
+    }
+}
