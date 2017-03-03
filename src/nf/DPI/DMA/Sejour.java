@@ -2,78 +2,71 @@ package nf.DPI.DMA;
 
 import java.util.ArrayList;
 import nf.GestionDexploitation.Medecin;
-import nf.DPI.DM.DM;
 import java.util.Date;
+import nf.DPI.DM.FicheDeSoins;
 
 public class Sejour {
 
-    private LettreDeSortie lettreDeSortie;
-    private String numeroDeSejour;
-
+    private ArrayList<FicheDeSoins> lFicheDeSoins;
     private ArrayList<String> natureDesPrestation;
-
-    private Date dateDebut;
     private Date dateDeFin;
-    private Medecin medecinResponsable;
-
-    public Sejour(LettreDeSortie lettreDeSortie, String numeroDeSejour, ArrayList<String> natureDesPrestation, Date dateDebut, Date dateDeFin, Medecin medecinResponsable) {
-        this.lettreDeSortie = lettreDeSortie;
-        this.numeroDeSejour = numeroDeSejour;
-        this.natureDesPrestation = natureDesPrestation;
-        this.dateDebut = dateDebut;
-        this.dateDeFin = dateDeFin;
-        this.medecinResponsable = medecinResponsable;
-    }
-
+    private LettreDeSortie lettreDeSortie;
     
+    private final Date dateDebut;
+    private final Medecin medecinResponsable;
+    private final String numeroDeSejour;
 
-    public String getNumeroDeSejour() {
-        return numeroDeSejour;
-    }
-
-    public void setNumeroDeSejour(String numeroDeSejour) {
+    public Sejour(String numeroDeSejour, Date dateDebut, Medecin medecinResponsable) {
         this.numeroDeSejour = numeroDeSejour;
-    }
-
-    public ArrayList<String> getNatureDesPrestation() {
-        return natureDesPrestation;
-    }
-
-    public void setNatureDesPrestation(ArrayList<String> natureDesPrestation) {
-        this.natureDesPrestation = natureDesPrestation;
-    }
-
-    public Date getDateDebut() {
-        return dateDebut;
-    }
-
-    public void setDateDebut(Date dateDebut) {
         this.dateDebut = dateDebut;
-    }
-
-    public Date getDateDeFin() {
-        return dateDeFin;
-    }
-
-    public void setDateDeFin(Date dateDeFin) {
-        this.dateDeFin = dateDeFin;
-    }
-
-    public Medecin getMedecinResponsable() {
-        return medecinResponsable;
-    }
-
-    public void setMedecinResponsable(Medecin medecinResponsable) {
         this.medecinResponsable = medecinResponsable;
+    }
+
+    public ArrayList<FicheDeSoins> getlFicheDeSoins() {
+        return lFicheDeSoins;
     }
 
     public LettreDeSortie getLettreDeSortie() {
         return lettreDeSortie;
     }
 
+    public String getNumeroDeSejour() {
+        return numeroDeSejour;
+    }
+
+    public ArrayList<String> getNatureDesPrestation() {
+        return natureDesPrestation;
+    }
+
+    public Date getDateDebut() {
+        return dateDebut;
+    }
+
+    public Date getDateDeFin() {
+        return dateDeFin;
+    }
+
+    public Medecin getMedecinResponsable() {
+        return medecinResponsable;
+    }
+
+    public void setlFicheDeSoins(ArrayList<FicheDeSoins> lFicheDeSoins) {
+        this.lFicheDeSoins = lFicheDeSoins;
+    }
+
+    public void setNatureDesPrestation(ArrayList<String> natureDesPrestation) {
+        this.natureDesPrestation = natureDesPrestation;
+    }
+
+    public void setDateDeFin(Date dateDeFin) {
+        this.dateDeFin = dateDeFin;
+    }
+
     public void setLettreDeSortie(LettreDeSortie lettreDeSortie) {
         this.lettreDeSortie = lettreDeSortie;
     }
+
+    
     
     
   

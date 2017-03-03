@@ -14,44 +14,20 @@ import nf.DPI.DMA.Sejour;
  */
 public class DM {
 
-    private String lettreDeSortie;
-    private ArrayList<FicheDeSoins> listeDesFichesDeSoins;
-    private final Sejour sejour; 
-    private boolean decesPatient;
+    private ArrayList<Sejour> lSejour;
 
-    public DM(String lettreDeSortie, ArrayList listeDesFichesDeSoins,Sejour sejour) {
-        this.lettreDeSortie = lettreDeSortie;
-        this.listeDesFichesDeSoins = new ArrayList<>();
-        this.sejour= sejour;
-        this.decesPatient = false;
+    public DM(ArrayList<Sejour> lSejour) {
+        this.lSejour = lSejour;
     }
 
-    public String getLettreDeSortie() {
-        return this.lettreDeSortie;
+    public ArrayList<Sejour> getlSejour() {
+        return lSejour;
     }
 
-    public Sejour getSejour() {
-        return sejour;
+    @Override
+    public String toString() {
+        return "DM{" + "lSejour=" + lSejour + '}';
     }
-
-    public void setLettreDeSortie(String lettreDeSortie) {
-        this.lettreDeSortie = lettreDeSortie;
-    }
-
-    public ArrayList<FicheDeSoins> getListeDesFichesDeSoins() {
-        return this.listeDesFichesDeSoins;
-    }
-
-    public void setListeDesFichesDeSoins(ArrayList<FicheDeSoins> listeDesFichesDeSoins) {
-        this.listeDesFichesDeSoins = listeDesFichesDeSoins;
-    }
-
-    public boolean isDecesPatient() {
-        return this.decesPatient;
-    }
-
-    public void setDecesPatient(boolean decesPatient) {
-        this.decesPatient = decesPatient;
-    }
+    
     
 }

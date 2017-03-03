@@ -46,7 +46,7 @@ public class SIHop {
         Acte acte = new Acte(Code.AIS,1,"23",TypeActe.THERAPEUTIQUE);
         System.out.println(acte.toString());
         Prescription prescription = new Prescription("Rhûme",TypePrescription.CONSULTATION);
-        System.out.println(prescription.getObservation() + "\n" +prescription.getTypePrescription());
+        System.out.println(prescription.getPrescription() + "\n" +prescription.getTypePrescription());
         ArrayList<String> listeRes = new ArrayList<>();
         listeRes.add("mal");
         listeRes.add("bien");
