@@ -16,4 +16,32 @@ public class LettreDeSortie {
         this.lettre = lettre;
     }
 
+    /**
+     * @return the idPersonnel
+     */
+    public int getIdPersonnel() {
+        return idPersonnel;
+    }
+
+    /**
+     * @return the adressePatient
+     */
+    public Adresse getAdressePatient() {
+        return adressePatient;
+    }
+
+    /**
+     * @return the numeroSejour
+     */
+    public int getNumeroSejour() {
+        return numeroSejour;
+    }
+
+    /**
+     * @return the lettre
+     */
+    public String getLettre() {
+        return lettre;
+    }
+
 }

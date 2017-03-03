@@ -140,9 +140,13 @@ public class SejourDAO implements DAO<Sejour> {
 
     @Override
     public Sejour create(Sejour obj) {
-        //for()
+        String natureDesPrestation = "";
+        for(String s : obj.getNatureDesPrestation()){
+            natureDesPrestation += s +";";
+        }
         this.query = "INSERT INTO dma (numeroSejour, naturePrestation, lettreSortie,dateDebut,dateFin, idPersonnel)"
-                + " VALUES (" + ")";
+                + " VALUES (" + obj.getNumeroDeSejour() +","+ natureDesPrestation +"," + obj.getLettreDeSortie().getLettre() +"," + obj.getDateDebut().toString() +
+                ","+obj.getDateDeFin().toString() +"," +obj.getMedecinResponsable().getIdPersonel() + ")";
 
         Statement stmt;
         try {
