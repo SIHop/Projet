@@ -5,56 +5,48 @@
  */
 package dm;
 
-
 import java.util.ArrayList;
 
+/**
+ *
+ * @author quentin
+ */
+public class DM {
 
-public class DM extends DPI{
-    private String lettreDeSortie; 
-    private ArrayList<FicheDeSoins> listeDesFichesDeSoins; 
-    private boolean décèsPatient;
-    
-    public DM(String lettreDeSortie, ArrayList listeDesFichesDeSoins,boolean décèsPatient ){
-        super ();
-        this.lettreDeSortie = lettreDeSortie; 
-        this.listeDesFichesDeSoins = new ArrayList <FicheDeSoins> () ;
+    private String lettreDeSortie;
+    private ArrayList<FicheDeSoins> listeDesFichesDeSoins;
+    private boolean decesPatient;
+
+    public DM(String lettreDeSortie, ArrayList listeDesFichesDeSoins) {
+        this.lettreDeSortie = lettreDeSortie;
+        this.listeDesFichesDeSoins = new ArrayList<FicheDeSoins>();
         FicheDeSoins fds = new FicheDeSoins();
         this.listeDesFichesDeSoins.add(fds);
-        décèsPatient = false; 
-        
+        this.decesPatient = false;
     }
-    
-    public String getLettreDeSortie(){
-        return lettreDeSortie;
+
+    public String getLettreDeSortie() {
+        return this.lettreDeSortie;
     }
-    public String setLettreDeSortie(String dmLettreDeSortie){
-        lettreDeSortie = dmLettreDeSortie;
-        return dmLettreDeSortie;
+
+    public void setLettreDeSortie(String lettreDeSortie) {
+        this.lettreDeSortie = lettreDeSortie;
     }
-    
-   public boolean archivageDM(){
-        if (décèsPatient = true ){
-            return true; 
-        }
-        else{
-            return false;
-        }
+
+    public ArrayList<FicheDeSoins> getListeDesFichesDeSoins() {
+        return this.listeDesFichesDeSoins;
     }
-    
-    
-    public static void main(String[] args) {
-      FicheDeSoins fds = new FicheDeSoins();
-      fds.getResultat();
-      fds.getOperationInfirmière();
-      fds.getCreateur();
-      fds.getService(); 
-      Acte mesActes = new Acte(); 
-      mesActes.getCode(); 
-      mesActes.getCoef(); 
-      mesActes.getObservation(); 
-      Prescription prescrip = new Prescription(); 
-      prescrip.getObservation(); 
-      prescrip.getTypePrecription(); 
+
+    public void setListeDesFichesDeSoins(ArrayList<FicheDeSoins> listeDesFichesDeSoins) {
+        this.listeDesFichesDeSoins = listeDesFichesDeSoins;
+    }
+
+    public boolean isDecesPatient() {
+        return this.decesPatient;
+    }
+
+    public void setDecesPatient(boolean decesPatient) {
+        this.decesPatient = decesPatient;
     }
     
 }
