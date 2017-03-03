@@ -10,11 +10,26 @@ import java.util.Date;
 
 public class DMA {
 
-    private ArrayList listeDeSejour;
-    public DPI DPI;
+    private ArrayList<Sejour> listeDeSejour;
+    private String IPP;
 
-    public DMA(ArrayList listeDeSejour) {
+    public DMA(ArrayList<Sejour> listeDeSejour, String ipp) {
         this.listeDeSejour = listeDeSejour;
+        this.IPP = ipp;
+    }
+
+    /**
+     * @return the listeDeSejour
+     */
+    public ArrayList<Sejour> getListeDeSejour() {
+        return listeDeSejour;
+    }
+
+    /**
+     * @return the IPP
+     */
+    public String getIPP() {
+        return IPP;
     }
 
 }

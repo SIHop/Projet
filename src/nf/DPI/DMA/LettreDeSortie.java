@@ -6,13 +6,13 @@ public class LettreDeSortie {
 
     private int idPersonnel;
     private Adresse adressePatient;
-    private DMA patient;
+    private int numeroSejour;
     private String lettre;
 
-    public LettreDeSortie(int idPersonnel, Adresse adressePatient, DMA patient, String lettre) {
+    public LettreDeSortie(int idPersonnel, Adresse adressePatient, int numeroSejour, String lettre) {
         this.idPersonnel = idPersonnel;
         this.adressePatient = adressePatient;
-        this.patient = patient;
+        this.numeroSejour = numeroSejour;
         this.lettre = lettre;
     }
 

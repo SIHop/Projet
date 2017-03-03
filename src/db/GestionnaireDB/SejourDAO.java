@@ -140,9 +140,9 @@ public class SejourDAO implements DAO<Sejour> {
 
     @Override
     public Sejour create(Sejour obj) {
-        for()
+        //for()
         this.query = "INSERT INTO dma (numeroSejour, naturePrestation, lettreSortie,dateDebut,dateFin, idPersonnel)"
-                + " VALUES (" + obj.getIdentifient() + "," + obj.getIPPoccupent() + "," + obj.getService().getCodeService() + "," + occuper + "," + obj.getCote() + ")";
+                + " VALUES (" + ")";
 
         Statement stmt;
         try {
@@ -154,7 +154,7 @@ public class SejourDAO implements DAO<Sejour> {
         return obj;
         
         
-        return obj;
+        
     }
 
     @Override
