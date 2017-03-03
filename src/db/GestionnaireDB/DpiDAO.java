@@ -123,17 +123,50 @@ public class DpiDAO implements DAO<DPI> {
 
     @Override
     public DPI update(DPI obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.query = "UPDATE dpi SET prenom = "+ obj.getPrenom() + ", nomNaissance = "+ obj.getNomNaissance()+", nomUsage=" +obj.getNomUsage()+",sexe ="+ obj.getSexe().toString()+", dateNaissance ="+ obj.getDateDeNaissance()+", telephonePortable ="+ obj.getInfoDeContact().getNumeroPortable()+", telephoneFixe="+obj.getInfoDeContact().getNumeroFixe()+ ", mail="+obj.getInfoDeContact().getEmail()+ ", lit="+obj.getLit().getIdentifient()+ "WHERE IPP = " + obj.getiPP()+"And idCentreDeSoin ="+" 1";
+
+        Statement stmt;
+        try {
+            stmt = ServiceDAO.connect.createStatement();
+            int rowEffected = stmt.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(DpiDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return obj;
     }
 
     @Override
     public DPI delete(DPI obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.query = "DELETE FROM dpi WHERE IPP = " + obj.getiPP()+ "and idCentreDeSoin ="+ "1";
+
+        Statement stmt;
+        try {
+            stmt = ServiceDAO.connect.createStatement();
+            int rowEffected = stmt.executeUpdate(query);
+        } 
+        catch (SQLException ex) {
+            Logger.getLogger(DpiDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return obj;
     }
 
     @Override
     public int getMaxId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.query = "SELECT max(IPP) FROM dpi";
+
+        Statement stmt;
+        try {
+            stmt = PersonelDAO.connect.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            rs.first();
+            return Integer.parseInt(rs.getString("max(IPP)"));
+        } catch (SQLException ex) {
+            Logger.getLogger(DpiDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return -1;
     }
     
 }
