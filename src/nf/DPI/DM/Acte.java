@@ -4,7 +4,7 @@ package nf.DPI.DM;
  *
  * @author Deniz
  */
-class Acte {
+public class Acte {
     private int cout;
     private int coef;
     private String observation; 

@@ -5,10 +5,17 @@
  */
 package nf.DPI.DM;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author quentin
  */
-class Resultat {
-    
+public class Resultat {
+    private ArrayList<String> listeResultats; 
+
+    public Resultat(ArrayList<String> listeResultats) {
+        this.listeResultats = listeResultats;
+    }
+   
 }
