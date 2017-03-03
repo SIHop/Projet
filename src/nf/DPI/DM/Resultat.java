@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dm;
+package nf.DPI.DM;
 
 /**
  *
- * @author Deniz
+ * @author quentin
  */
-public enum TypePrescription {
-    EXAMEN_SANGUIN,
-    EXAMEN_RADIOLOGIQUE,
-    MEDICAMENT,
-    CONSULTATION;  
+class Resultat {
+    
 }

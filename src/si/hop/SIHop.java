@@ -5,7 +5,6 @@
  */
 package si.hop;
 
-import java.sql.*;
 import java.time.Year;
 
 /**
@@ -37,7 +36,7 @@ public class SIHop {
             System.out.println("valeur finale : " + maxIPP);
         }
         
-        Acte acte = new Acte(1,1,"23",null);
+       // Acte acte = new Acte(1,1,"23",null);
         
     }
 

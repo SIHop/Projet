@@ -5,38 +5,46 @@
  */
 package nf.DPI.DM;
 
-import nf.DPI.DPI;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author quentin
+ */
+public class DM {
 
-public class DM extends DPI{
-    private String lettreDeSortie; 
-    private ArrayList listeDesFichesDeSoins ; 
-    private boolean décèsPatient;
+    private String lettreDeSortie;
+    private ArrayList<FicheDeSoins> listeDesFichesDeSoins;
+    private boolean decesPatient;
 
-    public DM(String lettreDeSortie, ArrayList listeDesFichesDeSoins, boolean décèsPatient, DPI dpi) {
-        super(dpi.getNomNaissance(), dpi.getNomUsage(), dpi.getPrenom(), dpi.getAdresse(), dpi.getiPP(), dpi.getDateDeNaissance(), dpi.getnSecuriteSocial(), dpi.getInfoDeContact(), dpi.getLit(), dpi.getMyDM(), dpi.getMyDMA(), dpi.getSexe());
+    public DM(String lettreDeSortie, ArrayList listeDesFichesDeSoins) {
         this.lettreDeSortie = lettreDeSortie;
+        this.listeDesFichesDeSoins = new ArrayList<FicheDeSoins>();
+        this.decesPatient = false;
+    }
+
+    public String getLettreDeSortie() {
+        return this.lettreDeSortie;
+    }
+
+    public void setLettreDeSortie(String lettreDeSortie) {
+        this.lettreDeSortie = lettreDeSortie;
+    }
+
+    public ArrayList<FicheDeSoins> getListeDesFichesDeSoins() {
+        return this.listeDesFichesDeSoins;
+    }
+
+    public void setListeDesFichesDeSoins(ArrayList<FicheDeSoins> listeDesFichesDeSoins) {
         this.listeDesFichesDeSoins = listeDesFichesDeSoins;
-        this.décèsPatient = décèsPatient;
+    }
+
+    public boolean isDecesPatient() {
+        return this.decesPatient;
+    }
+
+    public void setDecesPatient(boolean decesPatient) {
+        this.decesPatient = decesPatient;
     }
     
-    
-    
-    public String getLettreDeSortie(){
-        return lettreDeSortie;
-    }
-    public String setLettreDeSortie(String dmLettreDeSortie){
-        lettreDeSortie = dmLettreDeSortie;
-        return dmLettreDeSortie;
-    }
-    
-   public boolean archivageDM(){
-        if (décèsPatient = true ){
-            return true; 
-        }
-        else{
-            return false;
-        }
-    }
 }

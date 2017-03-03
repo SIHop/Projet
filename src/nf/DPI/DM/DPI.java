@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dm;
+package nf.DPI.DM;
 
 /**
  *
- * @author quentin
+ * @author Deniz
  */
-class Resultat {
+class DPI {
     
 }

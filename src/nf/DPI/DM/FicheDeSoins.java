@@ -5,78 +5,50 @@
  */
 package nf.DPI.DM;
 
-import nf.GestionDexploitation.Personnel;
-import nf.GestionDexploitation.Service;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import nf.GestionDexploitation.Personnel;
 
 /**
  *
  * @author Deniz
  */
 public class FicheDeSoins {
-    private String resultatPH; 
-    private String resultatAnesth;
-    public String anesthesiste; 
-    public String praticienHospitalier; 
-    public Personnel createur; 
-    public String medecin;
-    public Service service;
-    private String operationInfirmière;
-    public ArrayList listeActes; 
-    public ArrayList prescription; 
+    private ArrayList<Acte> listeActes;
+    private ArrayList<Prescription> prescription;
+    private ArrayList<Resultat> resultat;
+    private final Calendar dateDeCreation = Calendar.getInstance();
+    private Personnel createur;
     
-    
-    public FicheDeSoins(String resultatPH ,String resultatAnesth, Personnel createur, Service service,String operationInfirmière, ArrayList listeActes, ArrayList prescription,String anesthesiste, String praticienHospitalier, String medecin ){
-        this.resultatPH = resultatPH; 
-        this.resultatAnesth = resultatAnesth; 
-        this.createur = createur; 
-        this.service = service;
-        this.operationInfirmière = operationInfirmière;
-        this.listeActes = listeActes; 
-        this.prescription = prescription; 
-        this.anesthesiste = anesthesiste;
-        this.praticienHospitalier = praticienHospitalier;
-        this.medecin = medecin;
-       
+    public FicheDeSoins(ArrayList<Acte> listeActes, ArrayList<Prescription> prescription, ArrayList<Resultat> resultat, Personnel createur) {
+        this.listeActes = listeActes;
+        this.prescription = prescription;
+        this.resultat = resultat;
+        this.createur = createur;
     }
-    public String getResultat(){
-        if (this.praticienHospitalier.equals(medecin) ){
-        return resultatPH;
+
+    public ArrayList<Acte> getListeActes() {
+        return listeActes;
     }
-        else if (this.anesthesiste.equals(medecin)){
-            return resultatAnesth;
-        }
-        else {
-            return null;
-        }
+
+    public ArrayList<Prescription> getPrescription() {
+        return prescription;
     }
-    
-    public String setResultatPH(String fResultatPH){
-        resultatPH = fResultatPH;
-        return fResultatPH;
+
+    public ArrayList<Resultat> getResultat() {
+        return resultat;
     }
-    public String setResultatAnesth(String fResultatAnesth){
-        resultatAnesth = fResultatAnesth;
-        return fResultatAnesth;
+
+    public Calendar getDateDeCreation() {
+        return dateDeCreation;
     }
-    
-    
-      public String getOperationInfirmière(){
-        return operationInfirmière;
-    }
-      
-    public String setOperationInfirmière(String fOperationInfirmière){
-        operationInfirmière = fOperationInfirmière;
-        return fOperationInfirmière;
-    }
-    
-    public Personnel getCreateur(){
+
+    public Personnel getCreateur() {
         return createur;
     }
+
     
-    public Service getService(){
-        return service;
-    }
 
    
 }
