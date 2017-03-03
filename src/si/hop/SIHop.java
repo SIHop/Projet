@@ -8,12 +8,8 @@ package si.hop;
 import java.time.Year;
 import java.util.ArrayList;
 import nf.DPI.DM.Acte;
-import nf.DPI.DM.FicheDeSoins;
 import nf.DPI.DM.Prescription;
-import nf.DPI.DM.Resultat;
 import nf.DPI.DM.TypePrescription;
-import nf.GestionDexploitation.Personnel;
-import nf.GestionDexploitation.Sexe;
 
 /**
  *
@@ -45,8 +41,8 @@ public class SIHop {
         }
         
         
-        Acte acte = new Acte(1,1,"23",null);
-        System.out.println(acte.getObservation() + "\n" + acte.getCode() + '\n' +acte.getCoef() + '\n' +acte.getCout() + '\n');
+        Acte acte = new Acte(null,1,"23",null);
+        System.out.println(acte.getObservations()+ "\n" + acte.getCode() + '\n' +acte.getCoef() + '\n' +acte.getCout() + '\n');
         Prescription prescription = new Prescription("Maladie : ",TypePrescription.CONSULTATION);
         System.out.println(prescription.getObservation() + "\n" +prescription.getTypePrescription());
         ArrayList<String> listeRes = new ArrayList<>();
