@@ -7,7 +7,6 @@ package nf.DPI.DM;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import nf.GestionDexploitation.Personnel;
 
 /**
@@ -15,11 +14,11 @@ import nf.GestionDexploitation.Personnel;
  * @author Deniz
  */
 public class FicheDeSoins {
-    private ArrayList<Acte> listeActes;
-    private ArrayList<Prescription> prescription;
-    private ArrayList<Resultat> resultat;
+    private final ArrayList<Acte> listeActes;
+    private final ArrayList<Prescription> prescription;
+    private final ArrayList<Resultat> resultat;
     private final Calendar dateDeCreation = Calendar.getInstance();
-    private Personnel createur;
+    private final Personnel createur;
     
     public FicheDeSoins(ArrayList<Acte> listeActes, ArrayList<Prescription> prescription, ArrayList<Resultat> resultat, Personnel createur) {
         this.listeActes = listeActes;
@@ -48,7 +47,13 @@ public class FicheDeSoins {
         return createur;
     }
 
-    
+    public double calculerCoutFiche(){
+        double res = 0.0;
+        for(Acte a : listeActes){
+            res += a.calculerCout();
+        }
+        return res;
+    }
 
    
 }
