@@ -20,8 +20,6 @@ public class DM {
     public DM(String lettreDeSortie, ArrayList listeDesFichesDeSoins) {
         this.lettreDeSortie = lettreDeSortie;
         this.listeDesFichesDeSoins = new ArrayList<FicheDeSoins>();
-        FicheDeSoins fds = new FicheDeSoins();
-        this.listeDesFichesDeSoins.add(fds);
         this.decesPatient = false;
     }
 
