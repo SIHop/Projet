@@ -14,13 +14,13 @@ public class Acte {
      * Chaque acte médical à un code bien spécifique à l'opération effectué sur
      * le patient.
      */
-    private Code code;
+    private final Code code;
     /**
      * coefficient de l'acte:
      * <br>
      * Chaque acte médical à un coefficient spécifique.
      */
-    private int coef;
+    private final int coef;
     /**
      * observation:
      * <br>
@@ -30,7 +30,7 @@ public class Acte {
      * <br>
      * "Aucune observation"
      */
-    private String observations;
+    private final String observations;
     /**
      * Type de l'acte:
      * <br>
@@ -38,7 +38,7 @@ public class Acte {
      * <br>
      * "Thérapeutique" ou "Diagnostique"
      */
-    private TypeActe typeActe;
+    private final TypeActe typeActe;
 
     public Acte(Code code, int coef, String observations, TypeActe typeActe) {
         this.code = code;

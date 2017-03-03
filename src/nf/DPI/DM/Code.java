@@ -53,8 +53,8 @@ public enum Code {
     Z("radiations ionisantes", 25.5);
 
     // attributs de l'enum :
-    private String libelle;
-    private double cout;
+    private final String libelle;
+    private final double cout;
 
     // constructeur :
     private Code(String libelle, double cout) {
