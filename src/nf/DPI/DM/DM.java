@@ -6,6 +6,7 @@
 package nf.DPI.DM;
 
 import java.util.ArrayList;
+import nf.DPI.DMA.Sejour;
 
 /**
  *
@@ -15,16 +16,22 @@ public class DM {
 
     private String lettreDeSortie;
     private ArrayList<FicheDeSoins> listeDesFichesDeSoins;
+    private Sejour sejour; 
     private boolean decesPatient;
 
-    public DM(String lettreDeSortie, ArrayList listeDesFichesDeSoins) {
+    public DM(String lettreDeSortie, ArrayList listeDesFichesDeSoins,Sejour sejour) {
         this.lettreDeSortie = lettreDeSortie;
         this.listeDesFichesDeSoins = new ArrayList<FicheDeSoins>();
+        this.sejour= sejour;
         this.decesPatient = false;
     }
 
     public String getLettreDeSortie() {
         return this.lettreDeSortie;
+    }
+
+    public Sejour getSejour() {
+        return sejour;
     }
 
     public void setLettreDeSortie(String lettreDeSortie) {

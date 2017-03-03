@@ -9,21 +9,21 @@ package nf.DPI.DM;
  *
  * @author Deniz
  */
-class Prescription {
+public class Prescription {
 
     private String observation;
     public TypePrescription typePrescription;
 
-    public Prescription(String observation, TypePrescription typePrecription) {
+    public Prescription(String observation, TypePrescription typePrescription) {
         this.observation = observation;
-        this.typePrescription = typePrecription;
+        this.typePrescription = typePrescription;
     }
 
     public String getObservation() {
         return observation;
     }
 
-    public TypePrescription getTypePrecription() {
+    public TypePrescription getTypePrescription() {
         return typePrescription;
     }
 
