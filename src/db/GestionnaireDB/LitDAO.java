@@ -114,7 +114,7 @@ public class LitDAO implements DAO<Lit> {
         }
 
         this.query = "UPDATE Lit SET IPP = " + obj.getIPPoccupent() + ", idService = " + obj.getService().getCodeService() + ", estOccuper = "
-                + occuper + ", cote = " + obj.getCote() + "WHERE idLit = " + obj.getIdentifient();
+                + occuper + ", cote = " + obj.getCote() + " WHERE idLit = " + obj.getIdentifient();
 
         Statement stmt;
         try {

@@ -117,7 +117,7 @@ public class ServiceDAO implements DAO<Service> {
 
     @Override
     public Service update(Service obj) {
-        this.query = "UPDATE service SET typeService = " + obj.getTypeService().toString() + ", nomService = " + obj.getNomService() + ", idResponsable = " + obj.getResponsable().getIdPersonel() + "WHERE idService = " + obj.getCodeService();
+        this.query = "UPDATE service SET typeService = " + obj.getTypeService().toString() + ", nomService = " + obj.getNomService() + ", idResponsable = " + obj.getResponsable().getIdPersonel() + " WHERE idService = " + obj.getCodeService();
         Statement stmt;
         try {
             stmt = ServiceDAO.connect.createStatement();

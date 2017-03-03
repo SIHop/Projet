@@ -44,7 +44,7 @@ public class DpiDAO implements DAO<DPI> {
 
             if (rs.isBeforeFirst()) {
                 rs.first();
-                DAO<Adresse> adresseDAO = DAOFactory.getAdressePatient();
+                DAO<Adresse> adresseDAO = DAOFactory.getAdressePatientDAO();
                 ArrayList<String> argAdresse = new ArrayList<>(); argAdresse.add("IPP");
                 ArrayList<String> valAdresse = new ArrayList<>(); valAdresse.add(rs.getString("IPP"));
                 
@@ -84,7 +84,7 @@ public class DpiDAO implements DAO<DPI> {
 
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    DAO<Adresse> adresseDAO = DAOFactory.getAdressePatient();
+                    DAO<Adresse> adresseDAO = DAOFactory.getAdressePatientDAO();
                     ArrayList<String> argAdresse = new ArrayList<>(); argAdresse.add("IPP");
                     ArrayList<String> valAdresse = new ArrayList<>(); valAdresse.add(rs.getString("IPP"));
                 
@@ -123,7 +123,7 @@ public class DpiDAO implements DAO<DPI> {
 
     @Override
     public DPI update(DPI obj) {
-        this.query = "UPDATE dpi SET prenom = "+ obj.getPrenom() + ", nomNaissance = "+ obj.getNomNaissance()+", nomUsage=" +obj.getNomUsage()+",sexe ="+ obj.getSexe().toString()+", dateNaissance ="+ obj.getDateDeNaissance()+", telephonePortable ="+ obj.getInfoDeContact().getNumeroPortable()+", telephoneFixe="+obj.getInfoDeContact().getNumeroFixe()+ ", mail="+obj.getInfoDeContact().getEmail()+ ", lit="+obj.getLit().getIdentifient()+ "WHERE IPP = " + obj.getiPP()+"And idCentreDeSoin ="+" 1";
+        this.query = "UPDATE dpi SET prenom = "+ obj.getPrenom() + ", nomNaissance = "+ obj.getNomNaissance()+", nomUsage=" +obj.getNomUsage()+",sexe ="+ obj.getSexe().toString()+", dateNaissance ="+ obj.getDateDeNaissance()+", telephonePortable ="+ obj.getInfoDeContact().getNumeroPortable()+", telephoneFixe="+obj.getInfoDeContact().getNumeroFixe()+ ", mail="+obj.getInfoDeContact().getEmail()+ ", lit="+obj.getLit().getIdentifient()+ " WHERE IPP = " + obj.getiPP()+" AND idCentreDeSoin ="+" 1";
 
         Statement stmt;
         try {

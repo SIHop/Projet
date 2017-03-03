@@ -105,7 +105,7 @@ public class HistoriqueDAO implements DAO<Historique>{
 
     @Override
     public Historique update(Historique obj) {
-        this.query = "UPDATE historique SET dateDeces = "+obj.getDateDeces() + ", dateFinArchivage = "+ obj.getDateFinArchivage()+"WHERE IPP = " + obj.getIpp();
+        this.query = "UPDATE historique SET dateDeces = "+obj.getDateDeces() + ", dateFinArchivage = "+ obj.getDateFinArchivage()+" WHERE IPP = " + obj.getIpp();
 
         Statement stmt;
         try {
