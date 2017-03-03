@@ -105,7 +105,7 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
 
     public Adresse update(Adresse obj, String idPersonnel) {
         this.query = "UPDATE adressepersonnel SET Pays = " + obj.getPays() + ", numeroVoie = " + obj.getNumeroVoie() + ", typeVoie = " + obj.getTypeVoie()
-                + ", nomVoie = " + obj.getNomVoie() + ", codePostal = " + obj.getCodePostal() + ", ville = " + obj.getVille() + "WHERE idPersonnel = " + idPersonnel;
+                + ", nomVoie = " + obj.getNomVoie() + ", codePostal = " + obj.getCodePostal() + ", ville = " + obj.getVille() + " WHERE idPersonnel = " + idPersonnel;
         Statement stmt;
         try {
             stmt = ServiceDAO.connect.createStatement();

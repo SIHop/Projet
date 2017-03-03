@@ -72,7 +72,7 @@ public class PersonelDAO implements DAO<Personnel> {
      */
     private Personnel instancier(ResultSet rs) throws SQLException {
         DAO<Service> serviceDAO = DAOFactory.getServiceDAO();
-        DAO<Adresse> adresseDAO = DAOFactory.getAdresseDAO();
+        DAO<Adresse> adresseDAO = DAOFactory.getAdressePersonnelDAO();
 
         rs.first();
         String type = rs.getString("typePersonnel");

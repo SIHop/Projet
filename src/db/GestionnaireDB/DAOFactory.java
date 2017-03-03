@@ -6,6 +6,8 @@
 package db.GestionnaireDB;
 
 import nf.Adresse.Adresse;
+import nf.DPI.DMA.DMA;
+import nf.DPI.DMA.Sejour;
 import nf.GestionDexploitation.Lit;
 import nf.GestionDexploitation.Personnel;
 import nf.GestionDexploitation.Service;
@@ -15,23 +17,32 @@ import nf.GestionDexploitation.Service;
  * @author Loïc
  */
 public class DAOFactory {
-    
-    public static DAO<Personnel> getPersonelDAO(){
+
+    public static DAO<Personnel> getPersonelDAO() {
         return new PersonelDAO();
     }
-    
-    public static DAO<Service> getServiceDAO(){
+
+    public static DAO<Service> getServiceDAO() {
         return new ServiceDAO();
     }
-    
-    public static DAO<Adresse> getAdresseDAO(){
+
+    public static DAO<Adresse> getAdressePersonnelDAO() {
         return new AdressePersonnelDAO();
     }
-    
-    public static DAO<Lit> getLitDAO(){
+
+    public static DAO<Lit> getLitDAO() {
         return new LitDAO();
     }
-    public static DAO<Adresse> getAdressePatient(){
+
+    public static DAO<Adresse> getAdressePatientDAO() {
         return new AdressePatientDAO();
+    }
+
+    public static DAO<Sejour> getSejourDAO() {
+        return new SejourDAO();
+    }
+
+    public static DAO<DMA> getDmaDAO() {
+        return new DmaDAO();
     }
 }

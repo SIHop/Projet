@@ -103,7 +103,7 @@ public class AdressePatientDAO implements DAO<Adresse>{
 
     public Adresse update(Adresse obj, String IPP) {
         this.query = "UPDATE adressepatient SET Pays = " + obj.getPays() + ", numeroVoie = " + obj.getNumeroVoie() + ", typeVoie = " + obj.getTypeVoie()
-                + ", nomVoie = " + obj.getNomVoie() + ", codePostal = " + obj.getCodePostal() + ", ville = " + obj.getVille() + "WHERE IPP = " + IPP;
+                + ", nomVoie = " + obj.getNomVoie() + ", codePostal = " + obj.getCodePostal() + ", ville = " + obj.getVille() + " WHERE IPP = " + IPP;
         Statement stmt;
         try {
             stmt = ServiceDAO.connect.createStatement();
