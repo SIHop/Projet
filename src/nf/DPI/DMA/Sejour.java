@@ -1,5 +1,6 @@
 package nf.DPI.DMA;
 
+import java.util.ArrayList;
 import nf.GestionDexploitation.Medecin;
 import nf.DPI.DM.DM;
 import java.util.Date;
@@ -9,13 +10,13 @@ public class Sejour {
     private LettreDeSortie lettreDeSortie;
     private String numeroDeSejour;
 
-    private DM natureDesPrestation;
+    private ArrayList<String> natureDesPrestation;
 
     private Date dateDebut;
     private Date dateDeFin;
     private Medecin medecinResponsable;
 
-    public Sejour(LettreDeSortie lettreDeSortie, String numeroDeSejour, DM natureDesPrestation, Date dateDebut, Date dateDeFin, Medecin medecinResponsable) {
+    public Sejour(LettreDeSortie lettreDeSortie, String numeroDeSejour, ArrayList<String> natureDesPrestation, Date dateDebut, Date dateDeFin, Medecin medecinResponsable) {
         this.lettreDeSortie = lettreDeSortie;
         this.numeroDeSejour = numeroDeSejour;
         this.natureDesPrestation = natureDesPrestation;
@@ -34,11 +35,11 @@ public class Sejour {
         this.numeroDeSejour = numeroDeSejour;
     }
 
-    public DM getNatureDesPrestation() {
+    public ArrayList<String> getNatureDesPrestation() {
         return natureDesPrestation;
     }
 
-    public void setNatureDesPrestation(DM natureDesPrestation) {
+    public void setNatureDesPrestation(ArrayList<String> natureDesPrestation) {
         this.natureDesPrestation = natureDesPrestation;
     }
 
