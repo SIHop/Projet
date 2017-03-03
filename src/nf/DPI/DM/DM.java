@@ -16,12 +16,12 @@ public class DM {
 
     private String lettreDeSortie;
     private ArrayList<FicheDeSoins> listeDesFichesDeSoins;
-    private Sejour sejour; 
+    private final Sejour sejour; 
     private boolean decesPatient;
 
     public DM(String lettreDeSortie, ArrayList listeDesFichesDeSoins,Sejour sejour) {
         this.lettreDeSortie = lettreDeSortie;
-        this.listeDesFichesDeSoins = new ArrayList<FicheDeSoins>();
+        this.listeDesFichesDeSoins = new ArrayList<>();
         this.sejour= sejour;
         this.decesPatient = false;
     }
