@@ -5,7 +5,12 @@
  */
 package db.GestionnaireDB;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Logger;
 import java.util.ArrayList;
+import java.util.logging.Level;
 import nf.DPI.DMA.DMA;
 
 /**
@@ -14,9 +19,36 @@ import nf.DPI.DMA.DMA;
  */
 public class DmaDAO implements DAO<DMA>{
 
+    private String query;
+    
     @Override
     public DMA find(ArrayList<String> arg, ArrayList<String> val) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Crée la requete pour recupére le lit qui respecte tout les contrainte
+        this.query = "SELECT * FROM dma WHERE ";
+        query += arg.get(0) + " = " + val.get(0);
+        if (arg.size() > 1) {
+            for (int i = 1; i < arg.size(); i++) {
+                query += " && " + arg.get(i) + " = " + val.get(i);
+            }
+        }
+        System.out.println(query);
+
+        try {
+            Statement stmt = ServiceDAO.connect.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            if (rs.isBeforeFirst()) {
+                rs.first();
+                return new DMA(val);
+            } else {
+                System.out.println("Aucun résultat n'a était trouver");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException e) {
+            System.out.println("Pas de résultats correspondent");
+        }
+        return null;
     }
 
     @Override

@@ -8,6 +8,8 @@ import nf.GestionDexploitation.Sexe;
 import nf.GestionDexploitation.Lit;
 import java.util.ArrayList;
 import java.util.Date;
+import nf.DPI.DM.DM;
+import nf.DPI.DMA.DMA;
 
 public class DPI {
     
@@ -20,11 +22,11 @@ public class DPI {
     protected NSS nSecuriteSocial;
     protected InformationDeContact infoDeContact;
     protected Lit lit;
-    protected ArrayList myDM;
-    protected ArrayList myDMA;
+    protected DM myDM;
+    protected DMA myDMA;
     protected Sexe sexe;
 
-    public DPI(String nomNaissance, String nomUsage, String prenom, Adresse adresse, IPP iPP, Date dateDeNaissance, NSS nSecuriteSocial, InformationDeContact infoDeContact, Lit lit, ArrayList myDM, ArrayList myDMA, Sexe sexe) {
+    public DPI(String nomNaissance, String nomUsage, String prenom, Adresse adresse, IPP iPP, Date dateDeNaissance, NSS nSecuriteSocial, InformationDeContact infoDeContact, Lit lit, DM myDM, DMA myDMA, Sexe sexe) {
         this.nomNaissance = nomNaissance;
         this.nomUsage = nomUsage;
         this.prenom = prenom;
@@ -111,19 +113,19 @@ public class DPI {
         this.lit = lit;
     }
 
-    public ArrayList getMyDM() {
+    public DM getMyDM() {
         return myDM;
     }
 
-    public void setMyDM(ArrayList myDM) {
+    public void setMyDM(DM myDM) {
         this.myDM = myDM;
     }
 
-    public ArrayList getMyDMA() {
+    public DMA getMyDMA() {
         return myDMA;
     }
 
-    public void setMyDMA(ArrayList myDMA) {
+    public void setMyDMA(DMA myDMA) {
         this.myDMA = myDMA;
     }
 
