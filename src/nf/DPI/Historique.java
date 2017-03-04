@@ -16,8 +16,8 @@ import nf.DPI.DMA.IPP;
  */
 public class Historique {
 
-    private IPP ipp;
-    private DateT dateDeces;
+    private final IPP ipp;
+    private final DateT dateDeces;
     private DateT dateFinArchivage;
 
     public Historique(IPP ipp, DateT dateDeces, DateT dateFinArchivage) {
