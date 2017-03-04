@@ -5,23 +5,42 @@
  */
 package ui;
 
+import db.GestionnaireDB.DAO;
+import db.GestionnaireDB.DAOFactory;
+import db.GestionnaireDB.PersonelDAO;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import nf.GestionDexploitation.Medecin;
+import nf.GestionDexploitation.Personnel;
+import nf.GestionDexploitation.SecretaireAdministratif;
+import nf.GestionDexploitation.SecretaireMedicale;
 
 /**
  *
  * @author Residence
  */
 public class Connection extends javax.swing.JFrame {
+    private Personnel personnel;
 
     /**
      * Creates new form NewJFrame
      */
     public Connection() {
+
+        //Preparation de la fenetre principal
+        this.setPreferredSize(new Dimension(1800, 1000));
         initComponents();
+
+        //On pack et on affiche
+        this.pack();
+        this.setVisible(true);
     }
 
     /**
@@ -72,6 +91,11 @@ public class Connection extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(33, 49, 64));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("LOG IN");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -86,7 +110,7 @@ public class Connection extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 121, Short.MAX_VALUE)
+            .addGap(0, 131, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addContainerGap()
@@ -108,6 +132,11 @@ public class Connection extends javax.swing.JFrame {
         jLabel4.setText("BIENVENUE");
 
         jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -147,7 +176,7 @@ public class Connection extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
+                    .addComponent(jPasswordField1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -155,7 +184,7 @@ public class Connection extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addGap(21, 21, 21)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(258, Short.MAX_VALUE)))
+                    .addContainerGap(280, Short.MAX_VALUE)))
         );
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 115, 400, 370));
@@ -187,7 +216,7 @@ public class Connection extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, -1, 300));
@@ -276,7 +305,7 @@ public class Connection extends javax.swing.JFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addContainerGap())
         );
@@ -289,6 +318,7 @@ public class Connection extends javax.swing.JFrame {
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextField4ActionPerformed
 
     private void jLabel5PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jLabel5PropertyChange
@@ -319,6 +349,73 @@ public class Connection extends javax.swing.JFrame {
         tx = evt.getX();
         ty = evt.getY();
     }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        ArrayList<String> colonneDB = new ArrayList<>(); 
+        colonneDB.add("idPersonnel");
+        colonneDB.add("motDePasse");
+        ArrayList<String> val = new ArrayList<>(); 
+        val.add(jTextField4.getText());
+        val.add(jPasswordField1.getPassword().toString());
+        DAO<Personnel> persoDAO = DAOFactory.getPersonelDAO();
+        
+//choix de la page de destination en fonction du statut       
+        if(persoDAO.find(colonneDB,val)!= null){
+            if(persoDAO.find(colonneDB,val) instanceof SecretaireAdministratif){
+                
+            }
+            else{
+                if(persoDAO.find(colonneDB,val) instanceof Medecin){
+                    Medecin medecin = (Medecin) persoDAO.find(colonneDB,val); // Service?
+                    if(medecin.getService().getTypeService().toString()== "Urgence"){
+                        
+                    }
+                    else{
+                        if(medecin.getService().getTypeService().toString()== "clinnique"){
+                        
+                        }
+                        else{
+                            if(medecin.getService().getTypeService().toString()== "medicaux techniques"){
+                        
+                            }
+                            else{
+                                
+                            }
+                        }
+                    }
+                    
+                }
+                else{
+                    SecretaireMedicale SM = (SecretaireMedicale) persoDAO.find(colonneDB,val); // Service?
+                    if(SM.getService().getTypeService().toString()== "Urgence"){
+                        
+                    }
+                    else{
+                        if(SM.getService().getTypeService().toString()== "clinnique"){
+                        
+                        }
+                        else{
+                            if(SM.getService().getTypeService().toString()== "medicaux techniques"){
+                        
+                            }
+                            else{
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "La combinaison Identifiant / Mot de passe entré ne correspond à aucun profil");
+            jTextField4.setText("");
+            jPasswordField1.setBackground(Color.red);
+        }
+    }//GEN-LAST:event_jLabel3MouseClicked
     
     public void tickTock() {
         jLabel5.setText(DateFormat.getDateTimeInstance().format(new Date()).substring(0, DateFormat.getDateTimeInstance().format(new Date()).length() - 3));
@@ -356,6 +453,7 @@ public class Connection extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Connection().setVisible(true);
+                
             }
         });
     }
