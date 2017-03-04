@@ -50,12 +50,12 @@ public class Sejour {
         return medecinResponsable;
     }
 
-    public void setlFicheDeSoins(ArrayList<FicheDeSoins> lFicheDeSoins) {
-        this.lFicheDeSoins = lFicheDeSoins;
+    public void addFicheDeSoin(FicheDeSoins ficheDeSoin) {
+        this.getlFicheDeSoins().add(ficheDeSoin);
     }
 
-    public void setNatureDesPrestation(ArrayList<String> natureDesPrestation) {
-        this.natureDesPrestation = natureDesPrestation;
+    public void addNatureDesPrestation(String natureDesPrestations) {
+        this.getNatureDesPrestation().add(natureDesPrestations);
     }
 
     public void setDateDeFin(Date dateDeFin) {
