@@ -5,27 +5,30 @@
  */
 package db.GestionnaireDB;
 
-import nf.GestionDexploitation.Lit;
-import nf.GestionDexploitation.Service;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import nf.DPI.DM.Acte;
+import nf.DPI.DM.Code;
+import nf.DPI.DM.Resultat;
+import nf.DPI.DM.TypeActe;
 
 /**
  *
  * @author Loïc
  */
-public class LitDAO implements DAO<Lit> {
+public class ResultatDAO implements DAO<Resultat> {
 
     private String query = "";
 
     @Override
-    public Lit find(ArrayList<String> arg, ArrayList<String> val) {
-        //Crée la requete pour recupére le lit qui respecte tout les contrainte
-        this.query = "SELECT * FROM lit WHERE ";
+    public Resultat find(ArrayList<String> arg, ArrayList<String> val) {
+        //Crée la requete pour recupére le résultat qui respecte tout les contrainte
+        this.query = "SELECT * FROM resultat WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
             for (int i = 1; i < arg.size(); i++) {
@@ -40,7 +43,10 @@ public class LitDAO implements DAO<Lit> {
 
             if (rs.isBeforeFirst()) {
                 rs.first();
-                return new Lit(rs.getString("idLit"), rs.getBoolean("estOccuper"), rs.getString("cote").charAt(0), null, rs.getString("idService"), rs.getString("IPP"));
+                //récupération de tout les annalyse et leur resultat
+                ArrayList<String> listeAnnalyse = new ArrayList<>(Arrays.asList(rs.getString("annalyse").split("\\s*;\\s*")));
+                ArrayList<String> listeResultat = new ArrayList<>(Arrays.asList(rs.getString("contenuResultat").split("\\s*;\\s*")));
+                return new Resultat(rs.getInt("idresultat"), rs.getInt("idPrescription"), rs.getInt("idFicheDeSoins"), listeAnnalyse, listeResultat);
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
@@ -53,11 +59,9 @@ public class LitDAO implements DAO<Lit> {
     }
 
     @Override
-    public ArrayList<Lit> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
-        ArrayList<Lit> retour = new ArrayList<>();
-
-        //Crée la requete pour recupére la liste de lit qui respecte tout les contrainte
-        this.query = "SELECT * FROM lit WHERE ";
+    public ArrayList<Resultat> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
+        //Crée la requete pour recupére la liste de résultat qui respecte tout les contrainte
+        this.query = "SELECT * FROM resultat WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
             for (int i = 1; i < arg.size(); i++) {
@@ -66,13 +70,18 @@ public class LitDAO implements DAO<Lit> {
         }
         System.out.println(query);
 
+        ArrayList<Resultat> retour = new ArrayList<>();
+
         try {
             Statement stmt = ServiceDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    retour.add(new Lit(rs.getString("idLit"), rs.getBoolean("estOccuper"), rs.getString("cote").charAt(0), null, rs.getString("idService"), rs.getString("IPP")));
+                    //récupération de tout les annalyse et leur resultat
+                    ArrayList<String> listeAnnalyse = new ArrayList<>(Arrays.asList(rs.getString("annalyse").split("\\s*;\\s*")));
+                    ArrayList<String> listeResultat = new ArrayList<>(Arrays.asList(rs.getString("contenuResultat").split("\\s*;\\s*")));
+                    retour.add(new Resultat(rs.getInt("idresultat"), rs.getInt("idPrescription"), rs.getInt("idFicheDeSoins"), listeAnnalyse, listeResultat));
                 }
 
             } else {
@@ -87,14 +96,18 @@ public class LitDAO implements DAO<Lit> {
     }
 
     @Override
-    public Lit create(Lit obj) {
-        int occuper = 0;
-        if (obj.isIsOccuped()) {
-            occuper = 1;
+    public Resultat create(Resultat obj) {
+        String resultat = "";
+        String annalyse = "";
+
+        for (String[] s : obj.getListeResultats()) {
+
+            resultat += s[1] + ";";
+            annalyse += s[0] + ";";
         }
 
-        this.query = "INSERT INTO lit (idLit, IPP, idService,estOccuper,cote)"
-                + " VALUES (" + obj.getIdentifient() + "," + obj.getIPPoccupent() + "," + obj.getService().getCodeService() + "," + occuper + "," + obj.getCote() + ")";
+        this.query = "INSERT INTO resultat (idresultat, idFicheDeSoins, idPrescription, annalyse,conteuResultat)"
+                + " VALUES (" + obj.getIdResultat() + "," + obj.getIdFicheDeSoins() + "," + obj.getIdPrescription() + "," + annalyse + "," + resultat + ")";
 
         Statement stmt;
         try {
@@ -107,14 +120,18 @@ public class LitDAO implements DAO<Lit> {
     }
 
     @Override
-    public Lit update(Lit obj) {
-        int occuper = 0;
-        if (obj.isIsOccuped()) {
-            occuper = 1;
+    public Resultat update(Resultat obj) {
+        String resultat = "";
+        String annalyse = "";
+
+        for (String[] s : obj.getListeResultats()) {
+
+            resultat += s[1] + ";";
+            annalyse += s[0] + ";";
         }
 
-        this.query = "UPDATE lit SET IPP = " + obj.getIPPoccupent() + ", idService = " + obj.getService().getCodeService() + ", estOccuper = "
-                + occuper + ", cote = " + obj.getCote() + " WHERE idLit = " + obj.getIdentifient();
+        this.query = "UPDATE resultat SET idFicheDeSoins = " + obj.getIdFicheDeSoins() + ", idPrescription = " + obj.getIdPrescription() + ", annalyse = "
+                + annalyse + ", conteuResultat =" + resultat + " WHERE idresultat = " + obj.getIdResultat();
 
         Statement stmt;
         try {
@@ -128,8 +145,8 @@ public class LitDAO implements DAO<Lit> {
     }
 
     @Override
-    public Lit delete(Lit obj) {
-        this.query = "DELETE FROM lit WHERE idLit = " + obj.getIdentifient();
+    public Resultat delete(Resultat obj) {
+        this.query = "DELETE FROM resultat WHERE idresultat = " + obj.getIdResultat();
 
         Statement stmt;
         try {
@@ -144,14 +161,14 @@ public class LitDAO implements DAO<Lit> {
 
     @Override
     public int getMaxId() {
-        this.query = "SELECT max(idLit) FROM lit";
+        this.query = "SELECT max(idActe) FROM acte";
 
         Statement stmt;
         try {
             stmt = PersonelDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             rs.first();
-            return Integer.parseInt(rs.getString("max(idLit)"));
+            return rs.getInt("max(idActe)");
         } catch (SQLException ex) {
             Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

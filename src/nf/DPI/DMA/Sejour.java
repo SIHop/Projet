@@ -11,7 +11,7 @@ public class Sejour {
     private ArrayList<String> natureDesPrestation;
     private Date dateDeFin;
     private LettreDeSortie lettreDeSortie;
-    
+
     private final Date dateDebut;
     private final Medecin medecinResponsable;
     private final String numeroDeSejour;
@@ -20,6 +20,16 @@ public class Sejour {
         this.numeroDeSejour = numeroDeSejour;
         this.dateDebut = dateDebut;
         this.medecinResponsable = medecinResponsable;
+    }
+
+    public Sejour(LettreDeSortie lettreDeSortie, String numeroDeSejour, ArrayList<String> natureDesPrestation, Date dateDebut, Date dateDeFin, Medecin medecinResponsable, ArrayList<FicheDeSoins> lFicheDeSoins) {
+        this.lFicheDeSoins = lFicheDeSoins;
+        this.natureDesPrestation = natureDesPrestation;
+        this.dateDeFin = dateDeFin;
+        this.lettreDeSortie = lettreDeSortie;
+        this.dateDebut = dateDebut;
+        this.medecinResponsable = medecinResponsable;
+        this.numeroDeSejour = numeroDeSejour;
     }
 
     public ArrayList<FicheDeSoins> getlFicheDeSoins() {
@@ -66,8 +76,4 @@ public class Sejour {
         this.lettreDeSortie = lettreDeSortie;
     }
 
-    
-    
-    
-  
 }

@@ -6,8 +6,14 @@
 package db.GestionnaireDB;
 
 import nf.Adresse.Adresse;
+import nf.DPI.DM.Acte;
+import nf.DPI.DM.FicheDeSoins;
+import nf.DPI.DM.Prescription;
+import nf.DPI.DM.Resultat;
 import nf.DPI.DMA.DMA;
 import nf.DPI.DMA.Sejour;
+import nf.DPI.DPI;
+import nf.DPI.Historique;
 import nf.GestionDexploitation.Lit;
 import nf.GestionDexploitation.Personnel;
 import nf.GestionDexploitation.Service;
@@ -44,5 +50,27 @@ public class DAOFactory {
 
     public static DAO<DMA> getDmaDAO() {
         return new DmaDAO();
+    }
+    
+    public static DAO<FicheDeSoins> getFicheDeSoinsDAO() {
+        return new FicheDeSoinsDAO();
+    }
+    
+    public static DAO<Acte> getActeDAO() {
+        return new ActeDAO();
+    }
+    public static DAO<Prescription> getPrescriptionDAO() {
+        return new PrescriptionDAO();
+    }
+    public static DAO<Resultat> getResultatDAO() {
+        return new ResultatDAO();
+    }
+    
+    public static DAO<DPI> getDpiDAO(){
+        return new DpiDAO();
+    }
+    
+    public static DAO<Historique> getHistoriqueDAO(){
+        return new HistoriqueDAO();
     }
 }

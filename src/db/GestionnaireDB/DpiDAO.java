@@ -102,7 +102,7 @@ public class DpiDAO implements DAO<DPI> {
         } catch (NullPointerException e) {
             System.out.println("Pas de résultats correspondent");
         }
-        return null;
+        return retour;
     }
 
     @Override

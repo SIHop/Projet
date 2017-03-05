@@ -1,5 +1,7 @@
 package nf.DPI.DM;
 
+import db.GestionnaireDB.DAOFactory;
+
 /**
  *
  * @author Deniz
@@ -39,8 +41,11 @@ public class Acte {
      * "Thérapeutique" ou "Diagnostique"
      */
     private final TypeActe typeActe;
+    
+    private int idActe;
+    private int idFicheDeSoins;
 
-    public Acte(Code code, int coef, String observations, TypeActe typeActe) {
+    public Acte(int idFicheDeSoins, Code code, int coef, String observations, TypeActe typeActe) {
         this.code = code;
         this.coef = coef;
         if (!observations.isEmpty()) {
@@ -49,6 +54,22 @@ public class Acte {
             this.observations = "Aucune observations";
         }
         this.typeActe = typeActe;
+        this.idFicheDeSoins = idFicheDeSoins;
+        this.idActe = DAOFactory.getActeDAO().getMaxId()+1;
+    }
+    
+    //constructeur utilise par la db
+    public Acte(int idActe, int idFicheDeSoins, Code code, int coef, String observations, TypeActe typeActe) {
+        this.code = code;
+        this.coef = coef;
+        if (!observations.isEmpty()) {
+            this.observations = observations;
+        } else {
+            this.observations = "Aucune observations";
+        }
+        this.typeActe = typeActe;
+        this.idFicheDeSoins = idFicheDeSoins;
+        this.idActe = idActe;
     }
 
     public Code getCode() {
@@ -79,5 +100,19 @@ public class Acte {
     public int getCout() {
         return cout;
 
+    }
+
+    /**
+     * @return the idActe
+     */
+    public int getIdActe() {
+        return idActe;
+    }
+
+    /**
+     * @return the idFicheDeSoins
+     */
+    public int getIdFicheDeSoins() {
+        return idFicheDeSoins;
     }
 }
