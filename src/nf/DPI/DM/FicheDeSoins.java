@@ -5,8 +5,10 @@
  */
 package nf.DPI.DM;
 
+import db.GestionnaireDB.DAOFactory;
 import java.util.ArrayList;
 import java.util.Calendar;
+import nf.Adresse.DateT;
 import nf.GestionDexploitation.Personnel;
 
 /**
@@ -17,14 +19,29 @@ public class FicheDeSoins {
     private final ArrayList<Acte> listeActes;
     private final ArrayList<Prescription> prescription;
     private final ArrayList<Resultat> resultat;
-    private final Calendar dateDeCreation = Calendar.getInstance();
+    private DateT dateDeCreation = new DateT("");
     private final Personnel createur;
+    private String numeroSejour;
+    private final int idFicheDeSoins;
     
     public FicheDeSoins(ArrayList<Acte> listeActes, ArrayList<Prescription> prescription, ArrayList<Resultat> resultat, Personnel createur) {
         this.listeActes = listeActes;
         this.prescription = prescription;
         this.resultat = resultat;
         this.createur = createur;
+        this.dateDeCreation.setC(Calendar.getInstance());
+        this.idFicheDeSoins = DAOFactory.getFicheDeSoinsDAO().getMaxId() +1;
+    }
+    
+    //Consutructeur appeller pas la DB
+    public FicheDeSoins(int idFicheDeSoins, ArrayList<Acte> listeActes, ArrayList<Prescription> prescription, ArrayList<Resultat> resultat, Personnel createur,DateT dateCreation, String numeroSejour) {
+        this.listeActes = listeActes;
+        this.prescription = prescription;
+        this.resultat = resultat;
+        this.createur = createur;
+        this.dateDeCreation = dateCreation;
+        this.numeroSejour = numeroSejour;
+        this.idFicheDeSoins = idFicheDeSoins;
     }
 
     public ArrayList<Acte> getListeActes() {
@@ -39,7 +56,7 @@ public class FicheDeSoins {
         return resultat;
     }
 
-    public Calendar getDateDeCreation() {
+    public DateT getDateDeCreation() {
         return dateDeCreation;
     }
 
@@ -53,6 +70,20 @@ public class FicheDeSoins {
             res += a.calculerCout();
         }
         return res;
+    }
+
+    /**
+     * @return the numeroSejour
+     */
+    public String getNumeroSejour() {
+        return numeroSejour;
+    }
+
+    /**
+     * @return the idFicheDeSoins
+     */
+    public int getIdFicheDeSoins() {
+        return idFicheDeSoins;
     }
 
    

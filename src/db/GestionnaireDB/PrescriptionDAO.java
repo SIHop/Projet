@@ -5,27 +5,30 @@
  */
 package db.GestionnaireDB;
 
-import nf.GestionDexploitation.Lit;
-import nf.GestionDexploitation.Service;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import nf.DPI.DM.Acte;
+import nf.DPI.DM.Code;
+import nf.DPI.DM.Prescription;
+import nf.DPI.DM.TypeActe;
+import nf.DPI.DM.TypePrescription;
 
 /**
  *
  * @author Loïc
  */
-public class LitDAO implements DAO<Lit> {
+public class PrescriptionDAO implements DAO<Prescription>{
 
     private String query = "";
-
+    
     @Override
-    public Lit find(ArrayList<String> arg, ArrayList<String> val) {
-        //Crée la requete pour recupére le lit qui respecte tout les contrainte
-        this.query = "SELECT * FROM lit WHERE ";
+    public Prescription find(ArrayList<String> arg, ArrayList<String> val) {
+        //Crée la requete pour recupére la prescription qui respecte tout les contrainte
+        this.query = "SELECT * FROM acte WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
             for (int i = 1; i < arg.size(); i++) {
@@ -40,7 +43,7 @@ public class LitDAO implements DAO<Lit> {
 
             if (rs.isBeforeFirst()) {
                 rs.first();
-                return new Lit(rs.getString("idLit"), rs.getBoolean("estOccuper"), rs.getString("cote").charAt(0), null, rs.getString("idService"), rs.getString("IPP"));
+                return new Prescription(rs.getInt("idprescription"),rs.getInt("idFicheDeSoins"), rs.getString("contenuePrescription"),rs.getString("observation"), TypePrescription.valueOf(rs.getString("typePrescription")));
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
@@ -53,11 +56,9 @@ public class LitDAO implements DAO<Lit> {
     }
 
     @Override
-    public ArrayList<Lit> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
-        ArrayList<Lit> retour = new ArrayList<>();
-
-        //Crée la requete pour recupére la liste de lit qui respecte tout les contrainte
-        this.query = "SELECT * FROM lit WHERE ";
+    public ArrayList<Prescription> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
+        //Crée la requete pour recupére la prescription qui respecte tout les contrainte
+        this.query = "SELECT * FROM acte WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
             for (int i = 1; i < arg.size(); i++) {
@@ -65,16 +66,18 @@ public class LitDAO implements DAO<Lit> {
             }
         }
         System.out.println(query);
+        
+        ArrayList<Prescription> retour = new ArrayList<>();
 
         try {
             Statement stmt = ServiceDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.isBeforeFirst()) {
-                while (rs.next()) {
-                    retour.add(new Lit(rs.getString("idLit"), rs.getBoolean("estOccuper"), rs.getString("cote").charAt(0), null, rs.getString("idService"), rs.getString("IPP")));
+                while(rs.next()){
+                    retour.add(new Prescription(rs.getInt("idprescription"),rs.getInt("idFicheDeSoins"), rs.getString("contenuePrescription"),rs.getString("observation"), TypePrescription.valueOf(rs.getString("typePrescription"))));
                 }
-
+                
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
@@ -87,14 +90,9 @@ public class LitDAO implements DAO<Lit> {
     }
 
     @Override
-    public Lit create(Lit obj) {
-        int occuper = 0;
-        if (obj.isIsOccuped()) {
-            occuper = 1;
-        }
-
-        this.query = "INSERT INTO lit (idLit, IPP, idService,estOccuper,cote)"
-                + " VALUES (" + obj.getIdentifient() + "," + obj.getIPPoccupent() + "," + obj.getService().getCodeService() + "," + occuper + "," + obj.getCote() + ")";
+    public Prescription create(Prescription obj) {
+        this.query = "INSERT INTO prescription (idprescription, idFicheDeSoins, typePrescription, contenuePrescription, observation)"
+                + " VALUES (" + obj.getIdPrescription()+ "," + obj.getIdFicheDeSoins() + "," + obj.getTypePrescription().getLabelle() + "," + obj.getPrescription() + "," + "," + obj.getObservation()+ ")";
 
         Statement stmt;
         try {
@@ -107,14 +105,9 @@ public class LitDAO implements DAO<Lit> {
     }
 
     @Override
-    public Lit update(Lit obj) {
-        int occuper = 0;
-        if (obj.isIsOccuped()) {
-            occuper = 1;
-        }
-
-        this.query = "UPDATE lit SET IPP = " + obj.getIPPoccupent() + ", idService = " + obj.getService().getCodeService() + ", estOccuper = "
-                + occuper + ", cote = " + obj.getCote() + " WHERE idLit = " + obj.getIdentifient();
+    public Prescription update(Prescription obj) {
+        this.query = "UPDATE prescription SET idFicheDeSoins = " + obj.getIdFicheDeSoins() + ", typePrescription = " +  obj.getTypePrescription().getLabelle() + ", contenuePrescription = "
+                +obj.getPrescription() + ", observation = " + obj.getObservation() + " WHERE idprescription = " + obj.getIdPrescription();
 
         Statement stmt;
         try {
@@ -128,8 +121,8 @@ public class LitDAO implements DAO<Lit> {
     }
 
     @Override
-    public Lit delete(Lit obj) {
-        this.query = "DELETE FROM lit WHERE idLit = " + obj.getIdentifient();
+    public Prescription delete(Prescription obj) {
+        this.query = "DELETE FROM prescription WHERE idprescription = " + obj.getIdPrescription();
 
         Statement stmt;
         try {
@@ -144,19 +137,19 @@ public class LitDAO implements DAO<Lit> {
 
     @Override
     public int getMaxId() {
-        this.query = "SELECT max(idLit) FROM lit";
+        this.query = "SELECT max(idprescription) FROM idprescription";
 
         Statement stmt;
         try {
             stmt = PersonelDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             rs.first();
-            return Integer.parseInt(rs.getString("max(idLit)"));
+            return rs.getInt("max(idprescription)");
         } catch (SQLException ex) {
             Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return -1;
     }
-
+    
 }

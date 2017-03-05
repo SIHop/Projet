@@ -8,7 +8,7 @@ import java.util.TimeZone;
 
 public class DateT {
 
-    Calendar c = Calendar.getInstance(Locale.FRANCE);
+    private Calendar c = Calendar.getInstance(Locale.FRANCE);
 
     /**
      * Date au format aaaa-mm-jj (yyyy-mm-dd)
@@ -34,5 +34,12 @@ public class DateT {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         
         return dateFormat.format(this.getC().getTime());
+    }
+
+    /**
+     * @param c the c to set
+     */
+    public void setC(Calendar c) {
+        this.c = c;
     }
 }

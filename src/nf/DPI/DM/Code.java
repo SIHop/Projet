@@ -13,53 +13,55 @@ public enum Code {
 
     // valeurs de l'enum :
 
-    AIS("actes infirmiers de soins", 16.0),
-    AMS("reeducation", 48.0),
-    AMK("actes masseur-kinesitherapeute cabinet", 25.0),
-    AMC("actes masseur-kinesitherapeute etablissement", 28.0),
-    AMI("actes infirmiers", 12.0),
-    AMO("actes par orthophoniste", 18.0),
-    AMP("actes par le pedicure", 25.0),
-    AMY("actes par l'orthoptiste", 30.0),
-    C("consultation au cabinet generaliste", 23.0),
-    CS("consultation au cabinet specialiste", 26.0),
-    CSC("consultation cardiologie", 45.73),
-    CNPSY("consultation neuropsychiatrie", 28.0),
-    CDE("consultation depistage de melanome", 22.0),
-    D("autres actes d'orthopedie dento-faciale", 30.0),
-    DI("demarche des soins infirmiers", 18.0),
-    FP("forfait pediatrique", 5.0),
-    KC("actes de chirurgie et de specialite", 2.09),
-    KE("actes d'echographie, de doppler", 1.89),
-    KMB("prelvement ponction veineuse", 6.0),
-    K("autres actes de specialite", 1.92),
-    KFA("forfait A", 30.49),
-    KFB("forfait B", 60.98),
-    ORT("orthodontie", 2.15),
-    POD("actes de prevention", 10.0),
-    PRO("prothese dentaire", 2.15),
-    SC("soins conservateur chirurgien-dentiste", 15.0),
-    SCM("soins conservateur", 15.0),
-    SF("actes autres sage femme", 18.0),
-    SFI("soins infirmiers par sage femme", 12.0),
-    SP("suivi postnatal", 18.0),
-    SPR("prothese dentaire chirurgien-dentiste", 2.15),
-    TO("orthopedie dento-faciale", 28.0),
-    V("visite au domicile", 28.0),
-    VAC("vaccin grippal", 5.0),
-    VL("visite au domicile complexe", 30.0),
-    VS("visite au domicile specialiste", 35.0),
-    VNPSY("visite au domicile neuropsychiatre", 35.0),
-    Z("radiations ionisantes", 25.5);
+    AIS("actes infirmiers de soins", 16.0,"AIS"),
+    AMS("reeducation", 48.0,"AMS"),
+    AMK("actes masseur-kinesitherapeute cabinet", 25.0,"AMK"),
+    AMC("actes masseur-kinesitherapeute etablissement", 28.0,"AMC"),
+    AMI("actes infirmiers", 12.0,"AMI"),
+    AMO("actes par orthophoniste", 18.0,"AMO"),
+    AMP("actes par le pedicure", 25.0,"AMP"),
+    AMY("actes par l'orthoptiste", 30.0,"AMY"),
+    C("consultation au cabinet generaliste", 23.0,"C"),
+    CS("consultation au cabinet specialiste", 26.0,"CS"),
+    CSC("consultation cardiologie", 45.73,"CSC"),
+    CNPSY("consultation neuropsychiatrie", 28.0,"CNPSY"),
+    CDE("consultation depistage de melanome", 22.0,"CDE"),
+    D("autres actes d'orthopedie dento-faciale", 30.0,"D"),
+    DI("demarche des soins infirmiers", 18.0,"DI"),
+    FP("forfait pediatrique", 5.0,"FP"),
+    KC("actes de chirurgie et de specialite", 2.09,"KC"),
+    KE("actes d'echographie, de doppler", 1.89,"KE"),
+    KMB("prelvement ponction veineuse", 6.0,"KME"),
+    K("autres actes de specialite", 1.92,"K"),
+    KFA("forfait A", 30.49,"KFA"),
+    KFB("forfait B", 60.98,"KFS"),
+    ORT("orthodontie", 2.15,"ORT"),
+    POD("actes de prevention", 10.0,"POD"),
+    PRO("prothese dentaire", 2.15,"PRO"),
+    SC("soins conservateur chirurgien-dentiste", 15.0,"SC"),
+    SCM("soins conservateur", 15.0,"SCM"),
+    SF("actes autres sage femme", 18.0,"SF"),
+    SFI("soins infirmiers par sage femme", 12.0,"SFI"),
+    SP("suivi postnatal", 18.0,"SP"),
+    SPR("prothese dentaire chirurgien-dentiste", 2.15,"SPR"),
+    TO("orthopedie dento-faciale", 28.0,"TO"),
+    V("visite au domicile", 28.0,"V"),
+    VAC("vaccin grippal", 5.0,"VAC"),
+    VL("visite au domicile complexe", 30.0,"VL"),
+    VS("visite au domicile specialiste", 35.0,"VS"),
+    VNPSY("visite au domicile neuropsychiatre", 35.0,"VNPSY"),
+    Z("radiations ionisantes", 25.5,"Z");
 
     // attributs de l'enum :
     private final String libelle;
     private final double cout;
+    private final String code;
 
     // constructeur :
-    private Code(String libelle, double cout) {
+    private Code(String libelle, double cout,String code) {
         this.libelle = libelle;
         this.cout = cout;
+        this.code = code;
     }
 
     public String getLibelle() {
@@ -75,5 +77,12 @@ public enum Code {
     // calcule le prix pour un coefficient donne :
     public double calculerCout(int coefficient) {
         return coefficient * cout;
+    }
+
+    /**
+     * @return the code
+     */
+    public String getCode() {
+        return code;
     }
 }

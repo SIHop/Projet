@@ -67,7 +67,47 @@ public class DmaDAO implements DAO<DMA> {
 
     @Override
     public ArrayList<DMA> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<DMA> lDma = new ArrayList<>();
+
+        //Crée la requete pour recupére le sejour qui respecte tout les contrainte
+        this.query = "SELECT * FROM dma WHERE ";
+        query += arg.get(0) + " = " + val.get(0);
+        if (arg.size() > 1) {
+            for (int i = 1; i < arg.size(); i++) {
+                query += " && " + arg.get(i) + " = " + val.get(i);
+            }
+        }
+        System.out.println(query);
+        ArrayList<Sejour> listeSejour = new ArrayList<>();
+        try {
+            Statement stmt = ServiceDAO.connect.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            if (rs.isBeforeFirst()) {
+                DAO<Sejour> sejourDAO = DAOFactory.getSejourDAO();
+                rs.first();
+                ResultSet rs2 = stmt.executeQuery("SELECT numeroSejour FROM dma WHERE IPP = " + rs.getString("IPP"));
+
+                ArrayList<String> argSejour = new ArrayList<>();
+                argSejour.add("numeroSejour");
+                rs2.first();
+                ArrayList<String> valSejour = new ArrayList<>();
+                argSejour.add(rs2.getString("numeroSejour"));
+                while (rs2.next()) {
+                    listeSejour.add(sejourDAO.find(argSejour, valSejour));
+                    argSejour.set(0, rs2.getString("numeroSejour"));
+                }
+
+                lDma.add(new DMA(listeSejour, rs.getString("IPP")));
+            } else {
+                System.out.println("Aucun résultat n'a était trouver");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException e) {
+            System.out.println("Pas de résultats correspondent");
+        }
+        return lDma;
     }
 
     @Override

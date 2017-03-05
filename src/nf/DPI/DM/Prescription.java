@@ -5,6 +5,8 @@
  */
 package nf.DPI.DM;
 
+import db.GestionnaireDB.DAOFactory;
+
 /**
  *
  * @author Deniz
@@ -12,11 +14,26 @@ package nf.DPI.DM;
 public class Prescription {
 
     private String prescription;
-    public TypePrescription typePrescription;
+    private String observation;
+    private TypePrescription typePrescription;
+    private int idPrescription;
+    private int idFicheDeSoins;
 
-    public Prescription(String observation, TypePrescription typePrescription) {
-        this.prescription = observation;
+    public Prescription(int idFicheDeSoins, String prescription, String observation, TypePrescription typePrescription) {
+        this.prescription = prescription;
+        this.observation = observation;
         this.typePrescription = typePrescription;
+        this.idFicheDeSoins = idFicheDeSoins;
+        this.idPrescription = DAOFactory.getPrescriptionDAO().getMaxId() + 1;
+    }
+
+    //Constructeur utilisé par la db
+    public Prescription(int idPrescription, int idFicheDeSoins, String prescription, String observation, TypePrescription typePrescription) {
+        this.prescription = prescription;
+        this.observation = observation;
+        this.typePrescription = typePrescription;
+        this.idFicheDeSoins = idFicheDeSoins;
+        this.idPrescription = idPrescription;
     }
 
     public TypePrescription getTypePrescription() {
@@ -25,6 +42,27 @@ public class Prescription {
 
     public String getPrescription() {
         return prescription;
+    }
+
+    /**
+     * @return the observation
+     */
+    public String getObservation() {
+        return observation;
+    }
+
+    /**
+     * @return the idPrescription
+     */
+    public int getIdPrescription() {
+        return idPrescription;
+    }
+
+    /**
+     * @return the idFicheDeSoins
+     */
+    public int getIdFicheDeSoins() {
+        return idFicheDeSoins;
     }
 
 }

@@ -85,7 +85,7 @@ public class HistoriqueDAO implements DAO<Historique>{
         } catch (NullPointerException e) {
             System.out.println("Pas de résultats correspondent");
         }
-        return null;
+        return retour;
     }
 
     @Override

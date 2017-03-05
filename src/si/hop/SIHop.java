@@ -43,9 +43,9 @@ public class SIHop {
         }
         
         
-        Acte acte = new Acte(Code.AIS,1,"23",TypeActe.THERAPEUTIQUE);
+        Acte acte = new Acte(1,Code.AIS,1,"23",TypeActe.THERAPEUTIQUE);
         System.out.println(acte.toString());
-        Prescription prescription = new Prescription("Rhûme",TypePrescription.CONSULTATION);
+        Prescription prescription = new Prescription(1, "Rhûme","ras",TypePrescription.CONSULTATION);
         System.out.println(prescription.getPrescription() + "\n" +prescription.getTypePrescription());
         ArrayList<String> listeRes = new ArrayList<>();
         listeRes.add("mal");

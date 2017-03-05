@@ -10,8 +10,23 @@ package nf.DPI.DM;
  * @author Deniz
  */
 public enum TypePrescription {
-    EXAMEN_SANGUIN,
-    EXAMEN_RADIOLOGIQUE,
-    MEDICAMENT,
-    CONSULTATION;  
+    EXAMEN_SANGUIN("EXAMEN_SANGUIN"),
+    EXAMEN_RADIOLOGIQUE("EXAMEN_RADIOLOGIQUE"),
+    MEDICAMENT("MEDICAMENT"),
+    CONSULTATION("CONSULTATION"); 
+    
+    private String labelle;
+
+    private TypePrescription(String labelle) {
+        this.labelle = labelle;
+    }
+
+    /**
+     * @return the labelle
+     */
+    public String getLabelle() {
+        return labelle;
+    }
+    
+    
 }

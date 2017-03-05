@@ -31,6 +31,13 @@ public enum TypeActe {
     
     @Override
     public String toString(){
-        return this.typeActe;
+        return this.getTypeActe();
+    }
+
+    /**
+     * @return the typeActe
+     */
+    public String getTypeActe() {
+        return typeActe;
     }
 }
