@@ -31,6 +31,7 @@ public class Resultat {
         this.idFicheDeSoins = idFicheDeSoins;
         this.idPrescription = idPrescription;
         this.idResultat = DAOFactory.getResultatDAO().getMaxId() + 1;
+        DAOFactory.getResultatDAO().create(this);
     }
     
     //constructeur utilise par la db

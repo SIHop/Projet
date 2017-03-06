@@ -31,6 +31,7 @@ public class FicheDeSoins {
         this.createur = createur;
         this.dateDeCreation.setC(Calendar.getInstance());
         this.idFicheDeSoins = DAOFactory.getFicheDeSoinsDAO().getMaxId() +1;
+        DAOFactory.getFicheDeSoinsDAO().create(this);
     }
     
     //Consutructeur appeller pas la DB

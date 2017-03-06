@@ -89,9 +89,9 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
         return retour;
     }
 
-    public Adresse create(Adresse obj, String idPersonnel) {
+    public Adresse create(Adresse obj, int idPersonnel) {
         this.query = "INSERT INTO adressepersonnel (idPersonnel, pays, numeroVoie,typeVoie,nomVoie,codePostal, ville)"
-                + " VALUES (" + idPersonnel + ", " + obj.getPays() + "," + obj.getNumeroVoie() + "," + obj.getTypeVoie() + "," + obj.getNomVoie() + "," + obj.getCodePostal() + "," + obj.getVille()+")";
+                + " VALUES (" + idPersonnel + ", '" + obj.getPays() + "'," + obj.getNumeroVoie() + ",'" + obj.getTypeVoie() + "','" + obj.getNomVoie() + "'," + obj.getCodePostal() + ",'" + obj.getVille()+"')";
 
         Statement stmt;
         try {
@@ -103,9 +103,9 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
         return obj;
     }
 
-    public Adresse update(Adresse obj, String idPersonnel) {
-        this.query = "UPDATE adressepersonnel SET Pays = " + obj.getPays() + ", numeroVoie = " + obj.getNumeroVoie() + ", typeVoie = " + obj.getTypeVoie()
-                + ", nomVoie = " + obj.getNomVoie() + ", codePostal = " + obj.getCodePostal() + ", ville = " + obj.getVille() + " WHERE idPersonnel = " + idPersonnel;
+    public Adresse update(Adresse obj, int idPersonnel) {
+        this.query = "UPDATE adressepersonnel SET Pays = '" + obj.getPays() + "', numeroVoie = " + obj.getNumeroVoie() + ", typeVoie = '" + obj.getTypeVoie()
+                + "', nomVoie = '" + obj.getNomVoie() + "', codePostal = " + obj.getCodePostal() + ", ville = '" + obj.getVille() + "' WHERE idPersonnel = " + idPersonnel;
         Statement stmt;
         try {
             stmt = ServiceDAO.connect.createStatement();
@@ -135,7 +135,7 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
      * @param idPersonnel
      * @return false si la suppression à échouer
      */
-    public boolean delete(String idPersonnel) {
+    public boolean delete(int idPersonnel) {
         this.query = "DELETE FROM adressepersonnel WHERE idPersonnel = " + idPersonnel;
 
         Statement stmt;

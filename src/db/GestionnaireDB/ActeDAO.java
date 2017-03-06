@@ -90,9 +90,10 @@ public class ActeDAO implements DAO<Acte> {
 
     @Override
     public Acte create(Acte obj) {
-        this.query = "INSERT INTO acte (idActe, idFicheDeSoins, code, coef,typeActe, observation)"
-                + " VALUES (" + obj.getIdActe() + "," + obj.getIdFicheDeSoins() + "," + obj.getCode().getCode() + "," + obj.getCoef() + "," + obj.getTypeActe().getTypeActe() + "," + obj.getObservations() + ")";
+        this.query = "INSERT INTO acte(idActe, idFicheDeSoins, code, coef, typeActe, observation) "
+                + "VALUES (" + obj.getIdActe() + "," + obj.getIdFicheDeSoins() + ", '" + obj.getCode().getCode()+ "' ," + obj.getCoef() + ", '" + obj.getTypeActe().getTypeActe() + "' , '" + obj.getObservations() + "' )";
 
+        System.out.println(query);
         Statement stmt;
         try {
             stmt = ServiceDAO.connect.createStatement();
@@ -105,8 +106,8 @@ public class ActeDAO implements DAO<Acte> {
 
     @Override
     public Acte update(Acte obj) {
-        this.query = "UPDATE acte SET idFicheDeSoins = " + obj.getIdFicheDeSoins() + ", code = " + obj.getCode().getCode() + ", coef = "
-                + obj.getCoef() + ", typeActe =" + obj.getTypeActe().getTypeActe() + ", observation = " + obj.getObservations() + " WHERE idActe = " + obj.getIdActe();
+        this.query = "UPDATE acte SET idFicheDeSoins = " + obj.getIdFicheDeSoins() + ", code = '" + obj.getCode().getCode() + "', coef = "
+                + obj.getCoef() + ", typeActe ='" + obj.getTypeActe().getTypeActe() + "', observation = '" + obj.getObservations() + "' WHERE idActe = " + obj.getIdActe();
 
         Statement stmt;
         try {
