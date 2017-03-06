@@ -87,9 +87,9 @@ public class AdressePatientDAO implements DAO<Adresse>{
         return retour;
     }
     
-    public Adresse create(Adresse obj, String IPP) {
+    public Adresse create(Adresse obj, int IPP) {
         this.query = "INSERT INTO adressepatient (IPP, pays, numeroVoie,typeVoie,nomVoie,codePostal, ville)"
-                + " VALUES (" + IPP + ", " + obj.getPays() + "," + obj.getNumeroVoie() + "," + obj.getTypeVoie() + "," + obj.getNomVoie() + "," + obj.getCodePostal() + "," + obj.getVille()+")";
+                + " VALUES (" + IPP + ", '" + obj.getPays() + "'," + obj.getNumeroVoie() + ",'" + obj.getTypeVoie() + "','" + obj.getNomVoie() + "'," + obj.getCodePostal() + ",'" + obj.getVille()+"')";
 
         Statement stmt;
         try {
@@ -101,9 +101,9 @@ public class AdressePatientDAO implements DAO<Adresse>{
         return obj;
     }
 
-    public Adresse update(Adresse obj, String IPP) {
-        this.query = "UPDATE adressepatient SET Pays = " + obj.getPays() + ", numeroVoie = " + obj.getNumeroVoie() + ", typeVoie = " + obj.getTypeVoie()
-                + ", nomVoie = " + obj.getNomVoie() + ", codePostal = " + obj.getCodePostal() + ", ville = " + obj.getVille() + " WHERE IPP = " + IPP;
+    public Adresse update(Adresse obj, int IPP) {
+        this.query = "UPDATE adressepatient SET Pays = '" + obj.getPays() + "', numeroVoie = " + obj.getNumeroVoie() + ", typeVoie = '" + obj.getTypeVoie()
+                + "', nomVoie = '" + obj.getNomVoie() + "', codePostal = " + obj.getCodePostal() + ", ville = '" + obj.getVille() + "' WHERE IPP = " + IPP;
         Statement stmt;
         try {
             stmt = ServiceDAO.connect.createStatement();
@@ -116,8 +116,8 @@ public class AdressePatientDAO implements DAO<Adresse>{
 
     }
     
-    public boolean delete(String IPP) {
-        this.query = "DELETE FROM adressepatint WHERE IPP = " + IPP;
+    public boolean delete(int IPP) {
+        this.query = "DELETE FROM adressepatient WHERE IPP = " + IPP;
 
         Statement stmt;
         try {

@@ -16,13 +16,13 @@ public class Acte {
      * Chaque acte médical à un code bien spécifique à l'opération effectué sur
      * le patient.
      */
-    private final Code code;
+    private Code code;
     /**
      * coefficient de l'acte:
      * <br>
      * Chaque acte médical à un coefficient spécifique.
      */
-    private final int coef;
+    private int coef;
     /**
      * observation:
      * <br>
@@ -32,7 +32,7 @@ public class Acte {
      * <br>
      * "Aucune observation"
      */
-    private final String observations;
+    private String observations;
     /**
      * Type de l'acte:
      * <br>
@@ -40,7 +40,7 @@ public class Acte {
      * <br>
      * "Thérapeutique" ou "Diagnostique"
      */
-    private final TypeActe typeActe;
+    private TypeActe typeActe;
     
     private int idActe;
     private int idFicheDeSoins;
@@ -56,6 +56,11 @@ public class Acte {
         this.typeActe = typeActe;
         this.idFicheDeSoins = idFicheDeSoins;
         this.idActe = DAOFactory.getActeDAO().getMaxId()+1;
+        this.sauvegarder();
+    }
+    
+    public void sauvegarder(){
+        DAOFactory.getActeDAO().create(this);
     }
     
     //constructeur utilise par la db
@@ -114,5 +119,33 @@ public class Acte {
      */
     public int getIdFicheDeSoins() {
         return idFicheDeSoins;
+    }
+
+    /**
+     * @param code the code to set
+     */
+    public void setCode(Code code) {
+        this.code = code;
+    }
+
+    /**
+     * @param coef the coef to set
+     */
+    public void setCoef(int coef) {
+        this.coef = coef;
+    }
+
+    /**
+     * @param observations the observations to set
+     */
+    public void setObservations(String observations) {
+        this.observations = observations;
+    }
+
+    /**
+     * @param typeActe the typeActe to set
+     */
+    public void setTypeActe(TypeActe typeActe) {
+        this.typeActe = typeActe;
     }
 }

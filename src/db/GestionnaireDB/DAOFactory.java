@@ -32,7 +32,7 @@ public class DAOFactory {
         return new ServiceDAO();
     }
 
-    public static DAO<Adresse> getAdressePersonnelDAO() {
+    public static AdressePersonnelDAO getAdressePersonnelDAO() {
         return new AdressePersonnelDAO();
     }
 
@@ -40,7 +40,7 @@ public class DAOFactory {
         return new LitDAO();
     }
 
-    public static DAO<Adresse> getAdressePatientDAO() {
+    public static AdressePatientDAO getAdressePatientDAO() {
         return new AdressePatientDAO();
     }
 
