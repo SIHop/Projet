@@ -12,10 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import nf.DPI.DM.Acte;
-import nf.DPI.DM.Code;
 import nf.DPI.DM.Resultat;
-import nf.DPI.DM.TypeActe;
 
 /**
  *
@@ -101,14 +98,14 @@ public class ResultatDAO implements DAO<Resultat> {
         String annalyse = "";
 
         for (String[] s : obj.getListeResultats()) {
-
             resultat += s[1] + ";";
             annalyse += s[0] + ";";
         }
 
-        this.query = "INSERT INTO resultat (idresultat, idFicheDeSoins, idPrescription, annalyse,conteuResultat)"
-                + " VALUES (" + obj.getIdResultat() + "," + obj.getIdFicheDeSoins() + "," + obj.getIdPrescription() + "," + annalyse + "," + resultat + ")";
+        this.query = "INSERT INTO resultat (idresultat, idFicheDeSoins, idPrescription, annalyse,contenuResultat)"
+                + " VALUES (" + obj.getIdResultat() + "," + obj.getIdFicheDeSoins() + "," + obj.getIdPrescription() + ",'" + annalyse.replace("'", "''") + "','" + resultat.replace("'", "''") + "')";
 
+        System.out.println(query);
         Statement stmt;
         try {
             stmt = ServiceDAO.connect.createStatement();
@@ -130,8 +127,8 @@ public class ResultatDAO implements DAO<Resultat> {
             annalyse += s[0] + ";";
         }
 
-        this.query = "UPDATE resultat SET idFicheDeSoins = " + obj.getIdFicheDeSoins() + ", idPrescription = " + obj.getIdPrescription() + ", annalyse = "
-                + annalyse + ", conteuResultat =" + resultat + " WHERE idresultat = " + obj.getIdResultat();
+        this.query = "UPDATE resultat SET idFicheDeSoins = " + obj.getIdFicheDeSoins() + ", idPrescription = " + obj.getIdPrescription() + ", annalyse = '"
+                + annalyse + "', contenuResultat = '" + resultat + "' WHERE idresultat = " + obj.getIdResultat();
 
         Statement stmt;
         try {
@@ -161,14 +158,14 @@ public class ResultatDAO implements DAO<Resultat> {
 
     @Override
     public int getMaxId() {
-        this.query = "SELECT max(idActe) FROM acte";
+        this.query = "SELECT max(idresultat) FROM resultat";
 
         Statement stmt;
         try {
             stmt = PersonelDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             rs.first();
-            return rs.getInt("max(idActe)");
+            return rs.getInt("max(idresultat)");
         } catch (SQLException ex) {
             Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

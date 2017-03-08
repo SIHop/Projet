@@ -102,8 +102,8 @@ public class ServiceDAO implements DAO<Service> {
     @Override
     public Service create(Service obj) {
         this.query = "INSERT INTO service (idService, idCentreDeSoin, typeService,nomService,idResponsable)"
-                + " VALUES (" + obj.getCodeService() + ",1," + obj.getTypeService().toString() + "," + obj.getNomService() + "," + obj.getResponsable().getIdPersonel() + ")";
-
+                + " VALUES (" + obj.getCodeService() + ",1,'" + obj.getTypeService().toString() + "','" + obj.getNomService().replace("'", "''") + "'," + obj.getResponsable().getIdPersonel() + ")";
+        System.out.println(query);
         Statement stmt;
         try {
             stmt = ServiceDAO.connect.createStatement();
@@ -116,7 +116,7 @@ public class ServiceDAO implements DAO<Service> {
 
     @Override
     public Service update(Service obj) {
-        this.query = "UPDATE service SET typeService = " + obj.getTypeService().toString() + ", nomService = " + obj.getNomService() + ", idResponsable = " + obj.getResponsable().getIdPersonel() + " WHERE idService = " + obj.getCodeService();
+        this.query = "UPDATE service SET typeService = '" + obj.getTypeService().toString() + "', nomService = '" + obj.getNomService().replace("'", "''") + "', idResponsable = " + obj.getResponsable().getIdPersonel() + " WHERE idService = " + obj.getCodeService();
         Statement stmt;
         try {
             stmt = ServiceDAO.connect.createStatement();
