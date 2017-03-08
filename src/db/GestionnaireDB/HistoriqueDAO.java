@@ -91,7 +91,7 @@ public class HistoriqueDAO implements DAO<Historique>{
     @Override
     public Historique create(Historique obj) {
         this.query = "INSERT INTO historique (IPP,dateDeces,dateFinArchivage)" 
-                + " VALUES (" + obj.getIpp()+ "," + obj.getDateDeces()+ "," + obj.getDateFinArchivage()+")";
+                + " VALUES (" + obj.getIpp().getIPP()+ "," + obj.getDateDeces().toString()+ "," + obj.getDateFinArchivage().toString()+")";
 
         Statement stmt;
         try {
@@ -105,7 +105,7 @@ public class HistoriqueDAO implements DAO<Historique>{
 
     @Override
     public Historique update(Historique obj) {
-        this.query = "UPDATE historique SET dateDeces = "+obj.getDateDeces() + ", dateFinArchivage = "+ obj.getDateFinArchivage()+" WHERE IPP = " + obj.getIpp();
+        this.query = "UPDATE historique SET dateDeces = "+obj.getDateDeces().toString() + ", dateFinArchivage = "+ obj.getDateFinArchivage().toString()+" WHERE IPP = " + obj.getIpp();
 
         Statement stmt;
         try {

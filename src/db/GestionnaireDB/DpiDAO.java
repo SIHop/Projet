@@ -109,7 +109,7 @@ public class DpiDAO implements DAO<DPI> {
     public DPI create(DPI obj) {
         
         this.query = "INSERT INTO dpi (IPP,IdCentreDeSoins, prenom,nomNaissance,nomUsage,sexe, dateNaissance,telephonePortable,telephoneFixe,mail,lit)"
-                + " VALUES (" + obj.getiPP().getIPP()+ "," + 1 + "," + obj.getPrenom() + "," + obj.getNomNaissance() + "," + obj.getNomUsage() + ","+ obj.getSexe().toString()+ ","+ obj.getDateDeNaissance()+ ","+ obj.getInfoDeContact().getNumeroPortable()+ ","+ obj.getInfoDeContact().getNumeroFixe()+ ","+ obj.getInfoDeContact().getEmail()+ "," + obj.getLit().toString()+ ")";
+                + " VALUES (" + obj.getiPP().getIPP()+ "," + 1 + ",'" + obj.getPrenom().replace("'", "''") + "','" + obj.getNomNaissance().replace("'", "''") + "','" + obj.getNomUsage().replace("'", "''") + "','"+ obj.getSexe().toString()+ "',"+ obj.getDateDeNaissance().toString()+ ",'"+ obj.getInfoDeContact().getNumeroPortable()+ "','"+ obj.getInfoDeContact().getNumeroFixe()+ "','"+ obj.getInfoDeContact().getEmail()+ "','" + obj.getLit().getIdentifient()+ "')";
 
         Statement stmt;
         try {
@@ -123,7 +123,7 @@ public class DpiDAO implements DAO<DPI> {
 
     @Override
     public DPI update(DPI obj) {
-        this.query = "UPDATE dpi SET prenom = "+ obj.getPrenom() + ", nomNaissance = "+ obj.getNomNaissance()+", nomUsage=" +obj.getNomUsage()+",sexe ="+ obj.getSexe().toString()+", dateNaissance ="+ obj.getDateDeNaissance()+", telephonePortable ="+ obj.getInfoDeContact().getNumeroPortable()+", telephoneFixe="+obj.getInfoDeContact().getNumeroFixe()+ ", mail="+obj.getInfoDeContact().getEmail()+ ", lit="+obj.getLit().getIdentifient()+ " WHERE IPP = " + obj.getiPP()+" AND idCentreDeSoin ="+" 1";
+        this.query = "UPDATE dpi SET prenom = '"+ obj.getPrenom().replace("'", "''") + "', nomNaissance = '"+ obj.getNomNaissance().replace("'", "''")+"', nomUsage = '" +obj.getNomUsage().replace("'", "''")+"', sexe = '"+ obj.getSexe().toString()+"', dateNaissance = "+ obj.getDateDeNaissance().toString()+", telephonePortable = '"+ obj.getInfoDeContact().getNumeroPortable()+"', telephoneFixe = '"+obj.getInfoDeContact().getNumeroFixe()+ "', mail = '"+obj.getInfoDeContact().getEmail()+ "', lit = '"+obj.getLit().getIdentifient()+ "' WHERE IPP = " + obj.getiPP()+" AND idCentreDeSoin ="+" 1";
 
         Statement stmt;
         try {

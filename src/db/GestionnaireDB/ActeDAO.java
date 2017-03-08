@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 import nf.DPI.DM.Acte;
 import nf.DPI.DM.Code;
 import nf.DPI.DM.TypeActe;
-import nf.GestionDexploitation.Lit;
 
 /**
  *
@@ -91,7 +90,7 @@ public class ActeDAO implements DAO<Acte> {
     @Override
     public Acte create(Acte obj) {
         this.query = "INSERT INTO acte(idActe, idFicheDeSoins, code, coef, typeActe, observation) "
-                + "VALUES (" + obj.getIdActe() + "," + obj.getIdFicheDeSoins() + ", '" + obj.getCode().getCode()+ "' ," + obj.getCoef() + ", '" + obj.getTypeActe().getTypeActe() + "' , '" + obj.getObservations() + "' )";
+                + "VALUES (" + obj.getIdActe() + "," + obj.getIdFicheDeSoins() + ", '" + obj.getCode().getCode()+ "' ," + obj.getCoef() + ", '" + obj.getTypeActe().getTypeActe() + "' , '" + obj.getObservations().replace("'", "''") + "' )";
 
         System.out.println(query);
         Statement stmt;
@@ -107,7 +106,7 @@ public class ActeDAO implements DAO<Acte> {
     @Override
     public Acte update(Acte obj) {
         this.query = "UPDATE acte SET idFicheDeSoins = " + obj.getIdFicheDeSoins() + ", code = '" + obj.getCode().getCode() + "', coef = "
-                + obj.getCoef() + ", typeActe ='" + obj.getTypeActe().getTypeActe() + "', observation = '" + obj.getObservations() + "' WHERE idActe = " + obj.getIdActe();
+                + obj.getCoef() + ", typeActe ='" + obj.getTypeActe().getTypeActe() + "', observation = '" + obj.getObservations().replace("'", "''") + "' WHERE idActe = " + obj.getIdActe();
 
         Statement stmt;
         try {

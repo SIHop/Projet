@@ -95,7 +95,7 @@ public class LitDAO implements DAO<Lit> {
 
         this.query = "INSERT INTO lit (idLit, IPP, idService,estOccuper,cote, batiment, etage,couloir)"
                 + " VALUES ('" + obj.getIdentifient() + "'," + obj.getIPPoccupent() + "," + obj.getService().getCodeService() + "," + occuper + ",'" + obj.getCote() + "','"
-                + obj.getLocalisation().getBatiment() + "'," + obj.getLocalisation().getEtage() + ",'" + obj.getLocalisation().getCouloir() + "')";
+                + obj.getLocalisation().getBatiment().replace("'", "''") + "'," + obj.getLocalisation().getEtage() + ",'" + obj.getLocalisation().getCouloir() + "')";
 
         System.out.println(query);
         Statement stmt;
@@ -111,12 +111,17 @@ public class LitDAO implements DAO<Lit> {
     @Override
     public Lit update(Lit obj) {
         int occuper = 0;
+        String IPPcorriger = Integer.toString(obj.getIPPoccupent());
         if (obj.isIsOccuped()) {
             occuper = 1;
         }
+        if(obj.getIPPoccupent() == 0){
+            IPPcorriger = "NULL";
+        }
+        
 
-        this.query = "UPDATE lit SET IPP = " + obj.getIPPoccupent() + ", idService = '" + obj.getService().getCodeService() + "', estOccuper = "
-                + occuper + ", cote = '" + obj.getCote() + "', batiment = '" + obj.getLocalisation().getBatiment() + "', etage = " + obj.getLocalisation().getEtage()
+        this.query = "UPDATE lit SET IPP = " + IPPcorriger + ", idService = '" + obj.getService().getCodeService() + "', estOccuper = "
+                + occuper + ", cote = '" + obj.getCote() + "', batiment = '" + obj.getLocalisation().getBatiment().replace("'", "''") + "', etage = " + obj.getLocalisation().getEtage()
                 + ", couloir = '" + obj.getLocalisation().getCouloir() + "' WHERE idLit = '" + obj.getIdentifient() + "'";
 
         Statement stmt;

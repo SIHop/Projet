@@ -89,7 +89,7 @@ public class AdressePatientDAO implements DAO<Adresse>{
     
     public Adresse create(Adresse obj, int IPP) {
         this.query = "INSERT INTO adressepatient (IPP, pays, numeroVoie,typeVoie,nomVoie,codePostal, ville)"
-                + " VALUES (" + IPP + ", '" + obj.getPays() + "'," + obj.getNumeroVoie() + ",'" + obj.getTypeVoie() + "','" + obj.getNomVoie() + "'," + obj.getCodePostal() + ",'" + obj.getVille()+"')";
+                + " VALUES (" + IPP + ", '" + obj.getPays().replace("'", "''") + "'," + obj.getNumeroVoie() + ",'" + obj.getTypeVoie().replace("'", "''") + "','" + obj.getNomVoie().replace("'", "''") + "'," + obj.getCodePostal() + ",'" + obj.getVille().replace("'", "''")+"')";
 
         Statement stmt;
         try {
@@ -102,8 +102,8 @@ public class AdressePatientDAO implements DAO<Adresse>{
     }
 
     public Adresse update(Adresse obj, int IPP) {
-        this.query = "UPDATE adressepatient SET Pays = '" + obj.getPays() + "', numeroVoie = " + obj.getNumeroVoie() + ", typeVoie = '" + obj.getTypeVoie()
-                + "', nomVoie = '" + obj.getNomVoie() + "', codePostal = " + obj.getCodePostal() + ", ville = '" + obj.getVille() + "' WHERE IPP = " + IPP;
+        this.query = "UPDATE adressepatient SET Pays = '" + obj.getPays().replace("'", "''") + "', numeroVoie = " + obj.getNumeroVoie() + ", typeVoie = '" + obj.getTypeVoie().replace("'", "''")
+                + "', nomVoie = '" + obj.getNomVoie().replace("'", "''") + "', codePostal = " + obj.getCodePostal() + ", ville = '" + obj.getVille().replace("'", "''") + "' WHERE IPP = " + IPP;
         Statement stmt;
         try {
             stmt = ServiceDAO.connect.createStatement();
