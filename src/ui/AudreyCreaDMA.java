@@ -31,12 +31,12 @@ import nf.GestionDexploitation.Sexe;
  *
  * @author quentin
  */
-public class CreaDMA extends javax.swing.JFrame {
+public class AudreyCreaDMA extends javax.swing.JFrame {
 
     /**
      * Creates new form Administration
      */
-    public CreaDMA() {
+    public AudreyCreaDMA() {
         initComponents();
         
         //mise en reliefe des boutons correspondants a la situation courante
@@ -92,7 +92,7 @@ public class CreaDMA extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
         jPanel14 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -420,7 +420,7 @@ public class CreaDMA extends javax.swing.JFrame {
 
         jTextField6.setText("jTextField1");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sexe", "FEMME", "HOMME" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sexe", "FEMME", "HOMME" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -772,7 +772,7 @@ public class CreaDMA extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        ImportDU importDU = new ImportDU();
+        AudreyImportDU importDU = new AudreyImportDU();
         importDU.setSize(this.getSize());
         importDU.setLocationRelativeTo(this);
 
@@ -781,7 +781,7 @@ public class CreaDMA extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        Connection deconexion = new Connection();
+        AudreyConnection deconexion = new AudreyConnection();
         deconexion.setSize(this.getSize());
         deconexion.setLocationRelativeTo(this);
 
@@ -850,21 +850,23 @@ public class CreaDMA extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreaDMA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AudreyCreaDMA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreaDMA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AudreyCreaDMA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreaDMA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AudreyCreaDMA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreaDMA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AudreyCreaDMA.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreaDMA().setVisible(true);
+                new AudreyCreaDMA().setVisible(true);
             }
         });
     }
