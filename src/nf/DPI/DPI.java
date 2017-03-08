@@ -7,6 +7,7 @@ import nf.GestionDexploitation.InformationDeContact;
 import nf.GestionDexploitation.Sexe;
 import nf.GestionDexploitation.Lit;
 import java.util.Date;
+import nf.Adresse.DateT;
 import nf.DPI.DM.DM;
 import nf.DPI.DMA.DMA;
 
@@ -22,11 +23,11 @@ public class DPI {
     private final IPP iPP;
     private final String prenom;
     private final String nomNaissance;
-    private final Date dateDeNaissance;
+    private final DateT dateDeNaissance;
     private final NSS nSecuriteSocial;
     private final Sexe sexe;
 
-    public DPI(String nomNaissance, String nomUsage, String prenom, Adresse adresse, IPP iPP, Date dateDeNaissance, NSS nSecuriteSocial, InformationDeContact infoDeContact, Lit lit, DM myDM, DMA myDMA, Sexe sexe) {
+    public DPI(String nomNaissance, String nomUsage, String prenom, Adresse adresse, IPP iPP, DateT dateDeNaissance, NSS nSecuriteSocial, InformationDeContact infoDeContact, Lit lit, DM myDM, DMA myDMA, Sexe sexe) {
         this.nomNaissance = nomNaissance;
         this.nomUsage = nomUsage;
         this.prenom = prenom;
@@ -61,7 +62,7 @@ public class DPI {
         return iPP;
     }
 
-    public Date getDateDeNaissance() {
+    public DateT getDateDeNaissance() {
         return dateDeNaissance;
     }
 
