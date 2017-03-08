@@ -5,6 +5,8 @@
  */
 package ui;
 
+import java.awt.Dimension;
+
 /**
  *
  * @author quentin
@@ -15,7 +17,13 @@ public class Administration extends javax.swing.JFrame {
      * Creates new form Administration
      */
     public Administration() {
+                //Preparation de la fenetre principal
+        this.setPreferredSize(new Dimension(1800, 1000));
         initComponents();
+
+        //On pack et on affiche
+        this.pack();
+        this.setVisible(true);
     }
 
     /**
@@ -127,6 +135,11 @@ public class Administration extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(45, 204, 112));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("GESTION DES DMA");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -150,7 +163,7 @@ public class Administration extends javax.swing.JFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,6 +265,11 @@ public class Administration extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(45, 204, 112));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("CREATION DMA");
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -336,6 +354,24 @@ public class Administration extends javax.swing.JFrame {
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        CreaDMA creaDMA = new CreaDMA();
+        creaDMA.setSize(this.getSize());
+        creaDMA.setLocationRelativeTo(this);
+
+        this.dispose();
+        creaDMA.setVisible(true);
+    }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        CreaDMA creaDMA = new CreaDMA();
+        creaDMA.setSize(this.getSize());
+        creaDMA.setLocationRelativeTo(this);
+
+        this.dispose();
+        creaDMA.setVisible(true);
+    }//GEN-LAST:event_jLabel5MouseClicked
 
     /**
      * @param args the command line arguments

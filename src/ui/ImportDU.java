@@ -5,6 +5,9 @@
  */
 package ui;
 
+import java.awt.Color;
+import java.awt.Font;
+
 /**
  *
  * @author quentin
@@ -16,6 +19,13 @@ public class ImportDU extends javax.swing.JFrame {
      */
     public ImportDU() {
         initComponents();
+        
+        //mise en reliefe des boutons correspondants a la situation courante
+        Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
+        jLabel5.setFont(myFont);
+        jLabel5.setForeground(Color.GRAY);
+        jLabel10.setFont(myFont);
+        jLabel10.setForeground(Color.GRAY);
     }
 
     /**

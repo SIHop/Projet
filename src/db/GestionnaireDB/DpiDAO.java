@@ -52,7 +52,7 @@ public class DpiDAO implements DAO<DPI> {
                 ArrayList<String> argLit = new ArrayList<>(); argLit.add("IPP");
                 ArrayList<String> valLit = new ArrayList<>(); valLit.add(rs.getString("IPP"));
                 
-                return new DPI(rs.getString("nomNaissance"),rs.getString("nomUsage"),rs.getString("prenom"),adresseDAO.find(argAdresse,valAdresse), new IPP(rs.getInt("IPP")),new DateT(rs.getString("dateNaissance")).getC().getTime(), null, new InformationDeContact(rs.getString("telephoneFixe"),rs.getString("telephonePortable"),rs.getString("mail"),null),litDAO.find(argLit,valLit), null, null,Sexe.valueOf(rs.getString("sexe")) );
+                return new DPI(rs.getString("nomNaissance"),rs.getString("nomUsage"),rs.getString("prenom"),adresseDAO.find(argAdresse,valAdresse), new IPP(rs.getInt("IPP")),new DateT(rs.getString("dateNaissance")), null, new InformationDeContact(rs.getString("telephoneFixe"),rs.getString("telephonePortable"),rs.getString("mail"),null),litDAO.find(argLit,valLit), null, null,Sexe.valueOf(rs.getString("sexe")) );
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
@@ -91,7 +91,7 @@ public class DpiDAO implements DAO<DPI> {
                     DAO<Lit> litDAO = DAOFactory.getLitDAO();
                     ArrayList<String> argLit = new ArrayList<>(); argLit.add("IPP");
                     ArrayList<String> valLit = new ArrayList<>(); valLit.add(rs.getString("IPP"));
-                    retour.add(new DPI(rs.getString("nomNaissance"),rs.getString("nomUsage"),rs.getString("prenom"),adresseDAO.find(argAdresse,valAdresse), new IPP(rs.getInt("IPP")),new DateT(rs.getString("dateNaissance")).getC().getTime(), null, new InformationDeContact(rs.getString("telephoneFixe"),rs.getString("telephonePortable"),rs.getString("mail"),null),litDAO.find(argLit,valLit), null, null,Sexe.valueOf(rs.getString("sexe"))));
+                    retour.add(new DPI(rs.getString("nomNaissance"),rs.getString("nomUsage"),rs.getString("prenom"),adresseDAO.find(argAdresse,valAdresse), new IPP(rs.getInt("IPP")),new DateT(rs.getString("dateNaissance")), null, new InformationDeContact(rs.getString("telephoneFixe"),rs.getString("telephonePortable"),rs.getString("mail"),null),litDAO.find(argLit,valLit), null, null,Sexe.valueOf(rs.getString("sexe"))));
                 }
 
             } else {

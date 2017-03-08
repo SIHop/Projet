@@ -358,15 +358,22 @@ public class Connection extends javax.swing.JFrame {
         ArrayList<String> colonneDB = new ArrayList<>(); 
         colonneDB.add("idPersonnel");
         colonneDB.add("motDePasse");
+        
         ArrayList<String> val = new ArrayList<>(); 
         val.add(jTextField4.getText());
         val.add(jPasswordField1.getPassword().toString());
+        
         DAO<Personnel> persoDAO = DAOFactory.getPersonelDAO();
         
 //choix de la page de destination en fonction du statut       
         if(persoDAO.find(colonneDB,val)!= null){
             if(persoDAO.find(colonneDB,val) instanceof SecretaireAdministratif){
-                
+                Administration acueilAdmin = new Administration();
+                acueilAdmin.setSize(this.getSize());
+                acueilAdmin.setLocationRelativeTo(this);
+
+                this.dispose();
+                acueilAdmin.setVisible(true);
             }
             else{
                 if(persoDAO.find(colonneDB,val) instanceof Medecin){
