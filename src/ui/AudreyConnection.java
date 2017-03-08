@@ -26,13 +26,13 @@ import nf.GestionDexploitation.SecretaireMedicale;
  *
  * @author Residence
  */
-public class Connection extends javax.swing.JFrame {
+public class AudreyConnection extends javax.swing.JFrame {
     private Personnel personnel;
 
     /**
      * Creates new form NewJFrame
      */
-    public Connection() {
+    public AudreyConnection() {
 
         //Preparation de la fenetre principal
         initComponents();
@@ -351,15 +351,22 @@ public class Connection extends javax.swing.JFrame {
         ArrayList<String> colonneDB = new ArrayList<>(); 
         colonneDB.add("idPersonnel");
         colonneDB.add("motDePasse");
+        
         ArrayList<String> val = new ArrayList<>(); 
         val.add(jTextField4.getText());
         val.add(jPasswordField1.getPassword().toString());
+        
         DAO<Personnel> persoDAO = DAOFactory.getPersonelDAO();
         
 //choix de la page de destination en fonction du statut       
         if(persoDAO.find(colonneDB,val)!= null){
             if(persoDAO.find(colonneDB,val) instanceof SecretaireAdministratif){
-                
+                AudreyAdministration acueilAdmin = new AudreyAdministration();
+                acueilAdmin.setSize(this.getSize());
+                acueilAdmin.setLocationRelativeTo(this);
+
+                this.dispose();
+                acueilAdmin.setVisible(true);
             }
             else{
                 if(persoDAO.find(colonneDB,val) instanceof Medecin){
@@ -431,21 +438,23 @@ public class Connection extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Connection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AudreyConnection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Connection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AudreyConnection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Connection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AudreyConnection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Connection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AudreyConnection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Connection().setVisible(true);
+                new AudreyConnection().setVisible(true);
                 
             }
         });
