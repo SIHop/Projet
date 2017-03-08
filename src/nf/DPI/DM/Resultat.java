@@ -33,9 +33,9 @@ public class Resultat {
         this.idResultat = DAOFactory.getResultatDAO().getMaxId() + 1;
         DAOFactory.getResultatDAO().create(this);
     }
-    
+
     //constructeur utilise par la db
-    public Resultat(int idResultat,int idPrescription, int idFicheDeSoins, ArrayList<String> annalyse, ArrayList<String> resultats) {
+    public Resultat(int idResultat, int idPrescription, int idFicheDeSoins, ArrayList<String> annalyse, ArrayList<String> resultats) {
         listeResultats = new ArrayList<>();
         if (annalyse.size() == resultats.size()) {
             for (int i = 0; i < annalyse.size(); i++) {
@@ -51,7 +51,13 @@ public class Resultat {
 
     @Override
     public String toString() {
-        return "Resultat{" + "listeResultats=" + getListeResultats() + '}';
+        String retour = "Resultat{\n" + "listeResultats :\n";
+        for(String[] r : this.listeResultats){
+            retour += "Annalyse : " + r[0] + "; Resultat : " + r[1] +"\n";
+        }
+
+        retour += "}\n";
+        return retour;
     }
 
     /**
@@ -80,6 +86,13 @@ public class Resultat {
      */
     public int getIdPrescription() {
         return idPrescription;
+    }
+
+    /**
+     * @param idPrescription the idPrescription to set
+     */
+    public void setIdPrescription(int idPrescription) {
+        this.idPrescription = idPrescription;
     }
 
 }

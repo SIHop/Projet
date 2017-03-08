@@ -8,9 +8,12 @@ package db.GestionnaireDB;
 import java.util.ArrayList;
 import java.util.Arrays;
 import nf.DPI.DM.Prescription;
+import nf.DPI.DM.Resultat;
 import nf.DPI.DM.TypePrescription;
 import nf.GestionDexploitation.Lit;
 import nf.GestionDexploitation.Localisation;
+import nf.GestionDexploitation.Service;
+import nf.GestionDexploitation.TypeService;
 
 /**
  *
@@ -61,8 +64,7 @@ public class testDB {
 //        //**update OK
 //        ap.setCodePostal(38400);
 //        ap.setVille("SMH");
-//        adressePatientDAO.update(ap, 170000001);
-//        
+//        adressePatientDAO.update(ap, 170000001);        
 //        //**delete OK
 //        adressePatientDAO.delete(170000002);
         
@@ -122,10 +124,44 @@ public class testDB {
 //        //delete OK
 //        prescDAO.delete(prescriptionAjouter);
         
+//        //ResultatDAO
+//        ResultatDAO resDAO = (ResultatDAO)DAOFactory.getResultatDAO();
+//        //**find OK
+//        Resultat res = resDAO.find(new ArrayList<>(Arrays.asList("idresultat")), new ArrayList<>(Arrays.asList("0")));
+//        System.out.println(res.toString());
+//        //**findMultiple OK
+//        ArrayList<Resultat> lres = resDAO.findMultiple(new ArrayList<>(Arrays.asList("idFicheDeSoins")), new ArrayList<>(Arrays.asList("1")));
+//        for(int i = 0; i<lres.size(); i++){
+//            System.out.println(lres.get(i));
+//        }
+//        //**create OK; integrer au constructeur
+//        Resultat resAjouter = new Resultat(1, 0, new ArrayList<>(Arrays.asList("enumeration","prise de sang")), new ArrayList<>(Arrays.asList("res1","res2")));
+//        //**update OK
+//        resAjouter.setIdPrescription(0);
+//        resDAO.update(resAjouter);
+//        //**delete OK
+//        resDAO.delete(resAjouter);
         
+//        //ServiceDAO
+//        ServiceDAO servDAO = (ServiceDAO)DAOFactory.getServiceDAO();
+//        //**find ok
+//        Service serv = servDAO.find(new ArrayList<>(Arrays.asList("idService")), new ArrayList<>(Arrays.asList("1")));
+//        System.out.println(serv.toString());
+//        //**find multiple ok
+//        ArrayList<Service> lserv = servDAO.findMultiple(new ArrayList<>(Arrays.asList("typeService")), new ArrayList<>(Arrays.asList("'URGENCE'")));
+//        for(Service s : lserv){
+//            System.out.println(s.toString());
+//        }
+//        //**create ok
+//        Service servAjouter = new Service("2", "Anesthesie dentaire","3", new Localisation("main", 2, "D"), null, null, TypeService.ANESTHESIE);        
+//        servDAO.create(servAjouter);
+//        //**update ok
+//        servAjouter.setNomService("Anesthesie main");
+//        servDAO.update(servAjouter);
+//        //**delete ok
+//        servDAO.delete(servAjouter);
         
-        
-        
+        //FicheDeSoinsDAO
         
     }
 
