@@ -65,5 +65,37 @@ public class Prescription {
     public int getIdFicheDeSoins() {
         return idFicheDeSoins;
     }
+    
+    public String toString(){
+        return "id "+ this.idPrescription + " fiche de soins :" + this.idFicheDeSoins + " prescription : "+ this.getPrescription()+ " observation : " +this.observation+ " type de prescription : " + this.typePrescription.toString() ;
+    }
+
+    /**
+     * @param prescription the prescription to set
+     */
+    public void setPrescription(String prescription) {
+        this.prescription = prescription;
+    }
+
+    /**
+     * @param observation the observation to set
+     */
+    public void setObservation(String observation) {
+        this.observation = observation;
+    }
+
+    /**
+     * @param typePrescription the typePrescription to set
+     */
+    public void setTypePrescription(TypePrescription typePrescription) {
+        this.typePrescription = typePrescription;
+    }
+
+    /**
+     * @param idFicheDeSoins the idFicheDeSoins to set
+     */
+    public void setIdFicheDeSoins(int idFicheDeSoins) {
+        this.idFicheDeSoins = idFicheDeSoins;
+    }
 
 }

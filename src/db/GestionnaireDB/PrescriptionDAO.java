@@ -11,11 +11,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import nf.DPI.DM.Acte;
-import nf.DPI.DM.Code;
 import nf.DPI.DM.Prescription;
-import nf.DPI.DM.TypeActe;
 import nf.DPI.DM.TypePrescription;
+
 
 /**
  *
@@ -28,7 +26,7 @@ public class PrescriptionDAO implements DAO<Prescription>{
     @Override
     public Prescription find(ArrayList<String> arg, ArrayList<String> val) {
         //Crée la requete pour recupére la prescription qui respecte tout les contrainte
-        this.query = "SELECT * FROM acte WHERE ";
+        this.query = "SELECT * FROM prescription WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
             for (int i = 1; i < arg.size(); i++) {
@@ -58,7 +56,7 @@ public class PrescriptionDAO implements DAO<Prescription>{
     @Override
     public ArrayList<Prescription> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
         //Crée la requete pour recupére la prescription qui respecte tout les contrainte
-        this.query = "SELECT * FROM acte WHERE ";
+        this.query = "SELECT * FROM prescription WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
             for (int i = 1; i < arg.size(); i++) {
@@ -92,8 +90,10 @@ public class PrescriptionDAO implements DAO<Prescription>{
     @Override
     public Prescription create(Prescription obj) {
         this.query = "INSERT INTO prescription (idprescription, idFicheDeSoins, typePrescription, contenuePrescription, observation)"
-                + " VALUES (" + obj.getIdPrescription()+ "," + obj.getIdFicheDeSoins() + "," + obj.getTypePrescription().getLabelle() + "," + obj.getPrescription() + "," + "," + obj.getObservation()+ ")";
+                + " VALUES (" + obj.getIdPrescription()+ "," + obj.getIdFicheDeSoins() + ",'" + obj.getTypePrescription().getLabelle() + "','" + obj.getPrescription().replace("'", "''") + "','"  + obj.getObservation().replace("'", "''")+ "')";
 
+        ;
+        System.out.println(query);
         Statement stmt;
         try {
             stmt = ServiceDAO.connect.createStatement();
@@ -106,8 +106,8 @@ public class PrescriptionDAO implements DAO<Prescription>{
 
     @Override
     public Prescription update(Prescription obj) {
-        this.query = "UPDATE prescription SET idFicheDeSoins = " + obj.getIdFicheDeSoins() + ", typePrescription = " +  obj.getTypePrescription().getLabelle() + ", contenuePrescription = "
-                +obj.getPrescription() + ", observation = " + obj.getObservation() + " WHERE idprescription = " + obj.getIdPrescription();
+        this.query = "UPDATE prescription SET idFicheDeSoins = " + obj.getIdFicheDeSoins() + ", typePrescription = '" +  obj.getTypePrescription().getLabelle() + "', contenuePrescription = '"
+                +obj.getPrescription().replace("'", "''") + "', observation = '" + obj.getObservation().replace("'", "''") + "' WHERE idprescription = " + obj.getIdPrescription();
 
         Statement stmt;
         try {
@@ -137,7 +137,7 @@ public class PrescriptionDAO implements DAO<Prescription>{
 
     @Override
     public int getMaxId() {
-        this.query = "SELECT max(idprescription) FROM idprescription";
+        this.query = "SELECT max(idprescription) FROM prescription";
 
         Statement stmt;
         try {

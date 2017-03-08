@@ -7,6 +7,8 @@ package db.GestionnaireDB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import nf.DPI.DM.Prescription;
+import nf.DPI.DM.TypePrescription;
 import nf.GestionDexploitation.Lit;
 import nf.GestionDexploitation.Localisation;
 
@@ -83,19 +85,44 @@ public class testDB {
 //        //** delete OK
 //        adressePersonnelDAO.delete(6);
         
-        //LitDAO
-        LitDAO litDAO = (LitDAO)DAOFactory.getLitDAO();
-        //** find OK
-        Lit lit = litDAO.find(new ArrayList<>(Arrays.asList("idLit")), new ArrayList<>(Arrays.asList("1")));
-        System.out.println(lit.toString());        
-        //** find multiple OK
-        ArrayList<Lit> lLit = litDAO.findMultiple(new ArrayList<>(Arrays.asList("idService")), new ArrayList<>(Arrays.asList("1")));
-        for(Lit l : lLit){
-            System.out.println(l.toString());
-        }
-        //** create OK
-        litDAO.create(new Lit(Integer.toString(litDAO.getMaxId()+1),true,'F',new Localisation("main", 1, "D"),"38300111",170000001));
-        //**update
+//        //LitDAO
+//        LitDAO litDAO = (LitDAO)DAOFactory.getLitDAO();
+//        //** find OK
+//        Lit lit = litDAO.find(new ArrayList<>(Arrays.asList("idLit")), new ArrayList<>(Arrays.asList("1")));
+//        System.out.println(lit.toString());        
+//        //** find multiple OK
+//        ArrayList<Lit> lLit = litDAO.findMultiple(new ArrayList<>(Arrays.asList("idService")), new ArrayList<>(Arrays.asList("1")));
+//        for(Lit l : lLit){
+//            System.out.println(l.toString());
+//        }
+//        //** create OK
+//        Lit litAjouter = new Lit(Integer.toString(litDAO.getMaxId()+1),true,'F',new Localisation("main", 1, "D"),"38300111",170000001);
+//        litDAO.create(litAjouter);
+//        //**update OK
+//         lLit.get(1).setCote('P');        
+//         litDAO.update(lLit.get(1));
+//         //**delete OK
+//         litDAO.delete(litAjouter);
+        
+//        //PrescriptionDAO
+//        PrescriptionDAO prescDAO = (PrescriptionDAO)DAOFactory.getPrescriptionDAO();
+//        //**find OK
+//        Prescription prescr = prescDAO.find(new ArrayList<>(Arrays.asList("idprescription")), new ArrayList<>(Arrays.asList("1")));
+//        System.out.println(prescr.toString());
+//        //**findmultiple OK
+//        ArrayList<Prescription> lprescr = prescDAO.findMultiple(new ArrayList<>(Arrays.asList("idFicheDeSoins")), new ArrayList<>(Arrays.asList("1")));
+//        for(Prescription p : lprescr){
+//            System.out.println(p.toString());
+//        }
+//        //create OK (integre a l'utilisation du constructeur classique non reserver a la bd)
+//        Prescription prescriptionAjouter = new Prescription(1, "doliprane", "pas d'advil", TypePrescription.MEDICAMENT);
+//        //update OK
+//        prescriptionAjouter.setObservation("pas d'advil, effervescent");
+//        prescDAO.update(prescriptionAjouter);
+//        //delete OK
+//        prescDAO.delete(prescriptionAjouter);
+        
+        
         
         
         
