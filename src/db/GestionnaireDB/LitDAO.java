@@ -6,13 +6,13 @@
 package db.GestionnaireDB;
 
 import nf.GestionDexploitation.Lit;
-import nf.GestionDexploitation.Service;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import nf.GestionDexploitation.Localisation;
 
 /**
  *
@@ -40,7 +40,7 @@ public class LitDAO implements DAO<Lit> {
 
             if (rs.isBeforeFirst()) {
                 rs.first();
-                return new Lit(rs.getString("idLit"), rs.getBoolean("estOccuper"), rs.getString("cote").charAt(0), null, rs.getString("idService"), rs.getString("IPP"));
+                return new Lit(rs.getString("idLit"), rs.getBoolean("estOccuper"), rs.getString("cote").charAt(0), new Localisation(rs.getString("batiment"), rs.getInt("etage"), rs.getString("couloir")), rs.getString("idService"), rs.getInt("IPP"));
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
@@ -72,7 +72,7 @@ public class LitDAO implements DAO<Lit> {
 
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    retour.add(new Lit(rs.getString("idLit"), rs.getBoolean("estOccuper"), rs.getString("cote").charAt(0), null, rs.getString("idService"), rs.getString("IPP")));
+                    retour.add(new Lit(rs.getString("idLit"), rs.getBoolean("estOccuper"), rs.getString("cote").charAt(0), new Localisation(rs.getString("batiment"), rs.getInt("etage"), rs.getString("couloir")), rs.getString("idService"), rs.getInt("IPP")));
                 }
 
             } else {
@@ -93,9 +93,11 @@ public class LitDAO implements DAO<Lit> {
             occuper = 1;
         }
 
-        this.query = "INSERT INTO lit (idLit, IPP, idService,estOccuper,cote)"
-                + " VALUES (" + obj.getIdentifient() + "," + obj.getIPPoccupent() + "," + obj.getService().getCodeService() + "," + occuper + "," + obj.getCote() + ")";
+        this.query = "INSERT INTO lit (idLit, IPP, idService,estOccuper,cote, batiment, etage,couloir)"
+                + " VALUES ('" + obj.getIdentifient() + "'," + obj.getIPPoccupent() + "," + obj.getService().getCodeService() + "," + occuper + ",'" + obj.getCote() + "','"
+                + obj.getLocalisation().getBatiment() + "'," + obj.getLocalisation().getEtage() + ",'" + obj.getLocalisation().getCouloir() + "')";
 
+        System.out.println(query);
         Statement stmt;
         try {
             stmt = ServiceDAO.connect.createStatement();
@@ -113,8 +115,9 @@ public class LitDAO implements DAO<Lit> {
             occuper = 1;
         }
 
-        this.query = "UPDATE lit SET IPP = " + obj.getIPPoccupent() + ", idService = " + obj.getService().getCodeService() + ", estOccuper = "
-                + occuper + ", cote = " + obj.getCote() + " WHERE idLit = " + obj.getIdentifient();
+        this.query = "UPDATE lit SET IPP = " + obj.getIPPoccupent() + ", idService = '" + obj.getService().getCodeService() + "', estOccuper = "
+                + occuper + ", cote = '" + obj.getCote() + "', batiment = '" + obj.getLocalisation().getBatiment() + "', etage = " + obj.getLocalisation().getEtage()
+                + ", couloir = '" + obj.getLocalisation().getCouloir() + "' WHERE idLit = '" + obj.getIdentifient() + "'";
 
         Statement stmt;
         try {

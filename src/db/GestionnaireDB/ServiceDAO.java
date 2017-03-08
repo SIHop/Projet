@@ -7,7 +7,6 @@ package db.GestionnaireDB;
 
 import nf.GestionDexploitation.Lit;
 import nf.GestionDexploitation.Localisation;
-import nf.GestionDexploitation.Personnel;
 import nf.GestionDexploitation.Service;
 import nf.GestionDexploitation.TypeService;
 import java.sql.ResultSet;
@@ -50,7 +49,7 @@ public class ServiceDAO implements DAO<Service> {
                 ArrayList<String> valL = new ArrayList<>();
                 valL.add(rs.getString("idService"));
 
-                return new Service(rs.getString("idService"), rs.getString("nomService"), rs.getString("idResponsable"), new Localisation("bat", "eta", "couloir"), litDAO.findMultiple(argL, valL), null, TypeService.valueOf(rs.getString("typeService")));
+                return new Service(rs.getString("idService"), rs.getString("nomService"), rs.getString("idResponsable"), new Localisation("bat",1, "couloir"), litDAO.findMultiple(argL, valL), null, TypeService.valueOf(rs.getString("typeService")));
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
@@ -87,7 +86,7 @@ public class ServiceDAO implements DAO<Service> {
                     argL.add("idService");
                     ArrayList<String> valL = new ArrayList<>();
                     valL.add(rs.getString("idService"));
-                    retour.add(new Service(rs.getString("idService"), rs.getString("nomService"), "1", new Localisation("bat", "eta", "couloir"), litDAO.findMultiple(argL, valL), null, TypeService.valueOf(rs.getString("typeService"))));
+                    retour.add(new Service(rs.getString("idService"), rs.getString("nomService"), "1", new Localisation("bat", 1, "couloir"), litDAO.findMultiple(argL, valL), null, TypeService.valueOf(rs.getString("typeService"))));
                 }
             } else {
                 System.out.println("Aucun résultat n'a était trouver");

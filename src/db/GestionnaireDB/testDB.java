@@ -7,7 +7,8 @@ package db.GestionnaireDB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import nf.Adresse.Adresse;
+import nf.GestionDexploitation.Lit;
+import nf.GestionDexploitation.Localisation;
 
 /**
  *
@@ -63,24 +64,41 @@ public class testDB {
 //        //**delete OK
 //        adressePatientDAO.delete(170000002);
         
-        //AdressePersonnelDAO
-        AdressePersonnelDAO adressePersonnelDAO = DAOFactory.getAdressePersonnelDAO();
-        //**find OK
-        Adresse ap = adressePersonnelDAO.find(new ArrayList<>(Arrays.asList("idPersonnel")), new ArrayList<>(Arrays.asList("1")));
-        System.out.println(ap.toString());
-        //**findMultiple OK
-        ArrayList<Adresse> lap = adressePersonnelDAO.findMultiple(new ArrayList<>(Arrays.asList("pays")), new ArrayList<>(Arrays.asList("'France'")));
-        for(Adresse a : lap){
-            System.out.println(a.toString());
+//        //AdressePersonnelDAO
+//        AdressePersonnelDAO adressePersonnelDAO = DAOFactory.getAdressePersonnelDAO();
+//        //**find OK
+//        Adresse ap = adressePersonnelDAO.find(new ArrayList<>(Arrays.asList("idPersonnel")), new ArrayList<>(Arrays.asList("1")));
+//        System.out.println(ap.toString());
+//        //**findMultiple OK
+//        ArrayList<Adresse> lap = adressePersonnelDAO.findMultiple(new ArrayList<>(Arrays.asList("pays")), new ArrayList<>(Arrays.asList("'France'")));
+//        for(Adresse a : lap){
+//            System.out.println(a.toString());
+//        }
+//        //**create OK
+//        adressePersonnelDAO.create(ap,6);
+//        //**update  OK
+//        ap.setCodePostal(38400);
+//        ap.setVille("SMH");
+//        adressePersonnelDAO.update(ap, 6);
+//        //** delete OK
+//        adressePersonnelDAO.delete(6);
+        
+        //LitDAO
+        LitDAO litDAO = (LitDAO)DAOFactory.getLitDAO();
+        //** find OK
+        Lit lit = litDAO.find(new ArrayList<>(Arrays.asList("idLit")), new ArrayList<>(Arrays.asList("1")));
+        System.out.println(lit.toString());        
+        //** find multiple OK
+        ArrayList<Lit> lLit = litDAO.findMultiple(new ArrayList<>(Arrays.asList("idService")), new ArrayList<>(Arrays.asList("1")));
+        for(Lit l : lLit){
+            System.out.println(l.toString());
         }
-        //**create OK
-        adressePersonnelDAO.create(ap,6);
-        //**update  OK
-        ap.setCodePostal(38400);
-        ap.setVille("SMH");
-        adressePersonnelDAO.update(ap, 6);
-        //** delete OK
-        adressePersonnelDAO.delete(6);
+        //** create OK
+        litDAO.create(new Lit(Integer.toString(litDAO.getMaxId()+1),true,'F',new Localisation("main", 1, "D"),"38300111",170000001));
+        //**update
+        
+        
+        
         
     }
 
