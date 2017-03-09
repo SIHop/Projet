@@ -361,7 +361,7 @@ public class AudreyConnection extends javax.swing.JFrame {
 //choix de la page de destination en fonction du statut       
         if(persoDAO.find(colonneDB,val)!= null){
             if(persoDAO.find(colonneDB,val) instanceof SecretaireAdministratif){
-                AudreyAdministration acueilAdmin = new AudreyAdministration();
+                AudreyAdministrationPossibiliteCode acueilAdmin = new AudreyAdministrationPossibiliteCode();
                 acueilAdmin.setSize(this.getSize());
                 acueilAdmin.setLocationRelativeTo(this);
 

@@ -11,12 +11,12 @@ import java.awt.Dimension;
  *
  * @author quentin
  */
-public class AudreyAdministration extends javax.swing.JFrame {
+public class AudreyAdministrationPossibiliteCode extends javax.swing.JFrame {
 
     /**
      * Creates new form Administration
      */
-    public AudreyAdministration() {
+    public AudreyAdministrationPossibiliteCode() {
                 //Preparation de la fenetre principal
         this.setPreferredSize(new Dimension(1800, 1000));
         initComponents();
@@ -87,7 +87,7 @@ public class AudreyAdministration extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
         jButton2 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<String>();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 600));
@@ -402,7 +402,7 @@ public class AudreyAdministration extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -597,7 +597,7 @@ public class AudreyAdministration extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
-        AudreyCreaDMA creaDMA = new AudreyCreaDMA();
+        AudreyCreaDMAPossibleCode creaDMA = new AudreyCreaDMAPossibleCode();
         creaDMA.setSize(this.getSize());
         creaDMA.setLocationRelativeTo(this);
 
@@ -606,7 +606,7 @@ public class AudreyAdministration extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        AudreyCreaDMA creaDMA = new AudreyCreaDMA();
+        AudreyCreaDMAPossibleCode creaDMA = new AudreyCreaDMAPossibleCode();
         creaDMA.setSize(this.getSize());
         creaDMA.setLocationRelativeTo(this);
 
@@ -631,14 +631,16 @@ public class AudreyAdministration extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AudreyAdministration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AudreyAdministrationPossibiliteCode.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AudreyAdministration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AudreyAdministrationPossibiliteCode.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AudreyAdministration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AudreyAdministrationPossibiliteCode.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AudreyAdministration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AudreyAdministrationPossibiliteCode.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -646,7 +648,7 @@ public class AudreyAdministration extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new AudreyAdministration().setVisible(true);
+                new AudreyAdministrationPossibiliteCode().setVisible(true);
             }
         });
     }

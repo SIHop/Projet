@@ -364,7 +364,9 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection component="jPanel4" name="background" type="property"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Bienvenue Prenom Nom"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="&quot;bienvenue&quot; + &quot; &quot; + &quot;.&quot;" type="code"/>
+                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
@@ -424,13 +426,13 @@
                                       <Component id="jLabel15" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jTextField2" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
-                                      <Component id="jTextField3" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
-                                      <Component id="jTextField4" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
-                                      <Component id="jTextField5" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
-                                      <Component id="jTextField6" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
-                                      <Component id="jTextField7" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jTextField2" alignment="0" pref="117" max="32767" attributes="0"/>
+                                      <Component id="jTextField3" alignment="0" pref="117" max="32767" attributes="0"/>
+                                      <Component id="jTextField4" alignment="0" pref="117" max="32767" attributes="0"/>
+                                      <Component id="jTextField5" alignment="0" pref="117" max="32767" attributes="0"/>
+                                      <Component id="jTextField6" alignment="0" pref="117" max="32767" attributes="0"/>
+                                      <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
@@ -570,8 +572,8 @@
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTextField7" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -688,8 +690,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Sexe"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="jTextField7">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel34">
               <Properties>
@@ -862,6 +862,20 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="jComboBox1">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="3">
+                    <StringItem index="0" value="Sexe"/>
+                    <StringItem index="1" value="FEMME"/>
+                    <StringItem index="2" value="HOMME"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
