@@ -36,7 +36,7 @@ public class PrescriptionDAO implements DAO<Prescription>{
         System.out.println(query);
 
         try {
-            Statement stmt = ServiceDAO.connect.createStatement();
+            Statement stmt = PrescriptionDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.isBeforeFirst()) {
@@ -46,7 +46,7 @@ public class PrescriptionDAO implements DAO<Prescription>{
                 System.out.println("Aucun résultat n'a était trouver");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             System.out.println("Pas de résultats correspondent");
         }
@@ -68,7 +68,7 @@ public class PrescriptionDAO implements DAO<Prescription>{
         ArrayList<Prescription> retour = new ArrayList<>();
 
         try {
-            Statement stmt = ServiceDAO.connect.createStatement();
+            Statement stmt = PrescriptionDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.isBeforeFirst()) {
@@ -80,7 +80,7 @@ public class PrescriptionDAO implements DAO<Prescription>{
                 System.out.println("Aucun résultat n'a était trouver");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             System.out.println("Pas de résultats correspondent");
         }
@@ -96,10 +96,10 @@ public class PrescriptionDAO implements DAO<Prescription>{
         System.out.println(query);
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = PrescriptionDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return obj;
     }
@@ -111,10 +111,10 @@ public class PrescriptionDAO implements DAO<Prescription>{
 
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = PrescriptionDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return obj;
@@ -126,10 +126,10 @@ public class PrescriptionDAO implements DAO<Prescription>{
 
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = PrescriptionDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return obj;
@@ -141,12 +141,12 @@ public class PrescriptionDAO implements DAO<Prescription>{
 
         Statement stmt;
         try {
-            stmt = PersonelDAO.connect.createStatement();
+            stmt = PrescriptionDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             rs.first();
             return rs.getInt("max(idprescription)");
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return -1;

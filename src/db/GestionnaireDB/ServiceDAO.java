@@ -49,12 +49,12 @@ public class ServiceDAO implements DAO<Service> {
                 ArrayList<String> valL = new ArrayList<>();
                 valL.add(rs.getString("idService"));
 
-                return new Service(rs.getString("idService"), rs.getString("nomService"), rs.getString("idResponsable"), new Localisation("bat",1, "couloir"), litDAO.findMultiple(argL, valL), null, TypeService.valueOf(rs.getString("typeService")));
+                return new Service(rs.getString("idService"), rs.getString("nomService"), rs.getString("idResponsable"), new Localisation(rs.getString("batiment"),rs.getInt("etage"), rs.getString("couloir")), litDAO.findMultiple(argL, valL), null, TypeService.valueOf(rs.getString("typeService")));
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             System.out.println("Pas de résultats correspondent");
         }
@@ -92,7 +92,7 @@ public class ServiceDAO implements DAO<Service> {
                 System.out.println("Aucun résultat n'a était trouver");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             System.out.println("Pas de résultats correspondent");
         }
@@ -109,7 +109,7 @@ public class ServiceDAO implements DAO<Service> {
             stmt = ServiceDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return obj;
     }
@@ -122,7 +122,7 @@ public class ServiceDAO implements DAO<Service> {
             stmt = ServiceDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return obj;
@@ -137,7 +137,7 @@ public class ServiceDAO implements DAO<Service> {
             stmt = ServiceDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return obj;
@@ -149,12 +149,12 @@ public class ServiceDAO implements DAO<Service> {
 
         Statement stmt;
         try {
-            stmt = PersonelDAO.connect.createStatement();
+            stmt = PersonnelDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             rs.first();
             return Integer.parseInt(rs.getString("max(idService)"));
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return -1;

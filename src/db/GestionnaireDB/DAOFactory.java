@@ -25,7 +25,7 @@ import nf.GestionDexploitation.Service;
 public class DAOFactory {
 
     public static DAO<Personnel> getPersonelDAO() {
-        return new PersonelDAO();
+        return new PersonnelDAO();
     }
 
     public static DAO<Service> getServiceDAO() {

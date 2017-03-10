@@ -14,6 +14,11 @@ import nf.DPI.DMA.DMA;
 public class DPI {
     
     private String nomUsage;
+
+    @Override
+    public String toString() {
+        return "DPI{" + "nomUsage=" + nomUsage + ", adresse=" + adresse + ", infoDeContact=" + infoDeContact + ", lit=" + lit + ", myDM=" + myDM + ", myDMA=" + myDMA + ", iPP=" + iPP.getIPP() + ", prenom=" + prenom + ", nomNaissance=" + nomNaissance + ", dateDeNaissance=" + dateDeNaissance + ", nSecuriteSocial=" + nSecuriteSocial + ", sexe=" + sexe + '}';
+    }
     private Adresse adresse;
     private InformationDeContact infoDeContact;
     private Lit lit;

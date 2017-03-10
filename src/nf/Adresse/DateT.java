@@ -31,7 +31,7 @@ public class DateT {
     
     @Override
     public String toString(){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         
         return dateFormat.format(this.getC().getTime());
     }

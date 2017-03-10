@@ -35,7 +35,7 @@ public class DmaDAO implements DAO<DMA> {
         System.out.println(query);
         ArrayList<Sejour> listeSejour = new ArrayList<>();
         try {
-            Statement stmt = ServiceDAO.connect.createStatement();
+            Statement stmt = DmaDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.isBeforeFirst()) {
@@ -52,13 +52,13 @@ public class DmaDAO implements DAO<DMA> {
                     listeSejour.add(sejourDAO.find(argSejour, valSejour));
                     argSejour.set(0, rs2.getString("numeroSejour"));
                 }
-
+                
                 return new DMA(listeSejour, rs.getString("IPP"));
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             System.out.println("Pas de résultats correspondent");
         }
@@ -80,7 +80,7 @@ public class DmaDAO implements DAO<DMA> {
         System.out.println(query);
         ArrayList<Sejour> listeSejour = new ArrayList<>();
         try {
-            Statement stmt = ServiceDAO.connect.createStatement();
+            Statement stmt = DmaDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.isBeforeFirst()) {
@@ -97,13 +97,14 @@ public class DmaDAO implements DAO<DMA> {
                     listeSejour.add(sejourDAO.find(argSejour, valSejour));
                     argSejour.set(0, rs2.getString("numeroSejour"));
                 }
+                
 
                 lDma.add(new DMA(listeSejour, rs.getString("IPP")));
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DmaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             System.out.println("Pas de résultats correspondent");
         }
@@ -118,10 +119,10 @@ public class DmaDAO implements DAO<DMA> {
 
             Statement stmt;
             try {
-                stmt = ServiceDAO.connect.createStatement();
+                stmt = DmaDAO.connect.createStatement();
                 int rowEffected = stmt.executeUpdate(query);
             } catch (SQLException ex) {
-                Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DmaDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -136,10 +137,10 @@ public class DmaDAO implements DAO<DMA> {
 
             Statement stmt;
             try {
-                stmt = ServiceDAO.connect.createStatement();
+                stmt = DmaDAO.connect.createStatement();
                 int rowEffected = stmt.executeUpdate(query);
             } catch (SQLException ex) {
-                Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DmaDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -154,10 +155,10 @@ public class DmaDAO implements DAO<DMA> {
 
             Statement stmt;
             try {
-                stmt = ServiceDAO.connect.createStatement();
+                stmt = DmaDAO.connect.createStatement();
                 int rowEffected = stmt.executeUpdate(query);
             } catch (SQLException ex) {
-                Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DmaDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return obj;
@@ -169,12 +170,12 @@ public class DmaDAO implements DAO<DMA> {
 
         Statement stmt;
         try {
-            stmt = PersonelDAO.connect.createStatement();
+            stmt = DmaDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             rs.first();
             return rs.getInt("max(numeroSejour)");
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DmaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return -1;
