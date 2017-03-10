@@ -48,7 +48,7 @@ public class SejourDAO implements DAO<Sejour> {
         DAO<FicheDeSoins> fdsDAO = DAOFactory.getFicheDeSoinsDAO();
 
         try {
-            Statement stmt = ServiceDAO.connect.createStatement();
+            Statement stmt = SejourDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.isBeforeFirst()) {
@@ -86,7 +86,7 @@ public class SejourDAO implements DAO<Sejour> {
                 System.out.println("Aucun résultat n'a était trouver");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             System.out.println("Pas de résultats correspondent");
         }
@@ -114,7 +114,7 @@ public class SejourDAO implements DAO<Sejour> {
         DAO<FicheDeSoins> fdsDAO = DAOFactory.getFicheDeSoinsDAO();
 
         try {
-            Statement stmt = ServiceDAO.connect.createStatement();
+            Statement stmt = SejourDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.isBeforeFirst()) {
@@ -154,7 +154,7 @@ public class SejourDAO implements DAO<Sejour> {
                 System.out.println("Aucun résultat n'a était trouver");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             System.out.println("Pas de résultats correspondent");
         }
@@ -173,10 +173,10 @@ public class SejourDAO implements DAO<Sejour> {
 
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = SejourDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return obj;
 

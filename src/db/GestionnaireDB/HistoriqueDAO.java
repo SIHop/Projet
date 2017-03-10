@@ -35,7 +35,7 @@ public class HistoriqueDAO implements DAO<Historique>{
         System.out.println(query);
 
         try {
-            Statement stmt = ServiceDAO.connect.createStatement();
+            Statement stmt = HistoriqueDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.isBeforeFirst()) {
@@ -68,12 +68,11 @@ public class HistoriqueDAO implements DAO<Historique>{
         System.out.println(query);
 
         try {
-            Statement stmt = ServiceDAO.connect.createStatement();
+            Statement stmt = HistoriqueDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.isBeforeFirst()) {
-                while (rs.next()) {
-                    
+                while (rs.next()) {                    
                     retour.add(new Historique(new IPP(rs.getInt("IPP")),new DateT(rs.getString("dateDeces")),new DateT(rs.getString("dateFinArchivage"))));
                 }
 
@@ -91,11 +90,12 @@ public class HistoriqueDAO implements DAO<Historique>{
     @Override
     public Historique create(Historique obj) {
         this.query = "INSERT INTO historique (IPP,dateDeces,dateFinArchivage)" 
-                + " VALUES (" + obj.getIpp().getIPP()+ "," + obj.getDateDeces().toString()+ "," + obj.getDateFinArchivage().toString()+")";
+                + " VALUES (" + obj.getIpp().getIPP()+ ",'" + obj.getDateDeces().toString()+ "','" + obj.getDateFinArchivage().toString()+"')";
 
+        System.out.println(query);
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = HistoriqueDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
             Logger.getLogger(HistoriqueDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -105,11 +105,12 @@ public class HistoriqueDAO implements DAO<Historique>{
 
     @Override
     public Historique update(Historique obj) {
-        this.query = "UPDATE historique SET dateDeces = "+obj.getDateDeces().toString() + ", dateFinArchivage = "+ obj.getDateFinArchivage().toString()+" WHERE IPP = " + obj.getIpp();
+        this.query = "UPDATE historique SET dateDeces = '"+obj.getDateDeces().toString() + "', dateFinArchivage = '"+ obj.getDateFinArchivage().toString()+"' WHERE IPP = " + obj.getIpp().getIPP();
 
+        System.out.println(query);
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = HistoriqueDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
             Logger.getLogger(HistoriqueDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -127,11 +128,11 @@ public class HistoriqueDAO implements DAO<Historique>{
     @Override
     public Historique delete(Historique obj) {
         
-        this.query = "DELETE FROM historique WHERE IPP = " + obj.getIpp();
+        this.query = "DELETE FROM historique WHERE IPP = " + obj.getIpp().getIPP();
 
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = HistoriqueDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } 
         catch (SQLException ex) {

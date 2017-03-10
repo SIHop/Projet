@@ -7,7 +7,7 @@ package ui;
 
 import db.GestionnaireDB.DAO;
 import db.GestionnaireDB.DAOFactory;
-import db.GestionnaireDB.PersonelDAO;
+import db.GestionnaireDB.PersonnelDAO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -352,8 +352,8 @@ public class Connection extends javax.swing.JFrame {
         colonneDB.add("idPersonnel");
         colonneDB.add("motDePasse");
         ArrayList<String> val = new ArrayList<>(); 
-        val.add(jTextField4.getText());
-        val.add(jPasswordField1.getPassword().toString());
+        val.add("'"+jTextField4.getText()+"'");
+        val.add("'"+jPasswordField1.getPassword().toString()+"'");
         DAO<Personnel> persoDAO = DAOFactory.getPersonelDAO();
         
 //choix de la page de destination en fonction du statut       

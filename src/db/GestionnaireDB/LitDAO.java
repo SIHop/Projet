@@ -35,7 +35,7 @@ public class LitDAO implements DAO<Lit> {
         System.out.println(query);
 
         try {
-            Statement stmt = ServiceDAO.connect.createStatement();
+            Statement stmt = LitDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.isBeforeFirst()) {
@@ -45,7 +45,7 @@ public class LitDAO implements DAO<Lit> {
                 System.out.println("Aucun résultat n'a était trouver");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             System.out.println("Pas de résultats correspondent");
         }
@@ -67,7 +67,7 @@ public class LitDAO implements DAO<Lit> {
         System.out.println(query);
 
         try {
-            Statement stmt = ServiceDAO.connect.createStatement();
+            Statement stmt = LitDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.isBeforeFirst()) {
@@ -79,7 +79,7 @@ public class LitDAO implements DAO<Lit> {
                 System.out.println("Aucun résultat n'a était trouver");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             System.out.println("Pas de résultats correspondent");
         }
@@ -100,10 +100,10 @@ public class LitDAO implements DAO<Lit> {
         System.out.println(query);
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = LitDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return obj;
     }
@@ -126,10 +126,10 @@ public class LitDAO implements DAO<Lit> {
 
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = LitDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return obj;
@@ -141,10 +141,10 @@ public class LitDAO implements DAO<Lit> {
 
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = LitDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return obj;
@@ -156,12 +156,12 @@ public class LitDAO implements DAO<Lit> {
 
         Statement stmt;
         try {
-            stmt = PersonelDAO.connect.createStatement();
+            stmt = LitDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             rs.first();
             return Integer.parseInt(rs.getString("max(idLit)"));
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return -1;

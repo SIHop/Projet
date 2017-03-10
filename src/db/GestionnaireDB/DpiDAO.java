@@ -5,10 +5,12 @@
  */
 package db.GestionnaireDB;
 
+import com.mysql.fabric.xmlrpc.base.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import nf.Adresse.Adresse;
@@ -39,7 +41,7 @@ public class DpiDAO implements DAO<DPI> {
         System.out.println(query);
 
         try {
-            Statement stmt = ServiceDAO.connect.createStatement();
+            Statement stmt = DpiDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.isBeforeFirst()) {
@@ -52,7 +54,7 @@ public class DpiDAO implements DAO<DPI> {
                 ArrayList<String> argLit = new ArrayList<>(); argLit.add("IPP");
                 ArrayList<String> valLit = new ArrayList<>(); valLit.add(rs.getString("IPP"));
                 
-                return new DPI(rs.getString("nomNaissance"),rs.getString("nomUsage"),rs.getString("prenom"),adresseDAO.find(argAdresse,valAdresse), new IPP(rs.getInt("IPP")),new DateT(rs.getString("dateNaissance")), null, new InformationDeContact(rs.getString("telephoneFixe"),rs.getString("telephonePortable"),rs.getString("mail"),null),litDAO.find(argLit,valLit), null, null,Sexe.valueOf(rs.getString("sexe")) );
+                return new DPI(rs.getString("nomNaissance"),rs.getString("nomUsage"),rs.getString("prenom"),adresseDAO.find(argAdresse,valAdresse), new IPP(rs.getInt("IPP")),new DateT(rs.getString("dateNaissance")), null, new InformationDeContact(rs.getString("telephoneFixe"),rs.getString("telephonePortable"),rs.getString("mail"),null),litDAO.find(argLit,valLit), null, DAOFactory.getDmaDAO().find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList(rs.getString("IPP")))),Sexe.valueOf(rs.getString("sexe")) );
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
@@ -79,7 +81,7 @@ public class DpiDAO implements DAO<DPI> {
         System.out.println(query);
 
         try {
-            Statement stmt = ServiceDAO.connect.createStatement();
+            Statement stmt = DpiDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.isBeforeFirst()) {
@@ -113,7 +115,7 @@ public class DpiDAO implements DAO<DPI> {
 
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = DpiDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
             Logger.getLogger(DpiDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -127,7 +129,7 @@ public class DpiDAO implements DAO<DPI> {
 
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = DpiDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
             Logger.getLogger(DpiDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -142,7 +144,7 @@ public class DpiDAO implements DAO<DPI> {
 
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = DpiDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } 
         catch (SQLException ex) {
@@ -158,7 +160,7 @@ public class DpiDAO implements DAO<DPI> {
 
         Statement stmt;
         try {
-            stmt = PersonelDAO.connect.createStatement();
+            stmt = DpiDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             rs.first();
             return Integer.parseInt(rs.getString("max(IPP)"));

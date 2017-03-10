@@ -44,7 +44,7 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
         DAO<Personnel> personnelDao = DAOFactory.getPersonelDAO();
 
         try {
-            Statement stmt = ServiceDAO.connect.createStatement();
+            Statement stmt = FicheDeSoinsDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             
             //Récupération des données pour trouver les actes, prescriptions et résultats de la fds, plus du presonnel createur
@@ -67,7 +67,7 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
                 System.out.println("Aucun résultat n'a était trouver");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             System.out.println("Pas de résultats correspondent");
         }
@@ -95,7 +95,7 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
         DAO<Personnel> personnelDao = DAOFactory.getPersonelDAO();
 
         try {
-            Statement stmt = ServiceDAO.connect.createStatement();
+            Statement stmt = FicheDeSoinsDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             
             //Récupération des données pour trouver les actes, prescriptions et résultats de la fds, plus du presonnel createur
@@ -120,7 +120,7 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
                 System.out.println("Aucun résultat n'a était trouver");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             System.out.println("Pas de résultats correspondent");
         }
@@ -136,10 +136,10 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
 
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = FicheDeSoinsDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return obj;
     }
@@ -151,10 +151,10 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
 
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = FicheDeSoinsDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return obj;
@@ -166,10 +166,10 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
 
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = FicheDeSoinsDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return obj;
@@ -181,12 +181,12 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
 
         Statement stmt;
         try {
-            stmt = PersonelDAO.connect.createStatement();
+            stmt = FicheDeSoinsDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             rs.first();
             return rs.getInt("max(idFicheDeSoins)");
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return -1;

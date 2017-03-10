@@ -36,7 +36,7 @@ public class ActeDAO implements DAO<Acte> {
         System.out.println(query);
 
         try {
-            Statement stmt = ServiceDAO.connect.createStatement();
+            Statement stmt = ActeDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.isBeforeFirst()) {
@@ -46,7 +46,7 @@ public class ActeDAO implements DAO<Acte> {
                 System.out.println("Aucun résultat n'a était trouver");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             System.out.println("Pas de résultats correspondent");
         }
@@ -68,7 +68,7 @@ public class ActeDAO implements DAO<Acte> {
         System.out.println(query);
 
         try {
-            Statement stmt = ServiceDAO.connect.createStatement();
+            Statement stmt = ActeDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.isBeforeFirst()) {
@@ -80,7 +80,7 @@ public class ActeDAO implements DAO<Acte> {
                 System.out.println("Aucun résultat n'a était trouver");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             System.out.println("Pas de résultats correspondent");
         }
@@ -95,10 +95,10 @@ public class ActeDAO implements DAO<Acte> {
         System.out.println(query);
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = ActeDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return obj;
     }
@@ -110,10 +110,10 @@ public class ActeDAO implements DAO<Acte> {
 
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = ActeDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return obj;
@@ -125,10 +125,10 @@ public class ActeDAO implements DAO<Acte> {
 
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = ActeDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return obj;
@@ -140,12 +140,12 @@ public class ActeDAO implements DAO<Acte> {
 
         Statement stmt;
         try {
-            stmt = PersonelDAO.connect.createStatement();
+            stmt = ActeDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             rs.first();
             return rs.getInt("max(idActe)");
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return -1;

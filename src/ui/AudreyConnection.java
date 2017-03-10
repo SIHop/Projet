@@ -7,7 +7,7 @@ package ui;
 
 import db.GestionnaireDB.DAO;
 import db.GestionnaireDB.DAOFactory;
-import db.GestionnaireDB.PersonelDAO;
+import db.GestionnaireDB.PersonnelDAO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
