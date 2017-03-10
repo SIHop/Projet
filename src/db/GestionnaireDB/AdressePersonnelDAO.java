@@ -45,7 +45,7 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
                 System.out.println("Aucun résultat n'a était trouver");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             System.out.println("Pas de résultats correspondent");
         }
@@ -79,7 +79,7 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
                 System.out.println("Aucun résultat n'a était trouver");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             System.out.println("Pas de résultats correspondent");
         }
@@ -92,10 +92,10 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
 
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = AdressePersonnelDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return obj;
     }
@@ -105,10 +105,10 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
                 + "', nomVoie = '" + obj.getNomVoie().replace("'", "''") + "', codePostal = " + obj.getCodePostal() + ", ville = '" + obj.getVille().replace("'", "''") + "' WHERE idPersonnel = " + idPersonnel;
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = AdressePersonnelDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return obj;
@@ -137,10 +137,10 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
 
         Statement stmt;
         try {
-            stmt = ServiceDAO.connect.createStatement();
+            stmt = AdressePersonnelDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return false;
@@ -152,12 +152,12 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
 
         Statement stmt;
         try {
-            stmt = PersonelDAO.connect.createStatement();
+            stmt = AdressePersonnelDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             rs.first();
             return Integer.parseInt(rs.getString("max(idPersonnel)"));
         } catch (SQLException ex) {
-            Logger.getLogger(PersonelDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return -1;

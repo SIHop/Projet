@@ -7,12 +7,13 @@ package db.GestionnaireDB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import nf.DPI.DM.Prescription;
-import nf.DPI.DM.Resultat;
-import nf.DPI.DM.TypePrescription;
-import nf.GestionDexploitation.Lit;
-import nf.GestionDexploitation.Localisation;
+import nf.Adresse.DateT;
+import nf.GestionDexploitation.Medecin;
+import nf.GestionDexploitation.MotDePasse;
+import nf.GestionDexploitation.Personnel;
+import nf.GestionDexploitation.RangMedecin;
 import nf.GestionDexploitation.Service;
+import nf.GestionDexploitation.Sexe;
 import nf.GestionDexploitation.TypeService;
 
 /**
@@ -161,7 +162,50 @@ public class testDB {
 //        //**delete ok
 //        servDAO.delete(servAjouter);
         
-        //FicheDeSoinsDAO
+        //dpi,personnel,!!!!!sejour,dma
+//        //historiqueDAO
+//        HistoriqueDAO histDAO = (HistoriqueDAO)DAOFactory.getHistoriqueDAO();
+//        //**find OK
+//        Historique hist = histDAO.find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList("90000002")));
+//        System.out.println(hist.toString());
+//        //** findMultiple ok
+//        ArrayList<Historique> lhist = histDAO.findMultiple(new ArrayList<>(Arrays.asList("dateFinArchivage")), new ArrayList<>(Arrays.asList("'2012-05-15'")));
+//        for(Historique h : lhist){
+//            System.out.println(h.toString());
+//        }
+//        //**create OK
+//        Historique histAjouter = new Historique(new IPP(150000011), new DateT("2010-06-13"), null);
+//        histDAO.create(histAjouter);
+//        //**update OK
+//        histAjouter.setDateFinArchivage(new DateT("2010-06-15"));
+//        histDAO.update(histAjouter);
+//        //**delete
+//        histDAO.delete(histAjouter);
+        
+//        //dpiDAO NON FINI !
+//        DpiDAO dpiDAO = (DpiDAO)DAOFactory.getDpiDAO();
+//        //**find
+//        DPI dpi = dpiDAO.find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList("170000001")));
+//        System.out.println(dpi.toString());
+        
+        //PersonnelDAO
+        PersonnelDAO persoDAO =(PersonnelDAO) DAOFactory.getPersonelDAO();
+        //**find OK
+//        Personnel p = persoDAO.find(new ArrayList<>(Arrays.asList("idPersonnel")), new ArrayList<>(Arrays.asList("3")));
+//        Medecin m = (Medecin)p;
+//        System.out.println(p.toString());
+        //**findMultiple OK
+        ArrayList<Personnel> lpers = persoDAO.findMultiple(new ArrayList<>(Arrays.asList("idService")), new ArrayList<>(Arrays.asList("38200111")));
+        for(Personnel per : lpers){
+            System.out.println(per.toString());
+        }
+        //**create OK
+        Medecin mAjouter = (Medecin)lpers.get(1);
+        mAjouter.setIdPersonel(Integer.toString(persoDAO.getMaxId()+1));
+        mAjouter.setService(new Service("38300111", null, null, null, null, null, TypeService.ANESTHESIE));
+        mAjouter.setIdentifient("roseR");
+        mAjouter.getPassword().setPassword("1234");
+        persoDAO.create(mAjouter);
         
     }
 
