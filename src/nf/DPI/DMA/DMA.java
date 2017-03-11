@@ -19,11 +19,31 @@ public class DMA {
         return listeDeSejour;
     }
 
+    @Override
+    public String toString() {
+        String retour = "DMA{" + "IPP=" + IPP + " liste de sejour :" + '}';
+        
+            for(Sejour s : this.listeDeSejour) {
+                if(s != null){
+                    retour += " " + s.toString();
+                }               
+            }
+        
+        return retour;
+    }
+
     /**
      * @return the IPP
      */
     public String getIPP() {
         return IPP;
+    }
+
+    /**
+     * @param IPP the IPP to set
+     */
+    public void setIPP(String IPP) {
+        this.IPP = IPP;
     }
 
 }

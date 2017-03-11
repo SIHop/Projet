@@ -6,7 +6,6 @@ import nf.Adresse.Adresse;
 import nf.GestionDexploitation.InformationDeContact;
 import nf.GestionDexploitation.Sexe;
 import nf.GestionDexploitation.Lit;
-import java.util.Date;
 import nf.Adresse.DateT;
 import nf.DPI.DM.DM;
 import nf.DPI.DMA.DMA;
@@ -25,7 +24,7 @@ public class DPI {
     private DM myDM;
     private DMA myDMA;
     
-    private final IPP iPP;
+    private IPP iPP;
     private final String prenom;
     private final String nomNaissance;
     private final DateT dateDeNaissance;
@@ -117,6 +116,13 @@ public class DPI {
 
     public void setMyDMA(DMA myDMA) {
         this.myDMA = myDMA;
+    }
+
+    /**
+     * @param iPP the iPP to set
+     */
+    public void setiPP(IPP iPP) {
+        this.iPP = iPP;
     }
     
 }

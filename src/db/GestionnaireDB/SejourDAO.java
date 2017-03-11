@@ -52,18 +52,8 @@ public class SejourDAO implements DAO<Sejour> {
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.isBeforeFirst()) {
-                rs.first();
-                //Recupére l'IP du patient
-                ArrayList<String> argDMA = new ArrayList<>();
-                argDMA.add("numeroSejour");
-                ArrayList<String> valDMA = new ArrayList<>();
-                valDMA.add(rs.getString("numeroSejour"));
 
-                //Recupere l' adresse du patient
-                ArrayList<String> argAdress = new ArrayList<>();
-                argAdress.add("IPP");
-                ArrayList<String> valAdress = new ArrayList<>();
-                valAdress.add(dmaDAO.find(argDMA, valDMA).getIPP());
+                rs.first();
 
                 //Recupere le médecin responsable
                 ArrayList<String> argMed = new ArrayList<>();
@@ -71,17 +61,19 @@ public class SejourDAO implements DAO<Sejour> {
                 ArrayList<String> valMed = new ArrayList<>();
                 valMed.add(rs.getString("idPersonnel"));
                 Medecin medecinResp = (Medecin) personnelDAO.find(argMed, valMed);
+                
 
-                //Recupere la liste des fiche de soint
+                //Recupere la liste des fiche de soin
                 ArrayList<String> argFds = new ArrayList<>();
                 argFds.add("numeroSejour");
                 ArrayList<String> valFds = new ArrayList<>();
                 valFds.add(rs.getString("numeroSejour"));
                 ArrayList<FicheDeSoins> lfds = fdsDAO.findMultiple(argFds, valFds);
-
-                return new Sejour(new LettreDeSortie(rs.getInt("idPersonnel"), adresseDAO.find(argAdress, valAdress), rs.getInt("numeroSejour"), rs.getString("lettreSortie")),
-                        rs.getString("numeroSejour"), new ArrayList<String>(Arrays.asList(rs.getString("naturePrestation").split("\\s*;\\s*"))), new DateT(rs.getString("dateDebut")).getC().getTime(),
-                        new DateT(rs.getString("dateFin")).getC().getTime(), medecinResp, lfds);
+                
+                
+                return new Sejour(new LettreDeSortie(rs.getInt("idPersonnel"), new Adresse("","",0,"",0,"",""), rs.getInt("numeroSejour"), rs.getString("lettreSortie")),
+                        rs.getString("numeroSejour"), new ArrayList<>(Arrays.asList(rs.getString("naturePrestation").split("\\s*;\\s*"))), new DateT(rs.getString("dateDebut")),
+                        new DateT(rs.getString("dateFin")), medecinResp, lfds);
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
@@ -90,6 +82,7 @@ public class SejourDAO implements DAO<Sejour> {
         } catch (NullPointerException e) {
             System.out.println("Pas de résultats correspondent");
         }
+        
         return null;
     }
 
@@ -146,8 +139,8 @@ public class SejourDAO implements DAO<Sejour> {
                     ArrayList<FicheDeSoins> lfds = fdsDAO.findMultiple(argFds, valFds);
 
                     retour.add(new Sejour(new LettreDeSortie(rs.getInt("idPersonnel"), adresseDAO.find(argAdress, valAdress), rs.getInt("numeroSejour"), rs.getString("lettreSortie")),
-                            rs.getString("numeroSejour"), new ArrayList<>(Arrays.asList(rs.getString("naturePrestation").split("\\s*;\\s*"))), new DateT(rs.getString("dateDebut")).getC().getTime(),
-                            new DateT(rs.getString("dateFin")).getC().getTime(), medecinResp, lfds));
+                            rs.getString("numeroSejour"), new ArrayList<>(Arrays.asList(rs.getString("naturePrestation").split("\\s*;\\s*"))), new DateT(rs.getString("dateDebut")),
+                            new DateT(rs.getString("dateFin")), medecinResp, lfds));
                 }
 
             } else {
@@ -167,9 +160,9 @@ public class SejourDAO implements DAO<Sejour> {
         for (String s : obj.getNatureDesPrestation()) {
             natureDesPrestation += s + ";";
         }
-        this.query = "INSERT INTO dma (numeroSejour, naturePrestation, lettreSortie,dateDebut,dateFin, idPersonnel)"
-                + " VALUES (" + obj.getNumeroDeSejour() + "," + natureDesPrestation + "," + obj.getLettreDeSortie().getLettre() + "," + obj.getDateDebut().toString()
-                + "," + obj.getDateDeFin().toString() + "," + obj.getMedecinResponsable().getIdPersonel() + ")";
+        this.query = "INSERT INTO sejour (numeroSejour, naturePrestation, lettreSortie,dateDebut,dateFin, idPersonnel)"
+                + " VALUES (" + obj.getNumeroDeSejour() + ",'" + natureDesPrestation + "','" + obj.getLettreDeSortie().getLettre() + "','" + obj.getDateDebut().toString()
+                + "','" + obj.getDateDeFin().toString() + "'," + obj.getMedecinResponsable().getIdPersonel() + ")";
 
         Statement stmt;
         try {
@@ -184,17 +177,55 @@ public class SejourDAO implements DAO<Sejour> {
 
     @Override
     public Sejour update(Sejour obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String natureDesPrestation = "";
+        for(String s : obj.getNatureDesPrestation()){
+            natureDesPrestation += s +";";
+        }
+        this.query = "UPDATE sejour SET lettreSortie = '" + obj.getLettreDeSortie().getLettre() + "', naturePrestation = '" + natureDesPrestation+ "', dateDebut = '"
+                + obj.getDateDebut() +"', dateFin ='"+ obj.getDateDeFin() + "' WHERE numeroSejour = " + obj.getNumeroDeSejour() ;
+
+        Statement stmt;
+        try {
+            stmt = SejourDAO.connect.createStatement();
+            int rowEffected = stmt.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return obj;
     }
 
     @Override
     public Sejour delete(Sejour obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        this.query = "DELETE FROM sejour WHERE numeroSejour = " + obj.getNumeroDeSejour();
+
+        Statement stmt;
+        try {
+            stmt = SejourDAO.connect.createStatement();
+            int rowEffected = stmt.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return obj;
     }
 
     @Override
     public int getMaxId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.query = "SELECT max(numeroSejour) FROM sejour";
+
+        Statement stmt;
+        try {
+            stmt = SejourDAO.connect.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            rs.first();
+            return rs.getInt("max(numeroSejour)");
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return -1;
     }
 
 }

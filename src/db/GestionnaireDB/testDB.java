@@ -7,14 +7,14 @@ package db.GestionnaireDB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import nf.Adresse.Adresse;
 import nf.Adresse.DateT;
-import nf.GestionDexploitation.Medecin;
-import nf.GestionDexploitation.MotDePasse;
-import nf.GestionDexploitation.Personnel;
-import nf.GestionDexploitation.RangMedecin;
-import nf.GestionDexploitation.Service;
+import nf.DPI.DMA.IPP;
+import nf.DPI.DPI;
+import nf.GestionDexploitation.InformationDeContact;
+import nf.GestionDexploitation.Lit;
+import nf.GestionDexploitation.Localisation;
 import nf.GestionDexploitation.Sexe;
-import nf.GestionDexploitation.TypeService;
 
 /**
  *
@@ -35,17 +35,14 @@ public class testDB {
 //        ArrayList<Acte> lActe = DAOFactory.getActeDAO().findMultiple(new ArrayList<String>(Arrays.asList("idFicheDeSoins")), new ArrayList<String>(Arrays.asList("0")));
 //        for(Acte a : lActe){
 //            System.out.println(a.toString());
-//        }
-//        
+//        }        
 //        System.out.println(acte2.getCode().getCode());
 //        //**create -> inclus dans le constructeur OK
 //        Acte acte = new Acte(1,Code.CSC,20,"Ras",TypeActe.DIAGNOSTIQUE);
 //        System.out.println(acte.toString());
-//        System.out.println(acte.getIdActe());
-//        
+//        System.out.println(acte.getIdActe());//        
 //        //**delete  OK
 //        DAOFactory.getActeDAO().delete(acte);
-        
 //        //**update OK
 //        acte2.setObservations("Tumeur begnin");
 //        DAOFactory.getActeDAO().update(acte2);
@@ -162,7 +159,6 @@ public class testDB {
 //        //**delete ok
 //        servDAO.delete(servAjouter);
         
-        //dpi,personnel,!!!!!sejour,dma
 //        //historiqueDAO
 //        HistoriqueDAO histDAO = (HistoriqueDAO)DAOFactory.getHistoriqueDAO();
 //        //**find OK
@@ -182,31 +178,118 @@ public class testDB {
 //        //**delete
 //        histDAO.delete(histAjouter);
         
-//        //dpiDAO NON FINI !
+//        //dpiDAO
 //        DpiDAO dpiDAO = (DpiDAO)DAOFactory.getDpiDAO();
-//        //**find
+//        //**find OK
 //        DPI dpi = dpiDAO.find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList("170000001")));
-//        System.out.println(dpi.toString());
+//        System.out.println(dpi.getLit().getService().getCodeService());
+//        //**findMultiple OK
+//        ArrayList<DPI> ldpi = dpiDAO.findMultiple(new ArrayList<>(Arrays.asList("idCentreDeSoin")), new ArrayList<>(Arrays.asList("38100111")));
+//        for(DPI d : ldpi){
+//            System.out.println(d.toString());
+//        }
+//        //**create ok
+//        DPI dpiAjouter = new DPI("pudding","pudding","pomme",new Adresse("France", "Grenoble", 38000, "de la houille blanche", 271, "rue", ""),new IPP(170000003),new DateT("1993-08-23"),null,new InformationDeContact("0411111111", "0611111111", "testTardive@gmail.com", ""),new Lit("A5", true, 'P', new Localisation("main", 1, "D"), dpi.getLit().getService().getCodeService(),170000003),dpi.getMyDM(),dpi.getMyDMA(),Sexe.HOMME);
+//        dpiDAO.create(dpiAjouter);
+//        //**update ok
+//        dpiAjouter.setNomUsage("pudpudding");
+//        dpiDAO.update(dpiAjouter);
+//        //**delete ok
+//        dpiDAO.delete(dpiAjouter);
         
-        //PersonnelDAO
-        PersonnelDAO persoDAO =(PersonnelDAO) DAOFactory.getPersonelDAO();
-        //**find OK
+//        //PersonnelDAO
+//        PersonnelDAO persoDAO =(PersonnelDAO) DAOFactory.getPersonelDAO();
+//        //**find OK
 //        Personnel p = persoDAO.find(new ArrayList<>(Arrays.asList("idPersonnel")), new ArrayList<>(Arrays.asList("3")));
 //        Medecin m = (Medecin)p;
 //        System.out.println(p.toString());
-        //**findMultiple OK
-        ArrayList<Personnel> lpers = persoDAO.findMultiple(new ArrayList<>(Arrays.asList("idService")), new ArrayList<>(Arrays.asList("38200111")));
-        for(Personnel per : lpers){
-            System.out.println(per.toString());
-        }
-        //**create OK
-        Medecin mAjouter = (Medecin)lpers.get(1);
-        mAjouter.setIdPersonel(Integer.toString(persoDAO.getMaxId()+1));
-        mAjouter.setService(new Service("38300111", null, null, null, null, null, TypeService.ANESTHESIE));
-        mAjouter.setIdentifient("roseR");
-        mAjouter.getPassword().setPassword("1234");
-        persoDAO.create(mAjouter);
+//        //**findMultiple OK
+//        ArrayList<Personnel> lpers = persoDAO.findMultiple(new ArrayList<>(Arrays.asList("idService")), new ArrayList<>(Arrays.asList("38200111")));
+//        for(Personnel per : lpers){
+//            System.out.println(per.toString());
+//        }
+//        //**create OK
+//        Medecin mAjouter = (Medecin)lpers.get(1);
+//        mAjouter.setIdPersonel("8");
+//        mAjouter.setService(new Service("38300111", null, null, null, null, null, TypeService.ANESTHESIE));
+//        mAjouter.setIdentifient("roseR");
+//        mAjouter.getPassword().setPassword("1234");
+//        persoDAO.create(mAjouter);
+//        //**update ok
+//        mAjouter.setIdentifient("RoseR");
+//        persoDAO.update(mAjouter);
+//        //**delete ok
+//        persoDAO.delete(mAjouter);
         
+//        //DmaDAO
+//        DmaDAO dmaDAO = (DmaDAO) DAOFactory.getDmaDAO();
+//        //**find ok
+//        DMA dma = dmaDAO.find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList("170000001")));
+//        System.out.println(dma.toString());
+//        //**findMultiple Bug car normalement pas plusieur dma pour un patient
+//        ArrayList<DMA> ldma = dmaDAO.findMultiple(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList("170000001")));
+//        for(int i=0; i<ldma.size();i++){
+//            System.out.println(ldma.get(i).toString());
+//            System.out.println("");
+//            System.out.println("");
+//        }
+//        //**create ok
+//        ArrayList<Sejour> lsej = new ArrayList<>();
+//        lsej.add(new Sejour("170200004", null, null));
+//        lsej.add(new Sejour("170200005", null, null));
+//        DMA dmaAjouter = new DMA(lsej, "150000011");
+//        dmaDAO.create(dmaAjouter);
+//        //**update ok
+//        dmaAjouter.setIPP("170000002");
+//        dmaDAO.update(dmaAjouter);
+//        //**delete ok
+//        dmaDAO.delete(dmaAjouter);
+        
+        
+//        //FicheDeSoinsDAO
+//        FicheDeSoinsDAO fdsDAO = (FicheDeSoinsDAO)DAOFactory.getFicheDeSoinsDAO();
+//        //**find ok
+//        FicheDeSoins fds = fdsDAO.find(new ArrayList<>(Arrays.asList("idFicheDeSoins")), new ArrayList<>(Arrays.asList("0")));
+//        System.out.println(fds.toString());
+//        //**findMultiple ok
+//        ArrayList<FicheDeSoins> lfds = fdsDAO.findMultiple(new ArrayList<>(Arrays.asList("createur")), new ArrayList<>(Arrays.asList("3")));
+//        System.out.println("");
+//        System.out.println("");System.out.println("");        
+//        for(FicheDeSoins fs : lfds){
+//            System.out.println(fs.toString());
+//        }
+//        //**create ok
+//        FicheDeSoins fdsAjouter = lfds.get(0);
+//        fdsAjouter.setIdFicheDeSoins(2);
+//        fdsDAO.create(fdsAjouter);
+//        //**update ok 
+//        fdsAjouter.setDateDeCreation(new DateT("2002-11-01"));
+//        fdsDAO.update(fdsAjouter);
+//        //**delete ok
+//        fdsDAO.delete(fdsAjouter);
+
+//        //SejourDAO
+//        SejourDAO sejourDAO = (SejourDAO)DAOFactory.getSejourDAO();
+//        //**find OK
+//        Sejour sej = sejourDAO.find(new ArrayList<>(Arrays.asList("numeroSejour")), new ArrayList<>(Arrays.asList("170200001")));
+//        System.out.println(sej);
+//        System.out.println("");
+//        System.out.println("");
+//        //**findMultiple OK
+//        ArrayList<Sejour> lsej = sejourDAO.findMultiple(new ArrayList<>(Arrays.asList("idPersonnel")), new ArrayList<>(Arrays.asList("3")));
+//        for(Sejour s : lsej){
+//            System.out.println(s.toString());
+//        }
+//        //**create OK
+//        Sejour sejAjouter = lsej.get(0);
+//        sejAjouter.setNumeroDeSejour("170200003");
+//        sejourDAO.create(sejAjouter);
+//        //**Update OK
+//        sejAjouter.setDateDeFin(new DateT("2012-01-01"));
+//        sejourDAO.update(sejAjouter);
+//        
+//        //**delete OK
+//        sejourDAO.delete(sejAjouter);
     }
 
 }

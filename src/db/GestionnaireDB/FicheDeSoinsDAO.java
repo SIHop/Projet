@@ -23,7 +23,8 @@ import nf.GestionDexploitation.Personnel;
  * @author Loïc
  */
 public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
-    private String query ="";
+
+    private String query = "";
 
     @Override
     public FicheDeSoins find(ArrayList<String> arg, ArrayList<String> val) {
@@ -36,7 +37,7 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
             }
         }
         System.out.println(query);
-        
+
         //Instanciation des DAO neccessaire a la creation d'une fioche de soins
         DAO<Acte> acteDao = DAOFactory.getActeDAO();
         DAO<Prescription> prescriptionDao = DAOFactory.getPrescriptionDAO();
@@ -46,23 +47,24 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
         try {
             Statement stmt = FicheDeSoinsDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            
+
             //Récupération des données pour trouver les actes, prescriptions et résultats de la fds, plus du presonnel createur
-            ArrayList<String> argData= new ArrayList<>();
+            ArrayList<String> argData = new ArrayList<>();
             ArrayList<String> valData = new ArrayList<>();
             argData.add("idFicheDeSoins");
-            valData.add(rs.getString("idFicheDeSoins"));
-            
+
             ArrayList<String> argCreateur = new ArrayList<>();
             ArrayList<String> valCreateur = new ArrayList<>();
-            argCreateur.add("createur");
-            valCreateur.add(rs.getString("createur"));
-            Personnel p = personnelDao.find(argCreateur,valCreateur);
+            argCreateur.add("idPersonnel");
 
             if (rs.isBeforeFirst()) {
                 rs.first();
-                return new FicheDeSoins(rs.getInt("idFicheDeSoins"),acteDao.findMultiple(argData, valData), prescriptionDao.findMultiple(argData, valData), resultatDao.findMultiple(argData, valData), p,
-                new DateT(rs.getString("dateCreationFiche")), rs.getString("numeroSejour"));
+                valData.add(rs.getString("idFicheDeSoins"));
+                valCreateur.add(rs.getString("createur"));
+                Personnel p = personnelDao.find(argCreateur, valCreateur);
+
+                return new FicheDeSoins(rs.getInt("idFicheDeSoins"), acteDao.findMultiple(argData, valData), prescriptionDao.findMultiple(argData, valData), resultatDao.findMultiple(argData, valData), p,
+                        new DateT(rs.getString("dateCreationFiche")), rs.getString("numeroSejour"));
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
@@ -76,7 +78,7 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
 
     @Override
     public ArrayList<FicheDeSoins> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
-        
+
         ArrayList<FicheDeSoins> lfds = new ArrayList<>();
         //Crée la requete pour recupére la fiche de soins qui respecte tout les contrainte
         this.query = "SELECT * FROM ficheDeSoins WHERE ";
@@ -87,7 +89,7 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
             }
         }
         System.out.println(query);
-        
+
         //Instanciation des DAO neccessaire a la creation d'une fioche de soins
         DAO<Acte> acteDao = DAOFactory.getActeDAO();
         DAO<Prescription> prescriptionDao = DAOFactory.getPrescriptionDAO();
@@ -97,25 +99,25 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
         try {
             Statement stmt = FicheDeSoinsDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            
-            //Récupération des données pour trouver les actes, prescriptions et résultats de la fds, plus du presonnel createur
-            ArrayList<String> argData= new ArrayList<>();
-            ArrayList<String> valData = new ArrayList<>();
-            argData.add("idFicheDeSoins");
-            valData.add(rs.getString("idFicheDeSoins"));
-            
-            ArrayList<String> argCreateur = new ArrayList<>();
-            ArrayList<String> valCreateur = new ArrayList<>();
-            argCreateur.add("createur");
-            valCreateur.add(rs.getString("createur"));
-            Personnel p = personnelDao.find(argCreateur,valCreateur);
 
             if (rs.isBeforeFirst()) {
-                while(rs.next()){
-                     lfds.add(new FicheDeSoins(rs.getInt("idFicheDeSoins"), acteDao.findMultiple(argData, valData), prescriptionDao.findMultiple(argData, valData), resultatDao.findMultiple(argData, valData), p,
-                             new DateT(rs.getString("dateCreationFiche")), rs.getString("numeroSejour")));
+                while (rs.next()) {
+                    //Récupération des données pour trouver les actes, prescriptions et résultats de la fds, plus du presonnel createur
+                    ArrayList<String> argData = new ArrayList<>();
+                    ArrayList<String> valData = new ArrayList<>();
+                    argData.add("idFicheDeSoins");
+                    valData.add(rs.getString("idFicheDeSoins"));
+
+                    ArrayList<String> argCreateur = new ArrayList<>();
+                    ArrayList<String> valCreateur = new ArrayList<>();
+                    argCreateur.add("idPersonnel");
+                    valCreateur.add(rs.getString("createur"));
+                    Personnel p = personnelDao.find(argCreateur, valCreateur);
+                    
+                    lfds.add(new FicheDeSoins(rs.getInt("idFicheDeSoins"), acteDao.findMultiple(argData, valData), prescriptionDao.findMultiple(argData, valData), resultatDao.findMultiple(argData, valData), p,
+                            new DateT(rs.getString("dateCreationFiche")), rs.getString("numeroSejour")));
                 }
-               
+
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
@@ -129,10 +131,9 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
 
     @Override
     public FicheDeSoins create(FicheDeSoins obj) {
-        
-              
+
         this.query = "INSERT INTO ficheDeSoins (idFicheDeSoins, numeroSejour, createur,dateCreationFiche)"
-                + " VALUES (" + obj.getIdFicheDeSoins() + "," +obj.getNumeroSejour() + "," + obj.getCreateur().getIdPersonel() + "," + obj.getDateDeCreation().toString() + ")";
+                + " VALUES (" + obj.getIdFicheDeSoins() + "," + obj.getNumeroSejour() + "," + obj.getCreateur().getIdPersonel() + ",'" + obj.getDateDeCreation().toString() + "')";
 
         Statement stmt;
         try {
@@ -146,8 +147,8 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
 
     @Override
     public FicheDeSoins update(FicheDeSoins obj) {
-         this.query = "UPDATE ficheDeSoins SET numeroSejour = " + obj.getNumeroSejour() + ", createur = " + obj.getCreateur().getIdPersonel()+ ", dateCreationFiche = "
-                + obj.getDateDeCreation().toString() + " WHERE idFicheDeSoins = " + obj.getIdFicheDeSoins();
+        this.query = "UPDATE ficheDeSoins SET numeroSejour = " + obj.getNumeroSejour() + ", createur = " + obj.getCreateur().getIdPersonel() + ", dateCreationFiche = '"
+                + obj.getDateDeCreation().toString() + "' WHERE idFicheDeSoins = " + obj.getIdFicheDeSoins();
 
         Statement stmt;
         try {
@@ -156,7 +157,7 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return obj;
     }
 
@@ -191,5 +192,5 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
 
         return -1;
     }
-    
+
 }

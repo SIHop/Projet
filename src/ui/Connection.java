@@ -349,11 +349,11 @@ public class Connection extends javax.swing.JFrame {
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         ArrayList<String> colonneDB = new ArrayList<>(); 
-        colonneDB.add("idPersonnel");
+        colonneDB.add("identifiantHygie");
         colonneDB.add("motDePasse");
         ArrayList<String> val = new ArrayList<>(); 
         val.add("'"+jTextField4.getText()+"'");
-        val.add("'"+jPasswordField1.getPassword().toString()+"'");
+        val.add("'"+jPasswordField1.getText()+"'");
         DAO<Personnel> persoDAO = DAOFactory.getPersonelDAO();
         
 //choix de la page de destination en fonction du statut       

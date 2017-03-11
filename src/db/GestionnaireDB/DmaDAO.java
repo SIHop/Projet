@@ -24,6 +24,7 @@ public class DmaDAO implements DAO<DMA> {
 
     @Override
     public DMA find(ArrayList<String> arg, ArrayList<String> val) {
+        String IPP = "";
         //Crée la requete pour recupére le sejour qui respecte tout les contrainte
         this.query = "SELECT * FROM dma WHERE ";
         query += arg.get(0) + " = " + val.get(0);
@@ -41,19 +42,25 @@ public class DmaDAO implements DAO<DMA> {
             if (rs.isBeforeFirst()) {
                 DAO<Sejour> sejourDAO = DAOFactory.getSejourDAO();
                 rs.first();
-                ResultSet rs2 = stmt.executeQuery("SELECT numeroSejour FROM dma WHERE IPP = " + rs.getString("IPP"));
+                IPP = rs.getString("IPP");
+                String query2 = "SELECT numeroSejour FROM dma WHERE IPP = " + rs.getString("IPP");
+                System.out.println(query2);
+                ResultSet rs2 = stmt.executeQuery(query2);
 
                 ArrayList<String> argSejour = new ArrayList<>();
                 argSejour.add("numeroSejour");
                 rs2.first();
                 ArrayList<String> valSejour = new ArrayList<>();
-                argSejour.add(rs2.getString("numeroSejour"));
+                //travaille pour la 1ère valeur
+                valSejour.add(rs2.getString("numeroSejour"));
+                listeSejour.add(sejourDAO.find(argSejour, valSejour));
+                //si il y a d'autre sejour
                 while (rs2.next()) {
+                    valSejour.set(0, rs2.getString("numeroSejour"));
                     listeSejour.add(sejourDAO.find(argSejour, valSejour));
-                    argSejour.set(0, rs2.getString("numeroSejour"));
                 }
-                
-                return new DMA(listeSejour, rs.getString("IPP"));
+
+                return new DMA(listeSejour, IPP);
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
@@ -68,7 +75,7 @@ public class DmaDAO implements DAO<DMA> {
     @Override
     public ArrayList<DMA> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
         ArrayList<DMA> lDma = new ArrayList<>();
-
+        String IPP = "";
         //Crée la requete pour recupére le sejour qui respecte tout les contrainte
         this.query = "SELECT * FROM dma WHERE ";
         query += arg.get(0) + " = " + val.get(0);
@@ -85,21 +92,31 @@ public class DmaDAO implements DAO<DMA> {
 
             if (rs.isBeforeFirst()) {
                 DAO<Sejour> sejourDAO = DAOFactory.getSejourDAO();
-                rs.first();
-                ResultSet rs2 = stmt.executeQuery("SELECT numeroSejour FROM dma WHERE IPP = " + rs.getString("IPP"));
+                while (rs.next()) {
 
-                ArrayList<String> argSejour = new ArrayList<>();
-                argSejour.add("numeroSejour");
-                rs2.first();
-                ArrayList<String> valSejour = new ArrayList<>();
-                argSejour.add(rs2.getString("numeroSejour"));
-                while (rs2.next()) {
+                    IPP = rs.getString("IPP");
+                    String query2 = "SELECT numeroSejour FROM dma WHERE IPP = " + rs.getString("IPP");
+                    System.out.println(query2);
+                    Statement stmt2 = DmaDAO.connect.createStatement();
+                    ResultSet rs2 = stmt2.executeQuery(query2);
+
+                    ArrayList<String> argSejour = new ArrayList<>();
+                    argSejour.add("numeroSejour");
+                    
+                    rs2.first();
+                    ArrayList<String> valSejour = new ArrayList<>();
+                    //travaille pour la 1ère valeur
+                    valSejour.add(rs2.getString("numeroSejour"));
                     listeSejour.add(sejourDAO.find(argSejour, valSejour));
-                    argSejour.set(0, rs2.getString("numeroSejour"));
-                }
-                
+                    //si il y a d'autre sejour
+                    while (rs2.next()) {
+                        valSejour.set(0, rs2.getString("numeroSejour"));
+                        listeSejour.add(sejourDAO.find(argSejour, valSejour));
+                    }
 
-                lDma.add(new DMA(listeSejour, rs.getString("IPP")));
+                    lDma.add(new DMA(listeSejour, IPP));
+                }
+
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }

@@ -5,7 +5,6 @@
  */
 package db.GestionnaireDB;
 
-import com.mysql.fabric.xmlrpc.base.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,6 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import nf.Adresse.Adresse;
 import nf.Adresse.DateT;
+import nf.DPI.DM.DM;
+import nf.DPI.DMA.DMA;
 import nf.DPI.DMA.IPP;
 import nf.DPI.DPI;
 import nf.GestionDexploitation.InformationDeContact;
@@ -54,7 +55,11 @@ public class DpiDAO implements DAO<DPI> {
                 ArrayList<String> argLit = new ArrayList<>(); argLit.add("IPP");
                 ArrayList<String> valLit = new ArrayList<>(); valLit.add(rs.getString("IPP"));
                 
-                return new DPI(rs.getString("nomNaissance"),rs.getString("nomUsage"),rs.getString("prenom"),adresseDAO.find(argAdresse,valAdresse), new IPP(rs.getInt("IPP")),new DateT(rs.getString("dateNaissance")), null, new InformationDeContact(rs.getString("telephoneFixe"),rs.getString("telephonePortable"),rs.getString("mail"),null),litDAO.find(argLit,valLit), null, DAOFactory.getDmaDAO().find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList(rs.getString("IPP")))),Sexe.valueOf(rs.getString("sexe")) );
+                DMA myDMA = DAOFactory.getDmaDAO().find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList(rs.getString("IPP"))));
+                
+                
+                
+                return new DPI(rs.getString("nomNaissance"),rs.getString("nomUsage"),rs.getString("prenom"),adresseDAO.find(argAdresse,valAdresse), new IPP(rs.getInt("IPP")),new DateT(rs.getString("dateNaissance")), null, new InformationDeContact(rs.getString("telephoneFixe"),rs.getString("telephonePortable"),rs.getString("mail"),null),litDAO.find(argLit,valLit), new DM(myDMA.getListeDeSejour()), myDMA,Sexe.valueOf(rs.getString("sexe")) );
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
@@ -93,7 +98,9 @@ public class DpiDAO implements DAO<DPI> {
                     DAO<Lit> litDAO = DAOFactory.getLitDAO();
                     ArrayList<String> argLit = new ArrayList<>(); argLit.add("IPP");
                     ArrayList<String> valLit = new ArrayList<>(); valLit.add(rs.getString("IPP"));
-                    retour.add(new DPI(rs.getString("nomNaissance"),rs.getString("nomUsage"),rs.getString("prenom"),adresseDAO.find(argAdresse,valAdresse), new IPP(rs.getInt("IPP")),new DateT(rs.getString("dateNaissance")), null, new InformationDeContact(rs.getString("telephoneFixe"),rs.getString("telephonePortable"),rs.getString("mail"),null),litDAO.find(argLit,valLit), null, null,Sexe.valueOf(rs.getString("sexe"))));
+                    
+                    DMA myDMA = DAOFactory.getDmaDAO().find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList(rs.getString("IPP"))));
+                    retour.add(new DPI(rs.getString("nomNaissance"),rs.getString("nomUsage"),rs.getString("prenom"),adresseDAO.find(argAdresse,valAdresse), new IPP(rs.getInt("IPP")),new DateT(rs.getString("dateNaissance")), null, new InformationDeContact(rs.getString("telephoneFixe"),rs.getString("telephonePortable"),rs.getString("mail"),null),litDAO.find(argLit,valLit), new DM(myDMA.getListeDeSejour()), myDMA,Sexe.valueOf(rs.getString("sexe"))));
                 }
 
             } else {
@@ -110,8 +117,8 @@ public class DpiDAO implements DAO<DPI> {
     @Override
     public DPI create(DPI obj) {
         
-        this.query = "INSERT INTO dpi (IPP,IdCentreDeSoins, prenom,nomNaissance,nomUsage,sexe, dateNaissance,telephonePortable,telephoneFixe,mail,lit)"
-                + " VALUES (" + obj.getiPP().getIPP()+ "," + 1 + ",'" + obj.getPrenom().replace("'", "''") + "','" + obj.getNomNaissance().replace("'", "''") + "','" + obj.getNomUsage().replace("'", "''") + "','"+ obj.getSexe().toString()+ "',"+ obj.getDateDeNaissance().toString()+ ",'"+ obj.getInfoDeContact().getNumeroPortable()+ "','"+ obj.getInfoDeContact().getNumeroFixe()+ "','"+ obj.getInfoDeContact().getEmail()+ "','" + obj.getLit().getIdentifient()+ "')";
+        this.query = "INSERT INTO dpi (IPP,IdCentreDeSoin, prenom,nomNaissance,nomUsage,sexe, dateNaissance,telephonePortable,telephoneFixe,mail,lit)"
+                + " VALUES (" + obj.getiPP().getIPP()+ "," + 1 + ",'" + obj.getPrenom().replace("'", "''") + "','" + obj.getNomNaissance().replace("'", "''") + "','" + obj.getNomUsage().replace("'", "''") + "','"+ obj.getSexe().toString()+ "','"+ obj.getDateDeNaissance().toString()+ "','"+ obj.getInfoDeContact().getNumeroPortable()+ "','"+ obj.getInfoDeContact().getNumeroFixe()+ "','"+ obj.getInfoDeContact().getEmail()+ "','" + obj.getLit().getIdentifient()+ "')";
 
         Statement stmt;
         try {
@@ -125,7 +132,7 @@ public class DpiDAO implements DAO<DPI> {
 
     @Override
     public DPI update(DPI obj) {
-        this.query = "UPDATE dpi SET prenom = '"+ obj.getPrenom().replace("'", "''") + "', nomNaissance = '"+ obj.getNomNaissance().replace("'", "''")+"', nomUsage = '" +obj.getNomUsage().replace("'", "''")+"', sexe = '"+ obj.getSexe().toString()+"', dateNaissance = "+ obj.getDateDeNaissance().toString()+", telephonePortable = '"+ obj.getInfoDeContact().getNumeroPortable()+"', telephoneFixe = '"+obj.getInfoDeContact().getNumeroFixe()+ "', mail = '"+obj.getInfoDeContact().getEmail()+ "', lit = '"+obj.getLit().getIdentifient()+ "' WHERE IPP = " + obj.getiPP()+" AND idCentreDeSoin ="+" 1";
+        this.query = "UPDATE dpi SET prenom = '"+ obj.getPrenom().replace("'", "''") + "', nomNaissance = '"+ obj.getNomNaissance().replace("'", "''")+"', nomUsage = '" +obj.getNomUsage().replace("'", "''")+"', sexe = '"+ obj.getSexe().toString()+"', dateNaissance = '"+ obj.getDateDeNaissance().toString()+"', telephonePortable = '"+ obj.getInfoDeContact().getNumeroPortable()+"', telephoneFixe = '"+obj.getInfoDeContact().getNumeroFixe()+ "', mail = '"+obj.getInfoDeContact().getEmail()+ "', lit = '"+obj.getLit().getIdentifient()+ "' WHERE IPP = " + obj.getiPP().getIPP()+" AND idCentreDeSoin ="+" 1";
 
         Statement stmt;
         try {
@@ -140,7 +147,7 @@ public class DpiDAO implements DAO<DPI> {
 
     @Override
     public DPI delete(DPI obj) {
-        this.query = "DELETE FROM dpi WHERE IPP = " + obj.getiPP()+ "and idCentreDeSoin ="+ "1";
+        this.query = "DELETE FROM dpi WHERE IPP = " + obj.getiPP().getIPP()+ " and idCentreDeSoin ="+ "1";
 
         Statement stmt;
         try {
