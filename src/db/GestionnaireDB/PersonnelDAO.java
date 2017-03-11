@@ -5,7 +5,6 @@
  */
 package db.GestionnaireDB;
 
-import nf.Adresse.Adresse;
 import nf.Adresse.DateT;
 import nf.GestionDexploitation.AideSoignante;
 import nf.GestionDexploitation.Infirmier;
@@ -188,25 +187,26 @@ public class PersonnelDAO implements DAO<Personnel> {
         if (obj instanceof Medecin) {
             this.query = "UPDATE personnel SET niveauSpecialisation = '" + ((Medecin) obj).getType().toString() + "',idService = " + ((Medecin) obj).getService().getCodeService() +", identifiantHygie = '"+obj.getIdentifient()
                     + "',motDePasse = '" + obj.getPassword().getPassword() + "',prenom ='" + obj.getPrenom().replace("'", "''") + "',nomNaissance ='" + obj.getNom().replace("'", "''") + "',nomUsage = '" + obj.getNom() + "',sexe ='" + obj.getSexe().toString()
-                    + "',dateNaissance =" + obj.getDateDeNaissance().toString() + ",telephone ='" + obj.getInfoDeContact().getNumeroFixe() + "',mail ='" + obj.getInfoDeContact().getEmail() + "' WHERE idPersonnel = " + obj.getIdPersonel();
+                    + "',dateNaissance ='" + obj.getDateDeNaissance().toString() + "',telephone ='" + obj.getInfoDeContact().getNumeroFixe() + "',mail ='" + obj.getInfoDeContact().getEmail() + "' WHERE idPersonnel = " + obj.getIdPersonel();
         } else if (obj instanceof Infirmier) {
             this.query = "UPDATE personnel SET niveauSpecialisation ='" + ((Infirmier) obj).getType().toString() + "',idService = " + ((Infirmier) obj).getService().getCodeService()+", identifiantHygie = '"+obj.getIdentifient()
                     + "',motDePasse ='" + obj.getPassword().getPassword() + "',prenom ='" + obj.getPrenom().replace("'", "''") + "',nomNaissance ='" + obj.getNom().replace("'", "''") + "',nomUsage = '" + obj.getNom().replace("'", "''") + "',sexe ='" + obj.getSexe().toString()
-                    + "',dateNaissance =" + obj.getDateDeNaissance().toString() + ",telephone ='" + obj.getInfoDeContact().getNumeroFixe() + "',mail ='" + obj.getInfoDeContact().getEmail() + "' WHERE idPersonnel = " + obj.getIdPersonel();
+                    + "',dateNaissance ='" + obj.getDateDeNaissance().toString() + "',telephone ='" + obj.getInfoDeContact().getNumeroFixe() + "',mail ='" + obj.getInfoDeContact().getEmail() + "' WHERE idPersonnel = " + obj.getIdPersonel();
         } else if (obj instanceof AideSoignante) {
             this.query = "UPDATE personnel SET idService = " + ((AideSoignante) obj).getService().getCodeService()+", identifiantHygie = '"+obj.getIdentifient()
                     + "',motDePasse ='" + obj.getPassword().getPassword() + "',prenom ='" + obj.getPrenom().replace("'", "''") + ",nomNaissance ='" + obj.getNom().replace("'", "''") + "',nomUsage = '" + obj.getNom().replace("'", "''") + "',sexe ='" + obj.getSexe().toString()
-                    + "',dateNaissance =" + obj.getDateDeNaissance().toString() + ",telephone ='" + obj.getInfoDeContact().getNumeroFixe() + "',mail ='" + obj.getInfoDeContact().getEmail() + "' WHERE idPersonnel = " + obj.getIdPersonel();
+                    + "',dateNaissance ='" + obj.getDateDeNaissance().toString() + "',telephone ='" + obj.getInfoDeContact().getNumeroFixe() + "',mail ='" + obj.getInfoDeContact().getEmail() + "' WHERE idPersonnel = " + obj.getIdPersonel();
         } else if (obj instanceof SecretaireMedicale) {
             this.query = "UPDATE personnel SET idService = " + ((SecretaireMedicale) obj).getService().getCodeService()+", identifiantHygie = '"+obj.getIdentifient()
                     + "',motDePasse ='" + obj.getPassword().getPassword() + "',prenom ='" + obj.getPrenom().replace("'", "''") + "',nomNaissance ='" + obj.getNom().replace("'", "''") + "',nomUsage = '" + obj.getNom().replace("'", "''") + "',sexe ='" + obj.getSexe().toString()
-                    + "',dateNaissance =" + obj.getDateDeNaissance().toString() + ",telephone ='" + obj.getInfoDeContact().getNumeroFixe() + "',mail ='" + obj.getInfoDeContact().getEmail() + "' WHERE idPersonnel = " + obj.getIdPersonel();
+                    + "',dateNaissance ='" + obj.getDateDeNaissance().toString() + "',telephone ='" + obj.getInfoDeContact().getNumeroFixe() + "',mail ='" + obj.getInfoDeContact().getEmail() + "' WHERE idPersonnel = " + obj.getIdPersonel();
         } else {//SA
             this.query = "UPDATE personnel SET bureau = " + ((SecretaireAdministratif) obj).getBureau() + ",idService = " + ((SecretaireAdministratif) obj).getService().getCodeService()+", identifiantHygie = '"+obj.getIdentifient()
                     + "',motDePasse ='" + obj.getPassword().getPassword() + "',prenom ='" + obj.getPrenom().replace("'", "''") + "',nomNaissance ='" + obj.getNom().replace("'", "''") + "',nomUsage = '" + obj.getNom().replace("'", "''") + "',sexe ='" + obj.getSexe().toString()
-                    + "',dateNaissance =" + obj.getDateDeNaissance().toString() + ",telephone ='" + obj.getInfoDeContact().getNumeroFixe() + "',mail ='" + obj.getInfoDeContact().getEmail() + "' WHERE idPersonnel = " + obj.getIdPersonel();
+                    + "',dateNaissance ='" + obj.getDateDeNaissance().toString() + "',telephone ='" + obj.getInfoDeContact().getNumeroFixe() + "',mail ='" + obj.getInfoDeContact().getEmail() + "' WHERE idPersonnel = " + obj.getIdPersonel();
         }
 
+        System.out.println(query);
         Statement stmt;
         try {
             stmt = PersonnelDAO.connect.createStatement();

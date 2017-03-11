@@ -3,26 +3,27 @@ package nf.DPI.DMA;
 import java.util.ArrayList;
 import nf.GestionDexploitation.Medecin;
 import java.util.Date;
+import nf.Adresse.DateT;
 import nf.DPI.DM.FicheDeSoins;
 
 public class Sejour {
 
     private ArrayList<FicheDeSoins> lFicheDeSoins;
     private ArrayList<String> natureDesPrestation;
-    private Date dateDeFin;
+    private DateT dateDeFin;
     private LettreDeSortie lettreDeSortie;
 
-    private final Date dateDebut;
+    private final DateT dateDebut;
     private final Medecin medecinResponsable;
-    private final String numeroDeSejour;
+    private String numeroDeSejour;
 
-    public Sejour(String numeroDeSejour, Date dateDebut, Medecin medecinResponsable) {
+    public Sejour(String numeroDeSejour, DateT dateDebut, Medecin medecinResponsable) {
         this.numeroDeSejour = numeroDeSejour;
         this.dateDebut = dateDebut;
         this.medecinResponsable = medecinResponsable;
     }
 
-    public Sejour(LettreDeSortie lettreDeSortie, String numeroDeSejour, ArrayList<String> natureDesPrestation, Date dateDebut, Date dateDeFin, Medecin medecinResponsable, ArrayList<FicheDeSoins> lFicheDeSoins) {
+    public Sejour(LettreDeSortie lettreDeSortie, String numeroDeSejour, ArrayList<String> natureDesPrestation, DateT dateDebut, DateT dateDeFin, Medecin medecinResponsable, ArrayList<FicheDeSoins> lFicheDeSoins) {
         this.lFicheDeSoins = lFicheDeSoins;
         this.natureDesPrestation = natureDesPrestation;
         this.dateDeFin = dateDeFin;
@@ -48,11 +49,11 @@ public class Sejour {
         return natureDesPrestation;
     }
 
-    public Date getDateDebut() {
+    public DateT getDateDebut() {
         return dateDebut;
     }
 
-    public Date getDateDeFin() {
+    public DateT getDateDeFin() {
         return dateDeFin;
     }
 
@@ -68,12 +69,25 @@ public class Sejour {
         this.getNatureDesPrestation().add(natureDesPrestations);
     }
 
-    public void setDateDeFin(Date dateDeFin) {
+    public void setDateDeFin(DateT dateDeFin) {
         this.dateDeFin = dateDeFin;
     }
 
     public void setLettreDeSortie(LettreDeSortie lettreDeSortie) {
         this.lettreDeSortie = lettreDeSortie;
+    }
+
+    @Override
+    public String toString() {
+        //return "Sejour{" + "lFicheDeSoins=" + lFicheDeSoins + ", natureDesPrestation=" + natureDesPrestation + ", dateDeFin=" + dateDeFin + ", lettreDeSortie=" + lettreDeSortie + ", dateDebut=" + dateDebut + ", medecinResponsable=" + medecinResponsable + ", numeroDeSejour=" + numeroDeSejour + '}';
+        return "Numero de sejour = " + this.numeroDeSejour;
+    }
+
+    /**
+     * @param numeroDeSejour the numeroDeSejour to set
+     */
+    public void setNumeroDeSejour(String numeroDeSejour) {
+        this.numeroDeSejour = numeroDeSejour;
     }
 
 }

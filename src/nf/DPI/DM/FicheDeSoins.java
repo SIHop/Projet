@@ -19,10 +19,10 @@ public class FicheDeSoins {
     private final ArrayList<Acte> listeActes;
     private final ArrayList<Prescription> prescription;
     private final ArrayList<Resultat> resultat;
-    private DateT dateDeCreation = new DateT("");
+    private DateT dateDeCreation;
     private final Personnel createur;
     private String numeroSejour;
-    private final int idFicheDeSoins;
+    private int idFicheDeSoins;
     
     public FicheDeSoins(ArrayList<Acte> listeActes, ArrayList<Prescription> prescription, ArrayList<Resultat> resultat, Personnel createur) {
         this.listeActes = listeActes;
@@ -85,6 +85,25 @@ public class FicheDeSoins {
      */
     public int getIdFicheDeSoins() {
         return idFicheDeSoins;
+    }
+
+    @Override
+    public String toString() {
+        return "FicheDeSoins{" + "listeActes=" + listeActes + ", prescription=" + prescription + ", resultat=" + resultat + ", dateDeCreation=" + dateDeCreation + ", createur=" + createur + ", numeroSejour=" + numeroSejour + ", idFicheDeSoins=" + idFicheDeSoins + '}';
+    }
+
+    /**
+     * @param dateDeCreation the dateDeCreation to set
+     */
+    public void setDateDeCreation(DateT dateDeCreation) {
+        this.dateDeCreation = dateDeCreation;
+    }
+
+    /**
+     * @param idFicheDeSoins the idFicheDeSoins to set
+     */
+    public void setIdFicheDeSoins(int idFicheDeSoins) {
+        this.idFicheDeSoins = idFicheDeSoins;
     }
 
    
