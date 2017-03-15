@@ -5,8 +5,9 @@
  */
 package db.GestionnaireDB;
 
-import nf.Adresse.DateT;
-import nf.GestionDexploitation.Sexe;
+import java.util.ArrayList;
+import java.util.Arrays;
+import nf.DPI.DMA.Sejour;
 
 /**
  *
@@ -261,7 +262,7 @@ public class testDB {
 //        fdsDAO.delete(fdsAjouter);
 
 //        //SejourDAO
-//        SejourDAO sejourDAO = (SejourDAO)DAOFactory.getSejourDAO();
+        SejourDAO sejourDAO = (SejourDAO)DAOFactory.getSejourDAO();
 //        //**find OK
 //        Sejour sej = sejourDAO.find(new ArrayList<>(Arrays.asList("numeroSejour")), new ArrayList<>(Arrays.asList("170200001")));
 //        System.out.println(sej);
@@ -272,7 +273,7 @@ public class testDB {
 //        for(Sejour s : lsej){
 //            System.out.println(s.toString());
 //        }
-//        //**create OK
+        //**create OK
 //        Sejour sejAjouter = lsej.get(0);
 //        sejAjouter.setNumeroDeSejour("170200003");
 //        sejAjouter.setLettreDeSortie(null);
@@ -285,8 +286,11 @@ public class testDB {
 //        //**delete OK
 //        sejourDAO.delete(sejAjouter);
         
-        System.out.println(Sexe.HOMME.ordinal());
-        new DateT("");
+        //**findSejourActuel
+        Sejour s = ((DmaDAO)DAOFactory.getDmaDAO()).findSejourActuel(170000001);
+        System.out.println(s.toString());
+        
+        
     }
 
 }

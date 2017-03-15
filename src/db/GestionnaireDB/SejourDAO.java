@@ -61,7 +61,6 @@ public class SejourDAO implements DAO<Sejour> {
                 ArrayList<String> valMed = new ArrayList<>();
                 valMed.add(rs.getString("idPersonnel"));
                 Medecin medecinResp = (Medecin) personnelDAO.find(argMed, valMed);
-                
 
                 //Recupere la liste des fiche de soin
                 ArrayList<String> argFds = new ArrayList<>();
@@ -70,19 +69,22 @@ public class SejourDAO implements DAO<Sejour> {
                 valFds.add(rs.getString("numeroSejour"));
                 ArrayList<FicheDeSoins> lfds = fdsDAO.findMultiple(argFds, valFds);
                 
-                
-                return new Sejour(new LettreDeSortie(rs.getInt("idPersonnel"), new Adresse("","",0,"",0,"",""), rs.getInt("numeroSejour"), rs.getString("lettreSortie")),
+                //dateFin
+                DateT dateFin = null;
+                if(rs.getString("dateFin") != null){
+                    dateFin = new DateT(rs.getString("dateFin"));
+                }
+
+                return new Sejour(new LettreDeSortie(rs.getInt("idPersonnel"), new Adresse("", "", 0, "", 0, "", ""), rs.getInt("numeroSejour"), rs.getString("lettreSortie")),
                         rs.getString("numeroSejour"), new ArrayList<>(Arrays.asList(rs.getString("naturePrestation").split("\\s*;\\s*"))), new DateT(rs.getString("dateDebut")),
-                        new DateT(rs.getString("dateFin")), medecinResp, lfds);
+                       dateFin, medecinResp, lfds);
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NullPointerException e) {
-            System.out.println("Pas de résultats correspondent");
-        }
-        
+        } 
+
         return null;
     }
 
@@ -161,17 +163,19 @@ public class SejourDAO implements DAO<Sejour> {
             natureDesPrestation += s + ";";
         }
         String lettre;
-        if(obj.getLettreDeSortie() != null){
-            lettre = obj.getLettreDeSortie().getLettre();
-        }else{
-            lettre = "NULL";
+
+        if (obj.getLettreDeSortie() != null) {
+            lettre = "'" + obj.getLettreDeSortie().getLettre().replace("'", "''") + "'";
+        } else {
+            lettre = null;
         }
-            
+
         this.query = "INSERT INTO sejour (numeroSejour, naturePrestation, lettreSortie,dateDebut,dateFin, idPersonnel)"
-                + " VALUES (" + obj.getNumeroDeSejour() + ",'" + natureDesPrestation + "','" + lettre + "','" + obj.getDateDebut().toString()
+                + " VALUES (" + obj.getNumeroDeSejour() + ",'" + natureDesPrestation + "'," + lettre + ",'" + obj.getDateDebut().toString()
                 + "','" + obj.getDateDeFin().toString() + "'," + obj.getMedecinResponsable().getIdPersonel() + ")";
 
         Statement stmt;
+
         try {
             stmt = SejourDAO.connect.createStatement();
             int rowEffected = stmt.executeUpdate(query);
@@ -185,17 +189,17 @@ public class SejourDAO implements DAO<Sejour> {
     @Override
     public Sejour update(Sejour obj) {
         String natureDesPrestation = "";
-        for(String s : obj.getNatureDesPrestation()){
-            natureDesPrestation += s +";";
+        for (String s : obj.getNatureDesPrestation()) {
+            natureDesPrestation += s + ";";
         }
         String lettre;
-        if(obj.getLettreDeSortie() != null){
+        if (obj.getLettreDeSortie() != null) {
             lettre = obj.getLettreDeSortie().getLettre();
-        }else{
+        } else {
             lettre = "NULL";
         }
-        this.query = "UPDATE sejour SET lettreSortie = '" + obj.getLettreDeSortie().getLettre() + "', naturePrestation = '" + natureDesPrestation+ "', dateDebut = '"
-                + obj.getDateDebut() +"', dateFin ='"+ obj.getDateDeFin() + "' WHERE numeroSejour = " + obj.getNumeroDeSejour() ;
+        this.query = "UPDATE sejour SET lettreSortie = '" + obj.getLettreDeSortie().getLettre() + "', naturePrestation = '" + natureDesPrestation + "', dateDebut = '"
+                + obj.getDateDebut() + "', dateFin ='" + obj.getDateDeFin() + "' WHERE numeroSejour = " + obj.getNumeroDeSejour();
 
         Statement stmt;
         try {
@@ -210,7 +214,7 @@ public class SejourDAO implements DAO<Sejour> {
 
     @Override
     public Sejour delete(Sejour obj) {
-        
+
         this.query = "DELETE FROM sejour WHERE numeroSejour = " + obj.getNumeroDeSejour();
 
         Statement stmt;
@@ -240,5 +244,7 @@ public class SejourDAO implements DAO<Sejour> {
 
         return -1;
     }
+
+   
 
 }

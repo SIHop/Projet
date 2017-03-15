@@ -155,7 +155,18 @@ public class DPI {
     }
     
     public static DPI patientToDpi(Patient p){
-        DPI dpi = new DPI(p.getFamillyName(), p.getFamillyName(), p.getFirstName(), null, new IPP(p.getID()), new DateT("").getC().setTime(p.getBirth()), null, null, null, null, null, Sexe.FEMME), null, null, null, null, null, Sexe.FEMME);
+        DateT d = new DateT("");
+        d.getC().setTime(p.getBirth());
+        Sexe sexe;
+        switch(p.getCharSex()){
+            case 'F' :
+                sexe = Sexe.FEMME;
+                break;
+            default :
+                sexe = Sexe.HOMME;
+        }
+        
+        DPI dpi = new DPI(p.getFamillyName(), p.getFamillyName(), p.getFirstName(), null, new IPP(p.getID()),d, null,null,null,null,null,sexe);
         
         return dpi;
     }
