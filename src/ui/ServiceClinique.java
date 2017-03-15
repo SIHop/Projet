@@ -5,9 +5,17 @@
  */
 package ui;
 
+import db.GestionnaireDB.DAOFactory;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import nf.DPI.DPI;
+import nf.GestionDexploitation.Medecin;
+import nf.GestionDexploitation.Personnel;
+import nf.GestionDexploitation.RangMedecin;
+import nf.GestionDexploitation.Service;
+import nf.GestionDexploitation.Sexe;
 
 /**
  *
@@ -18,8 +26,17 @@ public class ServiceClinique extends javax.swing.JFrame {
     /**
      * Creates new form Administration
      */
-    public ServiceClinique() {
+    Personnel p;
+    DPI dpi;
+    public ServiceClinique(Personnel p, DPI dpi) {
         initComponents();
+        this.p=p;
+        this.dpi=dpi;
+        this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
+        this.jLabel18.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
+        this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdentifient());
+        int maxSejour= this.dpi.getMyDM().getlSejour().size();
+        this.jLabel19.setText("N°sejour: "+this.dpi.getMyDM().getlSejour().get(maxSejour).getNumeroDeSejour());
     }
 
     /**
@@ -211,6 +228,11 @@ public class ServiceClinique extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(26, 188, 156));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("RESULTATS");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -267,7 +289,7 @@ public class ServiceClinique extends javax.swing.JFrame {
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 56, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
             .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel14Layout.createSequentialGroup()
                     .addContainerGap()
@@ -327,11 +349,21 @@ public class ServiceClinique extends javax.swing.JFrame {
         jTextPane1.setText("iPP\nSexe\nDate de Naissance\nNom d'usage\nNom de naissance\nPrénom\n \n \n \nPH responsable\nN° de sejour \nDernière action sur son DM");
 
         jPanel21.setBackground(new java.awt.Color(19, 29, 38));
+        jPanel21.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel21MouseClicked(evt);
+            }
+        });
 
         jLabel22.setFont(new java.awt.Font("Raleway Medium", 0, 18)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(26, 188, 156));
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setText("LETTRE DE SORTIE");
+        jLabel22.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel21MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
@@ -357,6 +389,11 @@ public class ServiceClinique extends javax.swing.JFrame {
         jLabel23.setForeground(new java.awt.Color(26, 188, 156));
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel23.setText("RETOUR");
+        jLabel23.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel23MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
@@ -510,12 +547,12 @@ public class ServiceClinique extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(4, 4, 4)
                 .addComponent(jTextPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -672,6 +709,24 @@ public class ServiceClinique extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jLabel15MouseClicked
 
+    private void jPanel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel21MouseClicked
+        LettreSortie lettre = new LettreSortie();
+        lettre.setVisible(true);
+        lettre.setLocationRelativeTo(this);
+        this.setVisible(false);
+    }//GEN-LAST:event_jPanel21MouseClicked
+
+    private void jLabel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23MouseClicked
+        
+    }//GEN-LAST:event_jLabel23MouseClicked
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        ServiceCliniqueEdition edit=new ServiceCliniqueEdition(p,dpi);
+        edit.setVisible(true);
+        edit.setLocationRelativeTo(this);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel10MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -702,7 +757,10 @@ public class ServiceClinique extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ServiceClinique().setVisible(true);
+                Personnel p= new Medecin("sSP", RangMedecin.INTERNE, new Service("CHIR", "Chirurgie", "id rep", null, null, null, null), "capes", "mathieu", "idPersonel", Sexe.FEMME, null,null,"identifient", null, null);
+                //DPI dpi= new DPI("lisard", "lopez", "marie", null, new IPP(444), null, null, null, new Lit("idlit",true,'c',null, "service", 444), new DM(null), null, Sexe.FEMME);
+                DPI dpi = DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")),new ArrayList<>(Arrays.asList("170000001")));
+                new ServiceClinique(p,dpi).setVisible(true);
             }
         });
     }
