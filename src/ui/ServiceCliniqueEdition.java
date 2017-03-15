@@ -5,6 +5,9 @@
  */
 package ui;
 
+import java.util.ArrayList;
+import nf.DPI.DM.Resultat;
+import nf.DPI.DMA.Sejour;
 import nf.DPI.DPI;
 import nf.GestionDexploitation.Personnel;
 
@@ -17,17 +20,33 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     /**
      * Creates new form Administration
      */
-    Personnel p;
-    DPI dpi;
+    private Personnel p;
+    private DPI dpi;
+    
     public ServiceCliniqueEdition(Personnel p, DPI dpi) {
-        initComponents();
-        this.p=p;
-        this.dpi=dpi;
-        this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
-        this.jLabel18.setText("patient: "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
-        this.jLabel19.setText("lit: "+this.dpi.getLit().getIdentifient());
-        int maxSejour= this.dpi.getMyDM().getlSejour().size();
-        this.jLabel20.setText("N°sejour: "+this.dpi.getMyDM().getlSejour().get(maxSejour).getNumeroDeSejour());
+//        initComponents();
+//               
+////entête page
+//        this.p=p;
+//        this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
+////Entête DPI
+//        this.dpi=dpi;
+//        this.jLabel18.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
+//        this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdentifient());
+//
+//        int maxSejour= this.dpi.getMyDM().getlSejour().size();
+//        this.jLabel19.setText("N°sejour: "+this.dpi.getMyDM().getlSejour().get(maxSejour-1).getNumeroDeSejour());
+////Resumé de DM
+//        ArrayList<Resultat> lResult = new ArrayList();
+//        int max =dpi.getMyDM().getLastSejour().getlFicheDeSoins().size()-1;
+//        for(int i=0;i==max; i++){
+//            int maxresult =dpi.getMyDM().getLastSejour().getlFicheDeSoins().size()-1;
+//            for(int j=0;j==maxresult;j++){
+//                lResult.add(dpi.getMyDM().getLastSejour().getlFicheDeSoins().get(i).getResultat().get(j));
+//            }
+//        }
+//        System.out.println(lResult);
+//        this.jList1.setListData(lResult);
     }
 
     /**
@@ -324,7 +343,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 56, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
             .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel15Layout.createSequentialGroup()
                     .addContainerGap()
@@ -352,7 +371,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 56, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
             .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel14Layout.createSequentialGroup()
                     .addContainerGap()
@@ -601,12 +620,12 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

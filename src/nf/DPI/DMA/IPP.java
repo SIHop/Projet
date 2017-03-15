@@ -43,5 +43,9 @@ public class IPP {
     public int getIPP() {
         return IPP;
     }
+    public String toString() {
+        return Integer.toString(IPP);
+    }
+    
 
 }

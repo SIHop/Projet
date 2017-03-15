@@ -5,7 +5,9 @@
  */
 package nf.DPI.DM;
 
+import db.GestionnaireDB.DAOFactory;
 import java.util.ArrayList;
+import java.util.Arrays;
 import nf.DPI.DMA.Sejour;
 
 /**
@@ -22,6 +24,12 @@ public class DM {
 
     public ArrayList<Sejour> getlSejour() {
         return lSejour;
+    }
+    
+    public Sejour getLastSejour(){
+            Sejour sejour ;
+            sejour = DAOFactory.getSejourDAO().find(new ArrayList<>(Arrays.asList("dateFin")),new ArrayList<>(Arrays.asList("")));
+            return sejour;
     }
 
     @Override
