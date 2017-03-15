@@ -16,10 +16,12 @@ public class DateT {
      * @param date
      */
     public DateT(String date) {
-        c.clear();
-        c.set(Integer.parseInt(date.substring(0, date.indexOf("-"))),
+        if(date.length()>0){
+            c.set(Integer.parseInt(date.substring(0, date.indexOf("-"))),
                 Integer.parseInt(date.substring(date.indexOf("-") + 1, date.lastIndexOf("-")))-1,
                 Integer.parseInt(date.substring(date.lastIndexOf("-") + 1, date.length())));
+        }
+        
     }
 
     /**

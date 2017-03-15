@@ -160,8 +160,15 @@ public class SejourDAO implements DAO<Sejour> {
         for (String s : obj.getNatureDesPrestation()) {
             natureDesPrestation += s + ";";
         }
+        String lettre;
+        if(obj.getLettreDeSortie() != null){
+            lettre = obj.getLettreDeSortie().getLettre();
+        }else{
+            lettre = "NULL";
+        }
+            
         this.query = "INSERT INTO sejour (numeroSejour, naturePrestation, lettreSortie,dateDebut,dateFin, idPersonnel)"
-                + " VALUES (" + obj.getNumeroDeSejour() + ",'" + natureDesPrestation + "','" + obj.getLettreDeSortie().getLettre() + "','" + obj.getDateDebut().toString()
+                + " VALUES (" + obj.getNumeroDeSejour() + ",'" + natureDesPrestation + "','" + lettre + "','" + obj.getDateDebut().toString()
                 + "','" + obj.getDateDeFin().toString() + "'," + obj.getMedecinResponsable().getIdPersonel() + ")";
 
         Statement stmt;
@@ -180,6 +187,12 @@ public class SejourDAO implements DAO<Sejour> {
         String natureDesPrestation = "";
         for(String s : obj.getNatureDesPrestation()){
             natureDesPrestation += s +";";
+        }
+        String lettre;
+        if(obj.getLettreDeSortie() != null){
+            lettre = obj.getLettreDeSortie().getLettre();
+        }else{
+            lettre = "NULL";
         }
         this.query = "UPDATE sejour SET lettreSortie = '" + obj.getLettreDeSortie().getLettre() + "', naturePrestation = '" + natureDesPrestation+ "', dateDebut = '"
                 + obj.getDateDebut() +"', dateFin ='"+ obj.getDateDeFin() + "' WHERE numeroSejour = " + obj.getNumeroDeSejour() ;

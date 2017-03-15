@@ -1,5 +1,7 @@
 package nf.DPI;
 
+import library.interfaces.Patient;
+import library.interfaces.PatientLocation;
 import nf.DPI.DMA.IPP;
 import nf.DPI.DMA.NSS;
 import nf.Adresse.Adresse;
@@ -11,7 +13,7 @@ import nf.DPI.DM.DM;
 import nf.DPI.DMA.DMA;
 
 public class DPI {
-    
+
     private String nomUsage;
 
     @Override
@@ -23,7 +25,7 @@ public class DPI {
     private Lit lit;
     private DM myDM;
     private DMA myDMA;
-    
+
     private IPP iPP;
     private final String prenom;
     private final String nomNaissance;
@@ -124,5 +126,39 @@ public class DPI {
     public void setiPP(IPP iPP) {
         this.iPP = iPP;
     }
+
+    /**
+     *
+     */
+    public Patient dpiToPatient() {
+        Patient p = new Patient(this.getiPP().getIPP(), this.getNomUsage(), 'I');
+        p.setBirth(dateDeNaissance.getC().getTime());
+        p.setFirstName(this.prenom);
+        char sex = 'X';
+        switch (this.sexe.ordinal()) {
+            case 1:
+                sex = 'H';
+                break;
+            case 0:
+                sex = 'F';
+                break;
+        }
+        if(sex != 'X'){
+             p.setSex(sex);
+        }
+        p.getAssignedPatLocation().setBed(this.getLit().getIdentifient());
+        p.getAssignedPatLocation().setBuilding(this.getLit().getLocalisation().getBatiment());
+        p.getAssignedPatLocation().setFloor(Integer.toString(this.getLit().getLocalisation().getEtage()));
+        
+        
+        return p;
+    }
     
+    public static DPI patientToDpi(Patient p){
+        DPI dpi = new DPI(p.getFamillyName(), p.getFamillyName(), p.getFirstName(), null, new IPP(p.getID()), new DateT("").getC().setTime(p.getBirth()), null, null, null, null, null, Sexe.FEMME), null, null, null, null, null, Sexe.FEMME);
+        
+        return dpi;
+    }
+
 }
+
