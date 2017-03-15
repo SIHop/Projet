@@ -48,6 +48,7 @@ public class FicheDeSoins {
     public ArrayList<Acte> getListeActes() {
         return listeActes;
     }
+    
 
     public ArrayList<Prescription> getPrescription() {
         return prescription;
