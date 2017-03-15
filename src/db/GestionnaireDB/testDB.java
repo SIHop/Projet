@@ -286,9 +286,9 @@ public class testDB {
 //        //**delete OK
 //        sejourDAO.delete(sejAjouter);
         
-        //**findSejourActuel
-        Sejour s = ((DmaDAO)DAOFactory.getDmaDAO()).findSejourActuel(170000001);
-        System.out.println(s.toString());
+//        //**findSejourActuel
+//        Sejour s = ((DmaDAO)DAOFactory.getDmaDAO()).findSejourActuel(170000001);
+//        System.out.println(s.toString());
         
         
     }
