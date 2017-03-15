@@ -154,11 +154,11 @@ public class DPI {
         return p;
     }
     
-    public static DPI patientToDpi(Patient p){
-        DPI dpi = new DPI(p.getFamillyName(), p.getFamillyName(), p.getFirstName(), null, new IPP(p.getID()), new DateT("").getC().setTime(p.getBirth()), null, null, null, null, null, Sexe.FEMME), null, null, null, null, null, Sexe.FEMME);
-        
-        return dpi;
-    }
+//    public static DPI patientToDpi(Patient p){
+////        DPI dpi = new DPI(p.getFamillyName(), p.getFamillyName(), p.getFirstName(), null, new IPP(p.getID()), new DateT("").getC().setTime(p.getBirth()), null, null, null, null, null, Sexe.FEMME), null, null, null, null, null, Sexe.FEMME);
+//        
+//        return dpi;
+//    }
 
 }
 
