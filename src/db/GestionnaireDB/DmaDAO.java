@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import nf.DPI.DMA.DMA;
@@ -102,7 +103,7 @@ public class DmaDAO implements DAO<DMA> {
 
                     ArrayList<String> argSejour = new ArrayList<>();
                     argSejour.add("numeroSejour");
-                    
+
                     rs2.first();
                     ArrayList<String> valSejour = new ArrayList<>();
                     //travaille pour la 1ère valeur
@@ -196,6 +197,23 @@ public class DmaDAO implements DAO<DMA> {
         }
 
         return -1;
+    }
+
+    /**
+     * Permet de retrouver pour un IPP donnez le sejour en cours, si aucune sejour n'est en cours, retourne null
+     * @param IPP
+     * @return 
+     */
+    public Sejour findSejourActuel(int IPP) {
+        DMA dma = this.find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList(Integer.toString(IPP))));
+        Sejour retour = null;
+        for (Sejour s : dma.getListeDeSejour()) {
+            
+            if (s.getDateDeFin() == null) {
+                retour = s;
+            }
+        }
+        return retour;
     }
 
 }
