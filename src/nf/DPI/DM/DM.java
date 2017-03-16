@@ -6,8 +6,10 @@
 package nf.DPI.DM;
 
 import db.GestionnaireDB.DAOFactory;
+import db.GestionnaireDB.DmaDAO;
 import java.util.ArrayList;
 import java.util.Arrays;
+import nf.DPI.DMA.IPP;
 import nf.DPI.DMA.Sejour;
 
 /**
@@ -17,9 +19,11 @@ import nf.DPI.DMA.Sejour;
 public class DM {
 
     private ArrayList<Sejour> lSejour;
+    private IPP ipp;
 
-    public DM(ArrayList<Sejour> lSejour) {
+    public DM(ArrayList<Sejour> lSejour,IPP ipp) {
         this.lSejour = lSejour;
+        this.ipp=ipp;
     }
 
     public ArrayList<Sejour> getlSejour() {
@@ -28,7 +32,7 @@ public class DM {
     
     public Sejour getLastSejour(){
             Sejour sejour ;
-            sejour = DAOFactory.getSejourDAO().find(new ArrayList<>(Arrays.asList("dateFin")),new ArrayList<>(Arrays.asList("")));
+            sejour = ((DmaDAO)DAOFactory.getDmaDAO()).findSejourActuel(Integer.parseInt(ipp.toString()));
             return sejour;
     }
 
