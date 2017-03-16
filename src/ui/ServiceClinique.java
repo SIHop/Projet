@@ -39,13 +39,16 @@ public class ServiceClinique extends javax.swing.JFrame {
         this.jLabel18.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
         this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdentifient());
 
-        int maxSejour= this.dpi.getMyDM().getlSejour().size();
-        this.jLabel19.setText("N°sejour: "+this.dpi.getMyDM().getlSejour().get(maxSejour-1).getNumeroDeSejour());
+        this.jLabel19.setText("N°sejour: "+this.dpi.getMyDM().getLastSejour());
 // Résumé DM
         this.jTextPane1.setText("iPP : "+dpi.getiPP().toString()+"\n"+"Sexe : "+dpi.getSexe().toString()+ "\n"
                 +"Date de Naissance : "+dpi.getDateDeNaissance().toString()+"\n"+ "Nom d'usage : "+dpi.getNomUsage()+ "\n" 
                 +"Nom de naissance : "+dpi.getNomNaissance()+"\n" +"Prénom : "+dpi.getPrenom()+"\n"+"\n"+"\n"+"\n"
-                +"PH responsable : A METTRE EN PLACE "+"\n"+"N° de sejour : A METTRE EN PLACE ");
+                +"PH responsable : "+ "\n"+"\t"+"Id : "+this.dpi.getMyDM().getLastSejour().getMedecinResponsable().getIdPersonel()
+                +"\n"+"\t"+"Nom : "+ this.dpi.getMyDM().getLastSejour().getMedecinResponsable().getNom()
+                +"\n"+"\t"+"Prènom : "+this.dpi.getMyDM().getLastSejour().getMedecinResponsable().getPrenom()+"\n"
+                +"N° de sejour : "+this.dpi.getMyDM().getLastSejour().getNumeroDeSejour());
+        
     }
 
     /**
@@ -771,10 +774,12 @@ public class ServiceClinique extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
                 Personnel p= new Medecin("sSP", RangMedecin.INTERNE, new Service("CHIR", "Chirurgie", "id rep", null, null, null, null), "capes", "mathieu", "idPersonel", Sexe.FEMME, null,null,"identifient", null, null);
                 //DPI dpi= new DPI("lisard", "lopez", "marie", null, new IPP(444), null, null, null, new Lit("idlit",true,'c',null, "service", 444), new DM(null), null, Sexe.FEMME);
                 DPI dpi = DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")),new ArrayList<>(Arrays.asList("170000001")));
-                new ServiceClinique(p,dpi).setVisible(true);             
+                new ServiceClinique(p,dpi).setVisible(true); 
+                
             }
         });
     }
