@@ -262,26 +262,26 @@ public class testDB {
 //        fdsDAO.delete(fdsAjouter);
 
 //        //SejourDAO
-        SejourDAO sejourDAO = (SejourDAO)DAOFactory.getSejourDAO();
+//        SejourDAO sejourDAO = (SejourDAO)DAOFactory.getSejourDAO();
 //        //**find OK
 //        Sejour sej = sejourDAO.find(new ArrayList<>(Arrays.asList("numeroSejour")), new ArrayList<>(Arrays.asList("170200001")));
 //        System.out.println(sej);
 //        System.out.println("");
 //        System.out.println("");
-        //**findMultiple OK
-        ArrayList<Sejour> lsej = sejourDAO.findMultiple(new ArrayList<>(Arrays.asList("idPersonnel")), new ArrayList<>(Arrays.asList("3")));
+//        //**findMultiple OK
+//        ArrayList<Sejour> lsej = sejourDAO.findMultiple(new ArrayList<>(Arrays.asList("idPersonnel")), new ArrayList<>(Arrays.asList("3")));
 //        for(Sejour s : lsej){
 //            System.out.println(s.toString());
 //        }
-        //**create OK
-        Sejour sejAjouter = lsej.get(0);
-        System.out.println(sejAjouter.isEnCours());
-        sejAjouter.setNumeroDeSejour("170200003");
-        sejAjouter.setLettreDeSortie(null);
-        sejAjouter.setDateDeFin(null);
-               
-        sejourDAO.create(sejAjouter);
-        
+//        //**create OK
+//        Sejour sejAjouter = lsej.get(0);
+//        System.out.println(sejAjouter.isEnCours());
+//        sejAjouter.setNumeroDeSejour("170200003");
+//        sejAjouter.setLettreDeSortie(null);
+//        sejAjouter.setDateDeFin(null);
+//               
+//        sejourDAO.create(sejAjouter);
+//        
 //        //**Update OK
 //        sejAjouter.setDateDeFin(new DateT("2012-01-01"));
 //        sejourDAO.update(sejAjouter);

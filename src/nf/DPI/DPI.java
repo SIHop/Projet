@@ -1,5 +1,7 @@
 package nf.DPI;
 
+import java.util.Calendar;
+import java.util.Locale;
 import library.interfaces.Patient;
 import library.interfaces.PatientLocation;
 import nf.DPI.DMA.IPP;
@@ -132,12 +134,13 @@ public class DPI {
      */
     public Patient dpiToPatient() {
         Patient p = new Patient(this.getiPP().getIPP(), this.getNomUsage(), 'I');
-        p.setBirth(dateDeNaissance.getC().getTime());
-        p.setFirstName(this.prenom);
+        
+        p.setBirth(this.getDateDeNaissance().getC().getTime());
+        p.setFirstName(this.getPrenom());
         p.setAssignedPatLocation(new PatientLocation(p));
         
         char sex = 'X';
-        switch (this.sexe.ordinal()) {
+        switch (this.getSexe().ordinal()) {
             case 1:
                 sex = 'H';
                 break;
@@ -153,13 +156,19 @@ public class DPI {
             p.getAssignedPatLocation().setBuilding(this.getLit().getLocalisation().getBatiment());
             p.getAssignedPatLocation().setFloor(Integer.toString(this.getLit().getLocalisation().getEtage()));
         }
-
+        
+//        p.setDeath(false);
+//        
+//        p.setDateDicharge(Calendar.getInstance(Locale.FRANCE).getTime());
+//        p.setDeath(Calendar.getInstance(Locale.FRANCE).getTime());
+//        p.setPriorPatLocation(null);
+        
+        
         return p;
     }
 
     public static DPI patientToDpi(Patient p) {
-        DateT d = new DateT("");
-        d.getC().setTime(p.getBirth());
+        DateT d = new DateT(p.getBirth());        
         Sexe sexe;
         switch (p.getCharSex()) {
             case 'F':
