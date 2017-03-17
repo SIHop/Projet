@@ -29,19 +29,21 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
      */
     private Personnel p;
     private DPI dpi;
+    private String numSej;
 // instance : 1= résultat/ 2 = Observation / 3=prescription /4=opération infirmière
     private int instance;
     
-    public ServiceCliniqueEdition(Personnel p, DPI dpi,int instance) {
+    public ServiceCliniqueEdition(Personnel p, DPI dpi,String numSej,int instance) {
         initComponents();
-//entête page
+        this.numSej = numSej;
+//entête page (personnel connecté)
         this.p=p;
         this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
 //Entête DPI
         this.dpi=dpi;
         this.jLabel18.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
         this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdentifient());
-        this.jLabel19.setText("N°sejour: "+this.dpi.getMyDM().getLastSejour().getNumeroDeSejour());
+        this.jLabel19.setText("N°sejour: "+numSej);
         
 //Resumé de DM
 //        if (instance==1){
@@ -731,7 +733,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel16MouseClicked
 
     private void jLabel22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22MouseClicked
-        ServiceClinique serviceClinique = new ServiceClinique(p,dpi);
+        ServiceClinique serviceClinique = new ServiceClinique(this.p,this.dpi,this.numSej);
         serviceClinique.setVisible(true);
         serviceClinique.setLocationRelativeTo(this);
         this.setVisible(false);
@@ -740,42 +742,42 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Administration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Administration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Administration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Administration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                
-                Personnel p= new Medecin("sSP", RangMedecin.INTERNE, new Service("CHIR", "Chirurgie", "id rep", null, null, null, null), "capes", "mathieu", "idPersonel", Sexe.FEMME, null,null,"identifient", null, null);
-                //DPI dpi= new DPI("lisard", "lopez", "marie", null, new IPP(444), null, null, null, new Lit("idlit",true,'c',null, "service", 444), new DM(null), null, Sexe.FEMME);
-                DPI dpi = DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")),new ArrayList<>(Arrays.asList("170000001")));
-                
-                new ServiceCliniqueEdition(p,dpi,1).setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Administration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Administration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Administration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Administration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                
+//                Personnel p= new Medecin("sSP", RangMedecin.INTERNE, new Service("CHIR", "Chirurgie", "id rep", null, null, null, null), "capes", "mathieu", "idPersonel", Sexe.FEMME, null,null,"identifient", null, null);
+//                //DPI dpi= new DPI("lisard", "lopez", "marie", null, new IPP(444), null, null, null, new Lit("idlit",true,'c',null, "service", 444), new DM(null), null, Sexe.FEMME);
+//                DPI dpi = DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")),new ArrayList<>(Arrays.asList("170000001")));
+//                
+//                new ServiceCliniqueEdition(p,dpi,1).setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

@@ -53,7 +53,7 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
                       <Component id="jPanel8" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jPanel1" alignment="0" pref="1203" max="32767" attributes="0"/>
+                      <Component id="jPanel1" alignment="0" pref="1208" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
               </Group>
@@ -86,7 +86,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel2" alignment="0" pref="1203" max="32767" attributes="0"/>
+                  <Component id="jPanel2" alignment="0" pref="1208" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -314,7 +314,7 @@
                 <Component class="javax.swing.JTextPane" name="jTextPane1">
                   <Properties>
                     <Property name="contentType" type="java.lang.String" value="iPP&#xa;Sexe&#xa;Date de Naissance&#xa;Nom d&apos;usage&#xa;Nom de naissance&#xa;Pr&#xe9;nom&#xa; &#xa; &#xa; &#xa;PH responsable&#xa;N&#xb0; de sejour &#xa;Derni&#xe8;re action sur son DM" noResource="true"/>
-                    <Property name="text" type="java.lang.String" value="iPP&#xa;Sexe&#xa;Date de Naissance&#xa;Nom d&apos;usage&#xa;Nom de naissance&#xa;Pr&#xe9;nom&#xa; &#xa; &#xa; &#xa;PH responsable&#xa;N&#xb0; de sejour &#xa;Derni&#xe8;re action sur son DM"/>
+                    <Property name="text" type="java.lang.String" value="Patient 1, Lit 3F&#xa;Patient 2, Lit 12&#xa;Patient 3, Lit 7P"/>
                   </Properties>
                 </Component>
               </SubComponents>

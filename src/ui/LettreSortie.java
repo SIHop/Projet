@@ -25,9 +25,10 @@ public class LettreSortie extends javax.swing.JFrame {
      */
     Personnel p;
     DPI dpi;
-    public LettreSortie(Personnel p, DPI dpi) {
+    String numSej;
+    public LettreSortie(Personnel p, DPI dpi,String numSej) {
         initComponents();
-        
+        this.numSej=numSej;
 //entête page
         this.p=p;
         this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
@@ -37,7 +38,7 @@ public class LettreSortie extends javax.swing.JFrame {
         this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdentifient());
 
         int maxSejour= this.dpi.getMyDM().getlSejour().size();
-        this.jLabel19.setText("N°sejour: "+this.dpi.getMyDM().getlSejour().get(maxSejour-1).getNumeroDeSejour());
+        this.jLabel19.setText("N°sejour: "+this.numSej);
     }
 
     /**
@@ -511,7 +512,7 @@ public class LettreSortie extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jLabel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23MouseClicked
-        ServiceClinique serviceClinique = new ServiceClinique(p,dpi);
+        ServiceClinique serviceClinique = new ServiceClinique(this.p,this.dpi,this.numSej);
         serviceClinique.setVisible(true);
         serviceClinique.setLocationRelativeTo(this);
         this.setVisible(false);
@@ -535,7 +536,7 @@ public class LettreSortie extends javax.swing.JFrame {
         //mise a jour de la BD
         DAOFactory.getSejourDAO().update(this.dpi.getMyDM().getLastSejour());
          
-        ServiceClinique serviceClinique = new ServiceClinique(p,dpi);
+        ServiceClinique serviceClinique = new ServiceClinique(this.p,this.dpi,this.numSej);
         serviceClinique.setVisible(true);
         serviceClinique.setLocationRelativeTo(this);
         this.setVisible(false);
