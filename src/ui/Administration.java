@@ -83,10 +83,10 @@ public class Administration extends javax.swing.JFrame {
         jLabel45 = new javax.swing.JLabel();
         email = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jButton2 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
+        listPatient = new javax.swing.JList<>();
+        creation = new javax.swing.JButton();
+        sexe = new javax.swing.JComboBox<>();
+        edit = new javax.swing.JButton();
         jLabel40 = new javax.swing.JLabel();
         nomVoie = new javax.swing.JTextField();
 
@@ -379,31 +379,32 @@ public class Administration extends javax.swing.JFrame {
         jLabel45.setForeground(new java.awt.Color(240, 240, 240));
         jLabel45.setText("Mail");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        listPatient.setModel(new javax.swing.AbstractListModel<DPI>() {
+            //lister tous les dpi
+            DPI[] DPIs = { /*DPI1,DPI2,DPI3....*/ };
+            public int getSize() { return DPIs.length; }
+            public DPI getElementAt(int i) { return DPIs[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(listPatient);
 
-        jButton2.setText("Création du DMA");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        creation.setText("Création du DMA");
+        creation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                creationActionPerformed(evt);
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "HOMME", "FEMME" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        sexe.setModel(new javax.swing.DefaultComboBoxModel<>(new Sexe[] { Sexe.FEMME, Sexe.HOMME }));
+        sexe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                sexeActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Edition du DMA");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        edit.setText("Edition du DMA");
+        edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                editActionPerformed(evt);
             }
         });
 
@@ -438,7 +439,7 @@ public class Administration extends javax.swing.JFrame {
                                         .addComponent(prenom)
                                         .addComponent(jTextField5)
                                         .addComponent(dateDeNaissance)
-                                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addComponent(sexe, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGroup(jPanel10Layout.createSequentialGroup()
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
@@ -484,9 +485,9 @@ public class Administration extends javax.swing.JFrame {
                                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                             .addComponent(numeroFixe, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))))))))
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(creation)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)))
+                        .addComponent(edit)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
@@ -565,13 +566,13 @@ public class Administration extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(sexe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(creation)
+                    .addComponent(edit))
                 .addContainerGap(79, Short.MAX_VALUE))
         );
 
@@ -611,9 +612,9 @@ public class Administration extends javax.swing.JFrame {
 
     private int tx;
     private int ty;
-    
+
     private void jLabel7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseDragged
-        this.setLocation(evt.getXOnScreen()-tx,evt.getYOnScreen()-ty);
+        this.setLocation(evt.getXOnScreen() - tx, evt.getYOnScreen() - ty);
     }//GEN-LAST:event_jLabel7MouseDragged
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
@@ -625,15 +626,22 @@ public class Administration extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabel6MouseClicked
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
+        DPI patient = listPatient.getSelectedValue();
         Adresse adresse = new Adresse(pays.getText(), ville.getText(), Integer.parseInt(codePostal.getText()), typeVoie.getText(), Integer.parseInt(numeroVoie.getText()), typeVoie.getText(), complement.getText());
         InformationDeContact infoDeContact = new InformationDeContact(numeroFixe.getText(), numeroPortable.getText(), email.getText(), null);
-        DPI patient = new DPI(nomNaissance.getText(), nomUsage.getText(), prenom.getText(), adresse, null, new DateT(dateDeNaissance.getText()), null, infoDeContact, null, null, null, Sexe.FEMME);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        patient.setAdresse(adresse);
+        patient.setInfoDeContact(infoDeContact);
+        patient.setNomUsage(nomUsage.getText());
+        //update la bdd
+    }//GEN-LAST:event_editActionPerformed
+
+    private void creationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creationActionPerformed
+        Adresse adresse = new Adresse(pays.getText(), ville.getText(), Integer.parseInt(codePostal.getText()), typeVoie.getText(), Integer.parseInt(numeroVoie.getText()), typeVoie.getText(), complement.getText());
+        InformationDeContact infoDeContact = new InformationDeContact(numeroFixe.getText(), numeroPortable.getText(), email.getText(), null);
+        DPI patient = new DPI(nomNaissance.getText(), nomUsage.getText(), prenom.getText(), adresse, null, new DateT(dateDeNaissance.getText()), null, infoDeContact, null, null, null, sexe.getPrototypeDisplayValue());
+        //update la bdd
+    }//GEN-LAST:event_creationActionPerformed
 
     private void numeroPortableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroPortableActionPerformed
         // TODO add your handling code here:
@@ -651,9 +659,9 @@ public class Administration extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void sexeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_sexeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -693,12 +701,11 @@ public class Administration extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField codePostal;
     private javax.swing.JTextField complement;
+    private javax.swing.JButton creation;
     private javax.swing.JTextField dateDeNaissance;
+    private javax.swing.JButton edit;
     private javax.swing.JTextField email;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -723,7 +730,6 @@ public class Administration extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
@@ -737,6 +743,7 @@ public class Administration extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JList<DPI> listPatient;
     private javax.swing.JTextField nomNaissance;
     private javax.swing.JTextField nomUsage;
     private javax.swing.JTextField nomVoie;
@@ -745,6 +752,7 @@ public class Administration extends javax.swing.JFrame {
     private javax.swing.JTextField numeroVoie;
     private javax.swing.JTextField pays;
     private javax.swing.JTextField prenom;
+    private javax.swing.JComboBox<Sexe> sexe;
     private javax.swing.JTextField typeVoie;
     private javax.swing.JTextField ville;
     // End of variables declaration//GEN-END:variables
