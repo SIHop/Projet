@@ -20,10 +20,15 @@ public class ServiceCliniqueLitD extends javax.swing.JFrame {
     /**
      * Creates new form Administration
      */
-    Personnel p; 
-    DPI dpi;
-    public ServiceCliniqueLitD(Personnel p, DPI dpi) {
+    private Personnel p; 
+    private DPI dpi;
+    private ArrayList<DPI> listeDPI = new ArrayList<>();
+    
+    public ServiceCliniqueLitD(Personnel p, DPI dpi,ArrayList<DPI> listeDPI) {
         initComponents();
+        this.p=p;
+        this.dpi=dpi;
+        this.listeDPI=listeDPI;
     }
 
     /**
@@ -152,6 +157,11 @@ public class ServiceCliniqueLitD extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(26, 188, 156));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("SEJOURS ACTUELS");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -609,7 +619,10 @@ public class ServiceCliniqueLitD extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        // Titre de la page = service clinique => si on clique dessus retour à ServiceCliniqueAceuil 
+        ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
+        ac.setVisible(true);
+        ac.setLocationRelativeTo(this);
+        this.setVisible(false); 
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
@@ -632,6 +645,13 @@ public class ServiceCliniqueLitD extends javax.swing.JFrame {
         //!!!!!!!seul le disigne est fait il manque le lien avec le nf
 
     }//GEN-LAST:event_jLabel15MouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
+        ac.setVisible(true);
+        ac.setLocationRelativeTo(this);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel5MouseClicked
 
     /**
      * @param args the command line arguments

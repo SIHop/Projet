@@ -18,7 +18,7 @@ public class DPI {
 
     @Override
     public String toString() {
-        return "DPI{" + "nomUsage=" + nomUsage + ", adresse=" + adresse + ", infoDeContact=" + infoDeContact + ", lit=" + lit + ", myDM=" + myDM + ", myDMA=" + myDMA + ", iPP=" + iPP.getIPP() + ", prenom=" + prenom + ", nomNaissance=" + nomNaissance + ", dateDeNaissance=" + dateDeNaissance + ", nSecuriteSocial=" + nSecuriteSocial + ", sexe=" + sexe + '}';
+        return nomUsage+" " + prenom + ", " + sexe+ ", né(e) le  " +dateDeNaissance ;
     }
     private Adresse adresse;
     private InformationDeContact infoDeContact;

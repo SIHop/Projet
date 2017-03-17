@@ -10,10 +10,13 @@ import db.GestionnaireDB.DAOFactory;
 import db.GestionnaireDB.SejourDAO;
 import db.GestionnaireDB.ServiceDAO;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import nf.Adresse.Adresse;
 import nf.Adresse.DateT;
+import nf.DPI.DMA.DMA;
 import nf.DPI.DMA.Sejour;
 import nf.DPI.DPI;
 import nf.GestionDexploitation.Infirmier;
@@ -35,31 +38,47 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
      * Creates new form Administration
      */
     private Personnel p;
-    
+    private ArrayList<DPI> listeDPI = new ArrayList<>();
+
     public ServiceCliniqueAccueil(Personnel p) {
         initComponents();
         //entête page
-        this.p=p;
-        this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
+        this.p = p;
+        this.jLabel1.setText("Bonjour " + this.p.getNom() + " " + this.p.getPrenom());
         Service service;
-        if(p instanceof Medecin){
+        if (p instanceof Medecin) {
             Medecin med = (Medecin) this.p;
             service = med.getService();
-        }
-        else{
-            if(p instanceof Infirmier){
+        } else {
+            if (p instanceof Infirmier) {
                 Infirmier inf = (Infirmier) this.p;
                 service = inf.getService();
-            }
-            else{
-                SecretaireMedicale sm = (SecretaireMedicale)this.p;
+            } else {
+                SecretaireMedicale sm = (SecretaireMedicale) this.p;
                 service = sm.getService();
             }
         }
-        // selection de tout les sejour dont le service du ph resp = service de l'utilisateur
+        // selection de tout les sejour en cours dont le service du ph resp = service de l'utilisateur
         String idRespoService = service.getResponsable().getIdPersonel();
-//        ArrayList<Sejour> lsej = DAOFactory.getSejourDAO().findMultiple(, val);
-//        this.jTextPane1.setText(t);
+        ArrayList<Sejour> lsej = DAOFactory.getSejourDAO().findMultiple(new ArrayList<>(Arrays.asList("idPersonnel", "enCours")), new ArrayList<>(Arrays.asList(idRespoService, "1")));
+
+        for (Sejour s : lsej) {
+            DMA dma = DAOFactory.getDmaDAO().find(new ArrayList<>(Arrays.asList("numeroSejour")), new ArrayList<>(Arrays.asList(s.getNumeroDeSejour())));
+            String ipp = dma.getIPP();
+            this.listeDPI.add(DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList(ipp))));
+        }
+        Vector vResult = new Vector(listeDPI);
+        this.jList1.setListData(vResult);
+    }
+    
+    public ServiceCliniqueAccueil(Personnel p,ArrayList<DPI> listeDPI) {
+        initComponents();
+        //entête page
+        this.p = p;
+        this.jLabel1.setText("Bonjour " + this.p.getNom() + " " + this.p.getPrenom());
+        
+        Vector vResult = new Vector(listeDPI);
+        this.jList1.setListData(vResult);
     }
 
     /**
@@ -83,7 +102,9 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
-        jTextPane1 = new javax.swing.JTextPane();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -132,11 +153,11 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 1152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 51, Short.MAX_VALUE)))
+                    .addGap(0, 44, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,7 +170,7 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1208, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1222, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,7 +230,7 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,18 +244,42 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
 
         jPanel10.setBackground(jPanel2.getBackground());
 
-        jTextPane1.setContentType("iPP\nSexe\nDate de Naissance\nNom d'usage\nNom de naissance\nPrénom\n \n \n \nPH responsable\nN° de sejour \nDernière action sur son DM"); // NOI18N
-        jTextPane1.setText("Patient 1, Lit 3F\nPatient 2, Lit 12\nPatient 3, Lit 7P");
+        jButton1.setText("Détail");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTextPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 986, Short.MAX_VALUE)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(429, 429, 429)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 939, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTextPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -242,9 +287,9 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(1, 1, 1)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,6 +319,11 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(jPanel4.getBackground());
         jLabel3.setText("Deconnection");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setForeground(jPanel4.getBackground());
@@ -316,11 +366,11 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1208, Short.MAX_VALUE))
-                .addGap(48, 48, 48))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1222, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(1, 1, 1))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,9 +393,9 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
 
     private int tx;
     private int ty;
-    
+
     private void jLabel7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseDragged
-        this.setLocation(evt.getXOnScreen()-tx,evt.getYOnScreen()-ty);
+        this.setLocation(evt.getXOnScreen() - tx, evt.getYOnScreen() - ty);
     }//GEN-LAST:event_jLabel7MouseDragged
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
@@ -360,6 +410,23 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // Titre de la page = service clinique => si on clique dessus retour à ServiceCliniqueAceuil 
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int position =this.jList1.getSelectedIndex();
+        DPI dpi = listeDPI.get(position);
+        String numSej = dpi.getMyDM().getLastSejour().getNumeroDeSejour();
+        ServiceClinique serviceClinique = new ServiceClinique(this.p,dpi,numSej,this.listeDPI);
+        serviceClinique.setVisible(true);
+        serviceClinique.setLocationRelativeTo(this);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        Connection conection =new Connection();
+        conection.setVisible(true);
+        conection.setLocationRelativeTo(this);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -391,11 +458,11 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
-                Personnel p= new Medecin("sSP", RangMedecin.MCU_PH, new Service("CHIR", "Chirurgie", "id rep", null, null, null, null), "capes", "mathieu", "1111", Sexe.FEMME, null,null,"identifient", null, null);
-                Adresse ad = new Adresse("pays", "ville",38100, "nomVoie", 3, "typeVoie", "complement");
-                DateT d= new DateT("04-02-16");
-                Personnel p2= new Infirmier(null, TypeInfirmier.IADE, "capes", "jule", "2222", Sexe.FEMME, ad,d,"identifient", null,null);
+
+                Personnel p = new Medecin("sSP", RangMedecin.MCU_PH, new Service("CHIR", "Chirurgie", "3", null, null, null, null), "capes", "mathieu", "1111", Sexe.FEMME, null, null, "identifient", null, null);
+                Adresse ad = new Adresse("pays", "ville", 38100, "nomVoie", 3, "typeVoie", "complement");
+                DateT d = new DateT("04-02-16");
+                Personnel p2 = new Infirmier(null, TypeInfirmier.IADE, "capes", "jule", "2222", Sexe.FEMME, ad, d, "identifient", null, null);
 
                 new ServiceCliniqueAccueil(p).setVisible(true);
             }
@@ -403,6 +470,7 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -410,6 +478,7 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
@@ -420,6 +489,6 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

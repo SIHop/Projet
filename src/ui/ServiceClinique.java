@@ -34,11 +34,12 @@ public class ServiceClinique extends javax.swing.JFrame {
     private Personnel p;
     private DPI dpi;
     private String numSej;
-
+    private ArrayList<DPI> listeDPI ;
     
-    public ServiceClinique(Personnel p, DPI dpi, String numSej) {
+    public ServiceClinique(Personnel p, DPI dpi, String numSej,ArrayList<DPI> listeDPI ) {
         initComponents();
         this.numSej=numSej;
+        listeDPI =listeDPI;
 // verification des droit
         if(!(p instanceof Medecin) && !(p instanceof SecretaireMedicale)){
             jLabel22.setVisible(false);
@@ -194,6 +195,11 @@ public class ServiceClinique extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(26, 188, 156));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("SEJOURS ACTUELS");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -742,7 +748,10 @@ public class ServiceClinique extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        // Titre de la page = service clinique => si on clique dessus retour à ServiceCliniqueAceuil 
+        ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
+        ac.setVisible(true);
+        ac.setLocationRelativeTo(this);
+        this.setVisible(false);
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
@@ -768,7 +777,7 @@ public class ServiceClinique extends javax.swing.JFrame {
 
     private void jPanel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel21MouseClicked
         
-        LettreSortie lettre = new LettreSortie(this.p,this.dpi,this.numSej);
+        LettreSortie lettre = new LettreSortie(this.p,this.dpi,this.numSej, this.listeDPI);
         lettre.setVisible(true);
         lettre.setLocationRelativeTo(this);
         this.setVisible(false);
@@ -779,35 +788,35 @@ public class ServiceClinique extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel23MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,1);
+        ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,1,this.listeDPI );
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
-        ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,2);
+        ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,2,this.listeDPI);
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel14MouseClicked
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
-        ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,3);
+        ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,3,this.listeDPI );
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel16MouseClicked
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
-        ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,1);
+        ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,4,this.listeDPI);
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
-        ServiceCliniqueLitD lit =new ServiceCliniqueLitD(this.p,this.dpi);
+        ServiceCliniqueLitD lit =new ServiceCliniqueLitD(this.p,this.dpi,this.listeDPI);
         lit.setVisible(true);
         lit.setLocationRelativeTo(this);
         this.setVisible(false);
@@ -820,50 +829,57 @@ public class ServiceClinique extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jLabel3MouseClicked
 
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
+        ac.setVisible(true);
+        ac.setLocationRelativeTo(this);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel5MouseClicked
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Administration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Administration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Administration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Administration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                
-                Personnel p= new Medecin("sSP", RangMedecin.MCU_PH, new Service("CHIR", "Chirurgie", "id rep", null, null, null, null), "capes", "mathieu", "1111", Sexe.FEMME, null,null,"identifient", null, null);
-                Adresse ad = new Adresse("pays", "ville",38100, "nomVoie", 3, "typeVoie", "complement");
-                DateT d= new DateT("04-02-16");
-                Personnel p2= new Infirmier(null, TypeInfirmier.IADE, "capes", "jule", "2222", Sexe.FEMME, ad,d,"identifient", null,null);
-
-//DPI dpi= new DPI("lisard", "lopez", "marie", null, new IPP(444), null, null, null, new Lit("idlit",true,'c',null, "service", 444), new DM(null), null, Sexe.FEMME);
-                DPI dpi = DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")),new ArrayList<>(Arrays.asList("170000001")));
-                String numSej = dpi.getMyDM().getLastSejour().getNumeroDeSejour();
-                new ServiceClinique(p2,dpi,numSej).setVisible(true); 
-                
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Administration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Administration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Administration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Administration.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                
+//                Personnel p= new Medecin("sSP", RangMedecin.MCU_PH, new Service("CHIR", "Chirurgie", "id rep", null, null, null, null), "capes", "mathieu", "1111", Sexe.FEMME, null,null,"identifient", null, null);
+//                Adresse ad = new Adresse("pays", "ville",38100, "nomVoie", 3, "typeVoie", "complement");
+//                DateT d= new DateT("04-02-16");
+//                Personnel p2= new Infirmier(null, TypeInfirmier.IADE, "capes", "jule", "2222", Sexe.FEMME, ad,d,"identifient", null,null);
+//
+////DPI dpi= new DPI("lisard", "lopez", "marie", null, new IPP(444), null, null, null, new Lit("idlit",true,'c',null, "service", 444), new DM(null), null, Sexe.FEMME);
+//                DPI dpi = DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")),new ArrayList<>(Arrays.asList("170000001")));
+//                String numSej = dpi.getMyDM().getLastSejour().getNumeroDeSejour();
+//                new ServiceClinique(p2,dpi,numSej,listeDPI).setVisible(true); 
+//                
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
