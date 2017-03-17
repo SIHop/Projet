@@ -42,7 +42,11 @@ public class TestHL7 {
                 mess = serveur.getMessage();
                 serveur.fermer();
                 System.out.println(ps.getFamillyName());
-                System.out.println(ps.getCharSex());
+                System.out.println(ps.getFirstName());
+                System.out.println(ps.getID());
+                System.out.println(ps.isDeath());
+                System.out.println(ps.getCharSex());//matche pas
+                System.out.println(ps.getBirth());//renvoie null
                 System.out.println(mess);
             }
         }).start();
