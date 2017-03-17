@@ -83,9 +83,9 @@ public class Administration extends javax.swing.JFrame {
         jLabel45 = new javax.swing.JLabel();
         email = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listPatient = new javax.swing.JList<>();
+        listPatient = new javax.swing.JList<DPI>();
         creation = new javax.swing.JButton();
-        sexe = new javax.swing.JComboBox<>();
+        sexe = new javax.swing.JComboBox<Sexe>();
         edit = new javax.swing.JButton();
         jLabel40 = new javax.swing.JLabel();
         nomVoie = new javax.swing.JTextField();
@@ -256,7 +256,7 @@ public class Administration extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(jPanel4.getBackground());
-        jLabel3.setText("Deconnection");
+        jLabel3.setText("Déconnexion");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setForeground(jPanel4.getBackground());

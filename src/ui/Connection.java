@@ -27,6 +27,7 @@ import nf.GestionDexploitation.SecretaireMedicale;
  * @author Residence
  */
 public class Connection extends javax.swing.JFrame {
+
     private Personnel personnel;
 
     /**
@@ -333,9 +334,9 @@ public class Connection extends javax.swing.JFrame {
 
     private int tx;
     private int ty;
-    
+
     private void jLabel7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseDragged
-        this.setLocation(evt.getXOnScreen()-tx,evt.getYOnScreen()-ty);
+        this.setLocation(evt.getXOnScreen() - tx, evt.getYOnScreen() - ty);
     }//GEN-LAST:event_jLabel7MouseDragged
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
@@ -344,72 +345,42 @@ public class Connection extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
-        
+
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        ArrayList<String> colonneDB = new ArrayList<>(); 
+        ArrayList<String> colonneDB = new ArrayList<>();
         colonneDB.add("identifiantHygie");
         colonneDB.add("motDePasse");
-        ArrayList<String> val = new ArrayList<>(); 
-        val.add("'"+jTextField4.getText()+"'");
-        val.add("'"+jPasswordField1.getText()+"'");
+        ArrayList<String> val = new ArrayList<>();
+        val.add("'" + jTextField4.getText() + "'");
+        val.add("'" + jPasswordField1.getText() + "'");
         DAO<Personnel> persoDAO = DAOFactory.getPersonelDAO();
-        
-//choix de la page de destination en fonction du statut       
-        if(persoDAO.find(colonneDB,val)!= null){
-            if(persoDAO.find(colonneDB,val) instanceof SecretaireAdministratif){
-                
-            }
-            else{
-                if(persoDAO.find(colonneDB,val) instanceof Medecin){
-                    Medecin medecin = (Medecin) persoDAO.find(colonneDB,val); // Service?
-                    if(medecin.getService().getTypeService().toString()== "Urgence"){
-                        
-                    }
-                    else{
-                        if(medecin.getService().getTypeService().toString()== "clinnique"){
-                        
-                        }
-                        else{
-                            if(medecin.getService().getTypeService().toString()== "medicaux techniques"){
-                        
-                            }
-                            else{
-                                
-                            }
-                        }
-                    }
-                    
-                }
-                else{
-                    SecretaireMedicale SM = (SecretaireMedicale) persoDAO.find(colonneDB,val); // Service?
-                    if(SM.getService().getTypeService().toString()== "Urgence"){
-                        
-                    }
-                    else{
-                        if(SM.getService().getTypeService().toString()== "clinnique"){
-                        
-                        }
-                        else{
-                            if(SM.getService().getTypeService().toString()== "medicaux techniques"){
-                        
-                            }
-                            else{
-                                
-                            }
-                        }
-                    }
+
+//choix de la page de destination en fonction du statut      
+        Personnel p =persoDAO.find(colonneDB, val);
+        if (p != null) {
+            if (p instanceof SecretaireAdministratif) {
+                SecretaireAdministratif SA = (SecretaireAdministratif)p; 
+            } else {
+                if (p instanceof Medecin) {
+                    Medecin medecin = (Medecin) p; // Service?
+
+                } else {
+                    SecretaireMedicale SM = (SecretaireMedicale) p; // Service?
+                    ServiceCliniqueAccueil serCA = new ServiceCliniqueAccueil(p);
+                    serCA.setVisible(true);
+                    this.dispose();
+
                 }
             }
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "La combinaison Identifiant / Mot de passe entré ne correspond à aucun profil");
             jTextField4.setText("");
             jPasswordField1.setBackground(Color.red);
         }
     }//GEN-LAST:event_jLabel3MouseClicked
-    
+
     public void tickTock() {
         jLabel5.setText(DateFormat.getDateTimeInstance().format(new Date()).substring(0, DateFormat.getDateTimeInstance().format(new Date()).length() - 3));
     }
@@ -446,7 +417,7 @@ public class Connection extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Connection().setVisible(true);
-                
+
             }
         });
     }
