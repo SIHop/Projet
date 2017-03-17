@@ -10,12 +10,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import nf.Adresse.Adresse;
+import nf.Adresse.DateT;
 import nf.DPI.DPI;
+import nf.GestionDexploitation.Infirmier;
 import nf.GestionDexploitation.Medecin;
 import nf.GestionDexploitation.Personnel;
 import nf.GestionDexploitation.RangMedecin;
+import nf.GestionDexploitation.SecretaireMedicale;
 import nf.GestionDexploitation.Service;
 import nf.GestionDexploitation.Sexe;
+import nf.GestionDexploitation.TypeInfirmier;
 
 /**
  *
@@ -26,10 +31,21 @@ public class ServiceClinique extends javax.swing.JFrame {
     /**
      * Creates new form Administration
      */
-    Personnel p;
-    DPI dpi;
-    public ServiceClinique(Personnel p, DPI dpi) {
+    private Personnel p;
+    private DPI dpi;
+    private String numSej;
+
+    
+    public ServiceClinique(Personnel p, DPI dpi, String numSej) {
         initComponents();
+        this.numSej=numSej;
+// verification des droit
+        if(!(p instanceof Medecin) && !(p instanceof SecretaireMedicale)){
+            jLabel22.setVisible(false);
+            jPanel21.setVisible(false);
+            jLabel15.setVisible(false);
+            jPanel16.setVisible(false);
+        }
         
 //entête page
         this.p=p;
@@ -38,8 +54,7 @@ public class ServiceClinique extends javax.swing.JFrame {
         this.dpi=dpi;
         this.jLabel18.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
         this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdentifient());
-
-        this.jLabel19.setText("N°sejour: "+this.dpi.getMyDM().getLastSejour());
+        this.jLabel19.setText("N°sejour: "+this.numSej);
 // Résumé DM
         this.jTextPane1.setText("iPP : "+dpi.getiPP().toString()+"\n"+"Sexe : "+dpi.getSexe().toString()+ "\n"
                 +"Date de Naissance : "+dpi.getDateDeNaissance().toString()+"\n"+ "Nom d'usage : "+dpi.getNomUsage()+ "\n" 
@@ -47,7 +62,7 @@ public class ServiceClinique extends javax.swing.JFrame {
                 +"PH responsable : "+ "\n"+"\t"+"Id : "+this.dpi.getMyDM().getLastSejour().getMedecinResponsable().getIdPersonel()
                 +"\n"+"\t"+"Nom : "+ this.dpi.getMyDM().getLastSejour().getMedecinResponsable().getNom()
                 +"\n"+"\t"+"Prènom : "+this.dpi.getMyDM().getLastSejour().getMedecinResponsable().getPrenom()+"\n"
-                +"N° de sejour : "+this.dpi.getMyDM().getLastSejour().getNumeroDeSejour());
+                +"N° de sejour : "+this.numSej);
         
     }
 
@@ -266,6 +281,11 @@ public class ServiceClinique extends javax.swing.JFrame {
         jLabel14.setForeground(new java.awt.Color(26, 188, 156));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("OBSERVATIONS");
+        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel14MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -287,6 +307,11 @@ public class ServiceClinique extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(26, 188, 156));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("OPERATIONS INFIRMIERES");
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -315,6 +340,11 @@ public class ServiceClinique extends javax.swing.JFrame {
         jLabel16.setForeground(new java.awt.Color(26, 188, 156));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("PRESCRIPTIONS");
+        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel16MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
@@ -506,6 +536,11 @@ public class ServiceClinique extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(26, 188, 156));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("LOCALITE");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -618,6 +653,11 @@ public class ServiceClinique extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(jPanel4.getBackground());
         jLabel3.setText("Deconnection");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setForeground(jPanel4.getBackground());
@@ -727,7 +767,8 @@ public class ServiceClinique extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void jPanel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel21MouseClicked
-        LettreSortie lettre = new LettreSortie(p,dpi);
+        
+        LettreSortie lettre = new LettreSortie(this.p,this.dpi,this.numSej);
         lettre.setVisible(true);
         lettre.setLocationRelativeTo(this);
         this.setVisible(false);
@@ -738,11 +779,46 @@ public class ServiceClinique extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel23MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        ServiceCliniqueEdition edit=new ServiceCliniqueEdition(p,dpi);
+        ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,1);
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
+        ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,2);
+        edit.setVisible(true);
+        edit.setLocationRelativeTo(this);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel14MouseClicked
+
+    private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
+        ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,3);
+        edit.setVisible(true);
+        edit.setLocationRelativeTo(this);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel16MouseClicked
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,1);
+        edit.setVisible(true);
+        edit.setLocationRelativeTo(this);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel11MouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        ServiceCliniqueLitD lit =new ServiceCliniqueLitD(this.p,this.dpi);
+        lit.setVisible(true);
+        lit.setLocationRelativeTo(this);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        Connection conection =new Connection();
+        conection.setVisible(true);
+        conection.setLocationRelativeTo(this);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -775,10 +851,15 @@ public class ServiceClinique extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 
-                Personnel p= new Medecin("sSP", RangMedecin.INTERNE, new Service("CHIR", "Chirurgie", "id rep", null, null, null, null), "capes", "mathieu", "idPersonel", Sexe.FEMME, null,null,"identifient", null, null);
-                //DPI dpi= new DPI("lisard", "lopez", "marie", null, new IPP(444), null, null, null, new Lit("idlit",true,'c',null, "service", 444), new DM(null), null, Sexe.FEMME);
+                Personnel p= new Medecin("sSP", RangMedecin.MCU_PH, new Service("CHIR", "Chirurgie", "id rep", null, null, null, null), "capes", "mathieu", "1111", Sexe.FEMME, null,null,"identifient", null, null);
+                Adresse ad = new Adresse("pays", "ville",38100, "nomVoie", 3, "typeVoie", "complement");
+                DateT d= new DateT("04-02-16");
+                Personnel p2= new Infirmier(null, TypeInfirmier.IADE, "capes", "jule", "2222", Sexe.FEMME, ad,d,"identifient", null,null);
+
+//DPI dpi= new DPI("lisard", "lopez", "marie", null, new IPP(444), null, null, null, new Lit("idlit",true,'c',null, "service", 444), new DM(null), null, Sexe.FEMME);
                 DPI dpi = DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")),new ArrayList<>(Arrays.asList("170000001")));
-                new ServiceClinique(p,dpi).setVisible(true); 
+                String numSej = dpi.getMyDM().getLastSejour().getNumeroDeSejour();
+                new ServiceClinique(p2,dpi,numSej).setVisible(true); 
                 
             }
         });

@@ -5,11 +5,18 @@
  */
 package ui;
 
+import db.GestionnaireDB.DAOFactory;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Vector;
 import nf.DPI.DM.Resultat;
 import nf.DPI.DMA.Sejour;
 import nf.DPI.DPI;
+import nf.GestionDexploitation.Medecin;
 import nf.GestionDexploitation.Personnel;
+import nf.GestionDexploitation.RangMedecin;
+import nf.GestionDexploitation.Service;
+import nf.GestionDexploitation.Sexe;
 
 /**
  *
@@ -22,31 +29,41 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
      */
     private Personnel p;
     private DPI dpi;
+    private String numSej;
+// instance : 1= résultat/ 2 = Observation / 3=prescription /4=opération infirmière
+    private int instance;
     
-    public ServiceCliniqueEdition(Personnel p, DPI dpi) {
-//        initComponents();
-//               
-////entête page
-//        this.p=p;
-//        this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
-////Entête DPI
-//        this.dpi=dpi;
-//        this.jLabel18.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
-//        this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdentifient());
-//
-//        int maxSejour= this.dpi.getMyDM().getlSejour().size();
-//        this.jLabel19.setText("N°sejour: "+this.dpi.getMyDM().getlSejour().get(maxSejour-1).getNumeroDeSejour());
-////Resumé de DM
-//        ArrayList<Resultat> lResult = new ArrayList();
-//        int max =dpi.getMyDM().getLastSejour().getlFicheDeSoins().size()-1;
-//        for(int i=0;i==max; i++){
-//            int maxresult =dpi.getMyDM().getLastSejour().getlFicheDeSoins().size()-1;
-//            for(int j=0;j==maxresult;j++){
-//                lResult.add(dpi.getMyDM().getLastSejour().getlFicheDeSoins().get(i).getResultat().get(j));
+    public ServiceCliniqueEdition(Personnel p, DPI dpi,String numSej,int instance) {
+        initComponents();
+        this.numSej = numSej;
+//entête page (personnel connecté)
+        this.p=p;
+        this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
+//Entête DPI
+        this.dpi=dpi;
+        this.jLabel18.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
+        this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdentifient());
+        this.jLabel19.setText("N°sejour: "+numSej);
+        
+//Resumé de DM
+//        if (instance==1){
+//            
+//            ArrayList<Resultat> lResult = new ArrayList();
+//            System.out.println("\n");
+//            System.out.println("\n");
+//            System.out.println(dpi.getMyDM().getLastSejour().getlFicheDeSoins().());
+//            for(g> i = someList.iterator(); i.hasNext(); ) {
+//                String item = i.next();
+//                System.out.println(item);
 //            }
+//            for (dpi.getMyDM().getLastSejour().getlFicheDeSoins()){
+//                lResult= (dpi.getMyDM().getLastSejour().getlFicheDeSoins().get(i).getResultat());
+//                System.out.println("okokook");
+//            }
+//            System.out.println(lResult);
+//            Vector vResult = new Vector(lResult);
+//            this.jList1.setListData(vResult);
 //        }
-//        System.out.println(lResult);
-//        this.jList1.setListData(lResult);
     }
 
     /**
@@ -413,6 +430,11 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         jLabel16.setForeground(new java.awt.Color(26, 188, 156));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("PRESCRIPTIONS");
+        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel16MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
@@ -510,6 +532,11 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         jLabel22.setForeground(new java.awt.Color(26, 188, 156));
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setText("RETOUR");
+        jLabel22.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel22MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
@@ -701,6 +728,17 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel16MouseClicked
+
+    private void jLabel22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22MouseClicked
+        ServiceClinique serviceClinique = new ServiceClinique(this.p,this.dpi,this.numSej);
+        serviceClinique.setVisible(true);
+        serviceClinique.setLocationRelativeTo(this);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel22MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -732,7 +770,11 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
 //                
-//                new ServiceCliniqueEdition().setVisible(true);
+//                Personnel p= new Medecin("sSP", RangMedecin.INTERNE, new Service("CHIR", "Chirurgie", "id rep", null, null, null, null), "capes", "mathieu", "idPersonel", Sexe.FEMME, null,null,"identifient", null, null);
+//                //DPI dpi= new DPI("lisard", "lopez", "marie", null, new IPP(444), null, null, null, new Lit("idlit",true,'c',null, "service", 444), new DM(null), null, Sexe.FEMME);
+//                DPI dpi = DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")),new ArrayList<>(Arrays.asList("170000001")));
+//                
+//                new ServiceCliniqueEdition(p,dpi,1).setVisible(true);
 //            }
 //        });
 //    }

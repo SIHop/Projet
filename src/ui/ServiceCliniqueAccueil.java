@@ -5,9 +5,25 @@
  */
 package ui;
 
+import db.GestionnaireDB.DAO;
+import db.GestionnaireDB.DAOFactory;
+import db.GestionnaireDB.SejourDAO;
+import db.GestionnaireDB.ServiceDAO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import nf.Adresse.Adresse;
+import nf.Adresse.DateT;
+import nf.DPI.DMA.Sejour;
+import nf.DPI.DPI;
+import nf.GestionDexploitation.Infirmier;
+import nf.GestionDexploitation.Medecin;
+import nf.GestionDexploitation.Personnel;
+import nf.GestionDexploitation.RangMedecin;
+import nf.GestionDexploitation.SecretaireMedicale;
+import nf.GestionDexploitation.Service;
+import nf.GestionDexploitation.Sexe;
+import nf.GestionDexploitation.TypeInfirmier;
 
 /**
  *
@@ -18,8 +34,32 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
     /**
      * Creates new form Administration
      */
-    public ServiceCliniqueAccueil() {
+    private Personnel p;
+    
+    public ServiceCliniqueAccueil(Personnel p) {
         initComponents();
+        //entête page
+        this.p=p;
+        this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
+        Service service;
+        if(p instanceof Medecin){
+            Medecin med = (Medecin) this.p;
+            service = med.getService();
+        }
+        else{
+            if(p instanceof Infirmier){
+                Infirmier inf = (Infirmier) this.p;
+                service = inf.getService();
+            }
+            else{
+                SecretaireMedicale sm = (SecretaireMedicale)this.p;
+                service = sm.getService();
+            }
+        }
+        // selection de tout les sejour dont le service du ph resp = service de l'utilisateur
+        String idRespoService = service.getResponsable().getIdPersonel();
+//        ArrayList<Sejour> lsej = DAOFactory.getSejourDAO().findMultiple(, val);
+//        this.jTextPane1.setText(t);
     }
 
     /**
@@ -109,7 +149,7 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1203, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1208, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,7 +224,7 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
         jPanel10.setBackground(jPanel2.getBackground());
 
         jTextPane1.setContentType("iPP\nSexe\nDate de Naissance\nNom d'usage\nNom de naissance\nPrénom\n \n \n \nPH responsable\nN° de sejour \nDernière action sur son DM"); // NOI18N
-        jTextPane1.setText("iPP\nSexe\nDate de Naissance\nNom d'usage\nNom de naissance\nPrénom\n \n \n \nPH responsable\nN° de sejour \nDernière action sur son DM");
+        jTextPane1.setText("Patient 1, Lit 3F\nPatient 2, Lit 12\nPatient 3, Lit 7P");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -279,7 +319,7 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1203, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1208, Short.MAX_VALUE))
                 .addGap(48, 48, 48))
         );
         jPanel3Layout.setVerticalGroup(
@@ -351,7 +391,13 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ServiceCliniqueAccueil().setVisible(true);
+                
+                Personnel p= new Medecin("sSP", RangMedecin.MCU_PH, new Service("CHIR", "Chirurgie", "id rep", null, null, null, null), "capes", "mathieu", "1111", Sexe.FEMME, null,null,"identifient", null, null);
+                Adresse ad = new Adresse("pays", "ville",38100, "nomVoie", 3, "typeVoie", "complement");
+                DateT d= new DateT("04-02-16");
+                Personnel p2= new Infirmier(null, TypeInfirmier.IADE, "capes", "jule", "2222", Sexe.FEMME, ad,d,"identifient", null,null);
+
+                new ServiceCliniqueAccueil(p).setVisible(true);
             }
         });
     }
