@@ -716,10 +716,19 @@ public class ServiceCliniqueLitE extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
+        //On met le lit qu'elle quitte a vide :
+        this.dpi.getLit().setIPPoccupent(0);
+        this.dpi.getLit().setIsOccuped(false);
+        DAOFactory.getLitDAO().update(this.dpi.getLit());
+        
+        //On ajoute son nouveau lit au dpi et on met a jours la db
         int position =this.jComboBox1.getSelectedIndex();
         Lit lit = this.listeLit.get(position);
+        lit.setIsOccuped(true);
+        lit.setIPPoccupent(dpi.getiPP().getIPP());
         this.dpi.setLit(lit);
         DAOFactory.getLitDAO().update(this.dpi.getLit());
+        
         ServiceClinique sc=new ServiceClinique(this.p,this.dpi,this.numSej,this.listeDPI );
         sc.setVisible(true);
         sc.setLocationRelativeTo(this);

@@ -92,9 +92,14 @@ public class LitDAO implements DAO<Lit> {
         if (obj.isIsOccuped()) {
             occuper = 1;
         }
+        //si l'ipp à les 9 chiffre demandé : set ipp
+        String ipp = null;
+        if(obj.getIPPoccupent() > 010000000){
+            ipp = "'" + Integer.toString(obj.getIPPoccupent()) + "'";
+        }
 
         this.query = "INSERT INTO lit (idLit, IPP, idService,estOccuper,cote, batiment, etage,couloir)"
-                + " VALUES ('" + obj.getIdentifient() + "'," + obj.getIPPoccupent() + "," + obj.getService().getCodeService() + "," + occuper + ",'" + obj.getCote() + "','"
+                + " VALUES ('" + obj.getIdentifient() + "'," + ipp + "," + obj.getService().getCodeService() + "," + occuper + ",'" + obj.getCote() + "','"
                 + obj.getLocalisation().getBatiment().replace("'", "''") + "'," + obj.getLocalisation().getEtage() + ",'" + obj.getLocalisation().getCouloir() + "')";
 
         System.out.println(query);
