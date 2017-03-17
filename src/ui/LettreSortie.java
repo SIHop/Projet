@@ -26,9 +26,12 @@ public class LettreSortie extends javax.swing.JFrame {
     Personnel p;
     DPI dpi;
     String numSej;
-    public LettreSortie(Personnel p, DPI dpi,String numSej) {
+    private ArrayList<DPI> listeDPI = new ArrayList<>();
+
+    public LettreSortie(Personnel p, DPI dpi,String numSej,ArrayList<DPI> listeDPI) {
         initComponents();
         this.numSej=numSej;
+        this.listeDPI=listeDPI;
 //entête page
         this.p=p;
         this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
@@ -160,6 +163,11 @@ public class LettreSortie extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(26, 188, 156));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("SEJOURS ACTUELS");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -257,6 +265,11 @@ public class LettreSortie extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setForeground(jPanel4.getBackground());
         jLabel4.setText("SERVICE CLINIQUE");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -512,7 +525,7 @@ public class LettreSortie extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jLabel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23MouseClicked
-        ServiceClinique serviceClinique = new ServiceClinique(this.p,this.dpi,this.numSej);
+        ServiceClinique serviceClinique = new ServiceClinique(this.p,this.dpi,this.numSej,this.listeDPI);
         serviceClinique.setVisible(true);
         serviceClinique.setLocationRelativeTo(this);
         this.setVisible(false);
@@ -536,11 +549,25 @@ public class LettreSortie extends javax.swing.JFrame {
         //mise a jour de la BD
         DAOFactory.getSejourDAO().update(this.dpi.getMyDM().getLastSejour());
          
-        ServiceClinique serviceClinique = new ServiceClinique(this.p,this.dpi,this.numSej);
+        ServiceClinique serviceClinique = new ServiceClinique(this.p,this.dpi,this.numSej,this.listeDPI);
         serviceClinique.setVisible(true);
         serviceClinique.setLocationRelativeTo(this);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel21MouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
+        ac.setVisible(true);
+        ac.setLocationRelativeTo(this);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
+        ac.setVisible(true);
+        ac.setLocationRelativeTo(this);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel5MouseClicked
 
     /**
      * @param args the command line arguments

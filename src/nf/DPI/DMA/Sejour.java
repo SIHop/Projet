@@ -1,9 +1,12 @@
 package nf.DPI.DMA;
 
+import db.GestionnaireDB.DAOFactory;
 import java.util.ArrayList;
+import java.util.Arrays;
 import nf.GestionDexploitation.Medecin;
 import nf.Adresse.DateT;
 import nf.DPI.DM.FicheDeSoins;
+import nf.DPI.DPI;
 
 public class Sejour {
 
@@ -86,7 +89,12 @@ public class Sejour {
     @Override
     public String toString() {
         //return "Sejour{" + "lFicheDeSoins=" + lFicheDeSoins + ", natureDesPrestation=" + natureDesPrestation + ", dateDeFin=" + dateDeFin + ", lettreDeSortie=" + lettreDeSortie + ", dateDebut=" + dateDebut + ", medecinResponsable=" + medecinResponsable + ", numeroDeSejour=" + numeroDeSejour + '}';
-        return "Numero de sejour = " + this.numeroDeSejour;
+        DMA dma = DAOFactory.getDmaDAO().find(new ArrayList<>(Arrays.asList("numeroSejour")), new ArrayList<>(Arrays.asList(this.numeroDeSejour)));
+        String ipp = dma.getIPP();
+        DPI dpi = DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList(ipp)));
+
+        return "Numero de sejour = " + this.numeroDeSejour + "\n"
+                +"Nom Usage"+dpi.getNomUsage()+"Nom Naissance"+dpi.getNomNaissance()+"\n"+"prénom"+dpi.getPrenom();
     }
 
     /**
