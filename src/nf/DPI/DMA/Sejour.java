@@ -2,7 +2,6 @@ package nf.DPI.DMA;
 
 import java.util.ArrayList;
 import nf.GestionDexploitation.Medecin;
-import java.util.Date;
 import nf.Adresse.DateT;
 import nf.DPI.DM.FicheDeSoins;
 
@@ -16,6 +15,7 @@ public class Sejour {
     private final DateT dateDebut;
     private final Medecin medecinResponsable;
     private String numeroDeSejour;
+    private boolean enCours;
 
     public Sejour(String numeroDeSejour, DateT dateDebut, Medecin medecinResponsable) {
         this.numeroDeSejour = numeroDeSejour;
@@ -23,7 +23,7 @@ public class Sejour {
         this.medecinResponsable = medecinResponsable;
     }
 
-    public Sejour(LettreDeSortie lettreDeSortie, String numeroDeSejour, ArrayList<String> natureDesPrestation, DateT dateDebut, DateT dateDeFin, Medecin medecinResponsable, ArrayList<FicheDeSoins> lFicheDeSoins) {
+    public Sejour(LettreDeSortie lettreDeSortie, String numeroDeSejour, ArrayList<String> natureDesPrestation, DateT dateDebut, DateT dateDeFin, Medecin medecinResponsable, ArrayList<FicheDeSoins> lFicheDeSoins, boolean enCours) {
         this.lFicheDeSoins = lFicheDeSoins;
         this.natureDesPrestation = natureDesPrestation;
         this.dateDeFin = dateDeFin;
@@ -31,6 +31,7 @@ public class Sejour {
         this.dateDebut = dateDebut;
         this.medecinResponsable = medecinResponsable;
         this.numeroDeSejour = numeroDeSejour;
+        this.enCours = enCours;
     }
 
     public ArrayList<FicheDeSoins> getlFicheDeSoins() {
@@ -70,6 +71,11 @@ public class Sejour {
     }
 
     public void setDateDeFin(DateT dateDeFin) {
+        if(dateDeFin == null){
+            this.setEnCours(true);
+        }else{
+            this.setEnCours(false);
+        }
         this.dateDeFin = dateDeFin;
     }
 
@@ -88,6 +94,20 @@ public class Sejour {
      */
     public void setNumeroDeSejour(String numeroDeSejour) {
         this.numeroDeSejour = numeroDeSejour;
+    }
+
+    /**
+     * @return the enCours
+     */
+    public boolean isEnCours() {
+        return enCours;
+    }
+
+    /**
+     * @param enCours the enCours to set
+     */
+    public void setEnCours(boolean enCours) {
+        this.enCours = enCours;
     }
 
 }
