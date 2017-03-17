@@ -269,15 +269,18 @@ public class testDB {
 //        System.out.println("");
 //        System.out.println("");
         //**findMultiple OK
-//        ArrayList<Sejour> lsej = sejourDAO.findMultiple(new ArrayList<>(Arrays.asList("idPersonnel")), new ArrayList<>(Arrays.asList("3")));
+        ArrayList<Sejour> lsej = sejourDAO.findMultiple(new ArrayList<>(Arrays.asList("idPersonnel")), new ArrayList<>(Arrays.asList("3")));
 //        for(Sejour s : lsej){
 //            System.out.println(s.toString());
 //        }
         //**create OK
-//        Sejour sejAjouter = lsej.get(0);
-//        sejAjouter.setNumeroDeSejour("170200003");
-//        sejAjouter.setLettreDeSortie(null);
-//        sejourDAO.create(sejAjouter);
+        Sejour sejAjouter = lsej.get(0);
+        System.out.println(sejAjouter.isEnCours());
+        sejAjouter.setNumeroDeSejour("170200003");
+        sejAjouter.setLettreDeSortie(null);
+        sejAjouter.setDateDeFin(null);
+               
+        sejourDAO.create(sejAjouter);
         
 //        //**Update OK
 //        sejAjouter.setDateDeFin(new DateT("2012-01-01"));

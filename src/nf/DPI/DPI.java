@@ -134,6 +134,8 @@ public class DPI {
         Patient p = new Patient(this.getiPP().getIPP(), this.getNomUsage(), 'I');
         p.setBirth(dateDeNaissance.getC().getTime());
         p.setFirstName(this.prenom);
+        p.setAssignedPatLocation(new PatientLocation(p));
+        
         char sex = 'X';
         switch (this.sexe.ordinal()) {
             case 1:
@@ -143,33 +145,34 @@ public class DPI {
                 sex = 'F';
                 break;
         }
-        if(sex != 'X'){
-             p.setSex(sex);
+        if (sex != 'X') {
+            p.setSex(sex);
         }
-        p.getAssignedPatLocation().setBed(this.getLit().getIdentifient());
-        p.getAssignedPatLocation().setBuilding(this.getLit().getLocalisation().getBatiment());
-        p.getAssignedPatLocation().setFloor(Integer.toString(this.getLit().getLocalisation().getEtage()));
-        
-        
+        if (this.getLit() != null) {
+            p.getAssignedPatLocation().setBed(this.getLit().getIdentifient());
+            p.getAssignedPatLocation().setBuilding(this.getLit().getLocalisation().getBatiment());
+            p.getAssignedPatLocation().setFloor(Integer.toString(this.getLit().getLocalisation().getEtage()));
+        }
+
         return p;
     }
-    
-    public static DPI patientToDpi(Patient p){
+
+    public static DPI patientToDpi(Patient p) {
         DateT d = new DateT("");
         d.getC().setTime(p.getBirth());
         Sexe sexe;
-        switch(p.getCharSex()){
-            case 'F' :
+        switch (p.getCharSex()) {
+            case 'F':
                 sexe = Sexe.FEMME;
                 break;
-            default :
+            default:
                 sexe = Sexe.HOMME;
+                break;
         }
-        
-        DPI dpi = new DPI(p.getFamillyName(), p.getFamillyName(), p.getFirstName(), null, new IPP(p.getID()),d, null,null,null,null,null,sexe);
-        
+
+        DPI dpi = new DPI(p.getFamillyName(), p.getFamillyName(), p.getFirstName(), null, new IPP(p.getID()), d, null, null, null, null, null, sexe);
+
         return dpi;
     }
 
 }
-
