@@ -20,7 +20,7 @@ public class DPI {
 
     @Override
     public String toString() {
-        return nomUsage+" " + prenom + ", " + sexe+ ", né(e) le  " +dateDeNaissance ;
+        return nomUsage+" " + prenom + ", " + sexe+ ", né(e) le  " +dateDeNaissance + " IPP : " + iPP.getIPP();
     }
     private Adresse adresse;
     private InformationDeContact infoDeContact;
