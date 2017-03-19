@@ -6,8 +6,7 @@
 package db.GestionnaireDB;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import nf.DPI.DMA.Sejour;
+import nf.DPI.DPI;
 
 /**
  *
@@ -172,7 +171,7 @@ public class testDB {
 //        histDAO.delete(histAjouter);
         
 //        //dpiDAO
-//        DpiDAO dpiDAO = (DpiDAO)DAOFactory.getDpiDAO();
+        DpiDAO dpiDAO = (DpiDAO)DAOFactory.getDpiDAO();
 //        //**find OK
 //        DPI dpi = dpiDAO.find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList("170000001")));
 //        System.out.println(dpi.getLit().getService().getCodeService());
@@ -189,6 +188,11 @@ public class testDB {
 //        dpiDAO.update(dpiAjouter);
 //        //**delete ok
 //        dpiDAO.delete(dpiAjouter);
+        //**findAll OK 19/03/2017
+//        ArrayList<DPI> ldpi = dpiDAO.findAll();
+//        for(DPI d : ldpi){
+//            System.out.println(d.toString());
+//        }
         
 //        //PersonnelDAO
 //        PersonnelDAO persoDAO =(PersonnelDAO) DAOFactory.getPersonelDAO();

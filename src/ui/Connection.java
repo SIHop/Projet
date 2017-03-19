@@ -7,11 +7,11 @@ package ui;
 
 import db.GestionnaireDB.DAO;
 import db.GestionnaireDB.DAOFactory;
-import db.GestionnaireDB.PersonnelDAO;
 import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -84,6 +84,11 @@ public class Connection extends javax.swing.JFrame {
                 jTextField4ActionPerformed(evt);
             }
         });
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField4KeyPressed(evt);
+            }
+        });
 
         jPanel5.setBackground(new java.awt.Color(19, 29, 38));
 
@@ -94,6 +99,12 @@ public class Connection extends javax.swing.JFrame {
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel3MouseExited(evt);
             }
         });
 
@@ -110,7 +121,7 @@ public class Connection extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 80, Short.MAX_VALUE)
+            .addGap(0, 86, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addContainerGap()
@@ -135,6 +146,11 @@ public class Connection extends javax.swing.JFrame {
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordField1ActionPerformed(evt);
+            }
+        });
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyPressed(evt);
             }
         });
 
@@ -358,28 +374,61 @@ public class Connection extends javax.swing.JFrame {
         DAO<Personnel> persoDAO = DAOFactory.getPersonelDAO();
 
 //choix de la page de destination en fonction du statut      
-        Personnel p =persoDAO.find(colonneDB, val);
+        Personnel p = persoDAO.find(colonneDB, val);
         if (p != null) {
             if (p instanceof SecretaireAdministratif) {
-                SecretaireAdministratif SA = (SecretaireAdministratif)p; 
+                SecretaireAdministratif SA = (SecretaireAdministratif) p;
+                Administration adm = new Administration(SA);
+                adm.setVisible(true);
+                this.dispose();
             } else {
                 if (p instanceof Medecin) {
-                    Medecin medecin = (Medecin) p; // Service?
-
+                    Medecin medecin = (Medecin) p; 
+                    ServiceCliniqueAccueil serCA = new ServiceCliniqueAccueil(medecin);
+                    serCA.setVisible(true);
+                    this.dispose();
                 } else {
-                    SecretaireMedicale SM = (SecretaireMedicale) p; // Service?
-                    ServiceCliniqueAccueil serCA = new ServiceCliniqueAccueil(p);
+                    SecretaireMedicale SM = (SecretaireMedicale) p; 
+                    ServiceCliniqueAccueil serCA = new ServiceCliniqueAccueil(SM);
                     serCA.setVisible(true);
                     this.dispose();
 
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(null, "La combinaison Identifiant / Mot de passe entré ne correspond à aucun profil");
+            JOptionPane.showMessageDialog(this, "La combinaison Identifiant / Mot de passe entré ne correspond à aucun profil");
             jTextField4.setText("");
             jPasswordField1.setBackground(Color.red);
+            
+            
+            
+            
         }
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jTextField4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyPressed
+        switch(evt.getKeyCode()){
+            case 10 : 
+                this.jLabel3MouseClicked(new MouseEvent(this, tx, tx, WIDTH, tx, ty, WIDTH, rootPaneCheckingEnabled));
+                break;
+        }
+    }//GEN-LAST:event_jTextField4KeyPressed
+
+    private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
+        switch(evt.getKeyCode()){
+            case 10 : 
+                this.jLabel3MouseClicked(new MouseEvent(this, tx, tx, WIDTH, tx, ty, WIDTH, rootPaneCheckingEnabled));
+                break;
+        }
+    }//GEN-LAST:event_jPasswordField1KeyPressed
+
+    private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
+        jLabel3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jLabel3MouseEntered
+
+    private void jLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseExited
+        jLabel3.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_jLabel3MouseExited
 
     public void tickTock() {
         jLabel5.setText(DateFormat.getDateTimeInstance().format(new Date()).substring(0, DateFormat.getDateTimeInstance().format(new Date()).length() - 3));
