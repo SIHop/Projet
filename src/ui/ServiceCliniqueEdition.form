@@ -893,6 +893,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="D&#xe9;tails"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton2MouseClicked"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JPanel" name="jPanel21">
               <Properties>

@@ -20,7 +20,12 @@ public enum TypeActe {
     /**
      *
      */
-    THERAPEUTIQUE("THERAPEUTIQUE");
+    THERAPEUTIQUE("THERAPEUTIQUE"),
+        /**
+     *
+     */
+    INFIRMIEER("INFIRMIER");
+    
     
     // attributs de l'enum :
     private String typeActe;
