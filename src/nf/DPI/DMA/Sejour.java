@@ -20,6 +20,9 @@ public class Sejour {
     private String numeroDeSejour;
     private boolean enCours;
 
+    private DMA dma = null;
+    private DPI dpi = null;
+
     public Sejour(String numeroDeSejour, DateT dateDebut, Medecin medecinResponsable) {
         this.numeroDeSejour = numeroDeSejour;
         this.dateDebut = dateDebut;
@@ -74,9 +77,9 @@ public class Sejour {
     }
 
     public void setDateDeFin(DateT dateDeFin) {
-        if(dateDeFin == null){
+        if (dateDeFin == null) {
             this.setEnCours(true);
-        }else{
+        } else {
             this.setEnCours(false);
         }
         this.dateDeFin = dateDeFin;
@@ -89,12 +92,14 @@ public class Sejour {
     @Override
     public String toString() {
         //return "Sejour{" + "lFicheDeSoins=" + lFicheDeSoins + ", natureDesPrestation=" + natureDesPrestation + ", dateDeFin=" + dateDeFin + ", lettreDeSortie=" + lettreDeSortie + ", dateDebut=" + dateDebut + ", medecinResponsable=" + medecinResponsable + ", numeroDeSejour=" + numeroDeSejour + '}';
-        DMA dma = DAOFactory.getDmaDAO().find(new ArrayList<>(Arrays.asList("numeroSejour")), new ArrayList<>(Arrays.asList(this.numeroDeSejour)));
-        String ipp = dma.getIPP();
-        DPI dpi = DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList(ipp)));
+        if (this.dma == null) {
+            this.dma = DAOFactory.getDmaDAO().find(new ArrayList<>(Arrays.asList("numeroSejour")), new ArrayList<>(Arrays.asList(this.numeroDeSejour)));
+            String ipp = dma.getIPP();
+            this.dpi = DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList(ipp)));
+        }
 
         return "Numero de sejour = " + this.numeroDeSejour + "\n"
-                +"Nom Usage"+dpi.getNomUsage()+"Nom Naissance"+dpi.getNomNaissance()+"\n"+"prénom"+dpi.getPrenom();
+                + " Nom Usage " + this.dpi.getNomUsage() + " Nom Naissance " + this.dpi.getNomNaissance() + "\n" + " prénom " + this.dpi.getPrenom();
     }
 
     /**

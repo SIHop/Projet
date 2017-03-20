@@ -17,6 +17,7 @@ import nf.Adresse.DateT;
 import nf.DPI.DM.DM;
 import nf.DPI.DMA.DMA;
 import nf.DPI.DMA.IPP;
+import nf.DPI.DMA.Sejour;
 import nf.DPI.DPI;
 import nf.GestionDexploitation.InformationDeContact;
 import nf.GestionDexploitation.Lit;
@@ -61,14 +62,16 @@ public class DpiDAO implements DAO<DPI> {
                 valLit.add(rs.getString("IPP"));
 
                 DMA myDMA = DAOFactory.getDmaDAO().find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList(rs.getString("IPP"))));
+
                 DM myDM;
                 if (myDMA != null) {
                     myDM = new DM(myDMA.getListeDeSejour(), new IPP(rs.getInt("IPP")));
                 } else {
-                    myDM = new DM(null, new IPP(rs.getInt("IPP")));
+                    myDMA = new DMA(new ArrayList<>(), rs.getString("IPP"));
+                    myDM = new DM(new ArrayList<>(), new IPP(rs.getInt("IPP")));
                 }
 
-                return new DPI(rs.getString("nomNaissance"), rs.getString("nomUsage"), rs.getString("prenom"), adresseDAO.find(argAdresse, valAdresse), new IPP(rs.getInt("IPP")), new DateT(rs.getString("dateNaissance")), null, new InformationDeContact(rs.getString("telephoneFixe"), rs.getString("telephonePortable"), rs.getString("mail"), null), litDAO.find(argLit, valLit), myDM, myDMA, Sexe.valueOf(rs.getString("sexe")));
+                return new DPI(rs.getString("nomNaissance"), rs.getString("nomUsage"), rs.getString("prenom"), adresseDAO.find(argAdresse, valAdresse), new IPP(rs.getInt("IPP")), new DateT(rs.getString("dateNaissance")), null, new InformationDeContact(rs.getString("telephoneFixe"), rs.getString("telephonePortable"), rs.getString("mail"), null), litDAO.find(argLit, valLit), myDM, myDMA, Sexe.valueOf(rs.getString("sexe")), rs.getString("lieuNaissance"));
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
@@ -111,16 +114,17 @@ public class DpiDAO implements DAO<DPI> {
                     argLit.add("IPP");
                     ArrayList<String> valLit = new ArrayList<>();
                     valLit.add(rs.getString("IPP"));
-                   
+
                     DMA myDMA = DAOFactory.getDmaDAO().find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList(rs.getString("IPP"))));
                     DM myDM;
                     if (myDMA != null) {
                         myDM = new DM(myDMA.getListeDeSejour(), new IPP(rs.getInt("IPP")));
                     } else {
-                        myDM = new DM(null, new IPP(rs.getInt("IPP")));
+                        myDMA = new DMA(new ArrayList<>(), rs.getString("IPP"));
+                        myDM = new DM(new ArrayList<>(), new IPP(rs.getInt("IPP")));
                     }
 
-                    retour.add(new DPI(rs.getString("nomNaissance"), rs.getString("nomUsage"), rs.getString("prenom"), adresseDAO.find(argAdresse, valAdresse), new IPP(rs.getInt("IPP")), new DateT(rs.getString("dateNaissance")), null, new InformationDeContact(rs.getString("telephoneFixe"), rs.getString("telephonePortable"), rs.getString("mail"), null), litDAO.find(argLit, valLit), myDM, myDMA, Sexe.valueOf(rs.getString("sexe"))));
+                    retour.add(new DPI(rs.getString("nomNaissance"), rs.getString("nomUsage"), rs.getString("prenom"), adresseDAO.find(argAdresse, valAdresse), new IPP(rs.getInt("IPP")), new DateT(rs.getString("dateNaissance")), null, new InformationDeContact(rs.getString("telephoneFixe"), rs.getString("telephonePortable"), rs.getString("mail"), null), litDAO.find(argLit, valLit), myDM, myDMA, Sexe.valueOf(rs.getString("sexe")), rs.getString("lieuNaissance")));
                 }
 
             } else {
@@ -137,21 +141,24 @@ public class DpiDAO implements DAO<DPI> {
     @Override
     public DPI create(DPI obj) {
         String lit;
-        if(obj.getLit() == null){
+        if (obj.getLit() == null) {
             lit = null;
-        }else{
-            lit = "'" + obj.getLit().getIdentifient()+"'";
+        } else {
+            lit = "'" + obj.getLit().getIdentifient() + "'";
         }
-        this.query = "INSERT INTO dpi (IPP,IdCentreDeSoin, prenom,nomNaissance,nomUsage,sexe, dateNaissance,telephonePortable,telephoneFixe,mail,lit)"
-                + " VALUES (" + obj.getiPP().getIPP() + 
-                "," + 38100111 + ",'" 
-                + obj.getPrenom().replace("'", "''") 
-                + "','" + obj.getNomNaissance().replace("'", "''") 
-                + "','" + obj.getNomUsage().replace("'", "''") 
-                + "','" + obj.getSexe().toString() + "','" + obj.getDateDeNaissance().toString() 
-                + "','" + obj.getInfoDeContact().getNumeroPortable() 
-                + "','" + obj.getInfoDeContact().getNumeroFixe() + "','" 
-                + obj.getInfoDeContact().getEmail() + "'," + lit + ")";
+        this.query = "INSERT INTO dpi (IPP,IdCentreDeSoin, prenom,nomNaissance,nomUsage,sexe, dateNaissance,telephonePortable,telephoneFixe,mail,lit, lieuNaissance)"
+                + " VALUES (" + obj.getiPP().getIPP()
+                + "," + 38100111 + ",'"
+                + obj.getPrenom().replace("'", "''")
+                + "','" + obj.getNomNaissance().replace("'", "''")
+                + "','" + obj.getNomUsage().replace("'", "''")
+                + "','" + obj.getSexe().toString() + "','"
+                + obj.getDateDeNaissance().toString()
+                + "','" + obj.getInfoDeContact().getNumeroPortable()
+                + "','" + obj.getInfoDeContact().getNumeroFixe() + "','"
+                + obj.getInfoDeContact().getEmail() + "',"
+                + lit
+                + ",'" + obj.getLieuNaissance().replace("'", "''").toUpperCase() + "')";
 
         Statement stmt;
         try {
@@ -166,12 +173,12 @@ public class DpiDAO implements DAO<DPI> {
     @Override
     public DPI update(DPI obj) {
         String lit;
-        if(obj.getLit() == null){
+        if (obj.getLit() == null) {
             lit = null;
-        }else{
-            lit = "'" + obj.getLit().getIdentifient()+"'";
+        } else {
+            lit = "'" + obj.getLit().getIdentifient() + "'";
         }
-        this.query = "UPDATE dpi SET prenom = '" + obj.getPrenom().replace("'", "''") + "', nomNaissance = '" + obj.getNomNaissance().replace("'", "''") + "', nomUsage = '" + obj.getNomUsage().replace("'", "''") + "', sexe = '" + obj.getSexe().toString() + "', dateNaissance = '" + obj.getDateDeNaissance().toString() + "', telephonePortable = '" + obj.getInfoDeContact().getNumeroPortable() + "', telephoneFixe = '" + obj.getInfoDeContact().getNumeroFixe() + "', mail = '" + obj.getInfoDeContact().getEmail() + "', lit = " + lit + " WHERE IPP = " + obj.getiPP().getIPP() + " AND idCentreDeSoin =" + "38100111";
+        this.query = "UPDATE dpi SET prenom = '" + obj.getPrenom().replace("'", "''") + "', nomNaissance = '" + obj.getNomNaissance().replace("'", "''") + "', nomUsage = '" + obj.getNomUsage().replace("'", "''") + "', sexe = '" + obj.getSexe().toString() + "', dateNaissance = '" + obj.getDateDeNaissance().toString() + "', telephonePortable = '" + obj.getInfoDeContact().getNumeroPortable() + "', telephoneFixe = '" + obj.getInfoDeContact().getNumeroFixe() + "', mail = '" + obj.getInfoDeContact().getEmail() + "', lit = " + lit + ", lieuNaissance = " + obj.getLieuNaissance().replace("'", "''").toUpperCase() + " WHERE IPP = " + obj.getiPP().getIPP() + " AND idCentreDeSoin =" + "38100111";
 
         Statement stmt;
         try {
@@ -246,10 +253,11 @@ public class DpiDAO implements DAO<DPI> {
                     if (myDMA != null) {
                         myDM = new DM(myDMA.getListeDeSejour(), new IPP(rs.getInt("IPP")));
                     } else {
-                        myDM = new DM(null, new IPP(rs.getInt("IPP")));
+                        myDMA = new DMA(new ArrayList<>(), rs.getString("IPP"));
+                        myDM = new DM(new ArrayList<>(), new IPP(rs.getInt("IPP")));
                     }
 
-                    retour.add(new DPI(rs.getString("nomNaissance"), rs.getString("nomUsage"), rs.getString("prenom"), adresseDAO.find(argAdresse, valAdresse), new IPP(rs.getInt("IPP")), new DateT(rs.getString("dateNaissance")), null, new InformationDeContact(rs.getString("telephoneFixe"), rs.getString("telephonePortable"), rs.getString("mail"), null), litDAO.find(argLit, valLit), myDM, myDMA, Sexe.valueOf(rs.getString("sexe"))));
+                    retour.add(new DPI(rs.getString("nomNaissance"), rs.getString("nomUsage"), rs.getString("prenom"), adresseDAO.find(argAdresse, valAdresse), new IPP(rs.getInt("IPP")), new DateT(rs.getString("dateNaissance")), null, new InformationDeContact(rs.getString("telephoneFixe"), rs.getString("telephonePortable"), rs.getString("mail"), null), litDAO.find(argLit, valLit), myDM, myDMA, Sexe.valueOf(rs.getString("sexe")), rs.getString("lieuNaissance")));
                 }
 
             } else {

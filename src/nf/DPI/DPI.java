@@ -18,10 +18,7 @@ public class DPI {
 
     private String nomUsage;
 
-    @Override
-    public String toString() {
-        return nomUsage+" " + prenom + ", " + sexe+ ", né(e) le  " +dateDeNaissance + " IPP : " + iPP.getIPP();
-    }
+    
     private Adresse adresse;
     private InformationDeContact infoDeContact;
     private Lit lit;
@@ -34,6 +31,7 @@ public class DPI {
     private final DateT dateDeNaissance;
     private final NSS nSecuriteSocial;
     private final Sexe sexe;
+    private final String lieuNaissance;
 
     public DPI(String nomNaissance, String nomUsage, String prenom, Adresse adresse, IPP iPP, DateT dateDeNaissance, NSS nSecuriteSocial, InformationDeContact infoDeContact, Lit lit, DM myDM, DMA myDMA, Sexe sexe) {
         this.nomNaissance = nomNaissance;
@@ -48,6 +46,23 @@ public class DPI {
         this.myDM = myDM;
         this.myDMA = myDMA;
         this.sexe = sexe;
+        this.lieuNaissance = "";
+    }
+    
+    public DPI(String nomNaissance, String nomUsage, String prenom, Adresse adresse, IPP iPP, DateT dateDeNaissance, NSS nSecuriteSocial, InformationDeContact infoDeContact, Lit lit, DM myDM, DMA myDMA, Sexe sexe, String lieuNaissance) {
+        this.nomNaissance = nomNaissance;
+        this.nomUsage = nomUsage;
+        this.prenom = prenom;
+        this.adresse = adresse;
+        this.iPP = iPP;
+        this.dateDeNaissance = dateDeNaissance;
+        this.nSecuriteSocial = nSecuriteSocial;
+        this.infoDeContact = infoDeContact;
+        this.lit = lit;
+        this.myDM = myDM;
+        this.myDMA = myDMA;
+        this.sexe = sexe;
+        this.lieuNaissance = lieuNaissance;
     }
 
     public String getNomNaissance() {
@@ -182,6 +197,18 @@ public class DPI {
         DPI dpi = new DPI(p.getFamillyName(), p.getFamillyName(), p.getFirstName(), null, new IPP(p.getID()), d, null, null, null, null, null, sexe);
 
         return dpi;
+    }
+    
+    @Override
+    public String toString() {
+        return nomUsage+" " + prenom + ", " + sexe+ ", né(e) le  " +dateDeNaissance + " IPP : " + iPP.getIPP();
+    }
+
+    /**
+     * @return the lieuNaissance
+     */
+    public String getLieuNaissance() {
+        return lieuNaissance;
     }
 
 }
