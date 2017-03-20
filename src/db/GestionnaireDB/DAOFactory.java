@@ -14,7 +14,7 @@ import nf.DPI.DMA.DMA;
 import nf.DPI.DMA.Sejour;
 import nf.DPI.DPI;
 import nf.DPI.Historique;
-import nf.GestionDexploitation.Lit;
+import nf.GestionDexploitation.Location;
 import nf.GestionDexploitation.Personnel;
 import nf.GestionDexploitation.Service;
 
@@ -36,7 +36,7 @@ public class DAOFactory {
         return new AdressePersonnelDAO();
     }
 
-    public static DAO<Lit> getLitDAO() {
+    public static DAO<Location> getLitDAO() {
         return new LitDAO();
     }
 

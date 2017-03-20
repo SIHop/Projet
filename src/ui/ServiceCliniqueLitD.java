@@ -39,7 +39,7 @@ public class ServiceCliniqueLitD extends javax.swing.JFrame {
         //Entête DPI
         this.dpi=dpi;
         this.jLabel18.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
-        this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdentifient());
+        this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
         this.jLabel19.setText("N°sejour: "+this.numSej);
         
         //mise en relief de la situation courante

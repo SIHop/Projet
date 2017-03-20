@@ -13,7 +13,7 @@ import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import nf.DPI.DPI;
-import nf.GestionDexploitation.Lit;
+import nf.GestionDexploitation.Location;
 import nf.GestionDexploitation.Personnel;
 
 /**
@@ -28,7 +28,7 @@ public class ServiceCliniqueLitE extends javax.swing.JFrame {
     private Personnel p; 
     private DPI dpi;
     private ArrayList<DPI> listeDPI = new ArrayList<>();
-    private ArrayList<Lit> listeLit;
+    private ArrayList<Location> listeLit;
     private String numSej;
     
     public ServiceCliniqueLitE(Personnel p, DPI dpi,String numSej,ArrayList<DPI> listeDPI) {
@@ -43,7 +43,7 @@ public class ServiceCliniqueLitE extends javax.swing.JFrame {
         //Entête DPI
         this.dpi=dpi;
         this.jLabel18.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
-        this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdentifient());
+        this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
         this.jLabel19.setText("N°sejour: "+this.numSej);
         
         //mise en relief de la situation courante
@@ -56,7 +56,7 @@ public class ServiceCliniqueLitE extends javax.swing.JFrame {
         //remplissage de la combo box avec les lit vides
         this.listeLit=DAOFactory.getLitDAO().findMultiple(new ArrayList<>(Arrays.asList("batiment","estOccuper")), new ArrayList<>(Arrays.asList("'main'","0")));
         this.jComboBox1.removeAll();
-        for(Lit l:listeLit){
+        for(Location l:listeLit){
             this.jComboBox1.addItem(l.toString());
         }
     }
@@ -723,7 +723,7 @@ public class ServiceCliniqueLitE extends javax.swing.JFrame {
         
         //On ajoute son nouveau lit au dpi et on met a jours la db
         int position =this.jComboBox1.getSelectedIndex();
-        Lit lit = this.listeLit.get(position);
+        Location lit = this.listeLit.get(position);
         lit.setIsOccuped(true);
         lit.setIPPoccupent(dpi.getiPP().getIPP());
         this.dpi.setLit(lit);

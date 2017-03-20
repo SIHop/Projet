@@ -63,7 +63,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
 //Entête DPI
         this.dpi = dpi;
         this.jLabel18.setText("Patient : " + this.dpi.getNomUsage() + " " + this.dpi.getPrenom());
-        this.jLabel20.setText("Lit : " + this.dpi.getLit().getIdentifient());
+        this.jLabel20.setText("Lit : " + this.dpi.getLit().getIdLit());
         this.jLabel19.setText("N°sejour: " + numSej);
 
         
@@ -1011,7 +1011,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
 //            public void run() {
 //                
 //                Personnel p= new Medecin("sSP", RangMedecin.INTERNE, new Service("CHIR", "Chirurgie", "id rep", null, null, null, null), "capes", "mathieu", "idPersonel", Sexe.FEMME, null,null,"identifient", null, null);
-//                //DPI dpi= new DPI("lisard", "lopez", "marie", null, new IPP(444), null, null, null, new Lit("idlit",true,'c',null, "service", 444), new DM(null), null, Sexe.FEMME);
+//                //DPI dpi= new DPI("lisard", "lopez", "marie", null, new IPP(444), null, null, null, new Location("idlit",true,'c',null, "service", 444), new DM(null), null, Sexe.FEMME);
 //                DPI dpi = DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")),new ArrayList<>(Arrays.asList("170000001")));
 //                
 //                new ServiceCliniqueEdition(p,dpi,1).setVisible(true);

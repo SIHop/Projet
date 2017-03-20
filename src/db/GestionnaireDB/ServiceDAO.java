@@ -5,7 +5,7 @@
  */
 package db.GestionnaireDB;
 
-import nf.GestionDexploitation.Lit;
+import nf.GestionDexploitation.Location;
 import nf.GestionDexploitation.Localisation;
 import nf.GestionDexploitation.Service;
 import nf.GestionDexploitation.TypeService;
@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 public class ServiceDAO implements DAO<Service> {
 
     private String query = "";
-    DAO<Lit> litDAO = DAOFactory.getLitDAO();
+    DAO<Location> litDAO = DAOFactory.getLitDAO();
 
     @Override
     public Service find(ArrayList<String> arg, ArrayList<String> val) {

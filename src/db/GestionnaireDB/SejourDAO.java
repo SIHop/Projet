@@ -77,11 +77,8 @@ public class SejourDAO implements DAO<Sejour> {
                     dateFin = new DateT(rs.getString("dateFin"));
                     enCours = false;
                 }
-                if (rs.getString("facturer").equals("1")) {
-                    
-                    facturer = true;
-                    
-                    
+                if (rs.getString("facturer").equals("1")) {                    
+                    facturer = true;                   
                 }
 
                 return new Sejour(new LettreDeSortie(rs.getInt("idPersonnel"), new Adresse("", "", 0, "", 0, "", ""), rs.getInt("numeroSejour"), rs.getString("lettreSortie")),
