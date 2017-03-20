@@ -18,7 +18,6 @@ public class DPI {
 
     private String nomUsage;
 
-    
     private Adresse adresse;
     private InformationDeContact infoDeContact;
     private Lit lit;
@@ -48,7 +47,7 @@ public class DPI {
         this.sexe = sexe;
         this.lieuNaissance = "";
     }
-    
+
     public DPI(String nomNaissance, String nomUsage, String prenom, Adresse adresse, IPP iPP, DateT dateDeNaissance, NSS nSecuriteSocial, InformationDeContact infoDeContact, Lit lit, DM myDM, DMA myDMA, Sexe sexe, String lieuNaissance) {
         this.nomNaissance = nomNaissance;
         this.nomUsage = nomUsage;
@@ -146,44 +145,24 @@ public class DPI {
 
     /**
      *
+     * @return
      */
     public Patient dpiToPatient() {
-        Patient p = new Patient(this.getiPP().getIPP(), this.getNomUsage(), 'I');
-        
-        p.setBirth(this.getDateDeNaissance().getC().getTime());
-        p.setFirstName(this.getPrenom());
-        p.setAssignedPatLocation(new PatientLocation(p));
-        
-        char sex = 'X';
-        switch (this.getSexe().ordinal()) {
-            case 1:
-                sex = 'H';
-                break;
-            case 0:
-                sex = 'F';
-                break;
+        if (this.sexe == Sexe.HOMME) {
+            Patient p = new Patient(this.getiPP().getIPP(), this.getPrenom(), this.getNomUsage(), this.getDateDeNaissance().getC().getTime(), 'H', 'I');
+            
+            return p;
+        } else {
+            Patient p = new Patient(this.getiPP().getIPP(), this.getPrenom(), this.getNomUsage(), this.getDateDeNaissance().getC().getTime(), 'F', 'I');
+            
+            System.out.println("testetstets");
+
+            return p;
         }
-        if (sex != 'X') {
-            p.setSex(sex);
-        }
-        if (this.getLit() != null) {
-            p.getAssignedPatLocation().setBed(this.getLit().getIdentifient());
-            p.getAssignedPatLocation().setBuilding(this.getLit().getLocalisation().getBatiment());
-            p.getAssignedPatLocation().setFloor(Integer.toString(this.getLit().getLocalisation().getEtage()));
-        }
-        
-//        p.setDeath(false);
-//        
-//        p.setDateDicharge(Calendar.getInstance(Locale.FRANCE).getTime());
-//        p.setDeath(Calendar.getInstance(Locale.FRANCE).getTime());
-//        p.setPriorPatLocation(null);
-        
-        
-        return p;
     }
 
     public static DPI patientToDpi(Patient p) {
-        DateT d = new DateT(p.getBirth());        
+        DateT d = new DateT(p.getBirth());
         Sexe sexe;
         switch (p.getCharSex()) {
             case 'F':
@@ -198,10 +177,10 @@ public class DPI {
 
         return dpi;
     }
-    
+
     @Override
     public String toString() {
-        return nomUsage+" " + prenom + ", " + sexe+ ", né(e) le  " +dateDeNaissance + " IPP : " + iPP.getIPP();
+        return nomUsage + " " + prenom + ", " + sexe + ", né(e) le  " + dateDeNaissance + " IPP : " + iPP.getIPP();
     }
 
     /**
