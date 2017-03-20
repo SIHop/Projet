@@ -66,6 +66,10 @@ public class FicheDeSoins {
         return createur;
     }
 
+    /**
+     * fonction permettant de calculer les couts pour chaque fiches 
+     * @return 
+     */
     public double calculerCoutFiche(){
         double res = 0.0;
         for(Acte a : listeActes){
