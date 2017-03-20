@@ -72,6 +72,10 @@ public class Adresse {
         return complement;
     }
     
+    /**
+     * renvoi l'adresse complète 
+     * @return 
+     */
   @Override
     public String toString(){
         return this.pays + " : " + this.numeroVoie + " " + this.typeVoie + " " + this.nomVoie + " " + this.complement + " " + this.codePostal + " " + this.ville;

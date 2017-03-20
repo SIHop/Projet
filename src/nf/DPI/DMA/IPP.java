@@ -9,7 +9,7 @@ public class IPP {
 
     private final int IPP;
     
-    //a suprimer
+   
     public IPP(int ipp){
         if(ipp==0){
             this.IPP=generationIPP();
@@ -17,7 +17,10 @@ public class IPP {
             this.IPP=ipp;
         }
     }
-    
+    /**
+     * permet de générer un IPP automatiquement en prenant en compte ceux déjà existant et l'année. 
+     * @return 
+     */
     private int generationIPP() {
         ArrayList<Integer> lIPP;
         DpiDAO listeDPI = new DpiDAO();

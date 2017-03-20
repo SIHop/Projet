@@ -74,7 +74,7 @@ public enum Code {
         return super.toString() + " : \n\t ► " + libelle + ": \n\t ► cout = " + cout + " euros";
     }
 
-    // calcule le prix pour un coefficient donne :
+    // calcule le prix pour un coefficient donnée :
     public double calculerCout(int coefficient) {
         return coefficient * cout;
     }

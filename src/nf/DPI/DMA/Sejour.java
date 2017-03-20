@@ -67,11 +67,17 @@ public class Sejour {
     public Medecin getMedecinResponsable() {
         return medecinResponsable;
     }
-
+/**
+ * Permet d'ajouter une fiche de soins à la liste de fiches de soins 
+ * @param ficheDeSoin 
+ */
     public void addFicheDeSoin(FicheDeSoins ficheDeSoin) {
         this.getlFicheDeSoins().add(ficheDeSoin);
     }
-
+/**
+ * Permet d'ajouter une nature de prestation à la liste des natures des prestation
+ * @param natureDesPrestations 
+ */
     public void addNatureDesPrestation(String natureDesPrestations) {
         this.getNatureDesPrestation().add(natureDesPrestations);
     }
@@ -88,7 +94,10 @@ public class Sejour {
     public void setLettreDeSortie(LettreDeSortie lettreDeSortie) {
         this.lettreDeSortie = lettreDeSortie;
     }
-
+/**
+ * permet d'afficher le numéro de séjour, le nom d'usage, nom de naissance et le prénom du patient
+ * @return 
+ */
     @Override
     public String toString() {
         //return "Sejour{" + "lFicheDeSoins=" + lFicheDeSoins + ", natureDesPrestation=" + natureDesPrestation + ", dateDeFin=" + dateDeFin + ", lettreDeSortie=" + lettreDeSortie + ", dateDebut=" + dateDebut + ", medecinResponsable=" + medecinResponsable + ", numeroDeSejour=" + numeroDeSejour + '}';
@@ -110,6 +119,7 @@ public class Sejour {
     }
 
     /**
+     * permet de confirmer ou non si le séjour est toujours en cours ou non
      * @return the enCours
      */
     public boolean isEnCours() {
