@@ -99,7 +99,7 @@ public class Acte {
 
     @Override
     public String toString() {
-        return "" + code.name() + " - " + typeActe.toString() + ", Coefficient : " + coef + ", Coût : " + calculerCout();
+        return "Code: " + this.code.name() + " - Type: " + this.typeActe.toString()+" - Observation: "+this.observations;
     }
 
     public int getCout() {

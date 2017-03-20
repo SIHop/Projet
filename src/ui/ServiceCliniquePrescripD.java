@@ -34,6 +34,15 @@ public class ServiceCliniquePrescripD extends javax.swing.JFrame {
         this.listeDPI=listeDPI;
         this.numSej=numSej;
         this.prescrip=prescrip;
+        
+        
+        
+        //Affichage des details de la prescription
+        this.jLabel2.setText("Detail de la prescription N°:"+this.prescrip.getIdPrescription());
+        String text = "type de prescrption: ";
+        text=text+this.prescrip.getTypePrescription().toString()+"\n"+this.prescrip.getPrescription();
+        this.jTextPane1.setText(text);
+        this.jTextPane2.setText(this.prescrip.getObservation());
     }
 
     /**
@@ -338,7 +347,6 @@ public class ServiceCliniquePrescripD extends javax.swing.JFrame {
         );
 
         jTextPane1.setContentType("Examen fait le : DATE_EXAMEN\nPar : Laboratoire d'anatomopathologie\nType : Annalyse sanguine\n \nDemander par :ID_DEMENDEUR\nEffectuer par : ID_ACTEUR\n \n \nDetails des resultats (Enumeration sanguine)"); // NOI18N
-        jTextPane1.setText("Préscripption médicamenteuse\nPar : D.r. Dupont\nLe : 13/02/2017\n \n \nAnti inflamatoire, paracetamole par IV; 30cc/jours/3IV\nMyorelaxent, sur demande, max 4 par jours");
 
         jPanel22.setBackground(new java.awt.Color(19, 29, 38));
 
