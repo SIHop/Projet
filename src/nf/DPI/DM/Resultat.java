@@ -19,6 +19,13 @@ public class Resultat {
     private int idFicheDeSoins;
     private int idPrescription;
 
+    /**
+     * constructeur permettant de créer un liste de résultat contenant les analyses et les résultats pour chacune d'entre d'elles 
+     * @param idPrescription
+     * @param idFicheDeSoins
+     * @param annalyse
+     * @param resultats 
+     */
     public Resultat(int idPrescription, int idFicheDeSoins, ArrayList<String> annalyse, ArrayList<String> resultats) {
         listeResultats = new ArrayList<>();
         if (annalyse.size() == resultats.size()) {
@@ -48,12 +55,17 @@ public class Resultat {
         this.idPrescription = idPrescription;
         this.idResultat = idResultat;
     }
-
+/**
+ * permet d'afficher la liste des résultats pour chaque analyse
+ * @return 
+ */
     @Override
     public String toString() {
+
         String retour = "Resultat   ";
         for(String[] s : listeResultats){
             retour += " -   Examen : " + s[0] + "  -   Resultat : " + s[1];
+
         }
         retour  += "|   idResultat=" + idResultat + "|  idPrescription=" + idPrescription ;
         return retour;

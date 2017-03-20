@@ -34,7 +34,7 @@ public class FicheDeSoins {
         DAOFactory.getFicheDeSoinsDAO().create(this);
     }
     
-    //Consutructeur appeller pas la DB
+    //Constructeur appellé par la DB
     public FicheDeSoins(int idFicheDeSoins, ArrayList<Acte> listeActes, ArrayList<Prescription> prescription, ArrayList<Resultat> resultat, Personnel createur,DateT dateCreation, String numeroSejour) {
         this.listeActes = listeActes;
         this.prescription = prescription;
@@ -67,7 +67,7 @@ public class FicheDeSoins {
     }
 
     /**
-     * fonction permettant de calculer les couts pour chaque fiches 
+     * fonction permettant de calculer les couts pour chaque fiches de soins (chaque fiches de soins contient une liste d'actes) 
      * @return 
      */
     public double calculerCoutFiche(){
@@ -91,7 +91,10 @@ public class FicheDeSoins {
     public int getIdFicheDeSoins() {
         return idFicheDeSoins;
     }
-
+/**
+ * affiche la fiche de soins contenant la liste des actes, la prescription, le résultat, la personne créant la fiche de soins, la date de création de la fiche de soins, le numéro de séjour du patient, et le numéro identifiant de la fiche de soins
+ * @return 
+ */
     @Override
     public String toString() {
         return "FicheDeSoins{" + "listeActes=" + listeActes + ", prescription=" + prescription + ", resultat=" + resultat + ", dateDeCreation=" + dateDeCreation + ", createur=" + createur + ", numeroSejour=" + numeroSejour + ", idFicheDeSoins=" + idFicheDeSoins + '}';

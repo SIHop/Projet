@@ -29,7 +29,10 @@ public class DM {
     public ArrayList<Sejour> getlSejour() {
         return lSejour;
     }
-    
+    /**
+     * affiche le dernier séjour effectué par le patient 
+     * @return 
+     */
     public Sejour getLastSejour(){
             Sejour sejour ;
             sejour = ((DmaDAO)DAOFactory.getDmaDAO()).findSejourActuel(Integer.parseInt(ipp.toString()));

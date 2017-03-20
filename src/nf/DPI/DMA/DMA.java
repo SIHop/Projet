@@ -18,7 +18,10 @@ public class DMA {
     public ArrayList<Sejour> getListeDeSejour() {
         return listeDeSejour;
     }
-
+/**
+ * affiche le DMA en fonction de l'IPP et la liste de séjour liée à l'IPP
+ * @return 
+ */
     @Override
     public String toString() {
         String retour = "DMA{" + "IPP=" + IPP + " liste de sejour :" + '}';

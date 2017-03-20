@@ -65,7 +65,10 @@ public class Prescription {
     public int getIdFicheDeSoins() {
         return idFicheDeSoins;
     }
-    
+    /**
+     * affiche le numéro de la prescription, le numéro de la fiche de soins, les observations faites ainsi que le type de prescription demandé
+     * @return 
+     */
     public String toString(){
         return "id "+ this.idPrescription + " fiche de soins :" + this.idFicheDeSoins + " prescription : "+ this.getPrescription()+ " observation : " +this.observation+ " type de prescription : " + this.typePrescription.toString() ;
     }
