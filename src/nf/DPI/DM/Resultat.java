@@ -51,14 +51,15 @@ public class Resultat {
 
     @Override
     public String toString() {
-        String retour = "Resultat{\n" + "listeResultats :\n";
-        for(String[] r : this.listeResultats){
-            retour += "Annalyse : " + r[0] + "; Resultat : " + r[1] +"\n";
+        String retour = "Resultat   ";
+        for(String[] s : listeResultats){
+            retour += " -   Examen : " + s[0] + "  -   Resultat : " + s[1];
         }
-
-        retour += "}\n";
+        retour  += "|   idResultat=" + idResultat + "|  idPrescription=" + idPrescription ;
         return retour;
     }
+
+    
 
     /**
      * @return the listeResultats

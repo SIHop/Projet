@@ -12,13 +12,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Vector;
 import nf.DPI.DM.Acte;
+import nf.DPI.DM.Code;
 import nf.DPI.DM.FicheDeSoins;
 import nf.DPI.DM.Prescription;
 import nf.DPI.DM.Resultat;
 import nf.DPI.DM.TypeActe;
 import nf.DPI.DPI;
 import nf.GestionDexploitation.Personnel;
-
 
 /**
  *
@@ -36,86 +36,101 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     private int instance;
     private ArrayList<DPI> listeDPI;
     private ArrayList<FicheDeSoins> listeFicheSoins;
+    private ArrayList<Resultat> result = new ArrayList<>();
     private ArrayList<Resultat> listeResult = new ArrayList();
+    private ArrayList<Resultat> lresultat=new ArrayList();
     private ArrayList<Prescription> listePrescription = new ArrayList();
+    private ArrayList<String> lprescription = new ArrayList<>();
     private ArrayList<Acte> listeActe = new ArrayList();
+    private ArrayList<String> lactes = new ArrayList<>();
     
-    
-    public ServiceCliniqueEdition(Personnel p, DPI dpi,String numSej,int instance,ArrayList<DPI> listeDPI) {
+
+    public ServiceCliniqueEdition(Personnel p, DPI dpi, String numSej, int instance, ArrayList<DPI> listeDPI) {
         initComponents();
-              
         this.numSej = numSej;
         this.listeDPI = listeDPI;
-        
+        this.instance=instance;
+
         //mise en reliefe des boutons correspondants a la situation courante
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
         jLabel5.setFont(myFont);
         jLabel5.setForeground(Color.GRAY);
-               
+
         
 //entête page (personnel connecté)
-        this.p=p;
-        this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
+        this.p = p;
+        this.jLabel1.setText("Bonjour " + this.p.getNom() + " " + this.p.getPrenom());
 //Entête DPI
-        this.dpi=dpi;
-        this.jLabel18.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
-        this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdentifient());
-        this.jLabel19.setText("N°sejour: "+numSej);
+        this.dpi = dpi;
+        this.jLabel18.setText("Patient : " + this.dpi.getNomUsage() + " " + this.dpi.getPrenom());
+        this.jLabel20.setText("Lit : " + this.dpi.getLit().getIdentifient());
+        this.jLabel19.setText("N°sejour: " + numSej);
+
+        
         
 //Resumé de DM
-        this.listeFicheSoins=DAOFactory.getFicheDeSoinsDAO().findMultiple(new ArrayList<>(Arrays.asList("numeroSejour")), new ArrayList<>(Arrays.asList(numSej)));
-               
-        if (instance==1){
+        this.listeFicheSoins = DAOFactory.getFicheDeSoinsDAO().findMultiple(new ArrayList<>(Arrays.asList("numeroSejour")), new ArrayList<>(Arrays.asList(numSej)));
+        for (FicheDeSoins idf : this.listeFicheSoins) {
+            this.listeResult.addAll(idf.getResultat());
+            this.listePrescription.addAll(idf.getPrescription());
+            for (Acte ida : idf.getListeActes()) {
+                if ((ida.getCode()== Code.AIS)||(ida.getCode()== Code.AMI)||(ida.getCode()== Code.DI)||(ida.getCode()== Code.SFI)) {
+                    this.listeActe.add(ida);
+                }
+            }
+        }
+        
+        //chargement résumé resultats
+        for (int i = 0; i < this.listeResult.size(); i++) {
+                this.lresultat.add(listeResult.get(i));
+            for (int j = 0; j < lresultat.size(); j++) {
+                this.result.add(lresultat.get(j));
+            }
+        }
+
+    //chargement résumé prescription   
+        for (int i = 0; i < this.listePrescription.size(); i++) {
+            this.lprescription.add(this.listePrescription.get(i).getPrescription());
+        }
+
+    //chargement résumé operation infirmière
+        for (int i = 0; i < this.listeActe.size(); i++) {
+            this.lactes.add(this.listeActe.get(i).toString());
+        }
+    //Affichage   
+        if (instance == 1) {
             //mise en reliefe des boutons correspondants a la situation courante
             jLabel10.setFont(myFont);
             jLabel10.setForeground(Color.GRAY);
             //Affichage des résultat
-            
-            for(FicheDeSoins idf:this.listeFicheSoins){
-                    this.listeResult.addAll(idf.getResultat());
-            }
-            Vector vect = new Vector(this.listeResult);
-            this.jList1.setListData(vect);            
-        }
-        else{
-            if(instance ==2){
+            Vector vResult = new Vector(this.result);
+            this.jList1.setListData(vResult);
+        } 
+        else {
+            if (instance == 2) {
                 //mise en reliefe des boutons correspondants a la situation courante
                 jLabel14.setFont(myFont);
                 jLabel14.setForeground(Color.GRAY);
                 jButton2.setVisible(false);
                 // Affichage des observation
-
-            }
+            } 
             else {
-                if(instance == 3){
+                if (instance == 3) {
                     //mise en reliefe des boutons correspondants a la situation courante
                     jLabel16.setFont(myFont);
                     jLabel16.setForeground(Color.GRAY);
                     //Affichage des prescription
-                    
-                    for(FicheDeSoins id:this.listeFicheSoins){
-                        this.listePrescription.addAll(id.getPrescription());
-                    }
-                    Vector vect = new Vector(this.listePrescription);
-                    this.jList1.setListData(vect);
-                }
-                else{
+                    Vector vprescrip = new Vector(this.lprescription);
+                    this.jList1.setListData(vprescrip);
+                } 
+                else {
                     //mise en reliefe des boutons correspondants a la situation courante
                     jLabel11.setFont(myFont);
                     jLabel11.setForeground(Color.GRAY);
                     jButton2.setVisible(false);
                     //Affichage des operation infirmiere
-                    
-                    for(FicheDeSoins id:this.listeFicheSoins){
-                        for(Acte ida :id.getListeActes()){
-                            if(ida.getTypeActe()==TypeActe.INFIRMIEER){
-                                this.listeActe.add(ida);
-                            }
-                        }
-                    }
-                    Vector vect = new Vector(this.listeActe);
-                    this.jList1.setListData(vect);
-
+                    Vector vop = new Vector(this.lactes);
+                    this.jList1.setListData(vop);
                 }
             }
         }
@@ -566,11 +581,6 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                     .addGap(9, 9, 9)))
         );
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(jList1);
 
         jPanel18.setBackground(new java.awt.Color(19, 29, 38));
@@ -618,6 +628,11 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2MouseClicked(evt);
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -805,9 +820,9 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
 
     private int tx;
     private int ty;
-    
+
     private void jLabel7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseDragged
-        this.setLocation(evt.getXOnScreen()-tx,evt.getYOnScreen()-ty);
+        this.setLocation(evt.getXOnScreen() - tx, evt.getYOnScreen() - ty);
     }//GEN-LAST:event_jLabel7MouseDragged
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
@@ -824,64 +839,73 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
+        this.instance=3;
         //mise en relief de la situation courante
         Font myFont2 = new Font("Raleway Meduim", Font.PLAIN, 18);
-        jLabel10.setFont(myFont2);
-        jLabel10.setForeground(new java.awt.Color(26, 188, 156));
-        jLabel11.setFont(myFont2);
-        jLabel11.setForeground(new java.awt.Color(26, 188, 156));
-        jLabel14.setFont(myFont2);
-        jLabel14.setForeground(new java.awt.Color(26, 188, 156));
+        this.jLabel10.setFont(myFont2);
+        this.jLabel10.setForeground(new java.awt.Color(26, 188, 156));
+        this.jLabel11.setFont(myFont2);
+        this.jLabel11.setForeground(new java.awt.Color(26, 188, 156));
+        this.jLabel14.setFont(myFont2);
+        this.jLabel14.setForeground(new java.awt.Color(26, 188, 156));
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
-        jLabel16.setFont(myFont);
-        jLabel16.setForeground(Color.GRAY);
-        //Affichage du contenue
+        this.jLabel16.setFont(myFont);
+        this.jLabel16.setForeground(Color.GRAY);
+        
+        //Affichage des prescriptions
+            Vector vprescrip = new Vector(this.lprescription);
+            this.jList1.setListData(vprescrip);
     }//GEN-LAST:event_jLabel16MouseClicked
 
     private void jLabel22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22MouseClicked
-        ServiceClinique serviceClinique = new ServiceClinique(this.p,this.dpi,this.numSej,this.listeDPI);
+        ServiceClinique serviceClinique = new ServiceClinique(this.p, this.dpi, this.numSej, this.listeDPI);
         serviceClinique.setVisible(true);
         serviceClinique.setLocationRelativeTo(this);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel22MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        Connection conection =new Connection();
+        Connection conection = new Connection();
         conection.setVisible(true);
         conection.setLocationRelativeTo(this);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
+        ServiceCliniqueAccueil ac = new ServiceCliniqueAccueil(this.p, this.listeDPI);
         ac.setVisible(true);
         ac.setLocationRelativeTo(this);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
+        ServiceCliniqueAccueil ac = new ServiceCliniqueAccueil(this.p, this.listeDPI);
         ac.setVisible(true);
         ac.setLocationRelativeTo(this);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        this.instance=1;
         //mise en relief de la situation courante
         Font myFont2 = new Font("Raleway Meduim", Font.PLAIN, 18);
-        jLabel16.setFont(myFont2);
-        jLabel16.setForeground(new java.awt.Color(26, 188, 156));
-        jLabel11.setFont(myFont2);
-        jLabel11.setForeground(new java.awt.Color(26, 188, 156));
-        jLabel14.setFont(myFont2);
-        jLabel14.setForeground(new java.awt.Color(26, 188, 156));
+        this.jLabel16.setFont(myFont2);
+        this.jLabel16.setForeground(new java.awt.Color(26, 188, 156));
+        this.jLabel11.setFont(myFont2);
+        this.jLabel11.setForeground(new java.awt.Color(26, 188, 156));
+        this.jLabel14.setFont(myFont2);
+        this.jLabel14.setForeground(new java.awt.Color(26, 188, 156));
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
-        jLabel10.setFont(myFont);
-        jLabel10.setForeground(Color.GRAY);
-        //Affichage du contenue
+        this.jLabel10.setFont(myFont);
+        this.jLabel10.setForeground(Color.GRAY);
+        
+        //Affichage des résultat
+            Vector vResult = new Vector(this.result);
+            this.jList1.setListData(vResult);
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
+        this.instance=2;
         //mise en relief de la situation courante
         Font myFont2 = new Font("Raleway Meduim", Font.PLAIN, 18);
         jLabel10.setFont(myFont2);
@@ -897,6 +921,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel14MouseClicked
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        this.instance=4;
         //mise en relief de la situation courante
         Font myFont2 = new Font("Raleway Meduim", Font.PLAIN, 18);
         jLabel10.setFont(myFont2);
@@ -908,36 +933,51 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
         jLabel11.setFont(myFont);
         jLabel11.setForeground(Color.GRAY);
+        
         //Affichage du contenue
+        Vector vop = new Vector(this.lactes);
+        this.jList1.setListData(vop);
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
-        ServiceCliniqueLitD lit=new ServiceCliniqueLitD(this.p,this.dpi,this.numSej,this.listeDPI );
+        ServiceCliniqueLitD lit = new ServiceCliniqueLitD(this.p, this.dpi, this.numSej, this.listeDPI);
         lit.setVisible(true);
         lit.setLocationRelativeTo(this);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        if (instance == 1){
+  
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+      if (instance == 1) {
+          System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+            //recuperation des résultats
+            
             int position = this.jList1.getSelectedIndex();
+            System.out.println(position);
             Resultat result = this.listeResult.get(position);
-            ServiceCliniqueResultatD resultD = new ServiceCliniqueResultatD(this.p,this.dpi,this.numSej,this.listeDPI,result);
+            // affichage des details
+            ServiceCliniqueResultatD resultD = new ServiceCliniqueResultatD(this.p, this.dpi, this.numSej, this.listeDPI, result);
             resultD.setVisible(true);
             resultD.setLocationRelativeTo(this);
             this.setVisible(false);
-        }
-        else{
-            if(instance == 3){
+        } 
+        else {
+            if (instance == 3) {
+                System.out.println(":::::::!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                //recuperation des résultats
                 int position = this.jList1.getSelectedIndex();
                 Prescription prescrip = this.listePrescription.get(position);
-                ServiceCliniquePrescripD prescripD = new ServiceCliniquePrescripD(this.p,this.dpi,this.numSej,this.listeDPI,prescrip);
+                // affichage des details
+                ServiceCliniquePrescripD prescripD = new ServiceCliniquePrescripD(this.p, this.dpi, this.numSej, this.listeDPI, prescrip);
                 prescripD.setVisible(true);
                 prescripD.setLocationRelativeTo(this);
                 this.setVisible(false);
             }
         }
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

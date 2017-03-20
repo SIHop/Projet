@@ -44,11 +44,11 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
 
     public ServiceCliniqueAccueil(Personnel p) {
         initComponents();
+        
         //mise en reliefe des boutons correspondants a la situation courante
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
         jLabel5.setFont(myFont);
         jLabel5.setForeground(Color.GRAY);
-        
         
         //entête page
         this.p = p;
@@ -78,7 +78,7 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
             String ipp = dma.getIPP();
             this.listeDPI.add(DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList(ipp))));
         }
-        //affichage des sajours
+        //affichage des séjours
         Vector vResult = new Vector(listeDPI);
         this.jList1.setListData(vResult);
     }

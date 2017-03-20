@@ -20,11 +20,8 @@ public enum TypeActe {
     /**
      *
      */
-    THERAPEUTIQUE("THERAPEUTIQUE"),
-        /**
-     *
-     */
-    INFIRMIEER("INFIRMIER");
+    THERAPEUTIQUE("THERAPEUTIQUE");
+
     
     
     // attributs de l'enum :
