@@ -143,6 +143,7 @@ public class Sejour {
     }
 
     /**
+     * permet de savoir si le séjour est facturé ou non 
      * @return the facturer
      */
     public boolean isFacturer() {
