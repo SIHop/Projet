@@ -40,19 +40,19 @@ public class ServiceClinique extends javax.swing.JFrame {
         initComponents();
         this.numSej=numSej;
         this.listeDPI =listeDPI;
+        this.p=p;
+        this.dpi=dpi;
 // verification des droit
-        if(!(p instanceof Medecin) && !(p instanceof SecretaireMedicale)){
-            jLabel22.setVisible(false);
-            jPanel21.setVisible(false);
-            jLabel15.setVisible(false);
-            jPanel16.setVisible(false);
+        if(!(this.p instanceof Medecin) && !(this.p instanceof SecretaireMedicale)){
+            this.jLabel22.setVisible(false);
+            this.jPanel21.setVisible(false);
+            this.jLabel15.setVisible(false);
+            this.jPanel16.setVisible(false);
         }
         
 //entête page
-        this.p=p;
         this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
 //Entête DPI
-        this.dpi=dpi;
         this.jLabel18.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
         this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdentifient());
         this.jLabel19.setText("N°sejour: "+this.numSej);

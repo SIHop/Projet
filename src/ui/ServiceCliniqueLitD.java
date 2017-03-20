@@ -34,18 +34,16 @@ public class ServiceCliniqueLitD extends javax.swing.JFrame {
         this.listeDPI=listeDPI;
         this.numSej=numSej;
         //entête page
-        this.p=p;
         this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
         //Entête DPI
-        this.dpi=dpi;
         this.jLabel18.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
         this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdentifient());
         this.jLabel19.setText("N°sejour: "+this.numSej);
         
         //mise en relief de la situation courante
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
-        jLabel12.setFont(myFont);
-        jLabel12.setForeground(Color.GRAY);
+        this.jLabel12.setFont(myFont);
+        this.jLabel12.setForeground(Color.GRAY);
         
         //affichage de la localité
         this.jTextArea1.setText(this.dpi.getLit().toString());
@@ -706,8 +704,6 @@ public class ServiceCliniqueLitD extends javax.swing.JFrame {
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,1,this.listeDPI);
-                
-
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
         this.setVisible(false);

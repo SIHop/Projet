@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -44,11 +45,11 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
 
     public ServiceCliniqueAccueil(Personnel p) {
         initComponents();
-        
+ 
         //mise en reliefe des boutons correspondants a la situation courante
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
-        jLabel5.setFont(myFont);
-        jLabel5.setForeground(Color.GRAY);
+        this.jLabel5.setFont(myFont);
+        this.jLabel5.setForeground(Color.GRAY);
         
         //entête page
         this.p = p;
@@ -56,11 +57,11 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
         
         //trouver le service de l'utilisateur
         Service service;
-        if (p instanceof Medecin) {
+        if (this.p instanceof Medecin) {
             Medecin med = (Medecin) this.p;
             service = med.getService();
         } else {
-            if (p instanceof Infirmier) {
+            if (this.p instanceof Infirmier) {
                 Infirmier inf = (Infirmier) this.p;
                 service = inf.getService();
             } else {
@@ -79,7 +80,7 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
             this.listeDPI.add(DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList(ipp))));
         }
         //affichage des séjours
-        Vector vResult = new Vector(listeDPI);
+        Vector vResult = new Vector(this.listeDPI);
         this.jList1.setListData(vResult);
     }
     

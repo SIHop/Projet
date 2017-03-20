@@ -53,8 +53,8 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
 
         //mise en reliefe des boutons correspondants a la situation courante
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
-        jLabel5.setFont(myFont);
-        jLabel5.setForeground(Color.GRAY);
+        this.jLabel5.setFont(myFont);
+        this.jLabel5.setForeground(Color.GRAY);
 
         
 //entête page (personnel connecté)
@@ -82,9 +82,9 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         
         //chargement résumé resultats
         for (int i = 0; i < this.listeResult.size(); i++) {
-                this.lresultat.add(listeResult.get(i));
-            for (int j = 0; j < lresultat.size(); j++) {
-                this.result.add(lresultat.get(j));
+                this.lresultat.add(this.listeResult.get(i));
+            for (int j = 0; j < this.lresultat.size(); j++) {
+                this.result.add(this.lresultat.get(j));
             }
         }
 
@@ -100,34 +100,37 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     //Affichage   
         if (instance == 1) {
             //mise en reliefe des boutons correspondants a la situation courante
-            jLabel10.setFont(myFont);
-            jLabel10.setForeground(Color.GRAY);
+            this.jLabel10.setFont(myFont);
+            this.jLabel10.setForeground(Color.GRAY);
+            this.jLabel21.setVisible(false);
+            this.jPanel20.setVisible(false);
             //Affichage des résultat
             Vector vResult = new Vector(this.result);
             this.jList1.setListData(vResult);
+            
         } 
         else {
-            if (instance == 2) {
+            if (this.instance == 2) {
                 //mise en reliefe des boutons correspondants a la situation courante
-                jLabel14.setFont(myFont);
-                jLabel14.setForeground(Color.GRAY);
-                jButton2.setVisible(false);
+                this.jLabel14.setFont(myFont);
+                this.jLabel14.setForeground(Color.GRAY);
+                this.jButton2.setVisible(false);
                 // Affichage des observation
             } 
             else {
-                if (instance == 3) {
+                if (this.instance == 3) {
                     //mise en reliefe des boutons correspondants a la situation courante
-                    jLabel16.setFont(myFont);
-                    jLabel16.setForeground(Color.GRAY);
+                    this.jLabel16.setFont(myFont);
+                    this.jLabel16.setForeground(Color.GRAY);
                     //Affichage des prescription
                     Vector vprescrip = new Vector(this.lprescription);
                     this.jList1.setListData(vprescrip);
                 } 
                 else {
                     //mise en reliefe des boutons correspondants a la situation courante
-                    jLabel11.setFont(myFont);
-                    jLabel11.setForeground(Color.GRAY);
-                    jButton2.setVisible(false);
+                    this.jLabel11.setFont(myFont);
+                    this.jLabel11.setForeground(Color.GRAY);
+                    this.jButton2.setVisible(false);
                     //Affichage des operation infirmiere
                     Vector vop = new Vector(this.lactes);
                     this.jList1.setListData(vop);
@@ -559,6 +562,11 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         jLabel21.setForeground(new java.awt.Color(26, 188, 156));
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel21.setText("AJOUTER");
+        jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel21MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
         jPanel20.setLayout(jPanel20Layout);
@@ -841,6 +849,8 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
         this.instance=3;
         this.jButton2.setVisible(true);
+        this.jLabel21.setVisible(true);
+        this.jPanel20.setVisible(true);
         //mise en relief de la situation courante
         Font myFont2 = new Font("Raleway Meduim", Font.PLAIN, 18);
         this.jLabel10.setFont(myFont2);
@@ -890,6 +900,8 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         this.instance=1;
         this.jButton2.setVisible(true);
+        this.jLabel21.setVisible(false);
+        this.jPanel20.setVisible(false);
         //mise en relief de la situation courante
         Font myFont2 = new Font("Raleway Meduim", Font.PLAIN, 18);
         this.jLabel16.setFont(myFont2);
@@ -910,6 +922,8 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
         this.jButton2.setVisible(false);
+        this.jLabel21.setVisible(true);
+        this.jPanel20.setVisible(true);
         this.instance=2;
         //mise en relief de la situation courante
         Font myFont2 = new Font("Raleway Meduim", Font.PLAIN, 18);
@@ -929,6 +943,8 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         this.instance=4;
         this.jButton2.setVisible(false);
+        this.jLabel21.setVisible(true);
+        this.jPanel20.setVisible(true);
         //mise en relief de la situation courante
         Font myFont2 = new Font("Raleway Meduim", Font.PLAIN, 18);
         this.jLabel10.setFont(myFont2);
@@ -959,12 +975,10 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      if (instance == 1) {
-          System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+      if (this.instance == 1) {
             //recuperation des résultats
             
             int position = this.jList1.getSelectedIndex();
-            System.out.println(position);
             Resultat result = this.listeResult.get(position);
             // affichage des details
             ServiceCliniqueResultatD resultD = new ServiceCliniqueResultatD(this.p, this.dpi, this.numSej, this.listeDPI, result);
@@ -973,8 +987,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
             this.setVisible(false);
         } 
         else {
-            if (instance == 3) {
-                System.out.println(":::::::!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            if (this.instance == 3) {
                 //recuperation des résultats
                 int position = this.jList1.getSelectedIndex();
                 Prescription prescrip = this.listePrescription.get(position);
@@ -986,6 +999,29 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
+        if(this.instance ==2){
+            ServiceCliniqueObservationE osbE = new ServiceCliniqueObservationE(this.p, this.dpi, this.numSej,this.listeDPI);
+            osbE.setVisible(true);
+            osbE.setLocationRelativeTo(this);
+            this.setVisible(false);
+        }
+        else{
+            if(this.instance ==3){
+                ServiceCliniquePrescriptionE presE = new ServiceCliniquePrescriptionE(this.p, this.dpi, this.numSej,this.listeDPI);
+                presE.setVisible(true);
+                presE.setLocationRelativeTo(this);
+                this.setVisible(false);
+            }
+            else{
+                ServiceCliniqueOperationInfE presE = new ServiceCliniqueOperationInfE(this.p, this.dpi, this.numSej,this.listeDPI);
+                presE.setVisible(true);
+                presE.setLocationRelativeTo(this);
+                this.setVisible(false);
+            }
+        }
+    }//GEN-LAST:event_jLabel21MouseClicked
 
     /**
      * @param args the command line arguments

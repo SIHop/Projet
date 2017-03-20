@@ -38,20 +38,18 @@ public class ServiceCliniquePrescripD extends javax.swing.JFrame {
         this.prescrip=prescrip;
 
 //entête page
-        this.p=p;
         this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
 //Entête DPI
-        this.dpi=dpi;
         this.jLabel18.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
         this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdentifient());
         this.jLabel19.setText("N°sejour: "+this.numSej);
         
         //mise en reliefe des boutons correspondants a la situation courante
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
-        jLabel5.setFont(myFont);
-        jLabel5.setForeground(Color.GRAY);
-        jLabel16.setFont(myFont);
-        jLabel16.setForeground(Color.GRAY);
+        this.jLabel5.setFont(myFont);
+        this.jLabel5.setForeground(Color.GRAY);
+        this.jLabel16.setFont(myFont);
+        this.jLabel16.setForeground(Color.GRAY);
         
         
         
