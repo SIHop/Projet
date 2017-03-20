@@ -840,6 +840,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
         this.instance=3;
+        this.jButton2.setVisible(true);
         //mise en relief de la situation courante
         Font myFont2 = new Font("Raleway Meduim", Font.PLAIN, 18);
         this.jLabel10.setFont(myFont2);
@@ -851,6 +852,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
         this.jLabel16.setFont(myFont);
         this.jLabel16.setForeground(Color.GRAY);
+
         
         //Affichage des prescriptions
             Vector vprescrip = new Vector(this.lprescription);
@@ -887,6 +889,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         this.instance=1;
+        this.jButton2.setVisible(true);
         //mise en relief de la situation courante
         Font myFont2 = new Font("Raleway Meduim", Font.PLAIN, 18);
         this.jLabel16.setFont(myFont2);
@@ -898,6 +901,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
         this.jLabel10.setFont(myFont);
         this.jLabel10.setForeground(Color.GRAY);
+
         
         //Affichage des résultat
             Vector vResult = new Vector(this.result);
@@ -905,34 +909,38 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
+        this.jButton2.setVisible(false);
         this.instance=2;
         //mise en relief de la situation courante
         Font myFont2 = new Font("Raleway Meduim", Font.PLAIN, 18);
-        jLabel10.setFont(myFont2);
-        jLabel10.setForeground(new java.awt.Color(26, 188, 156));
-        jLabel11.setFont(myFont2);
-        jLabel11.setForeground(new java.awt.Color(26, 188, 156));
-        jLabel16.setFont(myFont2);
-        jLabel16.setForeground(new java.awt.Color(26, 188, 156));
+        this.jLabel10.setFont(myFont2);
+        this.jLabel10.setForeground(new java.awt.Color(26, 188, 156));
+        this.jLabel11.setFont(myFont2);
+        this.jLabel11.setForeground(new java.awt.Color(26, 188, 156));
+        this.jLabel16.setFont(myFont2);
+        this.jLabel16.setForeground(new java.awt.Color(26, 188, 156));
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
-        jLabel14.setFont(myFont);
-        jLabel14.setForeground(Color.GRAY);
+        this.jLabel14.setFont(myFont);
+        this.jLabel14.setForeground(Color.GRAY);
+
         //Affichage du contenue
     }//GEN-LAST:event_jLabel14MouseClicked
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         this.instance=4;
+        this.jButton2.setVisible(false);
         //mise en relief de la situation courante
         Font myFont2 = new Font("Raleway Meduim", Font.PLAIN, 18);
-        jLabel10.setFont(myFont2);
-        jLabel10.setForeground(new java.awt.Color(26, 188, 156));
-        jLabel16.setFont(myFont2);
-        jLabel16.setForeground(new java.awt.Color(26, 188, 156));
-        jLabel14.setFont(myFont2);
-        jLabel14.setForeground(new java.awt.Color(26, 188, 156));
+        this.jLabel10.setFont(myFont2);
+        this.jLabel10.setForeground(new java.awt.Color(26, 188, 156));
+        this.jLabel16.setFont(myFont2);
+        this.jLabel16.setForeground(new java.awt.Color(26, 188, 156));
+        this.jLabel14.setFont(myFont2);
+        this.jLabel14.setForeground(new java.awt.Color(26, 188, 156));
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
-        jLabel11.setFont(myFont);
-        jLabel11.setForeground(Color.GRAY);
+        this.jLabel11.setFont(myFont);
+        this.jLabel11.setForeground(Color.GRAY);
+        
         
         //Affichage du contenue
         Vector vop = new Vector(this.lactes);

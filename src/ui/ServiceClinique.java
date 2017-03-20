@@ -776,7 +776,6 @@ public class ServiceClinique extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void jPanel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel21MouseClicked
-        
         LettreSortie lettre = new LettreSortie(this.p,this.dpi,this.numSej, this.listeDPI);
         lettre.setVisible(true);
         lettre.setLocationRelativeTo(this);
