@@ -39,7 +39,7 @@ public class SejourDAO implements DAO<Sejour> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
         //Initialisation des service utile pour recupéré un Sejour
         DAO<Adresse> adresseDAO = DAOFactory.getAdressePatientDAO();
@@ -72,14 +72,21 @@ public class SejourDAO implements DAO<Sejour> {
                 //dateFin
                 DateT dateFin = null;
                 boolean enCours = true;
+                boolean facturer = false;
                 if (rs.getString("dateFin") != null) {
                     dateFin = new DateT(rs.getString("dateFin"));
                     enCours = false;
                 }
+                if (rs.getString("facturer").equals("1")) {
+                    
+                    facturer = true;
+                    
+                    
+                }
 
                 return new Sejour(new LettreDeSortie(rs.getInt("idPersonnel"), new Adresse("", "", 0, "", 0, "", ""), rs.getInt("numeroSejour"), rs.getString("lettreSortie")),
                         rs.getString("numeroSejour"), new ArrayList<>(Arrays.asList(rs.getString("naturePrestation").split("\\s*;\\s*"))), new DateT(rs.getString("dateDebut")),
-                        dateFin, medecinResp, lfds, enCours);
+                        dateFin, medecinResp, lfds, enCours, facturer, rs.getString("observation"));
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
@@ -102,7 +109,7 @@ public class SejourDAO implements DAO<Sejour> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
         //Initialisation des service utile pour recupéré un Sejour
         DAO<Adresse> adresseDAO = DAOFactory.getAdressePatientDAO();
@@ -145,14 +152,19 @@ public class SejourDAO implements DAO<Sejour> {
                     //dateFin
                     DateT dateFin = null;
                     boolean enCours = true;
+                    boolean facturer = false;
                     if (rs.getString("dateFin") != null) {
                         dateFin = new DateT(rs.getString("dateFin"));
                         enCours = false;
                     }
+                    if (rs.getString("facturer").equals("1")) {
+                        
+                        facturer = true;
+                    }
 
                     retour.add(new Sejour(new LettreDeSortie(rs.getInt("idPersonnel"), adresseDAO.find(argAdress, valAdress), rs.getInt("numeroSejour"), rs.getString("lettreSortie")),
                             rs.getString("numeroSejour"), new ArrayList<>(Arrays.asList(rs.getString("naturePrestation").split("\\s*;\\s*"))), new DateT(rs.getString("dateDebut")),
-                            dateFin, medecinResp, lfds,enCours));
+                            dateFin, medecinResp, lfds, enCours,facturer,rs.getString("observation")));
                 }
 
             } else {
@@ -179,15 +191,15 @@ public class SejourDAO implements DAO<Sejour> {
         } else {
             lettre = null;
         }
-        if(obj.getDateDeFin() == null){
+        if (obj.getDateDeFin() == null) {
             dateFin = null;
-        }else{
-            dateFin = "'" + obj.getDateDeFin().toString() +"'";
+        } else {
+            dateFin = "'" + obj.getDateDeFin().toString() + "'";
         }
 
-        this.query = "INSERT INTO sejour (numeroSejour, naturePrestation, lettreSortie,dateDebut,dateFin, idPersonnel, enCours)"
+        this.query = "INSERT INTO sejour (numeroSejour, naturePrestation, lettreSortie,dateDebut,dateFin, idPersonnel, enCours, facturer,observations)"
                 + " VALUES (" + obj.getNumeroDeSejour() + ",'" + natureDesPrestation + "'," + lettre + ",'" + obj.getDateDebut().toString()
-                + "'," + dateFin + "," + obj.getMedecinResponsable().getIdPersonel() + "," + obj.isEnCours() + ")";
+                + "'," + dateFin + "," + obj.getMedecinResponsable().getIdPersonel() + "," + obj.isEnCours() +"," + obj.isFacturer() + ",'" + obj.getObservation().replace("'", "''") + "')";
 
         Statement stmt;
 
@@ -214,13 +226,13 @@ public class SejourDAO implements DAO<Sejour> {
         } else {
             lettre = "NULL";
         }
-        if(obj.getDateDeFin() == null){
+        if (obj.getDateDeFin() == null) {
             dateFin = null;
-        }else{
-            dateFin = "'" + obj.getDateDeFin().toString() +"'";
+        } else {
+            dateFin = "'" + obj.getDateDeFin().toString() + "'";
         }
         this.query = "UPDATE sejour SET lettreSortie = '" + obj.getLettreDeSortie().getLettre() + "', naturePrestation = '" + natureDesPrestation + "', dateDebut = '"
-                + obj.getDateDebut() + "', dateFin =" + dateFin + ", enCours = " + obj.isEnCours() + "' WHERE numeroSejour = " + obj.getNumeroDeSejour();
+                + obj.getDateDebut() + "', dateFin =" + dateFin + ", enCours = " + obj.isEnCours() +", facturer = "+ obj.isFacturer() + ", observation = '" + obj.getObservation().replace("'", "''") + "' WHERE numeroSejour = " + obj.getNumeroDeSejour();
 
         Statement stmt;
         try {

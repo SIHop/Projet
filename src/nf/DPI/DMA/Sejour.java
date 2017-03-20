@@ -19,6 +19,8 @@ public class Sejour {
     private final Medecin medecinResponsable;
     private String numeroDeSejour;
     private boolean enCours;
+    private boolean facturer;
+    private String observation;
 
     private DMA dma = null;
     private DPI dpi = null;
@@ -29,7 +31,7 @@ public class Sejour {
         this.medecinResponsable = medecinResponsable;
     }
 
-    public Sejour(LettreDeSortie lettreDeSortie, String numeroDeSejour, ArrayList<String> natureDesPrestation, DateT dateDebut, DateT dateDeFin, Medecin medecinResponsable, ArrayList<FicheDeSoins> lFicheDeSoins, boolean enCours) {
+    public Sejour(LettreDeSortie lettreDeSortie, String numeroDeSejour, ArrayList<String> natureDesPrestation, DateT dateDebut, DateT dateDeFin, Medecin medecinResponsable, ArrayList<FicheDeSoins> lFicheDeSoins, boolean enCours, boolean facturer, String observation) {
         this.lFicheDeSoins = lFicheDeSoins;
         this.natureDesPrestation = natureDesPrestation;
         this.dateDeFin = dateDeFin;
@@ -38,6 +40,8 @@ public class Sejour {
         this.medecinResponsable = medecinResponsable;
         this.numeroDeSejour = numeroDeSejour;
         this.enCours = enCours;
+        this.facturer = facturer;
+        this.observation = observation;
     }
 
     public ArrayList<FicheDeSoins> getlFicheDeSoins() {
@@ -98,8 +102,13 @@ public class Sejour {
             this.dpi = DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList(ipp)));
         }
 
-        return "Numero de sejour = " + this.numeroDeSejour + "\n"
+        String retour = "Numero de sejour = " + this.numeroDeSejour + "\n"
                 + " Nom Usage " + this.dpi.getNomUsage() + " Nom Naissance " + this.dpi.getNomNaissance() + "\n" + " prénom " + this.dpi.getPrenom();
+        if(!this.isEnCours()){
+            retour += " est facturer  : " + this.isFacturer();
+        }
+        
+        return retour;
     }
 
     /**
@@ -121,6 +130,20 @@ public class Sejour {
      */
     public void setEnCours(boolean enCours) {
         this.enCours = enCours;
+    }
+
+    /**
+     * @return the facturer
+     */
+    public boolean isFacturer() {
+        return facturer;
+    }
+
+    /**
+     * @return the observation
+     */
+    public String getObservation() {
+        return observation;
     }
 
 }
