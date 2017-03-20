@@ -5,6 +5,7 @@
  */
 package interoperabilite;
 
+import api.Parser;
 import db.GestionnaireDB.DAOFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,11 +34,20 @@ public class TestHL7 {
                 Message mess = null;
                 
                 ServeurHL7 serveur = new ServeurHL7();
-                serveur.connection(6502);
+                serveur.connection(6505);
                 serveur.ecoute();
                 String messageHL7 = serveur.protocole();
-                System.out.println("test");
-                System.out.println("Recus : "  + messageHL7 );  
+                String messageHL7final = "";
+                for(int i = 0;i<messageHL7.length();i++){
+                    char ch = messageHL7.charAt(i);
+                    if (Character.isWhitespace(ch)) {
+                    } else {
+                        messageHL7final += ch;
+                    }
+                }
+                System.out.println("\n-----------------");
+                System.out.println(messageHL7final);
+                Parser parse = new Parser(messageHL7final);
                 ps = serveur.getPatient();
                 mess = serveur.getMessage();
                 serveur.fermer();
@@ -47,20 +57,27 @@ public class TestHL7 {
                 System.out.println(ps.isDeath());
                 System.out.println(ps.getCharSex());//matche pas
                 System.out.println(ps.getBirth());//renvoie null
-                System.out.println(mess);
+                
             }
         }).start();
 
         ClientHL7 client = new ClientHL7();
-        client.connexion("localhost", 6502);
+        client.connexion("localhost", 6505);
 
         DPI dpi = DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList("170000001")));
         
+        System.out.println("patient" + dpi.toString());
 
         Patient p = dpi.dpiToPatient();
         System.out.println(dpi.getDateDeNaissance().getC().getTime());
-        System.out.println("Nom : " + p.getFamillyName() + " Prenom : " + p.getFirstName() + " Sexe : " + p.getCharSex() + " Date de naissance : " + p.getBirth() + " IPP : " + p.getID()
-                + " Décéde : " + p.isDeath() + " decé (date) : " + p.getDeath() + " discharge le : " + p.getDateDicharge());
+        System.out.println("Nom : " + p.getFamillyName() 
+                + "\nPrenom : " + p.getFirstName() 
+                + "\nSexe : " + p.getCharSex() 
+                + "\nDate de naissance : " + p.getBirth() 
+                + "\nIPP : " + p.getID()
+                + "\nDécéde : " + p.isDeath() 
+                + "\ndecé (date) : " + p.getDeath() 
+                + "\ndischarge le : " + p.getDateDicharge());
 
         client.admit(p);
 
