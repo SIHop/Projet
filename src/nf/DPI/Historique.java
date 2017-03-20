@@ -58,7 +58,10 @@ public class Historique {
     public void setDateFinArchivage(DateT dateFinArchivage) {
         this.dateFinArchivage = dateFinArchivage;
     }
-
+/**
+ * renvoi l'historique ipp d'un patient décédé 
+ * @return 
+ */
     @Override
     public String toString() {
         return "Historique ipp = " + this.ipp.getIPP() + " date de déces = '" + this.dateDeces.toString() + "' date de fin d'archivage = '" + this.dateFinArchivage.toString()+"'";

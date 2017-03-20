@@ -1,5 +1,8 @@
 package nf.DPI.DMA;
-
+/**
+ * classe numéro de sécurité social 
+ * @author Deniz
+ */
 public class NSS {
 
   private int nSS;

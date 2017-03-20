@@ -144,8 +144,9 @@ public class DPI {
     }
 
     /**
-     *
-     * @return
+     * Permet la création d'un nouveau patient en prenant en compte sa date de naissance, son prénom, sa localisation et son sexe
+     * si le patient a déjà un lit : on a alors accès à l'identifiant, au batiment et à l'étage de la localisation
+     * Les informations du patient sont affichés
      */
     public Patient dpiToPatient() {
         if (this.sexe == Sexe.HOMME) {
@@ -160,6 +161,13 @@ public class DPI {
             return p;
         }
     }
+    
+    /**
+     * Permet de prendre en compte les informations du patient p crée en considérant la date de naissance du patient et son sexe. 
+     * Affiche le dpi du patient
+     * @param p
+     * @return 
+     */
 
     public static DPI patientToDpi(Patient p) {
         DateT d = new DateT(p.getBirth());
@@ -177,6 +185,13 @@ public class DPI {
 
         return dpi;
     }
+
+
+
+    /**
+     * renvoi informations du patient ainsi que son IPP 
+     * @return 
+     */
 
     @Override
     public String toString() {

@@ -58,7 +58,9 @@ public class Acte {
         this.idActe = DAOFactory.getActeDAO().getMaxId()+1;
         this.sauvegarder();
     }
-    
+    /**
+     * Permet de sauvegarder les actes 
+     */
     public void sauvegarder(){
         DAOFactory.getActeDAO().create(this);
     }
@@ -96,7 +98,10 @@ public class Acte {
     public double calculerCout() {
         return code.calculerCout(coef);
     }
-
+/**
+ * affiche le code, le type, le coeficient et le coût de l'acte 
+ * @return 
+ */
     @Override
     public String toString() {
         return "Code: " + this.code.name() + " - Type: " + this.typeActe.toString()+" - Observation: "+this.observations;
