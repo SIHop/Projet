@@ -59,7 +59,7 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
         prenom.setText(this.dpiEnEdition.getPrenom());
         lieuNaissance.setText(this.dpiEnEdition.getLieuNaissance());
         jour.setText(Integer.toString(this.dpiEnEdition.getDateDeNaissance().getC().get(Calendar.DAY_OF_MONTH)));
-        mois.setText(String.format("%1$02d",this.dpiEnEdition.getDateDeNaissance().getC().get(Calendar.MONTH) + 1));
+        mois.setText(String.format("%1$02d", this.dpiEnEdition.getDateDeNaissance().getC().get(Calendar.MONTH) + 1));
         année.setText(Integer.toString(this.dpiEnEdition.getDateDeNaissance().getC().get(Calendar.YEAR)));
         sexe.setSelectedItem(this.dpiEnEdition.getSexe());
 
@@ -1103,18 +1103,18 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
     }//GEN-LAST:event_sexeActionPerformed
 
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
-         String date = this.année.getText() + "-" + this.mois.getText() + "-" + this.jour.getText();
+        String date = this.année.getText() + "-" + this.mois.getText() + "-" + this.jour.getText();
 
-        if(!date.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d") ){
+        if (!date.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")) {
             JOptionPane.showMessageDialog(this, "La date de naissance ne respecte pas le format : jj/mm/aaaa");
             this.jour.setBackground(Color.red);
             this.mois.setBackground(Color.red);
             this.année.setBackground(Color.red);
-        }else{
+        } else {
             DpiDAO dpiDAO = (DpiDAO) DAOFactory.getDpiDAO();
             AdressePatientDAO adressDAO = (AdressePatientDAO) DAOFactory.getAdressePatientDAO();
-            dpiDAO.update(dpiEnEdition);
-            adressDAO.update(dpiEnEdition.getAdresse(), dpiEnEdition.getiPP().getIPP());
+            dpiDAO.update(getDpiEnEdition());
+            adressDAO.update(getDpiEnEdition().getAdresse(), getDpiEnEdition().getiPP().getIPP());
 
             Timer timer = new Timer(5000, new ActionListener() {
                 @Override
@@ -1126,7 +1126,7 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
             timer.setCoalesce(true);
             timer.setInitialDelay(5000);
             timer.start();
-            this.LabelMisAjours.setVisible(true);           
+            this.LabelMisAjours.setVisible(true);
         }
 
 
@@ -1179,7 +1179,7 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
 
     private void creationSejourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creationSejourActionPerformed
         if (this.sejourEnCoursList.getLastVisibleIndex() == -1) {//Si la liste est vide
-            AdministrationCreationSejour adminCrea = new AdministrationCreationSejour(this.dpiEnEdition.getMyDMA(), this);
+            AdministrationCreationSejour adminCrea = new AdministrationCreationSejour(this.getDpiEnEdition().getMyDMA(), this);
             adminCrea.setVisible(true);
         } else {//Si un sejour est en cours
             JOptionPane.showMessageDialog(this, "Un séjour est déjà en cours, il est impossible d'en ajouter un nouveau tant que ce dernier n'est pas terminer !");
@@ -1199,55 +1199,55 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
     }//GEN-LAST:event_IPPActionPerformed
 
     private void nomUsageFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nomUsageFocusLost
-        this.dpiEnEdition.setNomUsage(nomUsage.getText());
+        this.getDpiEnEdition().setNomUsage(nomUsage.getText());
     }//GEN-LAST:event_nomUsageFocusLost
 
     private void nomNaissanceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nomNaissanceFocusLost
-        this.dpiEnEdition.setNomNaissance(nomNaissance.getText());
+        this.getDpiEnEdition().setNomNaissance(nomNaissance.getText());
     }//GEN-LAST:event_nomNaissanceFocusLost
 
     private void prenomFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_prenomFocusLost
-        this.dpiEnEdition.setPrenom(this.prenom.getText());
+        this.getDpiEnEdition().setPrenom(this.prenom.getText());
     }//GEN-LAST:event_prenomFocusLost
 
     private void numeroVoieFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_numeroVoieFocusLost
-        this.dpiEnEdition.getAdresse().setNumeroVoie(Integer.parseInt(this.numeroVoie.getText()));
+        this.getDpiEnEdition().getAdresse().setNumeroVoie(Integer.parseInt(this.numeroVoie.getText()));
     }//GEN-LAST:event_numeroVoieFocusLost
 
     private void typeVoieFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_typeVoieFocusLost
-        this.dpiEnEdition.getAdresse().setTypeVoie(this.typeVoie.getText());
+        this.getDpiEnEdition().getAdresse().setTypeVoie(this.typeVoie.getText());
     }//GEN-LAST:event_typeVoieFocusLost
 
     private void nomVoieFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nomVoieFocusLost
-        this.dpiEnEdition.getAdresse().setNomVoie(this.nomVoie.getText());
+        this.getDpiEnEdition().getAdresse().setNomVoie(this.nomVoie.getText());
     }//GEN-LAST:event_nomVoieFocusLost
 
     private void complementFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_complementFocusLost
-        this.dpiEnEdition.getAdresse().setComplement(this.complement.getText());
+        this.getDpiEnEdition().getAdresse().setComplement(this.complement.getText());
     }//GEN-LAST:event_complementFocusLost
 
     private void codePostalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codePostalFocusLost
-        this.dpiEnEdition.getAdresse().setCodePostal(Integer.parseInt(this.codePostal.getText()));
+        this.getDpiEnEdition().getAdresse().setCodePostal(Integer.parseInt(this.codePostal.getText()));
     }//GEN-LAST:event_codePostalFocusLost
 
     private void villeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_villeFocusLost
-        this.dpiEnEdition.getAdresse().setVille(this.ville.getText());
+        this.getDpiEnEdition().getAdresse().setVille(this.ville.getText());
     }//GEN-LAST:event_villeFocusLost
 
     private void paysFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_paysFocusLost
-        this.dpiEnEdition.getAdresse().setPays(this.pays.getText());
+        this.getDpiEnEdition().getAdresse().setPays(this.pays.getText());
     }//GEN-LAST:event_paysFocusLost
 
     private void numeroPortableFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_numeroPortableFocusLost
-        this.dpiEnEdition.getInfoDeContact().setNumeroPortable(this.numeroPortable.getText());
+        this.getDpiEnEdition().getInfoDeContact().setNumeroPortable(this.numeroPortable.getText());
     }//GEN-LAST:event_numeroPortableFocusLost
 
     private void numeroFixeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_numeroFixeFocusLost
-        this.dpiEnEdition.getInfoDeContact().setNumeroFixe(this.numeroFixe.getText());
+        this.getDpiEnEdition().getInfoDeContact().setNumeroFixe(this.numeroFixe.getText());
     }//GEN-LAST:event_numeroFixeFocusLost
 
     private void emailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusLost
-        this.dpiEnEdition.getInfoDeContact().setEmail(this.email.getText());
+        this.getDpiEnEdition().getInfoDeContact().setEmail(this.email.getText());
     }//GEN-LAST:event_emailFocusLost
 
     private void LabelMisAjoursFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_LabelMisAjoursFocusLost
@@ -1279,7 +1279,7 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel17MouseExited
 
     private void sexeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sexeFocusLost
-        this.dpiEnEdition.setSexe((Sexe) this.sexe.getSelectedItem());
+        this.getDpiEnEdition().setSexe((Sexe) this.sexe.getSelectedItem());
     }//GEN-LAST:event_sexeFocusLost
 
     /**
@@ -1389,4 +1389,29 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
     private javax.swing.JTextField typeVoie;
     private javax.swing.JTextField ville;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the dpiEnEdition
+     */
+    public DPI getDpiEnEdition() {
+        return dpiEnEdition;
+    }
+
+    public void miseAJoursSejour() {
+        //parcour de tout les sejour pour les classer en cours ou non
+        Vector<Sejour> sejEnCour = new Vector<>();
+        Vector<Sejour> sejTerminer = new Vector<>();
+        for (Sejour s : lsej) {
+            if (s.isEnCours()) {
+                sejEnCour.add(s);
+            } else {
+                sejTerminer.add(s);
+            }
+        }
+        this.sejourEnCoursList.setListData(sejEnCour);
+        this.listSejour.setListData(sejTerminer);
+        
+        this.pack();
+        this.repaint();
+    }
 }

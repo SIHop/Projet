@@ -6,14 +6,20 @@
 package ui;
 
 import db.GestionnaireDB.DAOFactory;
+import db.GestionnaireDB.DmaDAO;
+import db.GestionnaireDB.SejourDAO;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
+import nf.Adresse.DateT;
 import nf.DPI.DMA.DMA;
 import nf.DPI.DMA.Sejour;
 import nf.GestionDexploitation.Medecin;
@@ -31,9 +37,9 @@ public class AdministrationCreationSejour extends javax.swing.JFrame {
     
     private DMA dma = null;
     private Sejour sej = null;
-    private JFrame caller;
+    private AdministrationEditDMA caller;
 
-    public AdministrationCreationSejour(DMA dma, JFrame caller) {
+    public AdministrationCreationSejour(DMA dma, AdministrationEditDMA caller) {
         initComponents();
         this.dma = dma;
         this.caller = caller;
@@ -370,9 +376,28 @@ public class AdministrationCreationSejour extends javax.swing.JFrame {
             this.moisText.setBackground(Color.red);
             this.anneeText.setBackground(Color.red);
         }else{
+            ((DmaDAO)DAOFactory.getDmaDAO()).ajoutDunSejour(this.dma,this.numeroSejourLabel.getText());
+            this.sej = new Sejour(this.numeroSejourLabel.getText(), new DateT(dateDebut), (Medecin)this.listeMedecinCombo.getSelectedItem());
+            ((SejourDAO)DAOFactory.getSejourDAO()).create(sej);
             
+            this.caller.getDpiEnEdition().getMyDMA().getListeDeSejour().add(sej);
+            this.caller.miseAJoursSejour();
+            
+            
+            Timer timer = new Timer(5000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    notificationLabel.setVisible(false);
+                }
+            });
+            timer.setRepeats(false);
+            timer.setCoalesce(true);
+            timer.setInitialDelay(2500);
+            timer.start();
+            this.notificationLabel.setVisible(true);
+            this.creaSejourButton.setEnabled(false);
         }
-//        ((DmaDAO)DAOFactory.getDmaDAO()).ajoutDunSejour(this.dma,this.numeroSejourLabel.getText());
+        
     }//GEN-LAST:event_creaSejourButtonActionPerformed
 
     private void joursTextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_joursTextFocusGained

@@ -54,11 +54,14 @@ public class DmaDAO implements DAO<DMA> {
                 ArrayList<String> valSejour = new ArrayList<>();
                 //travaille pour la 1ère valeur
                 valSejour.add(rs2.getString("numeroSejour"));
-                listeSejour.add(sejourDAO.find(argSejour, valSejour));
-                //si il y a d'autre sejour
-                while (rs2.next()) {
-                    valSejour.set(0, rs2.getString("numeroSejour"));
+                if (sejourDAO.find(argSejour, valSejour) != null) {
+
                     listeSejour.add(sejourDAO.find(argSejour, valSejour));
+                    //si il y a d'autre sejour
+                    while (rs2.next()) {
+                        valSejour.set(0, rs2.getString("numeroSejour"));
+                        listeSejour.add(sejourDAO.find(argSejour, valSejour));
+                    }
                 }
 
                 return new DMA(listeSejour, IPP);

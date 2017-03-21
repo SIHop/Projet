@@ -198,7 +198,7 @@ public class SejourDAO implements DAO<Sejour> {
             dateFin = "'" + obj.getDateDeFin().toString() + "'";
         }
 
-        this.query = "INSERT INTO sejour (numeroSejour, naturePrestation, lettreSortie,dateDebut,dateFin, idPersonnel, enCours, facturer,observations)"
+        this.query = "INSERT INTO sejour (numeroSejour, naturePrestation, lettreSortie,dateDebut,dateFin, idPersonnel, enCours, facturer,observation)"
                 + " VALUES (" + obj.getNumeroDeSejour() + ",'" + natureDesPrestation + "'," + lettre + ",'" + obj.getDateDebut().toString()
                 + "'," + dateFin + "," + obj.getMedecinResponsable().getIdPersonel() + "," + obj.isEnCours() +"," + obj.isFacturer() + ",'" + observation+ "')";
 

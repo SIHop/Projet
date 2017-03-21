@@ -33,6 +33,11 @@ public class Sejour {
         this.numeroDeSejour = numeroDeSejour;
         this.dateDebut = dateDebut;
         this.medecinResponsable = medecinResponsable;
+        this.lFicheDeSoins = new ArrayList<>();
+        this.enCours = true;
+        this.facturer = false;
+        this.observation = new ArrayList<>();
+        this.natureDesPrestation = new ArrayList<>();
     }
 
     public Sejour(LettreDeSortie lettreDeSortie, String numeroDeSejour, ArrayList<String> natureDesPrestation, DateT dateDebut, DateT dateDeFin, Medecin medecinResponsable, ArrayList<FicheDeSoins> lFicheDeSoins, boolean enCours, boolean facturer, ArrayList<String> observation) {
@@ -170,18 +175,19 @@ public class Sejour {
         }
         int mois = maxSej;
         mois -= annee * 10000000;
-        while(mois>100){
+        while(mois>14){
             mois = mois/10;
-        }
+                    }
         annee += 2000;
         int year = Year.now().getValue();
-        int month = Calendar.getInstance().get(Calendar.MONTH+1);
+        int month = Calendar.getInstance().get(Calendar.MONTH)+1;
+        System.out.println("month = " + month + " mois = " + mois + " year = " + year + " annee = " + annee);
         if(year==annee && month == mois){
             return maxSej + 1;
         } else {
             int retour = year - 2000;
             retour = retour * 10000000;
-            retour = retour + mois*100000;
+            retour = retour + month*100000;
             return retour+1;
         }
     }
