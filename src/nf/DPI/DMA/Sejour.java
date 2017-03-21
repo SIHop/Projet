@@ -123,7 +123,12 @@ public class Sejour {
         String retour = "Numero de sejour = " + this.numeroDeSejour + "\n"
                 + " Nom Usage " + this.dpi.getNomUsage() + " Nom Naissance " + this.dpi.getNomNaissance() + "\n" + " prénom " + this.dpi.getPrenom();
         if(!this.isEnCours()){
-            retour += " est facturer  : " + this.isFacturer();
+            if(this.isFacturer()){
+                retour += " est facturé";
+            }else{
+                retour+= " n'est pas facturé";
+            }
+            
         }
         
         return retour;
