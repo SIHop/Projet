@@ -42,12 +42,12 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
                 return new Adresse(rs.getString("Pays"), rs.getString("ville"), rs.getInt("codePostal"), rs.getString("nomVoie"), rs.getInt("numeroVoie"), rs.getString("typeVoie"), rs.getString("complementAdresse"));                                                                                                                  //litDAO.find()           
 
             } else {
-                System.out.println("Aucun résultat n'a était trouver");
+                System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultats correspondent");
+            System.out.println("Pas de résultat correspondant");
         }
         return null;
     }
@@ -76,12 +76,12 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
                 }
 
             } else {
-                System.out.println("Aucun résultat n'a était trouver");
+                System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultats correspondent");
+            System.out.println("Pas de résultat correspondant");
         }
         return retour;
     }

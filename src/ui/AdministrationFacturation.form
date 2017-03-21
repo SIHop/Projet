@@ -264,7 +264,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="f0" green="f0" red="f0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Numero de S&#xe9;jour : "/>
+                <Property name="text" type="java.lang.String" value="Num&#xe9;ro de s&#xe9;jour : "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="PHResponsableLabel">

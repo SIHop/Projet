@@ -53,12 +53,12 @@ public class PersonnelDAO implements DAO<Personnel> {
                 rs.next();
                 return this.instancier(rs);
             } else {
-                System.out.println("Aucun résultat n'a était trouver");
+                System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultats correspondent");
+            System.out.println("Pas de résultat correspondant");
         }
         return null;
     }
@@ -124,12 +124,12 @@ public class PersonnelDAO implements DAO<Personnel> {
                     retour.add(this.instancier(rs));
                 }
             } else {
-                System.out.println("Aucun résultat n'a était trouver");
+                System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultats correspondent");
+            System.out.println("Pas de résultat correspondant");
         }
         return retour;
     }

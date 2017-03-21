@@ -161,7 +161,7 @@ public class AdministrationFacturation extends javax.swing.JFrame {
 
         numeroSejourLabel.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
         numeroSejourLabel.setForeground(new java.awt.Color(240, 240, 240));
-        numeroSejourLabel.setText("Numero de Séjour : ");
+        numeroSejourLabel.setText("Numéro de séjour : ");
 
         PHResponsableLabel.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
         PHResponsableLabel.setForeground(new java.awt.Color(240, 240, 240));

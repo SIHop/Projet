@@ -1174,7 +1174,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="f0" green="f0" red="f0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Sejour en cours :"/>
+                <Property name="text" type="java.lang.String" value="S&#xe9;jour en cours :"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel20">
@@ -1185,7 +1185,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="f0" green="f0" red="f0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Liste des sejour terminer : "/>
+                <Property name="text" type="java.lang.String" value="Liste des s&#xe9;jours termin&#xe9;s : "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel46">
@@ -1204,7 +1204,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="33" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Les donn&#xe9;es on &#xe9;t&#xe9; mise &#xe0; jour"/>
+                <Property name="text" type="java.lang.String" value="Les donn&#xe9;es ont &#xe9;t&#xe9; mise &#xe0; jour"/>
               </Properties>
               <Events>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="LabelMisAjoursFocusLost"/>

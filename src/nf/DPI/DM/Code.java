@@ -74,7 +74,7 @@ public enum Code {
      */
     @Override
     public String toString() {
-        return super.toString() + " : \n\t ► " + libelle + ": \n\t ► cout = " + cout + " euros";
+        return super.toString() + " : \n\t ► " + libelle + ": \n\t ► coût = " + cout + " euros";
     }
 
     // calcule le prix pour un coefficient donnée :

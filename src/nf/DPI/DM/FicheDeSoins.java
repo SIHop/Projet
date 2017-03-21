@@ -97,7 +97,7 @@ public class FicheDeSoins {
  */
     @Override
     public String toString() {
-        return "FicheDeSoins{" + "listeActes=" + listeActes + ", prescription=" + prescription + ", resultat=" + resultat + ", dateDeCreation=" + dateDeCreation + ", createur=" + createur + ", numeroSejour=" + numeroSejour + ", idFicheDeSoins=" + idFicheDeSoins + '}';
+        return "FicheDeSoins{" + "liste des actes = " + listeActes + ", prescription = " + prescription + ", résultat = " + resultat + ", date de création=" + dateDeCreation + ", créateur=" + createur + ", numéro de séjour = " + numeroSejour + ", idFicheDeSoins = " + idFicheDeSoins + '}';
     }
 
     /**

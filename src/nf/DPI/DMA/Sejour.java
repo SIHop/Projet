@@ -120,10 +120,10 @@ public class Sejour {
             this.dpi = DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList(ipp)));
         }
 
-        String retour = "Numero de sejour = " + this.numeroDeSejour + "\n"
-                + " Nom Usage " + this.dpi.getNomUsage() + " Nom Naissance " + this.dpi.getNomNaissance() + "\n" + " prénom " + this.dpi.getPrenom();
+        String retour = "Numéro de séjour = " + this.numeroDeSejour + "\n"
+                + " Nom d'usage : " + this.dpi.getNomUsage() + ", Nom de naissance :" + this.dpi.getNomNaissance() + "\n" + ", Prénom : " + this.dpi.getPrenom();
         if(!this.isEnCours()){
-            retour += " est facturer  : " + this.isFacturer();
+            retour += ", est facturé  : " + this.isFacturer();
         }
         
         return retour;
@@ -181,7 +181,7 @@ public class Sejour {
         annee += 2000;
         int year = Year.now().getValue();
         int month = Calendar.getInstance().get(Calendar.MONTH)+1;
-        System.out.println("month = " + month + " mois = " + mois + " year = " + year + " annee = " + annee);
+        System.out.println("month = " + month + " mois = " + mois + " year = " + year + " année = " + annee);
         if(year==annee && month == mois){
             return maxSej + 1;
         } else {
