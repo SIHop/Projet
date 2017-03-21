@@ -18,45 +18,45 @@ public interface DAO<T> {
     public Connection connect = ConnectionHygieSQL.getInstance();
 
     /**
-     * Récupéré un objet en fonction des parametre envoyer
+     * Récupérer un objet en fonction des paramètres envoyés
      *
-     * @param arg liste des argument de recherche
-     * @param val liste des valeur des argument de recherche /!\ même ordre que
+     * @param arg liste des arguments de recherche
+     * @param val liste des valeurs des arguments de recherche /!\ même ordre que
      * arg /!\
      */
     public abstract T find(ArrayList<String> arg, ArrayList<String> val);
 
     /**
-     * Récupéré une liste d'objet en fonction des parametre envoyer
+     * Récupérer une liste d'objet en fonction des paramètres envoyés
      *
-     * @param arg liste des argument de recherche
-     * @param val liste des valeur des argument de recherche /!\ même ordre que
+     * @param arg liste des arguments de recherche
+     * @param val liste des valeurs des arguments de recherche /!\ même ordre que
      * arg /!\
      */
     public abstract ArrayList<T> findMultiple(ArrayList<String> arg, ArrayList<String> val);
 
     /**
-     * Crée une entré dans la basse de donnée a partir de l'objet envoyer
+     * Créer une entrée dans la basse de données à partir de l'objet envoyé
      *
      * @param obj
      */
     public abstract T create(T obj);
 
     /**
-     * Met a jours les donnée en db en fonction de l'objet fournis
+     * Met à jour les données en db en fonction de l'objet fournis
      *
-     * @param obj l'objet a mettre a jours dans la DB
+     * @param obj l'objet à mettre à jour dans la DB
      */
     public abstract T update(T obj);
 
     /**
-     * Supprime une entrée de la base en fonction de l'objet fournis
+     * Supprime une entrée de la base en fonction de l'objet fourni
      */
     public abstract T delete(T obj);
     
     /**
-     * Renvoie l'id maximum de la table en forme de String
-     * @return id max, où -1 si la requete a échouer
+     * Retourne l'id maximum de la table en forme de String
+     * @return id max, où -1 si la requête a échoué
      */
     public abstract int getMaxId();
 

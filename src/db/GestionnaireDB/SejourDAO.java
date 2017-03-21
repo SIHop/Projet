@@ -31,7 +31,7 @@ public class SejourDAO implements DAO<Sejour> {
 
     @Override
     public Sejour find(ArrayList<String> arg, ArrayList<String> val) {
-        //Crée la requete pour recupére le sejour qui respecte tout les contrainte
+        //Créer la requête pour récupérer le séjour qui respecte toutes les contraintes
         this.query = "SELECT * FROM sejour WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -41,7 +41,7 @@ public class SejourDAO implements DAO<Sejour> {
         }
         
 
-        //Initialisation des service utile pour recupéré un Sejour
+        //Initialisation des services utiles pour récupérer un séjour
         DAO<Adresse> adresseDAO = DAOFactory.getAdressePatientDAO();
         DAO<DMA> dmaDAO = DAOFactory.getDmaDAO();
         DAO<Personnel> personnelDAO = DAOFactory.getPersonelDAO();
@@ -55,14 +55,14 @@ public class SejourDAO implements DAO<Sejour> {
 
                 rs.first();
 
-                //Recupere le médecin responsable
+                //Récupère le médecin responsable
                 ArrayList<String> argMed = new ArrayList<>();
                 argMed.add("idPersonnel");
                 ArrayList<String> valMed = new ArrayList<>();
                 valMed.add(rs.getString("idPersonnel"));
                 Medecin medecinResp = (Medecin) personnelDAO.find(argMed, valMed);
 
-                //Recupere la liste des fiche de soin
+                //Récupère la liste des fiches de soins
                 ArrayList<String> argFds = new ArrayList<>();
                 argFds.add("numeroSejour");
                 ArrayList<String> valFds = new ArrayList<>();
@@ -98,7 +98,7 @@ public class SejourDAO implements DAO<Sejour> {
     public ArrayList<Sejour> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
         ArrayList<Sejour> retour = new ArrayList<>();
 
-        //Crée la requete pour recupére le sejour qui respecte tout les contrainte
+        //Créer la requête pour récupérer le séjour qui respecte toutes les contraintes
         this.query = "SELECT * FROM sejour WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -108,7 +108,7 @@ public class SejourDAO implements DAO<Sejour> {
         }
         
 
-        //Initialisation des service utile pour recupéré un Sejour
+        //Initialisation des services utiles pour récupérer un séjour
         DAO<Adresse> adresseDAO = DAOFactory.getAdressePatientDAO();
         DAO<DMA> dmaDAO = DAOFactory.getDmaDAO();
         DAO<Personnel> personnelDAO = DAOFactory.getPersonelDAO();
@@ -120,26 +120,26 @@ public class SejourDAO implements DAO<Sejour> {
 
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    //Recupere l'IP du patient
+                    //Récupère l'IP du patient
                     ArrayList<String> argDMA = new ArrayList<>();
                     argDMA.add("numeroSejour");
                     ArrayList<String> valDMA = new ArrayList<>();
                     valDMA.add(rs.getString("numeroSejour"));
 
-                    //Recupere l' adresse du patient
+                    //Récupère l'adresse du patient
                     ArrayList<String> argAdress = new ArrayList<>();
                     argAdress.add("IPP");
                     ArrayList<String> valAdress = new ArrayList<>();
                     valAdress.add(dmaDAO.find(argDMA, valDMA).getIPP());
 
-                    //Recupere le médecin responsable
+                    //Récupère le médecin responsable
                     ArrayList<String> argMed = new ArrayList<>();
                     argMed.add("idPersonnel");
                     ArrayList<String> valMed = new ArrayList<>();
                     valMed.add(rs.getString("idPersonnel"));
                     Medecin medecinResp = (Medecin) personnelDAO.find(argMed, valMed);
 
-                    //Recupere la liste des fiche de soint
+                    //Récupère la liste des fiches de soins
                     ArrayList<String> argFds = new ArrayList<>();
                     argFds.add("numeroSejour");
                     ArrayList<String> valFds = new ArrayList<>();

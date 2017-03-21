@@ -16,7 +16,7 @@ import library.structure.groupe.messages.Message;
 import nf.DPI.DPI;
 
 /**
- *
+ *Tests pour l'intéropérabilité 
  * @author Loïc
  */
 public class TestHL7 {

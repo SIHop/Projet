@@ -223,7 +223,7 @@ public class testDB {
 //        //**find ok
 //        DMA dma = dmaDAO.find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList("170000001")));
 //        System.out.println(dma.toString());
-//        //**findMultiple Bug car normalement pas plusieur dma pour un patient
+//        //**findMultiple Bug car normalement il n'y a pas plusieurs DMA pour un patient
 //        ArrayList<DMA> ldma = dmaDAO.findMultiple(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList("170000001")));
 //        for(int i=0; i<ldma.size();i++){
 //            System.out.println(ldma.get(i).toString());

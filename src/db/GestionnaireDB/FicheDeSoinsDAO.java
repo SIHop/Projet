@@ -28,7 +28,7 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
 
     @Override
     public FicheDeSoins find(ArrayList<String> arg, ArrayList<String> val) {
-        //Crée la requete pour recupére la fiche de soins qui respecte tout les contrainte
+        //Créer la requête pour récupérer la fiche de soins qui respecte toutes les contraintes
         this.query = "SELECT * FROM ficheDeSoins WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -38,7 +38,7 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
         }
         System.out.println(query);
 
-        //Instanciation des DAO neccessaire a la creation d'une fioche de soins
+        //Instanciation des DAO nécessaire à la création d'une fiche de soins
         DAO<Acte> acteDao = DAOFactory.getActeDAO();
         DAO<Prescription> prescriptionDao = DAOFactory.getPrescriptionDAO();
         DAO<Resultat> resultatDao = DAOFactory.getResultatDAO();
@@ -48,7 +48,7 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
             Statement stmt = FicheDeSoinsDAO.connect.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
-            //Récupération des données pour trouver les actes, prescriptions et résultats de la fds, plus du presonnel createur
+            //Récupération des données pour trouver les actes, prescriptions et résultats de la fds(fiche de soins), plus du personnel créateur
             ArrayList<String> argData = new ArrayList<>();
             ArrayList<String> valData = new ArrayList<>();
             argData.add("idFicheDeSoins");
@@ -80,7 +80,7 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
     public ArrayList<FicheDeSoins> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
 
         ArrayList<FicheDeSoins> lfds = new ArrayList<>();
-        //Crée la requete pour recupére la fiche de soins qui respecte tout les contrainte
+        //Créer la requête pour récupérer la fiche de soins qui respecte toutes les contraintes
         this.query = "SELECT * FROM ficheDeSoins WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -90,7 +90,7 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
         }
         System.out.println(query);
 
-        //Instanciation des DAO neccessaire a la creation d'une fioche de soins
+        //Instanciation des DAO nécessaire à la création d'une fiche de soins
         DAO<Acte> acteDao = DAOFactory.getActeDAO();
         DAO<Prescription> prescriptionDao = DAOFactory.getPrescriptionDAO();
         DAO<Resultat> resultatDao = DAOFactory.getResultatDAO();
@@ -102,7 +102,7 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
 
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    //Récupération des données pour trouver les actes, prescriptions et résultats de la fds, plus du presonnel createur
+                    //Récupération des données pour trouver les actes, prescriptions et résultats de la fds, plus du personnel créateur
                     ArrayList<String> argData = new ArrayList<>();
                     ArrayList<String> valData = new ArrayList<>();
                     argData.add("idFicheDeSoins");
