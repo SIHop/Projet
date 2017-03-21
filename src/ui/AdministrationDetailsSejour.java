@@ -5,22 +5,10 @@
  */
 package ui;
 
-import db.GestionnaireDB.AdressePatientDAO;
-import db.GestionnaireDB.DAOFactory;
-import db.GestionnaireDB.DpiDAO;
-import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Vector;
-import javax.swing.Timer;
 import nf.DPI.DMA.Sejour;
-import nf.DPI.DPI;
-import nf.GestionDexploitation.SecretaireAdministratif;
-import nf.GestionDexploitation.Sexe;
 
 /**
  *
@@ -40,7 +28,7 @@ public class AdministrationDetailsSejour extends javax.swing.JFrame {
         
         this.numeroSejourLabel.setText("Numéro de séjour : " + sejour.getNumeroDeSejour());
         this.PHResponsableLabel.setText("PH résponsable : " + this.sejour.getMedecinResponsable().getNom() + " " + this.sejour.getMedecinResponsable().getPrenom());
-        this.dateDebutLabel.setText("Date de début : " + this.sejour.getDateDebut().getC().get(Calendar.DAY_OF_MONTH) + "/"+ this.sejour.getDateDebut().getC().get(Calendar.MONTH)+1 + "/" + this.sejour.getDateDebut().getC().get(Calendar.YEAR));
+        this.dateDebutLabel.setText("Date de début : " + this.sejour.getDateDebut().getC().get(Calendar.DAY_OF_MONTH) + "/"+ String.format("%1$02d",this.sejour.getDateDebut().getC().get(Calendar.MONTH)+1) + "/" + this.sejour.getDateDebut().getC().get(Calendar.YEAR));
         if(sejour.isEnCours()){
             this.dateFinLabel.setText("Date de fin : Le séjour n'est pas terminé");
         }else{

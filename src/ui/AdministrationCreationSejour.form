@@ -327,6 +327,7 @@
                 <Property name="text" type="java.lang.String" value="DD"/>
               </Properties>
               <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="joursTextFocusGained"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="joursTextActionPerformed"/>
               </Events>
             </Component>
@@ -335,6 +336,7 @@
                 <Property name="text" type="java.lang.String" value="MM"/>
               </Properties>
               <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="moisTextFocusGained"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="moisTextActionPerformed"/>
               </Events>
             </Component>
@@ -343,6 +345,7 @@
                 <Property name="text" type="java.lang.String" value="AAAA"/>
               </Properties>
               <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="anneeTextFocusGained"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="anneeTextActionPerformed"/>
               </Events>
             </Component>

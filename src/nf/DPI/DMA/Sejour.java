@@ -1,8 +1,12 @@
 package nf.DPI.DMA;
 
 import db.GestionnaireDB.DAOFactory;
+import db.GestionnaireDB.DpiDAO;
+import db.GestionnaireDB.SejourDAO;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import nf.GestionDexploitation.Medecin;
 import nf.Adresse.DateT;
 import nf.DPI.DM.FicheDeSoins;
@@ -158,8 +162,28 @@ public class Sejour {
     }
 
     public static int generateNumeroSejour(){
-        
-        
-        return 1;
+        SejourDAO sejDAO =(SejourDAO)DAOFactory.getSejourDAO();
+        int maxSej = sejDAO.getMaxId();
+        int annee = maxSej;
+        while (annee > 100) {
+            System.out.println(annee % 10);
+            annee = annee / 10;
+        }
+        int mois = maxSej;
+        mois -= annee * 10000000;
+        while(mois>100){
+            mois = mois/10;
+        }
+        annee += 2000;
+        int year = Year.now().getValue();
+        int month = Calendar.getInstance().get(Calendar.MONTH+1);
+        if(year==annee && month == mois){
+            return maxSej + 1;
+        } else {
+            int retour = year - 2000;
+            retour = retour * 10000000;
+            retour = retour + mois*100000;
+            return retour+1;
+        }
     }
 }

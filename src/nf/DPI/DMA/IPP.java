@@ -22,7 +22,7 @@ public class IPP {
      * @return 
      */
     private int generationIPP() {
-        ArrayList<Integer> lIPP;
+        
         DpiDAO listeDPI = new DpiDAO();
         int maxIPP = listeDPI.getMaxId();
         int annee = maxIPP;
