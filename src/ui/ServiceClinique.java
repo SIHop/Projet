@@ -54,7 +54,7 @@ public class ServiceClinique extends javax.swing.JFrame {
 //Entête DPI
         this.dpi=dpi;
         this.jLabel18.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
-        this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdentifient());
+        this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
         this.jLabel19.setText("N°sejour: "+this.numSej);
 // Résumé DM
         this.jTextPane1.setText("iPP : "+dpi.getiPP().toString()+"\n"+"Sexe : "+dpi.getSexe().toString()+ "\n"
@@ -875,7 +875,7 @@ public class ServiceClinique extends javax.swing.JFrame {
 //                DateT d= new DateT("04-02-16");
 //                Personnel p2= new Infirmier(null, TypeInfirmier.IADE, "capes", "jule", "2222", Sexe.FEMME, ad,d,"identifient", null,null);
 //
-////DPI dpi= new DPI("lisard", "lopez", "marie", null, new IPP(444), null, null, null, new Lit("idlit",true,'c',null, "service", 444), new DM(null), null, Sexe.FEMME);
+////DPI dpi= new DPI("lisard", "lopez", "marie", null, new IPP(444), null, null, null, new Location("idlit",true,'c',null, "service", 444), new DM(null), null, Sexe.FEMME);
 //                DPI dpi = DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")),new ArrayList<>(Arrays.asList("170000001")));
 //                String numSej = dpi.getMyDM().getLastSejour().getNumeroDeSejour();
 //                new ServiceClinique(p2,dpi,numSej,listeDPI).setVisible(true); 

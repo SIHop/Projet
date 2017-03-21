@@ -20,7 +20,7 @@ import nf.DPI.DMA.IPP;
 import nf.DPI.DMA.Sejour;
 import nf.DPI.DPI;
 import nf.GestionDexploitation.InformationDeContact;
-import nf.GestionDexploitation.Lit;
+import nf.GestionDexploitation.Location;
 import nf.GestionDexploitation.Sexe;
 
 /**
@@ -55,7 +55,7 @@ public class DpiDAO implements DAO<DPI> {
                 ArrayList<String> valAdresse = new ArrayList<>();
                 valAdresse.add(rs.getString("IPP"));
 
-                DAO<Lit> litDAO = DAOFactory.getLitDAO();
+                DAO<Location> litDAO = DAOFactory.getLitDAO();
                 ArrayList<String> argLit = new ArrayList<>();
                 argLit.add("IPP");
                 ArrayList<String> valLit = new ArrayList<>();
@@ -109,7 +109,7 @@ public class DpiDAO implements DAO<DPI> {
                     ArrayList<String> valAdresse = new ArrayList<>();
                     valAdresse.add(rs.getString("IPP"));
 
-                    DAO<Lit> litDAO = DAOFactory.getLitDAO();
+                    DAO<Location> litDAO = DAOFactory.getLitDAO();
                     ArrayList<String> argLit = new ArrayList<>();
                     argLit.add("IPP");
                     ArrayList<String> valLit = new ArrayList<>();
@@ -144,7 +144,7 @@ public class DpiDAO implements DAO<DPI> {
         if (obj.getLit() == null) {
             lit = null;
         } else {
-            lit = "'" + obj.getLit().getIdentifient() + "'";
+            lit = "'" + obj.getLit().getIdLit() + "'";
         }
         this.query = "INSERT INTO dpi (IPP,IdCentreDeSoin, prenom,nomNaissance,nomUsage,sexe, dateNaissance,telephonePortable,telephoneFixe,mail,lit, lieuNaissance)"
                 + " VALUES (" + obj.getiPP().getIPP()
@@ -176,7 +176,7 @@ public class DpiDAO implements DAO<DPI> {
         if (obj.getLit() == null) {
             lit = null;
         } else {
-            lit = "'" + obj.getLit().getIdentifient() + "'";
+            lit = "'" + obj.getLit().getIdLit() + "'";
         }
         this.query = "UPDATE dpi SET prenom = '" + obj.getPrenom().replace("'", "''") + "', nomNaissance = '" + obj.getNomNaissance().replace("'", "''") + "', nomUsage = '" + obj.getNomUsage().replace("'", "''") + "', sexe = '" + obj.getSexe().toString() + "', dateNaissance = '" + obj.getDateDeNaissance().toString() + "', telephonePortable = '" + obj.getInfoDeContact().getNumeroPortable() + "', telephoneFixe = '" + obj.getInfoDeContact().getNumeroFixe() + "', mail = '" + obj.getInfoDeContact().getEmail() + "', lit = " + lit + ", lieuNaissance = '" + obj.getLieuNaissance().replace("'", "''").toUpperCase() + "' WHERE IPP = " + obj.getiPP().getIPP() + " AND idCentreDeSoin =" + "38100111";
 
@@ -243,7 +243,7 @@ public class DpiDAO implements DAO<DPI> {
                     ArrayList<String> valAdresse = new ArrayList<>();
                     valAdresse.add(rs.getString("IPP"));
 
-                    DAO<Lit> litDAO = DAOFactory.getLitDAO();
+                    DAO<Location> litDAO = DAOFactory.getLitDAO();
                     ArrayList<String> argLit = new ArrayList<>();
                     argLit.add("IPP");
                     ArrayList<String> valLit = new ArrayList<>();

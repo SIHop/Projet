@@ -5,7 +5,7 @@
  */
 package db.GestionnaireDB;
 
-import nf.GestionDexploitation.Lit;
+import nf.GestionDexploitation.Location;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,12 +18,12 @@ import nf.GestionDexploitation.Localisation;
  *
  * @author Loïc
  */
-public class LitDAO implements DAO<Lit> {
+public class LitDAO implements DAO<Location> {
 
     private String query = "";
 
     @Override
-    public Lit find(ArrayList<String> arg, ArrayList<String> val) {
+    public Location find(ArrayList<String> arg, ArrayList<String> val) {
         //Crée la requete pour recupére le lit qui respecte tout les contrainte
         this.query = "SELECT * FROM lit WHERE ";
         query += arg.get(0) + " = " + val.get(0);
@@ -40,7 +40,7 @@ public class LitDAO implements DAO<Lit> {
 
             if (rs.isBeforeFirst()) {
                 rs.first();
-                return new Lit(rs.getString("idLit"), rs.getBoolean("estOccuper"), rs.getString("cote").charAt(0), new Localisation(rs.getString("batiment"), rs.getInt("etage"), rs.getString("couloir")), rs.getString("idService"), rs.getInt("IPP"));
+                return new Location(rs.getString("idLit"), rs.getBoolean("estOccuper"), rs.getString("cote").charAt(0), new Localisation(rs.getString("batiment"), rs.getInt("etage"), rs.getString("couloir")), rs.getString("idService"), rs.getInt("IPP"));
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
@@ -53,8 +53,8 @@ public class LitDAO implements DAO<Lit> {
     }
 
     @Override
-    public ArrayList<Lit> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
-        ArrayList<Lit> retour = new ArrayList<>();
+    public ArrayList<Location> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
+        ArrayList<Location> retour = new ArrayList<>();
 
         //Crée la requete pour recupére la liste de lit qui respecte tout les contrainte
         this.query = "SELECT * FROM lit WHERE ";
@@ -72,7 +72,7 @@ public class LitDAO implements DAO<Lit> {
 
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    retour.add(new Lit(rs.getString("idLit"), rs.getBoolean("estOccuper"), rs.getString("cote").charAt(0), new Localisation(rs.getString("batiment"), rs.getInt("etage"), rs.getString("couloir")), rs.getString("idService"), rs.getInt("IPP")));
+                    retour.add(new Location(rs.getString("idLit"), rs.getBoolean("estOccuper"), rs.getString("cote").charAt(0), new Localisation(rs.getString("batiment"), rs.getInt("etage"), rs.getString("couloir")), rs.getString("idService"), rs.getInt("IPP")));
                 }
 
             } else {
@@ -87,7 +87,7 @@ public class LitDAO implements DAO<Lit> {
     }
 
     @Override
-    public Lit create(Lit obj) {
+    public Location create(Location obj) {
         int occuper = 0;
         if (obj.isIsOccuped()) {
             occuper = 1;
@@ -99,7 +99,7 @@ public class LitDAO implements DAO<Lit> {
         }
 
         this.query = "INSERT INTO lit (idLit, IPP, idService,estOccuper,cote, batiment, etage,couloir)"
-                + " VALUES ('" + obj.getIdentifient() + "'," + ipp + "," + obj.getService().getCodeService() + "," + occuper + ",'" + obj.getCote() + "','"
+                + " VALUES ('" + obj.getIdLit() + "'," + ipp + "," + obj.getService().getCodeService() + "," + occuper + ",'" + obj.getCote() + "','"
                 + obj.getLocalisation().getBatiment().replace("'", "''") + "'," + obj.getLocalisation().getEtage() + ",'" + obj.getLocalisation().getCouloir() + "')";
 
         System.out.println(query);
@@ -114,7 +114,7 @@ public class LitDAO implements DAO<Lit> {
     }
 
     @Override
-    public Lit update(Lit obj) {
+    public Location update(Location obj) {
         int occuper = 0;
         String IPPcorriger = Integer.toString(obj.getIPPoccupent());
         if (obj.isIsOccuped()) {
@@ -127,7 +127,7 @@ public class LitDAO implements DAO<Lit> {
 
         this.query = "UPDATE lit SET IPP = " + IPPcorriger + ", idService = '" + obj.getService().getCodeService() + "', estOccuper = "
                 + occuper + ", cote = '" + obj.getCote() + "', batiment = '" + obj.getLocalisation().getBatiment().replace("'", "''") + "', etage = " + obj.getLocalisation().getEtage()
-                + ", couloir = '" + obj.getLocalisation().getCouloir() + "' WHERE idLit = '" + obj.getIdentifient() + "'";
+                + ", couloir = '" + obj.getLocalisation().getCouloir() + "' WHERE idLit = '" + obj.getIdLit() + "'";
 
         Statement stmt;
         try {
@@ -141,8 +141,8 @@ public class LitDAO implements DAO<Lit> {
     }
 
     @Override
-    public Lit delete(Lit obj) {
-        this.query = "DELETE FROM lit WHERE idLit = " + obj.getIdentifient();
+    public Location delete(Location obj) {
+        this.query = "DELETE FROM lit WHERE idLit = " + obj.getIdLit();
 
         Statement stmt;
         try {

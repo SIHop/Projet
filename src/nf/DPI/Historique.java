@@ -1,6 +1,10 @@
 package nf.DPI;
 
 
+import db.GestionnaireDB.DAOFactory;
+import db.GestionnaireDB.HistoriqueDAO;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import nf.Adresse.DateT;
 import nf.DPI.DMA.IPP;
@@ -29,6 +33,11 @@ public class Historique {
         }else{
             this.dateFinArchivage = dateFinArchivage;
         }
+    }
+    
+    public static Historique getHistoriqueByIPP(int IPP){
+        HistoriqueDAO histDAO = (HistoriqueDAO) DAOFactory.getHistoriqueDAO();
+        return histDAO.find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList(Integer.toString(IPP))));
     }
 
     /**
