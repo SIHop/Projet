@@ -18,7 +18,7 @@ public class IPP {
         }
     }
     /**
-     * permet de générer un IPP automatiquement en prenant en compte ceux déjà existant et l'année. 
+     * permet de générer un IPP automatiquement en prenant en compte ceux déjà existant, et l'année. 
      * @return 
      */
     private int generationIPP() {

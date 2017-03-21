@@ -12,10 +12,7 @@ import java.util.Arrays;
 import nf.DPI.DMA.IPP;
 import nf.DPI.DMA.Sejour;
 
-/**
- *
- * @author quentin
- */
+
 public class DM {
 
     private ArrayList<Sejour> lSejour;
@@ -38,7 +35,10 @@ public class DM {
             sejour = ((DmaDAO)DAOFactory.getDmaDAO()).findSejourActuel(Integer.parseInt(ipp.toString()));
             return sejour;
     }
-
+/**
+ * affiche la liste des séjours du DM du patient 
+ * @return 
+ */
     @Override
     public String toString() {
         return "DM{" + "lSejour=" + lSejour + '}';

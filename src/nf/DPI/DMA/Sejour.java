@@ -128,7 +128,7 @@ public class Sejour {
     }
 
     /**
-     * permet de confirmer ou non si le séjour est toujours en cours ou non
+     * permet de connaître si le séjour est toujours en cours ou non
      * @return the enCours
      */
     public boolean isEnCours() {

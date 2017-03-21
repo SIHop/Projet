@@ -68,7 +68,7 @@ public class FicheDeSoins {
 
     /**
      * fonction permettant de calculer les couts pour chaque fiches de soins (chaque fiches de soins contient une liste d'actes) 
-     * @return 
+     * @return le résultat : cout de la fiche de soins
      */
     public double calculerCoutFiche(){
         double res = 0.0;

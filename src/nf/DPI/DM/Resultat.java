@@ -56,7 +56,7 @@ public class Resultat {
         this.idResultat = idResultat;
     }
 /**
- * permet d'afficher la liste des résultats pour chaque analyse
+ * permet d'afficher le resultat et la prescription 
  * @return 
  */
     @Override
