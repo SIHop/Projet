@@ -7,7 +7,7 @@ package ui;
 
 import java.awt.Cursor;
 import java.util.Calendar;
-import java.util.Vector;
+import nf.DPI.DM.FicheDeSoins;
 import nf.DPI.DMA.Sejour;
 
 /**
@@ -25,6 +25,12 @@ public class AdministrationFacturation extends javax.swing.JFrame {
     public AdministrationFacturation(Sejour sejour) {
         initComponents();
         this.sejour = sejour;
+        this.notificationLabel.setVisible(false);
+        if(this.sejour.isFacturer() || this.sejour.isEnCours()){
+            this.facturerButton.setEnabled(false);
+            this.notificationLabel.setVisible(true);
+        }
+        
         
         this.numeroSejourLabel.setText("Numéro de séjour : " + sejour.getNumeroDeSejour());
         this.PHResponsableLabel.setText("PH résponsable : " + this.sejour.getMedecinResponsable().getNom() + " " + this.sejour.getMedecinResponsable().getPrenom());
@@ -35,8 +41,14 @@ public class AdministrationFacturation extends javax.swing.JFrame {
            this.dateFinLabel.setText("Date de fin : " + this.sejour.getDateDeFin().getC().get(Calendar.DAY_OF_MONTH) + "/"+ this.sejour.getDateDebut().getC().get(Calendar.MONTH)+1 + "/" + this.sejour.getDateDebut().getC().get(Calendar.YEAR));
         }
         this.serviceLabel.setText("Service : " + this.sejour.getMedecinResponsable().getService().getNomService());
-        Vector<String> listeNature = new Vector(this.sejour.getNatureDesPrestation());
-        this.naturePrestationJList.setListData(listeNature);
+        
+        String listeFeuilleDeSoins = "Liste des fiche de soins :\n";
+        for(FicheDeSoins fds : this.sejour.getlFicheDeSoins()){
+            listeFeuilleDeSoins += "Fiche de soins N°" +fds.getIdFicheDeSoins()+ " fait par : " +fds.getCreateur().getNom() + " "+fds.getCreateur().getPrenom() + " coûte : " + fds.calculerCoutFiche() + "€\n";
+         }
+        this.listeFicheDesSoins.setText(listeFeuilleDeSoins);
+        
+        this.total.setText(sejour.calculCoutTotal() + "€");
         
 
     }
@@ -62,11 +74,13 @@ public class AdministrationFacturation extends javax.swing.JFrame {
         dateFinLabel = new javax.swing.JLabel();
         serviceLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        naturePrestationJList = new javax.swing.JList<String>();
         printButton = new javax.swing.JButton();
         facturerButton = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        notificationLabel = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listeFicheDesSoins = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
+        total = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 600));
@@ -167,15 +181,7 @@ public class AdministrationFacturation extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel1.setText("Nature des prestations :");
-
-        naturePrestationJList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "test", "test2", "test3" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        naturePrestationJList.setEnabled(false);
-        jScrollPane1.setViewportView(naturePrestationJList);
+        jLabel1.setText("Détail feuille de soins :");
 
         printButton.setText("Imprimer");
         printButton.addActionListener(new java.awt.event.ActionListener() {
@@ -191,38 +197,59 @@ public class AdministrationFacturation extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel2.setText("Le séjour a bien été facturé");
+        notificationLabel.setForeground(new java.awt.Color(255, 51, 51));
+        notificationLabel.setText("Le séjour a bien été facturé");
+
+        listeFicheDesSoins.setColumns(20);
+        listeFicheDesSoins.setRows(5);
+        jScrollPane2.setViewportView(listeFicheDesSoins);
+
+        jLabel3.setText("Coût total : ");
+
+        total.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                totalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addContainerGap()
                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(numeroSejourLabel)
-                                    .addComponent(dateDebutLabel))
-                                .addGap(206, 206, 206)
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(PHResponsableLabel)
-                                    .addComponent(serviceLabel)))
-                            .addComponent(dateFinLabel)
-                            .addComponent(jLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addGroup(jPanel10Layout.createSequentialGroup()
+                                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(numeroSejourLabel)
+                                            .addComponent(dateDebutLabel))
+                                        .addGap(206, 206, 206)
+                                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(PHResponsableLabel)
+                                            .addComponent(serviceLabel)))
+                                    .addComponent(dateFinLabel)
+                                    .addComponent(jLabel1)))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addGap(162, 162, 162)
+                                .addComponent(printButton)
+                                .addGap(170, 170, 170)
+                                .addComponent(facturerButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(notificationLabel)))
+                        .addGap(0, 175, Short.MAX_VALUE))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2)))
                 .addContainerGap())
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(162, 162, 162)
-                .addComponent(printButton)
-                .addGap(170, 170, 170)
-                .addComponent(facturerButton)
+                .addContainerGap()
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
@@ -240,12 +267,16 @@ public class AdministrationFacturation extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(printButton)
                     .addComponent(facturerButton)
-                    .addComponent(jLabel2))
+                    .addComponent(notificationLabel))
                 .addGap(0, 32, Short.MAX_VALUE))
         );
 
@@ -308,6 +339,10 @@ public class AdministrationFacturation extends javax.swing.JFrame {
         
     }//GEN-LAST:event_facturerButtonActionPerformed
 
+    private void totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_totalActionPerformed
+
     private int tx;
     private int ty;
 
@@ -353,17 +388,19 @@ public class AdministrationFacturation extends javax.swing.JFrame {
     private javax.swing.JLabel dateFinLabel;
     private javax.swing.JButton facturerButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> naturePrestationJList;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea listeFicheDesSoins;
+    private javax.swing.JLabel notificationLabel;
     private javax.swing.JLabel numeroSejourLabel;
     private javax.swing.JButton printButton;
     private javax.swing.JLabel serviceLabel;
+    private javax.swing.JTextField total;
     // End of variables declaration//GEN-END:variables
 }
