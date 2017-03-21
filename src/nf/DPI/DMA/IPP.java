@@ -1,9 +1,7 @@
 package nf.DPI.DMA;
 
 import db.GestionnaireDB.DpiDAO;
-import nf.DPI.DPI;
 import java.time.Year;
-import java.util.ArrayList;
 
 public class IPP {
 
@@ -22,12 +20,12 @@ public class IPP {
      * @return 
      */
     private int generationIPP() {
-        ArrayList<Integer> lIPP;
+        
         DpiDAO listeDPI = new DpiDAO();
         int maxIPP = listeDPI.getMaxId();
         int annee = maxIPP;
         while (annee > 100) {
-            System.out.println(annee % 10);
+            
             annee = annee / 10;
         }
         annee += 2000;

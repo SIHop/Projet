@@ -6,7 +6,7 @@
 package ui;
 
 import db.GestionnaireDB.DAOFactory;
-import db.GestionnaireDB.DmaDAO;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -185,6 +185,11 @@ public class AdministrationCreationSejour extends javax.swing.JFrame {
         serviceJText.setEnabled(false);
 
         joursText.setText("DD");
+        joursText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                joursTextFocusGained(evt);
+            }
+        });
         joursText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 joursTextActionPerformed(evt);
@@ -192,6 +197,11 @@ public class AdministrationCreationSejour extends javax.swing.JFrame {
         });
 
         moisText.setText("MM");
+        moisText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                moisTextFocusGained(evt);
+            }
+        });
         moisText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 moisTextActionPerformed(evt);
@@ -199,6 +209,11 @@ public class AdministrationCreationSejour extends javax.swing.JFrame {
         });
 
         anneeText.setText("AAAA");
+        anneeText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                anneeTextFocusGained(evt);
+            }
+        });
         anneeText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 anneeTextActionPerformed(evt);
@@ -349,13 +364,31 @@ public class AdministrationCreationSejour extends javax.swing.JFrame {
 
     private void creaSejourButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creaSejourButtonActionPerformed
         String dateDebut = this.anneeText.getText()+"-"+this.moisText.getText()+"-"+this.joursText.getText();
-        if(dateDebut.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")){
-            
-        }else{
+        if(!dateDebut.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")){
             JOptionPane.showMessageDialog(this, "Date incorrect, la date doit être au format : jj/mm/aaaa");
+            this.joursText.setBackground(Color.red);
+            this.moisText.setBackground(Color.red);
+            this.anneeText.setBackground(Color.red);
+        }else{
+            
         }
 //        ((DmaDAO)DAOFactory.getDmaDAO()).ajoutDunSejour(this.dma,this.numeroSejourLabel.getText());
     }//GEN-LAST:event_creaSejourButtonActionPerformed
+
+    private void joursTextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_joursTextFocusGained
+        this.joursText.selectAll();
+        this.joursText.setBackground(Color.white);
+    }//GEN-LAST:event_joursTextFocusGained
+
+    private void moisTextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_moisTextFocusGained
+        this.moisText.selectAll();
+        this.moisText.setBackground(Color.white);
+    }//GEN-LAST:event_moisTextFocusGained
+
+    private void anneeTextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_anneeTextFocusGained
+        this.anneeText.selectAll();
+        this.anneeText.setBackground(Color.white);
+    }//GEN-LAST:event_anneeTextFocusGained
 
     private int tx;
     private int ty;

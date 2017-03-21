@@ -1,8 +1,12 @@
 package nf.DPI.DMA;
 
 import db.GestionnaireDB.DAOFactory;
+import db.GestionnaireDB.DpiDAO;
+import db.GestionnaireDB.SejourDAO;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import nf.GestionDexploitation.Medecin;
 import nf.Adresse.DateT;
 import nf.DPI.DM.FicheDeSoins;
@@ -20,7 +24,7 @@ public class Sejour {
     private String numeroDeSejour;
     private boolean enCours;
     private boolean facturer;
-    private String observation;
+    private ArrayList<String> observation;
 
     private DMA dma = null;
     private DPI dpi = null;
@@ -31,7 +35,7 @@ public class Sejour {
         this.medecinResponsable = medecinResponsable;
     }
 
-    public Sejour(LettreDeSortie lettreDeSortie, String numeroDeSejour, ArrayList<String> natureDesPrestation, DateT dateDebut, DateT dateDeFin, Medecin medecinResponsable, ArrayList<FicheDeSoins> lFicheDeSoins, boolean enCours, boolean facturer, String observation) {
+    public Sejour(LettreDeSortie lettreDeSortie, String numeroDeSejour, ArrayList<String> natureDesPrestation, DateT dateDebut, DateT dateDeFin, Medecin medecinResponsable, ArrayList<FicheDeSoins> lFicheDeSoins, boolean enCours, boolean facturer, ArrayList<String> observation) {
         this.lFicheDeSoins = lFicheDeSoins;
         this.natureDesPrestation = natureDesPrestation;
         this.dateDeFin = dateDeFin;
@@ -153,13 +157,32 @@ public class Sejour {
     /**
      * @return the observation
      */
-    public String getObservation() {
+    public ArrayList<String> getObservation() {
         return observation;
     }
 
     public static int generateNumeroSejour(){
-        
-        
-        return 1;
+        SejourDAO sejDAO =(SejourDAO)DAOFactory.getSejourDAO();
+        int maxSej = sejDAO.getMaxId();
+        int annee = maxSej;
+        while (annee > 100) {
+            annee = annee / 10;
+        }
+        int mois = maxSej;
+        mois -= annee * 10000000;
+        while(mois>100){
+            mois = mois/10;
+        }
+        annee += 2000;
+        int year = Year.now().getValue();
+        int month = Calendar.getInstance().get(Calendar.MONTH+1);
+        if(year==annee && month == mois){
+            return maxSej + 1;
+        } else {
+            int retour = year - 2000;
+            retour = retour * 10000000;
+            retour = retour + mois*100000;
+            return retour+1;
+        }
     }
 }

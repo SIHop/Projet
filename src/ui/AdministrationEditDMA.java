@@ -1133,7 +1133,7 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
     }//GEN-LAST:event_editActionPerformed
 
     private void jourFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jourFocusGained
-        jour.setText("");
+        jour.selectAll();
         jour.setBackground(Color.white);
     }//GEN-LAST:event_jourFocusGained
 
@@ -1142,7 +1142,7 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
     }//GEN-LAST:event_jourActionPerformed
 
     private void moisFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_moisFocusGained
-        mois.setText("");
+        mois.selectAll();
         mois.setBackground(Color.white);
     }//GEN-LAST:event_moisFocusGained
 
@@ -1151,7 +1151,7 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
     }//GEN-LAST:event_moisActionPerformed
 
     private void annéeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_annéeFocusGained
-        année.setText("");
+        année.selectAll();
         année.setBackground(Color.white);
     }//GEN-LAST:event_annéeFocusGained
 
