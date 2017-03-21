@@ -249,9 +249,10 @@ public class DpiDAO implements DAO<DPI> {
                     ArrayList<String> valLit = new ArrayList<>();
                     valLit.add(rs.getString("IPP"));
 
+                    
                     DMA myDMA = DAOFactory.getDmaDAO().find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList(rs.getString("IPP"))));
                     DM myDM;
-                    if (myDMA != null) {
+                    if (myDMA != null) {                        
                         myDM = new DM(myDMA.getListeDeSejour(), new IPP(rs.getInt("IPP")));
                     } else {
                         myDMA = new DMA(new ArrayList<>(), rs.getString("IPP"));
