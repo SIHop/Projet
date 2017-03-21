@@ -1174,7 +1174,19 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
     }//GEN-LAST:event_detailActionPerformed
 
     private void facturerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facturerActionPerformed
-        // TODO add your handling code here:
+        Sejour sejSelec;
+        if (this.sejourEnCoursList.getSelectedIndex() != -1) {
+            sejSelec = sejourEnCoursList.getSelectedValue();
+            AdministrationFacturation admDet = new AdministrationFacturation(sejSelec);
+            admDet.setVisible(true);
+        } else if (this.listSejour.getSelectedIndex() != -1) {
+            sejSelec = listSejour.getSelectedValue();
+            AdministrationFacturation admDet = new AdministrationFacturation(sejSelec);
+            admDet.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Aucun séjour n'est séléctioné");
+
+        }
     }//GEN-LAST:event_facturerActionPerformed
 
     private void creationSejourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creationSejourActionPerformed

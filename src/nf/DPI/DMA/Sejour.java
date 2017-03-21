@@ -198,4 +198,12 @@ public class Sejour {
     public void setFacturer(boolean facturer) {
         this.facturer = facturer;
     }
+    
+    public int calculCoutTotal(){
+        int total = 0;    
+        for(FicheDeSoins fds : lFicheDeSoins){
+            total += fds.calculerCoutFiche();
+        }
+        return total;
+    }
 }
