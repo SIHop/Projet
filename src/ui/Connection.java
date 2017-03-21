@@ -380,33 +380,27 @@ public class Connection extends javax.swing.JFrame {
         DAO<Personnel> persoDAO = DAOFactory.getPersonelDAO();
 
 //choix de la page de destination en fonction du statut    
-        try {
-            ConnectionHygieSQL.getInstance();
-            Personnel p = persoDAO.find(colonneDB, val);
-            if (p != null) {
-                if (p instanceof SecretaireAdministratif) {
-                    SecretaireAdministratif SA = (SecretaireAdministratif) p;
-                    Administration adm = new Administration(SA);
-                    adm.setVisible(true);
-                    this.dispose();
-                } else {
-                    if (p instanceof Medecin || p instanceof SecretaireMedicale || p instanceof Infirmier || p instanceof AideSoignante) {
-
-                        ServiceCliniqueAccueil serCA = new ServiceCliniqueAccueil(p);
-                        serCA.setVisible(true);
-                        this.dispose();
-                    }
-                }
+        ConnectionHygieSQL.getInstance();
+        Personnel p = persoDAO.find(colonneDB, val);
+        if (p != null) {
+            if (p instanceof SecretaireAdministratif) {
+                SecretaireAdministratif SA = (SecretaireAdministratif) p;
+                Administration adm = new Administration(SA);
+                adm.setVisible(true);
+                this.dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "La combinaison Identifiant / Mot de passe entré ne correspond à aucun profil");
-                jTextField4.setText("");
-                jPasswordField1.setText("");
-                jPasswordField1.setBackground(Color.red);
+                if (p instanceof Medecin || p instanceof SecretaireMedicale || p instanceof Infirmier || p instanceof AideSoignante) {
+
+                    ServiceCliniqueAccueil serCA = new ServiceCliniqueAccueil(p);
+                    serCA.setVisible(true);
+                    this.dispose();
+                }
             }
-        } catch (CommunicationsException exe) {
-            JOptionPane.showMessageDialog(this, "Impossible de communiquer avec la base de données");
-        }catch(SQLException e){
-           e.printStackTrace();
+        } else {
+            JOptionPane.showMessageDialog(this, "La combinaison Identifiant / Mot de passe entré ne correspond à aucun profil");
+            jTextField4.setText("");
+            jPasswordField1.setText("");
+            jPasswordField1.setBackground(Color.red);
         }
 
 

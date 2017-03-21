@@ -15,7 +15,8 @@ import java.util.ArrayList;
  * @param <T>
  */
 public interface DAO<T> {
-
+    
+    
     public Connection connect = ConnectionHygieSQL.getInstance();
 
     /**

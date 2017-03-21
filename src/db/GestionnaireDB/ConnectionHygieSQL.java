@@ -9,6 +9,8 @@ import com.mysql.jdbc.CommunicationsException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -40,10 +42,14 @@ public class ConnectionHygieSQL {
      * @return
      * @throws com.mysql.jdbc.CommunicationsException
      */
-    public static Connection getInstance() throws SQLException{
+    public static Connection getInstance(){
         if (connect == null) {
 
-            connect = DriverManager.getConnection(url, user, passwd);
+            try {
+                connect = DriverManager.getConnection(url, user, passwd);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
 
         }
         return connect;
