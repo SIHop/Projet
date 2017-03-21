@@ -166,7 +166,6 @@ public class Sejour {
         int maxSej = sejDAO.getMaxId();
         int annee = maxSej;
         while (annee > 100) {
-            System.out.println(annee % 10);
             annee = annee / 10;
         }
         int mois = maxSej;

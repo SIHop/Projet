@@ -27,7 +27,7 @@ public class IPP {
         int maxIPP = listeDPI.getMaxId();
         int annee = maxIPP;
         while (annee > 100) {
-            System.out.println(annee % 10);
+            
             annee = annee / 10;
         }
         annee += 2000;
