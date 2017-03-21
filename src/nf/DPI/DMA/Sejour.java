@@ -157,4 +157,9 @@ public class Sejour {
         return observation;
     }
 
+    public static int generateNumeroSejour(){
+        
+        
+        return 1;
+    }
 }

@@ -873,11 +873,18 @@ public class Administration extends javax.swing.JFrame {
     private void creationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creationActionPerformed
         boolean valid = true;
         DpiDAO dpiDAO = (DpiDAO) DAOFactory.getDpiDAO();
+        
         try {
             Adresse adresse = new Adresse(pays.getText(), ville.getText(), Integer.parseInt(codePostal.getText()), nomVoie.getText(), Integer.parseInt(numeroVoie.getText()), typeVoie.getText(), complement.getText());
             InformationDeContact infoDeContact = new InformationDeContact(numeroFixe.getText(), numeroPortable.getText(), email.getText(), null);
             String date = this.année.getText() + "-" + this.mois.getText() + "-" + this.jour.getText();
-            if (valid) {
+            if(!date.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")){
+                JOptionPane.showMessageDialog(this, "La date entrée n'est pas au bon format (jj/mm/aaaa)");
+                this.jour.setBackground(Color.red);
+                this.année.setBackground(Color.red);
+                this.mois.setBackground(Color.red);
+            }else{
+                 if (valid) {
                 ArrayList<Sejour> lsej = new ArrayList<>();
                 IPP ipp = new IPP(0);
                 DPI patient = new DPI(nomNaissance.getText(), nomUsage.getText(), prenom.getText(), adresse, ipp, new DateT(date), null, infoDeContact, null, new DM(lsej, ipp), new DMA(lsej, ipp.toString()), (Sexe)this.sexe.getSelectedItem(),lieuNaissance.getText());
@@ -891,6 +898,8 @@ public class Administration extends javax.swing.JFrame {
                 AdministrationEditDMA editDMA = new AdministrationEditDMA(sa, ldpi, patient);
                 editDMA.setVisible(true);
                 this.dispose();
+            }
+           
                 
             }
         } catch (java.lang.NumberFormatException e) {
@@ -987,14 +996,17 @@ public class Administration extends javax.swing.JFrame {
 
     private void jourFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jourFocusGained
         jour.setText("");
+        jour.setBackground(Color.white);
     }//GEN-LAST:event_jourFocusGained
 
     private void moisFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_moisFocusGained
         mois.setText("");
+        mois.setBackground(Color.white);
     }//GEN-LAST:event_moisFocusGained
 
     private void annéeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_annéeFocusGained
         année.setText("");
+        année.setBackground(Color.white);
     }//GEN-LAST:event_annéeFocusGained
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked

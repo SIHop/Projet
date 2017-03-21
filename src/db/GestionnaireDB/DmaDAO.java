@@ -200,19 +200,36 @@ public class DmaDAO implements DAO<DMA> {
     }
 
     /**
-     * Permet de retrouver pour un IPP donnez le sejour en cours, si aucune sejour n'est en cours, retourne null
+     * Permet de retrouver pour un IPP donnez le sejour en cours, si aucune
+     * sejour n'est en cours, retourne null
+     *
      * @param IPP
-     * @return 
+     * @return
      */
     public Sejour findSejourActuel(int IPP) {
         DMA dma = this.find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList(Integer.toString(IPP))));
         Sejour retour = null;
-        for (Sejour s : dma.getListeDeSejour()) {            
+        for (Sejour s : dma.getListeDeSejour()) {
             if (s.isEnCours()) {
                 retour = s;
             }
         }
         return retour;
+    }
+
+    public void ajoutDunSejour(DMA dma, String numeroSejour) {
+
+        this.query = "INSERT INTO dma (IPP, numeroSejour)"
+                + " VALUES (" + dma.getIPP() + "," + numeroSejour + ");";
+
+        Statement stmt;
+        try {
+            stmt = DmaDAO.connect.createStatement();
+            int rowEffected = stmt.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(DmaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
 }
