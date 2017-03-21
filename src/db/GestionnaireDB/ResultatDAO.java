@@ -24,7 +24,7 @@ public class ResultatDAO implements DAO<Resultat> {
 
     @Override
     public Resultat find(ArrayList<String> arg, ArrayList<String> val) {
-        //Crée la requete pour recupére le résultat qui respecte tout les contrainte
+        //Créer la requête pour récupérer le résultat qui respecte toutes les contraintes
         this.query = "SELECT * FROM resultat WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -40,7 +40,7 @@ public class ResultatDAO implements DAO<Resultat> {
 
             if (rs.isBeforeFirst()) {
                 rs.first();
-                //récupération de tout les annalyse et leur resultat
+                //récupération de tous les analyses et leurs résultats
                 ArrayList<String> listeAnnalyse = new ArrayList<>(Arrays.asList(rs.getString("annalyse").split("\\s*;\\s*")));
                 ArrayList<String> listeResultat = new ArrayList<>(Arrays.asList(rs.getString("contenuResultat").split("\\s*;\\s*")));
                 return new Resultat(rs.getInt("idresultat"), rs.getInt("idPrescription"), rs.getInt("idFicheDeSoins"), listeAnnalyse, listeResultat);
@@ -57,7 +57,7 @@ public class ResultatDAO implements DAO<Resultat> {
 
     @Override
     public ArrayList<Resultat> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
-        //Crée la requete pour recupére la liste de résultat qui respecte tout les contrainte
+        //Créer la requête pour récupérer la liste de résultat qui respecte toutes les contraintes
         this.query = "SELECT * FROM resultat WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -75,7 +75,7 @@ public class ResultatDAO implements DAO<Resultat> {
 
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    //récupération de tout les annalyse et leur resultat
+                    //récupération de tous les analyses et leurs résultats
                     ArrayList<String> listeAnnalyse = new ArrayList<>(Arrays.asList(rs.getString("annalyse").split("\\s*;\\s*")));
                     ArrayList<String> listeResultat = new ArrayList<>(Arrays.asList(rs.getString("contenuResultat").split("\\s*;\\s*")));
                     retour.add(new Resultat(rs.getInt("idresultat"), rs.getInt("idPrescription"), rs.getInt("idFicheDeSoins"), listeAnnalyse, listeResultat));

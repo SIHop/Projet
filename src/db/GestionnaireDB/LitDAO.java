@@ -24,7 +24,7 @@ public class LitDAO implements DAO<Location> {
 
     @Override
     public Location find(ArrayList<String> arg, ArrayList<String> val) {
-        //Crée la requete pour recupére le lit qui respecte tout les contrainte
+        //Créer la requête pour récupérer le lit qui respecte toutes les contraintes
         this.query = "SELECT * FROM lit WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -56,7 +56,7 @@ public class LitDAO implements DAO<Location> {
     public ArrayList<Location> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
         ArrayList<Location> retour = new ArrayList<>();
 
-        //Crée la requete pour recupére la liste de lit qui respecte tout les contrainte
+        //Créer la requête pour récupérer la liste de lit qui respecte toutes les contraintes
         this.query = "SELECT * FROM lit WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -92,7 +92,7 @@ public class LitDAO implements DAO<Location> {
         if (obj.isIsOccuped()) {
             occuper = 1;
         }
-        //si l'ipp à les 9 chiffre demandé : set ipp
+        //si l'ipp a les 9 chiffres demandés : set ipp
         String ipp = null;
         if(obj.getIPPoccupent() > 010000000){
             ipp = "'" + Integer.toString(obj.getIPPoccupent()) + "'";

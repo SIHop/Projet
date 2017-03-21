@@ -35,7 +35,7 @@ public class PersonnelDAO implements DAO<Personnel> {
 
     @Override
     public Personnel find(ArrayList<String> arg, ArrayList<String> val) {
-        //Crée la requete pour recupére le personelle qui respecte tout les contrainte
+        //Créer la requête pour récupérer le personel qui respecte toutes les contraintes
         this.query = "SELECT * FROM personnel where ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -64,10 +64,10 @@ public class PersonnelDAO implements DAO<Personnel> {
     }
 
     /**
-     * Fonction qui instancie correctemennt le personnel celon son type
+     * Fonction qui instancie correctement le personnel selon son type
      * (medecin, infimier,etc.)
      *
-     * @return Personnel correctement instancier
+     * @return Personnel correctement instancié
      */
     private Personnel instancier(ResultSet rs) throws SQLException {
         DAO<Service> serviceDAO = DAOFactory.getServiceDAO();
@@ -103,7 +103,7 @@ public class PersonnelDAO implements DAO<Personnel> {
 
     @Override
     public ArrayList<Personnel> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
-        //Crée la requete pour recupére les personelles qui respecte toutes les contraintes
+        //Créer la requête pour récupérer les personels qui respecte toutes les contraintes
         this.query = "SELECT * FROM personnel where ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {

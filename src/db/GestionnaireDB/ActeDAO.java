@@ -25,7 +25,7 @@ public class ActeDAO implements DAO<Acte> {
 
     @Override
     public Acte find(ArrayList<String> arg, ArrayList<String> val) {
-        //Crée la requete pour recupére l'acte qui respecte tout les contrainte
+        //Créer la requête pour récupérer l'acte qui respecte toutes les contraintes
         this.query = "SELECT * FROM acte WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -57,7 +57,7 @@ public class ActeDAO implements DAO<Acte> {
     public ArrayList<Acte> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
         ArrayList<Acte> retour = new ArrayList<>();
 
-        //Crée la requete pour recupére la liste d'acte qui respecte tout les contrainte
+        //Créer la requête pour récupérer la liste d'acte qui respecte toutes les contraintes
         this.query = "SELECT * FROM acte WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {

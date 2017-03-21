@@ -25,7 +25,7 @@ import nf.GestionDexploitation.Sexe;
 
 /**
  *
- * @author audre
+ * @author audrey
  */
 public class DpiDAO implements DAO<DPI> {
 
@@ -33,7 +33,7 @@ public class DpiDAO implements DAO<DPI> {
 
     @Override
     public DPI find(ArrayList<String> arg, ArrayList<String> val) {
-        //Créait la requete pour recupére les informations du DPI qui respecte toutes les contraintes
+        //Créer la requête pour récupérer les informations du DPI qui respecte toutes les contraintes
         this.query = "SELECT * FROM dpi WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -87,7 +87,7 @@ public class DpiDAO implements DAO<DPI> {
     public ArrayList<DPI> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
         ArrayList<DPI> retour = new ArrayList<>();
 
-        //Crée la requete pour recupére la liste de lit qui respecte tout les contrainte
+        //Créer la requête pour récupérer la liste de lit qui respecte toutes les contraintes
         this.query = "SELECT * FROM dpi WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -223,11 +223,14 @@ public class DpiDAO implements DAO<DPI> {
 
         return -1;
     }
-
+/**
+ * Permet de trouver toute les listes de DPI
+ * @return 
+ */
     public ArrayList<DPI> findAll() {
         ArrayList<DPI> retour = new ArrayList<>();
 
-        //Crée la requete pour recupére la liste de tout les dpi
+        //Créer la requête pour récupérer la liste de tous les DPI
         this.query = "SELECT * FROM dpi";
         System.out.println(query);
 

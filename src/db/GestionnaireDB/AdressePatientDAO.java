@@ -22,7 +22,7 @@ public class AdressePatientDAO implements DAO<Adresse>{
 
     @Override
     public Adresse find(ArrayList<String> arg, ArrayList<String> val) {
-        //Crée la requete pour recupére l'adresse de patient qui respecte tout les contrainte
+        //Créer la requête pour récupérer l'adresse de patient qui respecte toutes les contraintes
         this.query = "SELECT * FROM adressepatient WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -55,7 +55,7 @@ public class AdressePatientDAO implements DAO<Adresse>{
 
     @Override
     public ArrayList<Adresse> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
-         //Crée la requete pour recupére le personelle qui respecte tout les contrainte
+         //Créer la requête pour récupérer le personnel qui respecte toutes les contraintes
         this.query = "SELECT * FROM adressepatient WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -149,8 +149,8 @@ public class AdressePatientDAO implements DAO<Adresse>{
 
     
     /**
-     * Inutiliser car besoin de l'IPP à qui appartien l'adresse pour
-     * faire la db Utiliser plus tôt create(Adresse obj, String idPersonnel)
+     * Inutilisé car besoin de l'IPP à qui appartient l'adresse pour
+     * faire la db Utiliser plutôt create(Adresse obj, String idPersonnel)
      *
      * @param obj
      * @return
@@ -161,8 +161,8 @@ public class AdressePatientDAO implements DAO<Adresse>{
     }
 
     /**
-     * Inutiliser car besoin de l'IPP à qui appartien l'adresse pour
-     * faire la db Utiliser plus tôt update(Adresse obj, String idPersonnel)
+     * Inutilisé car besoin de l'IPP à qui appartient l'adresse pour
+     * faire la db Utiliser plutôt update(Adresse obj, String idPersonnel)
      *
      * @param obj
      * @return
@@ -173,8 +173,8 @@ public class AdressePatientDAO implements DAO<Adresse>{
     }
     
     /**
-     * Inutiliser car besoin de l'IPP à qui appartien l'adresse pour
-     * faire la db Utiliser plus tôt delete(Adresse obj, String idPersonnel)
+     * Inutilisé car besoin de l'IPP à qui appartient l'adresse pour
+     * faire la db Utiliser plutôt delete(Adresse obj, String idPersonnel)
      *
      * @param obj
      * @return

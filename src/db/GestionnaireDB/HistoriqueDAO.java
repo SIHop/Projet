@@ -24,7 +24,7 @@ public class HistoriqueDAO implements DAO<Historique>{
 
     @Override
     public Historique find(ArrayList<String> arg, ArrayList<String> val) {
-        //Créait la requete pour recupére les informations du DPI qui respecte toutes les contraintes
+        //Créer la requête pour récupérer les informations du DPI qui respecte toutes les contraintes
         this.query = "SELECT * FROM historique WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -57,7 +57,7 @@ public class HistoriqueDAO implements DAO<Historique>{
     public ArrayList<Historique> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
         ArrayList<Historique> retour = new ArrayList<>();
 
-        //Crée la requete pour recupére la liste de lit qui respecte tout les contrainte
+        //Créer la requête pour récupérer la liste de lit qui respecte toutes les contraintes
         this.query = "SELECT * FROM historique WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -119,9 +119,9 @@ public class HistoriqueDAO implements DAO<Historique>{
         return obj;
     }
  /** 
-  * delete ne detruit que les données relative à la qualité 
-  * de l'archivage. Pour que le dossier patient soit suprimé en 
-  * entier se reporter au nf.historique.
+  * delete ne detruit que les données relatives à la qualité 
+  * de l'archivage. Pour que le dossier patient soit supprimé en 
+  * entier : se reporter au nf.historique.
   * @param obj
   * @return 
   */

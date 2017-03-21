@@ -27,7 +27,7 @@ public class ServiceDAO implements DAO<Service> {
 
     @Override
     public Service find(ArrayList<String> arg, ArrayList<String> val) {
-        //Crée la requete pour recupére le service qui respecte tout les contrainte
+        //Créer la requête pour récupérer le service qui respecte toutes les contraintes
         this.query = "SELECT * FROM service WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -43,7 +43,7 @@ public class ServiceDAO implements DAO<Service> {
 
             if (rs.isBeforeFirst()) {
                 rs.first();
-                //Recolte des info pour instancier liste de lit
+                //Recolte des informations pour instancier la liste de lit
                 ArrayList<String> argL = new ArrayList<>();
                 argL.add("idService");
                 ArrayList<String> valL = new ArrayList<>();
@@ -63,7 +63,7 @@ public class ServiceDAO implements DAO<Service> {
 
     @Override
     public ArrayList<Service> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
-        //Crée la requete pour recupére les personelles qui respecte toutes les contraintes
+        //Créer la requête pour récupérer les personels qui respecte toutes les contraintes
         this.query = "SELECT * FROM service where ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -81,7 +81,7 @@ public class ServiceDAO implements DAO<Service> {
 
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    //Recolte des info pour instancier liste de lit
+                    //Récolte des informations pour instancier la liste de lit
                     ArrayList<String> argL = new ArrayList<>();
                     argL.add("idService");
                     ArrayList<String> valL = new ArrayList<>();

@@ -26,7 +26,7 @@ public class DmaDAO implements DAO<DMA> {
     @Override
     public DMA find(ArrayList<String> arg, ArrayList<String> val) {
         String IPP = "";
-        //Crée la requete pour recupére le sejour qui respecte tout les contrainte
+        //Créer la requête pour récupérer le séjour qui respecte toutes les contraintes
         this.query = "SELECT * FROM dma WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -77,7 +77,7 @@ public class DmaDAO implements DAO<DMA> {
     public ArrayList<DMA> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
         ArrayList<DMA> lDma = new ArrayList<>();
         String IPP = "";
-        //Crée la requete pour recupére le sejour qui respecte tout les contrainte
+        //Créer la requête pour récupérer le séjour qui respecte toutes les contraintes
         this.query = "SELECT * FROM dma WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -200,8 +200,8 @@ public class DmaDAO implements DAO<DMA> {
     }
 
     /**
-     * Permet de retrouver pour un IPP donnez le sejour en cours, si aucune
-     * sejour n'est en cours, retourne null
+     * Permet de retrouver pour un IPP donné, le séjour en cours, si aucun
+     * séjour n'est en cours, retourne null
      *
      * @param IPP
      * @return

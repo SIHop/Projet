@@ -23,7 +23,7 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
 
     @Override
     public Adresse find(ArrayList<String> arg, ArrayList<String> val) {
-        //Crée la requete pour recupére l'adresse de personnel qui respecte tout les contrainte
+        //Créer la requête pour récupérer l'adresse de personnel qui respecte toutes les contraintes
         this.query = "SELECT * FROM adressepersonnel WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -54,7 +54,7 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
 
     @Override
     public ArrayList<Adresse> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
-        //Crée la requete pour recupére le personelle qui respecte tout les contrainte
+        //Créer la requête pour récupérer le personel qui respecte toutes les contraintes
         this.query = "SELECT * FROM adressepersonnel WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -116,8 +116,8 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
     }
 
     /**
-     * Inutiliser car besoin de l'id du personnel à qui appartien l'adresse pour
-     * faire la db Utiliser plus tôt delete(String idPersonnel)
+     * Inutilisé car besoin de l'id du personnel à qui appartient l'adresse pour
+     * faire la db Utiliser plutôt delete(String idPersonnel)
      *
      * @param obj
      * @return
@@ -130,7 +130,7 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
     /**
      *
      * @param idPersonnel
-     * @return false si la suppression à échouer
+     * @return false si la suppression a échoué
      */
     public boolean delete(int idPersonnel) {
         this.query = "DELETE FROM adressepersonnel WHERE idPersonnel = " + idPersonnel;
@@ -164,8 +164,8 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
     }
 
     /**
-     * Inutiliser car besoin de l'id du personnel à qui appartien l'adresse pour
-     * faire la db Utiliser plus tôt create(Adresse obj, String idPersonnel)
+     * Inutilisé car besoin de l'id du personnel à qui appartient l'adresse pour
+     * faire la db Utiliser plutôt create(Adresse obj, String idPersonnel)
      *
      * @param obj
      * @return
@@ -176,8 +176,8 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
     }
 
     /**
-     * Inutiliser car besoin de l'id du personnel a qui appartien l'adresse pour
-     * faire la db Utiliser plus tôt update(Adresse obj, String idPersonnel)
+     * Inutilisé car besoin de l'id du personnel à qui appartient l'adresse pour
+     * faire la db Utiliser plutôt update(Adresse obj, String idPersonnel)
      *
      * @param obj
      * @return

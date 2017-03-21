@@ -25,7 +25,7 @@ public class PrescriptionDAO implements DAO<Prescription>{
     
     @Override
     public Prescription find(ArrayList<String> arg, ArrayList<String> val) {
-        //Crée la requete pour recupére la prescription qui respecte tout les contrainte
+        //Créer la requête pour récupérer la prescription qui respecte toutes les contraintes
         this.query = "SELECT * FROM prescription WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
@@ -55,7 +55,7 @@ public class PrescriptionDAO implements DAO<Prescription>{
 
     @Override
     public ArrayList<Prescription> findMultiple(ArrayList<String> arg, ArrayList<String> val) {
-        //Crée la requete pour recupére la prescription qui respecte tout les contrainte
+        //Créer la requête pour récupérer la prescription qui respecte toutes les contraintes
         this.query = "SELECT * FROM prescription WHERE ";
         query += arg.get(0) + " = " + val.get(0);
         if (arg.size() > 1) {
