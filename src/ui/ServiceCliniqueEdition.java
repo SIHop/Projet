@@ -32,7 +32,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     private Personnel p;
     private DPI dpi;
     private String numSej;
-    // instance : 1= résultat/ 2 = Observation / 3=prescription /4=opération infirmière
+    // instance : 1= résultat/ 2 = Observation / 3=prescription /4=opération infirmière/5=actes
     private int instance;
     private ArrayList<DPI> listeDPI;
     private ArrayList<FicheDeSoins> listeFicheSoins;
@@ -42,7 +42,9 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     private ArrayList<Prescription> listePrescription = new ArrayList();
     private ArrayList<String> lprescription = new ArrayList<>();
     private ArrayList<Acte> listeActe = new ArrayList();
+    private ArrayList<Acte> listeActeConfondu = new ArrayList();
     private ArrayList<String> lactes = new ArrayList<>();
+    private ArrayList<String> lactesConfondu = new ArrayList<>();
     private ArrayList<String> listeObservation = new ArrayList<>();
     
 
@@ -80,7 +82,8 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                 if ((ida.getCode()== Code.AIS)||(ida.getCode()== Code.AMI)||(ida.getCode()== Code.DI)||(ida.getCode()== Code.SFI)) {
                     this.listeActe.add(ida);
                 }
-            }           
+                this.listeActeConfondu.add(ida);
+            }  
         }
         
         //chargement résumé resultats
@@ -99,10 +102,15 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
             this.lprescription.add(this.listePrescription.get(i).getPrescription());
         }
 
-    //chargement résumé operation infirmière
+    //chargement résumé operation inf
         for (int i = 0; i < this.listeActe.size(); i++) {
             this.lactes.add(this.listeActe.get(i).toString());
         }
+        //chargement resumé acte
+        for (int i = 0; i < this.listeActeConfondu.size(); i++) {
+            this.lactesConfondu.add(this.listeActeConfondu.get(i).toString());
+        }
+        
     //Affichage   
         if (instance == 1) {
             //mise en reliefe des boutons correspondants a la situation courante
@@ -135,13 +143,24 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                     this.jList1.setListData(vprescrip);
                 } 
                 else {
-                    //mise en reliefe des boutons correspondants a la situation courante
-                    this.jLabel11.setFont(myFont);
-                    this.jLabel11.setForeground(Color.GRAY);
-                    this.jButton2.setVisible(false);
-                    //Affichage des operation infirmiere
-                    Vector vop = new Vector(this.lactes);
-                    this.jList1.setListData(vop);
+                    if(this.instance==4){
+                        //mise en reliefe des boutons correspondants a la situation courante
+                        this.jLabel11.setFont(myFont);
+                        this.jLabel11.setForeground(Color.GRAY);
+                        this.jButton2.setVisible(false);
+                        //Affichage des operation infirmiere
+                        Vector vop = new Vector(this.lactes);
+                        this.jList1.setListData(vop);
+                    }
+                    else{
+                        //mise en reliefe des boutons correspondants a la situation courante
+                        this.jLabel13.setFont(myFont);
+                        this.jLabel13.setForeground(Color.GRAY);
+                        this.jButton2.setVisible(false);
+                        //Affichage des operation infirmiere
+                        Vector vacteconf = new Vector(this.lactesConfondu);
+                        this.jList1.setListData(vacteconf);
+                    }
                 }
             }
         }
@@ -201,6 +220,8 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        jPanel19 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 600));
@@ -457,21 +478,14 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 170, Short.MAX_VALUE)
-            .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel15Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-            .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel15Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel14.setBackground(new java.awt.Color(19, 29, 38));
@@ -490,21 +504,14 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 264, Short.MAX_VALUE)
-            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel14Layout.createSequentialGroup()
-                    .addGap(8, 8, 8)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel14Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel16.setBackground(new java.awt.Color(19, 29, 38));
@@ -552,9 +559,8 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 7, Short.MAX_VALUE))
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -615,7 +621,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         jPanel18.setLayout(jPanel18Layout);
         jPanel18Layout.setHorizontalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -724,6 +730,34 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
+        jPanel19.setBackground(new java.awt.Color(19, 29, 38));
+
+        jLabel13.setFont(new java.awt.Font("Raleway Medium", 0, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(26, 188, 156));
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("ACTES");
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -741,16 +775,6 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel10Layout.createSequentialGroup()
                                         .addComponent(jLabel2)
@@ -763,8 +787,20 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2)))
-                        .addGap(0, 61, Short.MAX_VALUE)))
+                                .addComponent(jButton2))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 89, Short.MAX_VALUE)))
                 .addContainerGap())
             .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -778,7 +814,8 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                     .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -867,6 +904,8 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         this.jLabel11.setForeground(new java.awt.Color(26, 188, 156));
         this.jLabel14.setFont(myFont2);
         this.jLabel14.setForeground(new java.awt.Color(26, 188, 156));
+        this.jLabel13.setFont(myFont2);
+        this.jLabel13.setForeground(new java.awt.Color(26, 188, 156));
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
         this.jLabel16.setFont(myFont);
         this.jLabel16.setForeground(Color.GRAY);
@@ -1025,13 +1064,46 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                 this.dispose();
             }
             else{
-                ServiceCliniqueOperationInfE presE = new ServiceCliniqueOperationInfE(this.p, this.dpi, this.numSej,this.listeDPI);
-                presE.setVisible(true);
-                presE.setLocationRelativeTo(this);
-                this.dispose();
+                if(this.instance==4){
+                    ServiceCliniqueOperationInfE presE = new ServiceCliniqueOperationInfE(this.p, this.dpi, this.numSej,this.listeDPI);
+                    presE.setVisible(true);
+                    presE.setLocationRelativeTo(this);
+                    this.dispose();
+                }
+                else{
+                    ServiceCliniqueActeE presE = new ServiceCliniqueActeE(this.p, this.dpi, this.numSej,this.listeDPI);
+                    presE.setVisible(true);
+                    presE.setLocationRelativeTo(this);
+                    this.dispose(); 
+                }
             }
         }
     }//GEN-LAST:event_jLabel21MouseClicked
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        this.instance=5;
+        this.jButton2.setVisible(false);
+        this.jLabel21.setVisible(true);
+        this.jPanel20.setVisible(true);
+        //mise en relief de la situation courante
+        Font myFont2 = new Font("Raleway Meduim", Font.PLAIN, 18);
+        this.jLabel10.setFont(myFont2);
+        this.jLabel10.setForeground(new java.awt.Color(26, 188, 156));
+        this.jLabel11.setFont(myFont2);
+        this.jLabel11.setForeground(new java.awt.Color(26, 188, 156));
+        this.jLabel14.setFont(myFont2);
+        this.jLabel14.setForeground(new java.awt.Color(26, 188, 156));
+        this.jLabel16.setFont(myFont2);
+        this.jLabel16.setForeground(new java.awt.Color(26, 188, 156));
+        Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
+        this.jLabel13.setFont(myFont);
+        this.jLabel13.setForeground(Color.GRAY);
+
+        
+        //Affichage des prescriptions
+            Vector vacteconf = new Vector(this.lactesConfondu);
+            this.jList1.setListData(vacteconf);
+    }//GEN-LAST:event_jLabel13MouseClicked
 
     /**
      * @param args the command line arguments
@@ -1081,6 +1153,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -1107,6 +1180,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;

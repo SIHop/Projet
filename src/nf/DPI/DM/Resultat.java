@@ -63,7 +63,7 @@ public class Resultat {
 
         String retour = "Resultat   ";
         for(String[] s : listeResultats){
-            retour += " -   Examen : " + s[0] + "  -   Resultat : " + s[1];
+            retour += " -  Examen : " + s[0] + "  -   Resultat : " + s[1];
 
         }
         retour  += "|   idResultat=" + idResultat + "|  idPrescription=" + idPrescription ;
