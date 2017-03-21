@@ -76,6 +76,12 @@ public enum Code {
     public String toString() {
         return super.toString() + " : \n\t ► " + libelle + ": \n\t ► cout = " + cout + " euros";
     }
+    public String toStringBis() {
+        return libelle;
+    }
+    public String toStringCode(){
+            return code;
+    }
 
     // calcule le prix pour un coefficient donnée :
     public double calculerCout(int coefficient) {
