@@ -5,6 +5,8 @@
  */
 package ui;
 
+import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
+import db.GestionnaireDB.ConnectionHygieSQL;
 import db.GestionnaireDB.DAO;
 import db.GestionnaireDB.DAOFactory;
 import java.awt.Color;
@@ -12,11 +14,15 @@ import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.net.ConnectException;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import nf.GestionDexploitation.AideSoignante;
+import nf.GestionDexploitation.Infirmier;
 import nf.GestionDexploitation.Medecin;
 import nf.GestionDexploitation.Personnel;
 import nf.GestionDexploitation.SecretaireAdministratif;
@@ -373,50 +379,50 @@ public class Connection extends javax.swing.JFrame {
         val.add("'" + jPasswordField1.getText() + "'");
         DAO<Personnel> persoDAO = DAOFactory.getPersonelDAO();
 
-//choix de la page de destination en fonction du statut      
-        Personnel p = persoDAO.find(colonneDB, val);
-        if (p != null) {
-            if (p instanceof SecretaireAdministratif) {
-                SecretaireAdministratif SA = (SecretaireAdministratif) p;
-                Administration adm = new Administration(SA);
-                adm.setVisible(true);
-                this.dispose();
-            } else {
-                if (p instanceof Medecin) {
-                    Medecin medecin = (Medecin) p; 
-                    ServiceCliniqueAccueil serCA = new ServiceCliniqueAccueil(medecin);
-                    serCA.setVisible(true);
+//choix de la page de destination en fonction du statut    
+        try {
+            ConnectionHygieSQL.getInstance();
+            Personnel p = persoDAO.find(colonneDB, val);
+            if (p != null) {
+                if (p instanceof SecretaireAdministratif) {
+                    SecretaireAdministratif SA = (SecretaireAdministratif) p;
+                    Administration adm = new Administration(SA);
+                    adm.setVisible(true);
                     this.dispose();
                 } else {
-                    SecretaireMedicale SM = (SecretaireMedicale) p; 
-                    ServiceCliniqueAccueil serCA = new ServiceCliniqueAccueil(SM);
-                    serCA.setVisible(true);
-                    this.dispose();
+                    if (p instanceof Medecin || p instanceof SecretaireMedicale || p instanceof Infirmier || p instanceof AideSoignante) {
 
+                        ServiceCliniqueAccueil serCA = new ServiceCliniqueAccueil(p);
+                        serCA.setVisible(true);
+                        this.dispose();
+                    }
                 }
+            } else {
+                JOptionPane.showMessageDialog(this, "La combinaison Identifiant / Mot de passe entré ne correspond à aucun profil");
+                jTextField4.setText("");
+                jPasswordField1.setText("");
+                jPasswordField1.setBackground(Color.red);
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "La combinaison Identifiant / Mot de passe entré ne correspond à aucun profil");
-            jTextField4.setText("");
-            jPasswordField1.setBackground(Color.red);
-            
-            
-            
-            
+        } catch (CommunicationsException exe) {
+            JOptionPane.showMessageDialog(this, "Impossible de communiquer avec la base de données");
+        }catch(SQLException e){
+           e.printStackTrace();
         }
+
+
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jTextField4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyPressed
-        switch(evt.getKeyCode()){
-            case 10 : 
+        switch (evt.getKeyCode()) {
+            case 10:
                 this.jLabel3MouseClicked(new MouseEvent(this, tx, tx, WIDTH, tx, ty, WIDTH, rootPaneCheckingEnabled));
                 break;
         }
     }//GEN-LAST:event_jTextField4KeyPressed
 
     private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
-        switch(evt.getKeyCode()){
-            case 10 : 
+        switch (evt.getKeyCode()) {
+            case 10:
                 this.jLabel3MouseClicked(new MouseEvent(this, tx, tx, WIDTH, tx, ty, WIDTH, rootPaneCheckingEnabled));
                 break;
         }

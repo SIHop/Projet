@@ -34,40 +34,40 @@ public class Administration extends javax.swing.JFrame {
      */
     private SecretaireAdministratif sa;
     private ArrayList<DPI> ldpi;
-    
+
     public Administration(SecretaireAdministratif sa) {
         initComponents();
         this.sa = sa;
-        
+
         this.jLabel1.setText("Bienvenue " + sa.getPrenom() + " " + sa.getNom().toUpperCase());
-        
+
         this.ldpi = ((DpiDAO) DAOFactory.getDpiDAO()).findAll();
         DPI[] aDpi = new DPI[ldpi.size()];
         this.ldpi.toArray(aDpi);
         this.listPatient.setListData(aDpi);
-        
+
         //mise en relief de la situation courrante
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
-        this.jLabel17.setFont(myFont);
-        this.jLabel17.setForeground(Color.GRAY);
+        this.jLabel16.setFont(myFont);
+        this.jLabel16.setForeground(Color.GRAY);
     }
-    
+
     public Administration(SecretaireAdministratif sa, ArrayList<DPI> ldpi) {
         initComponents();
         this.sa = sa;
         this.ldpi = ldpi;
-        
+
         this.jLabel1.setText("Bienvenue " + sa.getPrenom() + " " + sa.getNom().toUpperCase());
-        
+
         DPI[] aDpi = new DPI[ldpi.size()];
         this.ldpi.toArray(aDpi);
         this.listPatient.setListData(aDpi);
-        
+
         //mise en relief de la situation courrante
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
-        this.jLabel17.setFont(myFont);
-        this.jLabel17.setForeground(Color.GRAY);
-        
+        this.jLabel16.setFont(myFont);
+        this.jLabel16.setForeground(Color.GRAY);
+
     }
 
     /**
@@ -873,42 +873,63 @@ public class Administration extends javax.swing.JFrame {
     private void creationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creationActionPerformed
         boolean valid = true;
         DpiDAO dpiDAO = (DpiDAO) DAOFactory.getDpiDAO();
-        
-        try {
-            Adresse adresse = new Adresse(pays.getText(), ville.getText(), Integer.parseInt(codePostal.getText()), nomVoie.getText(), Integer.parseInt(numeroVoie.getText()), typeVoie.getText(), complement.getText());
-            InformationDeContact infoDeContact = new InformationDeContact(numeroFixe.getText(), numeroPortable.getText(), email.getText(), null);
-            String date = this.année.getText() + "-" + this.mois.getText() + "-" + this.jour.getText();
-            if(!date.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")){
-                JOptionPane.showMessageDialog(this, "La date entrée n'est pas au bon format (jj/mm/aaaa)");
-                this.jour.setBackground(Color.red);
-                this.année.setBackground(Color.red);
-                this.mois.setBackground(Color.red);
-            }else{
-                 if (valid) {
-                ArrayList<Sejour> lsej = new ArrayList<>();
-                IPP ipp = new IPP(0);
-                DPI patient = new DPI(nomNaissance.getText(), nomUsage.getText(), prenom.getText(), adresse, ipp, new DateT(date), null, infoDeContact, null, new DM(lsej, ipp), new DMA(lsej, ipp.toString()), (Sexe)this.sexe.getSelectedItem(),lieuNaissance.getText());
-                ldpi.add(patient);
-                
 
-                //mise en mémoire DB
-                dpiDAO.create(patient);
-                DAOFactory.getAdressePatientDAO().create(adresse, patient.getiPP().getIPP());
-                //ouverture de la fenetre d'edition de ce dm
-                AdministrationEditDMA editDMA = new AdministrationEditDMA(sa, ldpi, patient);
-                editDMA.setVisible(true);
-                this.dispose();
-            }
-           
+        if (this.prenom.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Le prénom doit être renseigné");
+        } else {
+            try {
+              
+                int cp;
+                int numVoie;
+                if(codePostal.getText().equals("")){
+                    cp = 0;
+                }else{
+                    cp = Integer.parseInt(this.codePostal.getText());
+                }
+                if (numeroVoie.getText().equals("")){
+                    numVoie = 0;
+                }else {
+                    numVoie = Integer.parseInt(numeroVoie.getText());
+                }                
                 
+                Adresse adresse = new Adresse(pays.getText(), ville.getText(), cp, nomVoie.getText(), numVoie, typeVoie.getText(), complement.getText());
+
+                InformationDeContact infoDeContact = new InformationDeContact(numeroFixe.getText(), numeroPortable.getText(), email.getText(), null);
+                String date = this.année.getText() + "-" + this.mois.getText() + "-" + this.jour.getText();
+
+                if (date.equals("aaa-mm-jj")) {
+                    date = "0001-01-01";
+                }
+                if (!date.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")) {
+                    JOptionPane.showMessageDialog(this, "La date de naissance n'est pas au bon format (jj/mm/aaaa)");
+                    this.jour.setBackground(Color.red);
+                    this.année.setBackground(Color.red);
+                    this.mois.setBackground(Color.red);
+                } else {
+                    if (valid) {
+                        ArrayList<Sejour> lsej = new ArrayList<>();
+                        IPP ipp = new IPP(0);
+                        DPI patient = new DPI(nomNaissance.getText(), nomUsage.getText(), prenom.getText(), adresse, ipp, new DateT(date), null, infoDeContact, null, new DM(lsej, ipp), new DMA(lsej, ipp.toString()), (Sexe) this.sexe.getSelectedItem(), lieuNaissance.getText());
+                        ldpi.add(patient);
+
+                        //mise en mémoire DB
+                        dpiDAO.create(patient);
+                        DAOFactory.getAdressePatientDAO().create(adresse, patient.getiPP().getIPP());
+                        //ouverture de la fenetre d'edition de ce dm
+                        AdministrationEditDMA editDMA = new AdministrationEditDMA(sa, ldpi, patient);
+                        editDMA.setVisible(true);
+                        this.dispose();
+                    }
+
+                }
+            } catch (java.lang.NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Le code postal où le numéros de voie fournis n'est pas un nombre");
+                valid = false;
+                codePostal.setBackground(Color.red);
+                numeroVoie.setBackground(Color.red);
             }
-        } catch (java.lang.NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Le code postal où le numéros de voie fournis n'est pas un nombre");
-            valid = false;
-            codePostal.setBackground(Color.red);
-            numeroVoie.setBackground(Color.red);
         }
-        
+
 
     }//GEN-LAST:event_creationActionPerformed
 

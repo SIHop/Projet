@@ -14,7 +14,7 @@ import nf.DPI.DMA.Sejour;
  *
  * @author quentin
  */
-public class AdministrationDetailsSejour extends javax.swing.JFrame {
+public class AdministrationFacturation extends javax.swing.JFrame {
 
     /**
      * Creates new form Administration
@@ -22,7 +22,7 @@ public class AdministrationDetailsSejour extends javax.swing.JFrame {
     
     private Sejour sejour = null;
 
-    public AdministrationDetailsSejour(Sejour sejour) {
+    public AdministrationFacturation(Sejour sejour) {
         initComponents();
         this.sejour = sejour;
         
@@ -64,6 +64,9 @@ public class AdministrationDetailsSejour extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         naturePrestationJList = new javax.swing.JList<String>();
+        printButton = new javax.swing.JButton();
+        facturerButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 600));
@@ -174,6 +177,23 @@ public class AdministrationDetailsSejour extends javax.swing.JFrame {
         naturePrestationJList.setEnabled(false);
         jScrollPane1.setViewportView(naturePrestationJList);
 
+        printButton.setText("Imprimer");
+        printButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printButtonActionPerformed(evt);
+            }
+        });
+
+        facturerButton.setText("Facturer");
+        facturerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                facturerButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel2.setText("Le séjour a bien été facturé");
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -196,6 +216,14 @@ public class AdministrationDetailsSejour extends javax.swing.JFrame {
                             .addComponent(jLabel1))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(162, 162, 162)
+                .addComponent(printButton)
+                .addGap(170, 170, 170)
+                .addComponent(facturerButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,7 +241,12 @@ public class AdministrationDetailsSejour extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 63, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(printButton)
+                    .addComponent(facturerButton)
+                    .addComponent(jLabel2))
+                .addGap(0, 32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -266,6 +299,15 @@ public class AdministrationDetailsSejour extends javax.swing.JFrame {
         this.setLocation(evt.getXOnScreen() - tx, evt.getYOnScreen() - ty);
     }//GEN-LAST:event_jLabel7MouseDragged
 
+    private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_printButtonActionPerformed
+
+    private void facturerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facturerButtonActionPerformed
+        this.sejour.setFacturer(true);
+        
+    }//GEN-LAST:event_facturerButtonActionPerformed
+
     private int tx;
     private int ty;
 
@@ -309,7 +351,9 @@ public class AdministrationDetailsSejour extends javax.swing.JFrame {
     private javax.swing.JLabel PHResponsableLabel;
     private javax.swing.JLabel dateDebutLabel;
     private javax.swing.JLabel dateFinLabel;
+    private javax.swing.JButton facturerButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
@@ -319,6 +363,7 @@ public class AdministrationDetailsSejour extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> naturePrestationJList;
     private javax.swing.JLabel numeroSejourLabel;
+    private javax.swing.JButton printButton;
     private javax.swing.JLabel serviceLabel;
     // End of variables declaration//GEN-END:variables
 }

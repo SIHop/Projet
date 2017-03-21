@@ -173,7 +173,7 @@ public class AdministrationCreationSejour extends javax.swing.JFrame {
 
         PHResponsableLabel.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
         PHResponsableLabel.setForeground(new java.awt.Color(240, 240, 240));
-        PHResponsableLabel.setText("PH Résponsable : ");
+        PHResponsableLabel.setText("PH Responsable : ");
 
         dateDebutLabel.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
         dateDebutLabel.setForeground(new java.awt.Color(240, 240, 240));
@@ -238,7 +238,7 @@ public class AdministrationCreationSejour extends javax.swing.JFrame {
         });
 
         notificationLabel.setForeground(new java.awt.Color(255, 0, 0));
-        notificationLabel.setText("Le sejour a bien etait ajouter à la DB");
+        notificationLabel.setText("Le sejour a bien été ajouté à la DB");
 
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);

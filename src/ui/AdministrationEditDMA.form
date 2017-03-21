@@ -1204,7 +1204,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="33" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Les donn&#xe9;es on &#xe9;tait mis &#xe0; jours"/>
+                <Property name="text" type="java.lang.String" value="Les donn&#xe9;es on &#xe9;t&#xe9; mise &#xe0; jour"/>
               </Properties>
               <Events>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="LabelMisAjoursFocusLost"/>
