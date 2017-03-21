@@ -270,7 +270,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="f0" green="f0" red="f0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="PH R&#xe9;sponsable : "/>
+                <Property name="text" type="java.lang.String" value="PH Responsable : "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="dateDebutLabel">
@@ -372,7 +372,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Le sejour a bien etait ajouter &#xe0; la DB"/>
+                <Property name="text" type="java.lang.String" value="Le sejour a bien &#xe9;t&#xe9; ajout&#xe9; &#xe0; la DB"/>
               </Properties>
             </Component>
           </SubComponents>

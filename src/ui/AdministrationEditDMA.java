@@ -769,7 +769,7 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
         jLabel46.setText("IPP");
 
         LabelMisAjours.setForeground(new java.awt.Color(255, 51, 0));
-        LabelMisAjours.setText("Les données on était mis à jours");
+        LabelMisAjours.setText("Les données on été mise à jour");
         LabelMisAjours.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 LabelMisAjoursFocusLost(evt);
@@ -1255,7 +1255,7 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
     }//GEN-LAST:event_LabelMisAjoursFocusLost
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
-        // TODO add your handling code here:
+        this.jLabel5MouseClicked(evt);
     }//GEN-LAST:event_jLabel16MouseClicked
 
     private void jLabel16MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseEntered

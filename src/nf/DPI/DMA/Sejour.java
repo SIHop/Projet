@@ -191,4 +191,11 @@ public class Sejour {
             return retour+1;
         }
     }
+
+    /**
+     * @param facturer the facturer to set
+     */
+    public void setFacturer(boolean facturer) {
+        this.facturer = facturer;
+    }
 }
