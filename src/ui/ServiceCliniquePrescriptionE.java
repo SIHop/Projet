@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -178,7 +179,7 @@ public class ServiceCliniquePrescriptionE extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1203, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1230, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,7 +244,7 @@ public class ServiceCliniquePrescriptionE extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -508,7 +509,6 @@ public class ServiceCliniquePrescriptionE extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(204, 204, 204));
         jLabel9.setText("Type de prescrition");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -566,7 +566,7 @@ public class ServiceCliniquePrescriptionE extends javax.swing.JFrame {
                                     .addComponent(jLabel13)
                                     .addGap(30, 30, 30)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 833, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 65, Short.MAX_VALUE))))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -686,7 +686,7 @@ public class ServiceCliniquePrescriptionE extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1203, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1230, Short.MAX_VALUE))
                 .addGap(48, 48, 48))
         );
         jPanel3Layout.setVerticalGroup(
@@ -786,7 +786,8 @@ public class ServiceCliniquePrescriptionE extends javax.swing.JFrame {
             String contenue = this.jTextArea1.getText();
             String obs = this.jTextArea2.getText();
             int idFiche = DAOFactory.getFicheDeSoinsDAO().getMaxId()+1;
-            Date date = new Date();
+            Calendar c= Calendar.getInstance();
+            Date date = c.getTime();
             DateT dateP = new DateT(date);
             
             Prescription prescrip;
@@ -810,11 +811,13 @@ public class ServiceCliniquePrescriptionE extends javax.swing.JFrame {
             listPrescrip.add(prescrip);
             FicheDeSoins fiche = new FicheDeSoins(idFiche,null,listPrescrip,null,this.p,dateP,this.numSej);
             //mise à jour du dpi courant
+  
             this.dpi.getMyDM().getLastSejour().getlFicheDeSoins().add(fiche);
+            
             //mise à jour de la BD
             DAOFactory.getFicheDeSoinsDAO().create(fiche);
             DAOFactory.getPrescriptionDAO().create(prescrip);
-            
+          
             ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,3,this.listeDPI );
             edit.setVisible(true);
             edit.setLocationRelativeTo(this);
