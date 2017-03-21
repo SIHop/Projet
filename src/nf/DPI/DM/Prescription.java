@@ -25,7 +25,7 @@ public class Prescription {
         this.typePrescription = typePrescription;
         this.idFicheDeSoins = idFicheDeSoins;
         this.idPrescription = DAOFactory.getPrescriptionDAO().getMaxId() + 1;
-        DAOFactory.getPrescriptionDAO().create(this);
+
     }
 
     //Constructeur utilisé par la db

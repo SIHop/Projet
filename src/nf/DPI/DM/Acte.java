@@ -56,7 +56,6 @@ public class Acte {
         this.typeActe = typeActe;
         this.idFicheDeSoins = idFicheDeSoins;
         this.idActe = DAOFactory.getActeDAO().getMaxId()+1;
-        this.sauvegarder();
     }
     /**
      * Permet de sauvegarder les actes 
