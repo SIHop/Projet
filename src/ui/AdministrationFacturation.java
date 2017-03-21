@@ -21,10 +21,12 @@ public class AdministrationFacturation extends javax.swing.JFrame {
      */
     
     private Sejour sejour = null;
+    private AdministrationEditDMA caller;
 
-    public AdministrationFacturation(Sejour sejour) {
+    public AdministrationFacturation(Sejour sejour, AdministrationEditDMA caller) {
         initComponents();
         this.sejour = sejour;
+        this.caller = caller;
         this.notificationLabel.setVisible(false);
         if(this.sejour.isFacturer() || this.sejour.isEnCours()){
             this.facturerButton.setEnabled(false);
@@ -65,7 +67,8 @@ public class AdministrationFacturation extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         numeroSejourLabel = new javax.swing.JLabel();
@@ -83,27 +86,31 @@ public class AdministrationFacturation extends javax.swing.JFrame {
         total = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1200, 600));
+        setMinimumSize(new java.awt.Dimension(800, 600));
         setUndecorated(true);
         setResizable(false);
-        setSize(new java.awt.Dimension(1200, 600));
+        setSize(new java.awt.Dimension(800, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(jPanel2.getBackground());
+        jPanel3.setPreferredSize(new java.awt.Dimension(800, 600));
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(1200, 33));
+        jPanel1.setPreferredSize(new java.awt.Dimension(800, 33));
 
         jPanel2.setBackground(new java.awt.Color(33, 49, 64));
-        jPanel2.setPreferredSize(new java.awt.Dimension(1200, 30));
+        jPanel2.setPreferredSize(new java.awt.Dimension(800, 30));
 
-        jLabel7.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel4.setText("Facturation d'un Séjour");
+
+        jLabel8.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
-                jLabel7MouseDragged(evt);
+                jLabel8MouseDragged(evt);
             }
         });
-        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel7MouseClicked(evt);
+                jLabel8MouseClicked(evt);
             }
         });
 
@@ -127,19 +134,31 @@ public class AdministrationFacturation extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(314, 314, 314)
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 802, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 368, Short.MAX_VALUE)))
+                    .addGap(1, 1, 1)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(4, 4, 4)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -147,7 +166,7 @@ public class AdministrationFacturation extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 801, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -158,6 +177,7 @@ public class AdministrationFacturation extends javax.swing.JFrame {
         );
 
         jPanel10.setBackground(jPanel2.getBackground());
+        jPanel10.setPreferredSize(new java.awt.Dimension(600, 560));
 
         numeroSejourLabel.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
         numeroSejourLabel.setForeground(new java.awt.Color(240, 240, 240));
@@ -198,7 +218,7 @@ public class AdministrationFacturation extends javax.swing.JFrame {
         });
 
         notificationLabel.setForeground(new java.awt.Color(255, 51, 51));
-        notificationLabel.setText("Le séjour a bien été facturé");
+        notificationLabel.setText("Le séjour est facturé");
 
         listeFicheDesSoins.setColumns(20);
         listeFicheDesSoins.setRows(5);
@@ -240,7 +260,7 @@ public class AdministrationFacturation extends javax.swing.JFrame {
                                 .addComponent(facturerButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(notificationLabel)))
-                        .addGap(0, 175, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane2)))
@@ -277,7 +297,7 @@ public class AdministrationFacturation extends javax.swing.JFrame {
                     .addComponent(printButton)
                     .addComponent(facturerButton)
                     .addComponent(notificationLabel))
-                .addGap(0, 32, Short.MAX_VALUE))
+                .addGap(0, 31, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -287,8 +307,8 @@ public class AdministrationFacturation extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE))
                 .addGap(515, 515, 515))
         );
         jPanel3Layout.setVerticalGroup(
@@ -309,39 +329,42 @@ public class AdministrationFacturation extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseExited
-        jLabel6.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_jLabel6MouseExited
-
-    private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
-        jLabel6.setCursor(new Cursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_jLabel6MouseEntered
-
-    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
-        this.dispose();
-    }//GEN-LAST:event_jLabel6MouseClicked
-
-    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        tx = evt.getX();
-        ty = evt.getY();
-    }//GEN-LAST:event_jLabel7MouseClicked
-
-    private void jLabel7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseDragged
-        this.setLocation(evt.getXOnScreen() - tx, evt.getYOnScreen() - ty);
-    }//GEN-LAST:event_jLabel7MouseDragged
-
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_printButtonActionPerformed
 
     private void facturerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facturerButtonActionPerformed
         this.sejour.setFacturer(true);
+        this.facturerButton.setEnabled(false);
+        this.notificationLabel.setVisible(true);
+        this.caller.miseAJoursSejour();
         
     }//GEN-LAST:event_facturerButtonActionPerformed
 
     private void totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_totalActionPerformed
+
+    private void jLabel8MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseDragged
+        this.setLocation(evt.getXOnScreen() - tx, evt.getYOnScreen() - ty);
+    }//GEN-LAST:event_jLabel8MouseDragged
+
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        tx = evt.getX();
+        ty = evt.getY();
+    }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+        this.dispose();
+    }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
+        jLabel6.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jLabel6MouseEntered
+
+    private void jLabel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseExited
+        jLabel6.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_jLabel6MouseExited
 
     private int tx;
     private int ty;
@@ -389,8 +412,9 @@ public class AdministrationFacturation extends javax.swing.JFrame {
     private javax.swing.JButton facturerButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
