@@ -107,6 +107,10 @@ public class Sejour {
     public void setLettreDeSortie(LettreDeSortie lettreDeSortie) {
         this.lettreDeSortie = lettreDeSortie;
     }
+    
+    public void addObservation(String obs){
+        this.observation.add(obs);
+    }
 /**
  * permet d'afficher le numéro de séjour, le nom d'usage, nom de naissance et le prénom du patient
  * @return 

@@ -37,7 +37,9 @@ public class ServiceCliniqueLitD extends javax.swing.JFrame {
         this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
         //Entête DPI
         this.jLabel18.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
-        this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
+       if(this.dpi.getLit()!=null){
+            this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
+        }
         this.jLabel19.setText("N°sejour: "+this.numSej);
         
         //mise en relief de la situation courante
@@ -46,7 +48,13 @@ public class ServiceCliniqueLitD extends javax.swing.JFrame {
         this.jLabel12.setForeground(Color.GRAY);
         
         //affichage de la localité
-        this.jTextArea1.setText(this.dpi.getLit().toString());
+        if(this.dpi.getLit()!=null){
+            this.jTextArea1.setText(this.dpi.getLit().toString());
+        }
+        else{
+            this.jTextArea1.setText("Aucun lit n'est attribué pour l'instant");
+        }
+        
     }
 
     /**
@@ -670,14 +678,14 @@ public class ServiceCliniqueLitD extends javax.swing.JFrame {
         ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
         ac.setVisible(true);
         ac.setLocationRelativeTo(this);
-        this.setVisible(false); 
+        this.dispose(); 
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
         ServiceCliniqueLitE ac=new ServiceCliniqueLitE(this.p,this.dpi,this.numSej,this.listeDPI );
         ac.setVisible(true);
         ac.setLocationRelativeTo(this);
-        this.setVisible(false); 
+        this.dispose(); 
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -685,49 +693,49 @@ public class ServiceCliniqueLitD extends javax.swing.JFrame {
         
         ac.setVisible(true);
         ac.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23MouseClicked
         ServiceClinique sc=new ServiceClinique(this.p,this.dpi,this.numSej,this.listeDPI );
         sc.setVisible(true);
         sc.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel23MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         Connection conection =new Connection();
         conection.setVisible(true);
         conection.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,1,this.listeDPI);
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
         ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,2,this.listeDPI);
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel14MouseClicked
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
         ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,3,this.listeDPI);
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel16MouseClicked
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,4,this.listeDPI);
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel11MouseClicked
 
     /**

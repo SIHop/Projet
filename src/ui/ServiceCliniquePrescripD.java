@@ -41,7 +41,9 @@ public class ServiceCliniquePrescripD extends javax.swing.JFrame {
         this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
 //Entête DPI
         this.jLabel18.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
-        this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
+        if(this.dpi.getLit()!=null){
+            this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
+        }
         this.jLabel19.setText("N°sejour: "+this.numSej);
         
         //mise en reliefe des boutons correspondants a la situation courante
@@ -683,56 +685,56 @@ public class ServiceCliniquePrescripD extends javax.swing.JFrame {
         ServiceCliniqueAccueil ac = new ServiceCliniqueAccueil(this.p, this.listeDPI);
         ac.setVisible(true);
         ac.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         ServiceCliniqueAccueil ac = new ServiceCliniqueAccueil(this.p, this.listeDPI);
         ac.setVisible(true);
         ac.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,1,this.listeDPI );
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
         ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,2,this.listeDPI );
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel14MouseClicked
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
         ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,3,this.listeDPI );
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel16MouseClicked
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,4,this.listeDPI );
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
         ServiceCliniqueLitD lit =new ServiceCliniqueLitD(this.p,this.dpi,this.numSej,this.listeDPI);
         lit.setVisible(true);
         lit.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private void jLabel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23MouseClicked
         ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,3,this.listeDPI );
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel23MouseClicked
 
     /**

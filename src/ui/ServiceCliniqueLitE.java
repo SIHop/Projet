@@ -41,7 +41,9 @@ public class ServiceCliniqueLitE extends javax.swing.JFrame {
         this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
         //Entête DPI
         this.jLabel18.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
-        this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
+        if(this.dpi.getLit()!=null){
+            this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
+        }
         this.jLabel19.setText("N°sejour: "+this.numSej);
         
         //mise en relief de la situation courante
@@ -50,7 +52,12 @@ public class ServiceCliniqueLitE extends javax.swing.JFrame {
         this.jLabel12.setForeground(Color.GRAY);
         
         //affichage de la localité
-        this.jLabel2.setText(this.dpi.getLit().toString());
+        if(this.dpi.getLit()!=null){
+            this.jLabel9.setText(this.dpi.getLit().getIdLit());
+        }
+        else{
+            this.jLabel9.setText("Aucun lit n'est attribué pour l'instant");
+        }
         //remplissage de la combo box avec les lit vides
         this.listeLit=DAOFactory.getLitDAO().findMultiple(new ArrayList<>(Arrays.asList("batiment","estOccuper")), new ArrayList<>(Arrays.asList("'main'","0")));
         this.jComboBox1.removeAll();
@@ -710,15 +717,16 @@ public class ServiceCliniqueLitE extends javax.swing.JFrame {
         ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
         ac.setVisible(true);
         ac.setLocationRelativeTo(this);
-        this.setVisible(false); 
+        this.dispose(); 
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
-        //On met le lit qu'elle quitte a vide :
-        this.dpi.getLit().setIPPoccupent(0);
-        this.dpi.getLit().setIsOccuped(false);
-        DAOFactory.getLitDAO().update(this.dpi.getLit());
-        
+        //On met le lit a vide :
+        if(this.dpi.getLit()!=null){
+            this.dpi.getLit().setIPPoccupent(0);
+            this.dpi.getLit().setIsOccuped(false);
+            DAOFactory.getLitDAO().update(this.dpi.getLit());
+        }
         //On ajoute son nouveau lit au dpi et on met a jours la db
         int position =this.jComboBox1.getSelectedIndex();
         Location lit = this.listeLit.get(position);
@@ -730,7 +738,7 @@ public class ServiceCliniqueLitE extends javax.swing.JFrame {
         ServiceClinique sc=new ServiceClinique(this.p,this.dpi,this.numSej,this.listeDPI );
         sc.setVisible(true);
         sc.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
         
     }//GEN-LAST:event_jLabel15MouseClicked
 
@@ -738,56 +746,56 @@ public class ServiceCliniqueLitE extends javax.swing.JFrame {
         ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
         ac.setVisible(true);
         ac.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         Connection conection =new Connection();
         conection.setVisible(true);
         conection.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23MouseClicked
         ServiceCliniqueLitD ac=new ServiceCliniqueLitD(this.p,this.dpi,this.numSej,this.listeDPI );
         ac.setVisible(true);
         ac.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel23MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,1,this.listeDPI);
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
         ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,2,this.listeDPI);
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel14MouseClicked
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
         ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,3,this.listeDPI);
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel16MouseClicked
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,4,this.listeDPI);
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
         ServiceCliniqueLitD ac=new ServiceCliniqueLitD(this.p,this.dpi,this.numSej,this.listeDPI );
         ac.setVisible(true);
         ac.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel12MouseClicked
 
     /**

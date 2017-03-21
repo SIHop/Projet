@@ -6,13 +6,20 @@
 package ui;
 
 import db.GestionnaireDB.DAOFactory;
+import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Vector;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import nf.Adresse.Adresse;
 import nf.Adresse.DateT;
 import nf.DPI.DPI;
+import nf.DPI.Historique;
 import nf.GestionDexploitation.Infirmier;
 import nf.GestionDexploitation.Medecin;
 import nf.GestionDexploitation.Personnel;
@@ -42,6 +49,12 @@ public class ServiceClinique extends javax.swing.JFrame {
         this.listeDPI =listeDPI;
         this.p=p;
         this.dpi=dpi;
+        
+        //mise en reliefe des boutons correspondants a la situation courante
+        Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
+        this.jLabel5.setFont(myFont);
+        this.jLabel5.setForeground(Color.GRAY);
+     
 // verification des droit
         if(!(this.p instanceof Medecin) && !(this.p instanceof SecretaireMedicale)){
             this.jLabel22.setVisible(false);
@@ -54,8 +67,11 @@ public class ServiceClinique extends javax.swing.JFrame {
         this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
 //Entête DPI
         this.jLabel18.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
-        this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
+        if(this.dpi.getLit()!=null){
+            this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
+        }
         this.jLabel19.setText("N°sejour: "+this.numSej);
+        
 // Résumé DM
         this.jTextPane1.setText("iPP : "+dpi.getiPP().toString()+"\n"+"Sexe : "+dpi.getSexe().toString()+ "\n"
                 +"Date de Naissance : "+dpi.getDateDeNaissance().toString()+"\n"+ "Nom d'usage : "+dpi.getNomUsage()+ "\n" 
@@ -751,91 +767,75 @@ public class ServiceClinique extends javax.swing.JFrame {
         ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
         ac.setVisible(true);
         ac.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
-        //création d'un Optionne panne pour l'archivage.
-
-        JTextField dateDece = new JTextField();
-        JTextField heureDece = new JTextField();
-        JTextField  tpsArchive= new JTextField();
-
-        ArrayList list = new ArrayList();
-        list.add("ATTENTION!! Vous etes sur le point d'archiver un dossier patient. Les dossiers archivés correspondent aux dossiers des patients décédés.\n Date de décès : \n" );
-        list.add(dateDece);
-        list.add("Heure du décès:");
-        list.add(heureDece);
-        list.add("Temps d'archivage:");
-        //        list.add(tpsArchive);
-
-        JOptionPane.showInputDialog(this,list.stream().toArray(),"Archivage",JOptionPane.CANCEL_OPTION,null,null,null);
-
-        //!!!!!!!seul le disigne est fait il manque le lien avec le nf
-
+        ServiceCliniqueArchivageE archE=new ServiceCliniqueArchivageE(this.p,this.dpi,this.numSej, this.listeDPI,this);
+        archE.setVisible(true);
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void jPanel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel21MouseClicked
         LettreSortie lettre = new LettreSortie(this.p,this.dpi,this.numSej, this.listeDPI);
         lettre.setVisible(true);
         lettre.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jPanel21MouseClicked
 
     private void jLabel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23MouseClicked
         ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
         ac.setVisible(true);
         ac.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel23MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,1,this.listeDPI );
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
         ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,2,this.listeDPI);
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel14MouseClicked
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
         ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,3,this.listeDPI );
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel16MouseClicked
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         ServiceCliniqueEdition edit=new ServiceCliniqueEdition(this.p,this.dpi,this.numSej,4,this.listeDPI);
         edit.setVisible(true);
         edit.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
         ServiceCliniqueLitD lit =new ServiceCliniqueLitD(this.p,this.dpi,this.numSej,this.listeDPI);
         lit.setVisible(true);
         lit.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         Connection conection =new Connection();
         conection.setVisible(true);
         conection.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
         ac.setVisible(true);
         ac.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
 
     /**

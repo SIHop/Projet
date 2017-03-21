@@ -43,6 +43,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     private ArrayList<String> lprescription = new ArrayList<>();
     private ArrayList<Acte> listeActe = new ArrayList();
     private ArrayList<String> lactes = new ArrayList<>();
+    private ArrayList<String> listeObservation = new ArrayList<>();
     
 
     public ServiceCliniqueEdition(Personnel p, DPI dpi, String numSej, int instance, ArrayList<DPI> listeDPI) {
@@ -63,7 +64,9 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
 //Entête DPI
         this.dpi = dpi;
         this.jLabel18.setText("Patient : " + this.dpi.getNomUsage() + " " + this.dpi.getPrenom());
-        this.jLabel20.setText("Lit : " + this.dpi.getLit().getIdLit());
+        if(this.dpi.getLit()!=null){
+            this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
+        }
         this.jLabel19.setText("N°sejour: " + numSej);
 
         
@@ -77,7 +80,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                 if ((ida.getCode()== Code.AIS)||(ida.getCode()== Code.AMI)||(ida.getCode()== Code.DI)||(ida.getCode()== Code.SFI)) {
                     this.listeActe.add(ida);
                 }
-            }
+            }           
         }
         
         //chargement résumé resultats
@@ -87,6 +90,9 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                 this.result.add(this.lresultat.get(j));
             }
         }
+        
+        //chargement résumé observation
+        this.listeObservation = this.dpi.getMyDM().getLastSejour().getObservation();
 
     //chargement résumé prescription   
         for (int i = 0; i < this.listePrescription.size(); i++) {
@@ -116,6 +122,8 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                 this.jLabel14.setForeground(Color.GRAY);
                 this.jButton2.setVisible(false);
                 // Affichage des observation
+                Vector vobs = new Vector(this.listeObservation);
+                this.jList1.setListData(vobs);
             } 
             else {
                 if (this.instance == 3) {
@@ -873,28 +881,28 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         ServiceClinique serviceClinique = new ServiceClinique(this.p, this.dpi, this.numSej, this.listeDPI);
         serviceClinique.setVisible(true);
         serviceClinique.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel22MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         Connection conection = new Connection();
         conection.setVisible(true);
         conection.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         ServiceCliniqueAccueil ac = new ServiceCliniqueAccueil(this.p, this.listeDPI);
         ac.setVisible(true);
         ac.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         ServiceCliniqueAccueil ac = new ServiceCliniqueAccueil(this.p, this.listeDPI);
         ac.setVisible(true);
         ac.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
@@ -938,6 +946,8 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         this.jLabel14.setForeground(Color.GRAY);
 
         //Affichage du contenue
+        Vector vobs = new Vector(this.listeObservation);
+        this.jList1.setListData(vobs);
     }//GEN-LAST:event_jLabel14MouseClicked
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
@@ -967,7 +977,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         ServiceCliniqueLitD lit = new ServiceCliniqueLitD(this.p, this.dpi, this.numSej, this.listeDPI);
         lit.setVisible(true);
         lit.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
@@ -984,7 +994,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
             ServiceCliniqueResultatD resultD = new ServiceCliniqueResultatD(this.p, this.dpi, this.numSej, this.listeDPI, result);
             resultD.setVisible(true);
             resultD.setLocationRelativeTo(this);
-            this.setVisible(false);
+            this.dispose();
         } 
         else {
             if (this.instance == 3) {
@@ -995,7 +1005,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                 ServiceCliniquePrescripD prescripD = new ServiceCliniquePrescripD(this.p, this.dpi, this.numSej, this.listeDPI, prescrip);
                 prescripD.setVisible(true);
                 prescripD.setLocationRelativeTo(this);
-                this.setVisible(false);
+                this.dispose();
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -1005,20 +1015,20 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
             ServiceCliniqueObservationE osbE = new ServiceCliniqueObservationE(this.p, this.dpi, this.numSej,this.listeDPI);
             osbE.setVisible(true);
             osbE.setLocationRelativeTo(this);
-            this.setVisible(false);
+            this.dispose();
         }
         else{
             if(this.instance ==3){
                 ServiceCliniquePrescriptionE presE = new ServiceCliniquePrescriptionE(this.p, this.dpi, this.numSej,this.listeDPI);
                 presE.setVisible(true);
                 presE.setLocationRelativeTo(this);
-                this.setVisible(false);
+                this.dispose();
             }
             else{
                 ServiceCliniqueOperationInfE presE = new ServiceCliniqueOperationInfE(this.p, this.dpi, this.numSej,this.listeDPI);
                 presE.setVisible(true);
                 presE.setLocationRelativeTo(this);
-                this.setVisible(false);
+                this.dispose();
             }
         }
     }//GEN-LAST:event_jLabel21MouseClicked
