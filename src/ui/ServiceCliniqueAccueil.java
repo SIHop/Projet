@@ -429,6 +429,7 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(this.jList1.getSelectedValue()!=null){
         int position =this.jList1.getSelectedIndex();
         DPI dpi = this.listeDPI.get(position);
         String numSej = dpi.getMyDM().getLastSejour().getNumeroDeSejour();
@@ -436,14 +437,18 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
         ServiceClinique serviceClinique = new ServiceClinique(this.p,dpi,numSej,this.listeDPI);
         serviceClinique.setVisible(true);
         serviceClinique.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Selectionnez un DPI");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         Connection conection =new Connection();
         conection.setVisible(true);
         conection.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
 //    /**

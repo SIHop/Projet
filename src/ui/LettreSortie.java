@@ -7,10 +7,13 @@ package ui;
 
 import db.GestionnaireDB.DAOFactory;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import nf.Adresse.Adresse;
 import nf.Adresse.DateT;
 import nf.DPI.DMA.LettreDeSortie;
+import nf.DPI.DMA.Sejour;
 import nf.DPI.DPI;
 import nf.GestionDexploitation.Personnel;
 
@@ -23,23 +26,28 @@ public class LettreSortie extends javax.swing.JFrame {
     /**
      * Creates new form Administration
      */
-    Personnel p;
-    DPI dpi;
-    String numSej;
+    private Personnel p;
+    private DPI dpi;
+    private String numSej;
     private ArrayList<DPI> listeDPI = new ArrayList<>();
 
     public LettreSortie(Personnel p, DPI dpi,String numSej,ArrayList<DPI> listeDPI) {
         initComponents();
         this.numSej=numSej;
         this.listeDPI=listeDPI;
+        
+        Calendar c= Calendar.getInstance();
+        DateT dateJour = new DateT(c.getTime());
+        this.jTextField1.setText(dateJour.toString());
 //entête page
         this.p=p;
         this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
 //Entête DM 
         this.dpi=dpi;
         this.jLabel18.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
-        this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
-
+        if(this.dpi.getLit()!=null){
+            this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
+        }
         int maxSejour= this.dpi.getMyDM().getlSejour().size();
         this.jLabel19.setText("N°sejour: "+this.numSej);
     }
@@ -528,45 +536,75 @@ public class LettreSortie extends javax.swing.JFrame {
         ServiceClinique serviceClinique = new ServiceClinique(this.p,this.dpi,this.numSej,this.listeDPI);
         serviceClinique.setVisible(true);
         serviceClinique.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel23MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         Connection conection =new Connection();
         conection.setVisible(true);
         conection.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
-        
-    //rédaction d'une nouvell lettre et de la date de sortie
-        LettreDeSortie lettre =new LettreDeSortie(Integer.getInteger(this.dpi.getMyDM().getLastSejour().getMedecinResponsable().getIdPersonel()),this.dpi.getAdresse(),Integer.getInteger(this.dpi.getMyDM().getLastSejour().getNumeroDeSejour()),jTextArea1.getText());
-        DateT dateF = new DateT(jTextField1.getText());
-        // update du sejour
-        this.dpi.getMyDM().getLastSejour().setDateDeFin(dateF);
-        this.dpi.getMyDM().getLastSejour().setLettreDeSortie(lettre);
-        //mise a jour de la BD
-        DAOFactory.getSejourDAO().update(this.dpi.getMyDM().getLastSejour());
-         
-        ServiceClinique serviceClinique = new ServiceClinique(this.p,this.dpi,this.numSej,this.listeDPI);
-        serviceClinique.setVisible(true);
-        serviceClinique.setLocationRelativeTo(this);
-        this.setVisible(false);
+        if((this.jTextField1==null)||(this.jTextArea1==null)){
+            JOptionPane.showMessageDialog(this, "Tous les champs doivent être remplis");
+        }
+        else{
+            //rédaction d'une nouvelle lettre et de la date de sortie
+            Sejour lastSej =this.dpi.getMyDM().getLastSejour();
+            int idRespo = Integer.parseInt(lastSej.getMedecinResponsable().getIdPersonel());
+            
+            LettreDeSortie lettre =new LettreDeSortie(idRespo,this.dpi.getAdresse(),Integer.parseInt(numSej),jTextArea1.getText());
+            DateT dateF = new DateT(this.jTextField1.getText());
+            
+            // update du sejour
+            this.dpi.getMyDM().getLastSejour().setDateDeFin(dateF);
+            this.dpi.getMyDM().getLastSejour().setLettreDeSortie(lettre);
+            lastSej.setDateDeFin(dateF);
+            if(this.dpi.getLit()!=null){
+                this.dpi.getLit().setIPPoccupent(0);
+                this.dpi.getLit().setIsOccuped(false);
+            }
+            int position=-1;
+            boolean trouve =false;
+            int i=0;
+            while ((i<this.listeDPI.size())&&(trouve==false)){
+                if(this.listeDPI.get(i).getiPP()== this.dpi.getiPP()){
+                    position=i;
+                    trouve=true;
+                    i++;
+                }
+            }
+            if(position>=0){
+                        this.listeDPI.remove(position);
+            }
+            //mise a jour de la BD
+            DAOFactory.getSejourDAO().update(lastSej);
+            if(this.dpi.getLit()!=null){
+                DAOFactory.getLitDAO().update(this.dpi.getLit());
+                this.dpi.setLit(null);
+                DAOFactory.getDpiDAO().update(dpi);
+            }
+            ServiceCliniqueAccueil serviceClinique = new ServiceCliniqueAccueil(this.p,this.listeDPI);
+            serviceClinique.setVisible(true);
+            serviceClinique.setLocationRelativeTo(this);
+            this.dispose();
+        }
     }//GEN-LAST:event_jLabel21MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
         ac.setVisible(true);
         ac.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
         ac.setVisible(true);
         ac.setLocationRelativeTo(this);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
 
     /**
