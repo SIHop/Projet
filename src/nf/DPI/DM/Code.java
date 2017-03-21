@@ -11,7 +11,7 @@ package nf.DPI.DM;
  */
 public enum Code {
 
-    // valeurs de l'enum :
+    // valeurs de l'enum : toutes les codes des actes :
 
     AIS("actes infirmiers de soins", 16.0,"AIS"),
     AMS("reeducation", 48.0,"AMS"),
@@ -68,7 +68,10 @@ public enum Code {
         return libelle;
     }
 
-    // methodes :
+    /**
+     * affiche le code de l'acte avec son coût
+     * @return 
+     */
     @Override
     public String toString() {
         return super.toString() + " : \n\t ► " + libelle + ": \n\t ► cout = " + cout + " euros";

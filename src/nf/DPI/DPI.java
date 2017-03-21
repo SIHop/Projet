@@ -146,8 +146,8 @@ public class DPI {
     /**
      * Permet la création d'un nouveau patient en prenant en compte sa date de
      * naissance, son prénom, sa localisation et son sexe si le patient a déjà
-     * un lit : on a alors accès à l'identifiant, au batiment et à l'étage de la
-     * localisation Les informations du patient sont affichés
+     * un lit : on a alors accès à l'identifiant, au batiment et à l'étage,...etc de la
+     * localisation. Les informations du patient sont affichées.
      *
      * @return
      */
@@ -201,7 +201,7 @@ public class DPI {
     }
 
     /**
-     * Permet de prendre en compte les informations du patient p crée en
+     * Permet de prendre en compte les informations du patient p créé en
      * considérant la date de naissance du patient et son sexe. Affiche le dpi
      * du patient
      *

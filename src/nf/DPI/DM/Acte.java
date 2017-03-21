@@ -94,7 +94,10 @@ public class Acte {
     public TypeActe getTypeActe() {
         return typeActe;
     }
-
+/**
+ * permet de calculer le cout selon le code et coef de l'acte 
+ * @return 
+ */
     public double calculerCout() {
         return code.calculerCout(coef);
     }
