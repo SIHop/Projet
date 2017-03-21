@@ -25,12 +25,12 @@ public class DPI {
     private DMA myDMA;
 
     private IPP iPP;
-    private final String prenom;
-    private final String nomNaissance;
-    private final DateT dateDeNaissance;
+    private String prenom;
+    private String nomNaissance;
+    private DateT dateDeNaissance;
     private final NSS nSecuriteSocial;
-    private final Sexe sexe;
-    private final String lieuNaissance;
+    private Sexe sexe;
+    private String lieuNaissance;
 
     public DPI(String nomNaissance, String nomUsage, String prenom, Adresse adresse, IPP iPP, DateT dateDeNaissance, NSS nSecuriteSocial, InformationDeContact infoDeContact, Location lit, DM myDM, DMA myDMA, Sexe sexe) {
         this.nomNaissance = nomNaissance;
@@ -240,6 +240,41 @@ public class DPI {
      */
     public String getLieuNaissance() {
         return lieuNaissance;
+    }
+
+    /**
+     * @param prenom the prenom to set
+     */
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    /**
+     * @param nomNaissance the nomNaissance to set
+     */
+    public void setNomNaissance(String nomNaissance) {
+        this.nomNaissance = nomNaissance;
+    }
+
+    /**
+     * @param dateDeNaissance the dateDeNaissance to set
+     */
+    public void setDateDeNaissance(DateT dateDeNaissance) {
+        this.dateDeNaissance = dateDeNaissance;
+    }
+
+    /**
+     * @param sexe the sexe to set
+     */
+    public void setSexe(Sexe sexe) {
+        this.sexe = sexe;
+    }
+
+    /**
+     * @param lieuNaissance the lieuNaissance to set
+     */
+    public void setLieuNaissance(String lieuNaissance) {
+        this.lieuNaissance = lieuNaissance;
     }
 
 }

@@ -50,7 +50,7 @@ public class ServiceCliniqueOperationInfE extends javax.swing.JFrame {
         this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
 //Entête DPI
         this.jLabel18.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
-        this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdentifient());
+        this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
         this.jLabel19.setText("N°sejour: "+this.numSej);
         
         //mise en reliefe des boutons correspondants a la situation courante
