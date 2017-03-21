@@ -83,7 +83,7 @@ public class SejourDAO implements DAO<Sejour> {
 
                 return new Sejour(new LettreDeSortie(rs.getInt("idPersonnel"), new Adresse("", "", 0, "", 0, "", ""), rs.getInt("numeroSejour"), rs.getString("lettreSortie")),
                         rs.getString("numeroSejour"), new ArrayList<>(Arrays.asList(rs.getString("naturePrestation").split("\\s*;\\s*"))), new DateT(rs.getString("dateDebut")),
-                        dateFin, medecinResp, lfds, enCours, facturer, rs.getString("observation"));
+                        dateFin, medecinResp, lfds, enCours, facturer, new ArrayList<>(Arrays.asList(rs.getString("observation").split("\\s*;\\s*"))));
             } else {
                 System.out.println("Aucun résultat n'a était trouver");
             }
@@ -161,7 +161,7 @@ public class SejourDAO implements DAO<Sejour> {
 
                     retour.add(new Sejour(new LettreDeSortie(rs.getInt("idPersonnel"), adresseDAO.find(argAdress, valAdress), rs.getInt("numeroSejour"), rs.getString("lettreSortie")),
                             rs.getString("numeroSejour"), new ArrayList<>(Arrays.asList(rs.getString("naturePrestation").split("\\s*;\\s*"))), new DateT(rs.getString("dateDebut")),
-                            dateFin, medecinResp, lfds, enCours,facturer,rs.getString("observation")));
+                            dateFin, medecinResp, lfds, enCours,facturer,new ArrayList<>(Arrays.asList(rs.getString("observation").split("\\s*;\\s*")))));
                 }
 
             } else {
@@ -177,9 +177,13 @@ public class SejourDAO implements DAO<Sejour> {
 
     @Override
     public Sejour create(Sejour obj) {
-        String natureDesPrestation = "";
+        String natureDesPrestation = "";        
         for (String s : obj.getNatureDesPrestation()) {
             natureDesPrestation += s + ";";
+        }
+        String observation = "";
+        for(String s : obj.getObservation()){
+            observation += s.replace("'", "''")+";";
         }
         String lettre;
         String dateFin;
@@ -196,7 +200,7 @@ public class SejourDAO implements DAO<Sejour> {
 
         this.query = "INSERT INTO sejour (numeroSejour, naturePrestation, lettreSortie,dateDebut,dateFin, idPersonnel, enCours, facturer,observations)"
                 + " VALUES (" + obj.getNumeroDeSejour() + ",'" + natureDesPrestation + "'," + lettre + ",'" + obj.getDateDebut().toString()
-                + "'," + dateFin + "," + obj.getMedecinResponsable().getIdPersonel() + "," + obj.isEnCours() +"," + obj.isFacturer() + ",'" + obj.getObservation().replace("'", "''") + "')";
+                + "'," + dateFin + "," + obj.getMedecinResponsable().getIdPersonel() + "," + obj.isEnCours() +"," + obj.isFacturer() + ",'" + observation+ "')";
 
         Statement stmt;
 
@@ -216,6 +220,10 @@ public class SejourDAO implements DAO<Sejour> {
         for (String s : obj.getNatureDesPrestation()) {
             natureDesPrestation += s + ";";
         }
+        String observation = "";
+        for(String s : obj.getObservation()){
+            observation += s.replace("'", "''")+";";
+        }
         String lettre;
         String dateFin;
         if (obj.getLettreDeSortie() != null) {
@@ -229,7 +237,7 @@ public class SejourDAO implements DAO<Sejour> {
             dateFin = "'" + obj.getDateDeFin().toString() + "'";
         }
         this.query = "UPDATE sejour SET lettreSortie = '" + obj.getLettreDeSortie().getLettre() + "', naturePrestation = '" + natureDesPrestation + "', dateDebut = '"
-                + obj.getDateDebut() + "', dateFin =" + dateFin + ", enCours = " + obj.isEnCours() +", facturer = "+ obj.isFacturer() + ", observation = '" + obj.getObservation().replace("'", "''") + "' WHERE numeroSejour = " + obj.getNumeroDeSejour();
+                + obj.getDateDebut() + "', dateFin =" + dateFin + ", enCours = " + obj.isEnCours() +", facturer = "+ obj.isFacturer() + ", observation = '" + observation + "' WHERE numeroSejour = " + obj.getNumeroDeSejour();
 
         Statement stmt;
         try {

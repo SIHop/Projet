@@ -24,7 +24,7 @@ public class Sejour {
     private String numeroDeSejour;
     private boolean enCours;
     private boolean facturer;
-    private String observation;
+    private ArrayList<String> observation;
 
     private DMA dma = null;
     private DPI dpi = null;
@@ -35,7 +35,7 @@ public class Sejour {
         this.medecinResponsable = medecinResponsable;
     }
 
-    public Sejour(LettreDeSortie lettreDeSortie, String numeroDeSejour, ArrayList<String> natureDesPrestation, DateT dateDebut, DateT dateDeFin, Medecin medecinResponsable, ArrayList<FicheDeSoins> lFicheDeSoins, boolean enCours, boolean facturer, String observation) {
+    public Sejour(LettreDeSortie lettreDeSortie, String numeroDeSejour, ArrayList<String> natureDesPrestation, DateT dateDebut, DateT dateDeFin, Medecin medecinResponsable, ArrayList<FicheDeSoins> lFicheDeSoins, boolean enCours, boolean facturer, ArrayList<String> observation) {
         this.lFicheDeSoins = lFicheDeSoins;
         this.natureDesPrestation = natureDesPrestation;
         this.dateDeFin = dateDeFin;
@@ -157,7 +157,7 @@ public class Sejour {
     /**
      * @return the observation
      */
-    public String getObservation() {
+    public ArrayList<String> getObservation() {
         return observation;
     }
 

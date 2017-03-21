@@ -1,9 +1,7 @@
 package nf.DPI.DMA;
 
 import db.GestionnaireDB.DpiDAO;
-import nf.DPI.DPI;
 import java.time.Year;
-import java.util.ArrayList;
 
 public class IPP {
 
