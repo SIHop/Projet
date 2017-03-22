@@ -355,9 +355,9 @@ public class ReceptionPatient extends javax.swing.JFrame {
         System.out.println("" + ligneSelectionne);
         IPP =  (String)jTable2.getValueAt(ligneSelectionne, 0);
         System.out.println("" + IPP);
-        System.out.println("identifient du patient selectionné: " + IPP);
+        System.out.println("identifiant du patient sélectionné: " + IPP);
         patient = listePatient.get(0);
-        System.out.println("patient selectionné : " + patient.getiPP().getIPP()+ " " + patient.getNomUsage()+ " " + patient.getPrenom());
+        System.out.println("patient sélectionné : " + patient.getiPP().getIPP()+ " " + patient.getNomUsage()+ " " + patient.getPrenom());
 
 
     }//GEN-LAST:event_jTable2MouseClicked
@@ -367,7 +367,7 @@ public class ReceptionPatient extends javax.swing.JFrame {
         nom = jLabel11.getText();
         System.out.println("nom : " + nom);
         prenom = jLabel12.getText();
-        System.out.println("prenom: " + prenom);
+        System.out.println("prénom: " + prenom);
         date = jLabel13.getText();
         sexe = jLabel15.getText();
         if(!sexe.equals("F")){

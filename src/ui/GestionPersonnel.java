@@ -288,7 +288,6 @@ public class GestionPersonnel extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 600));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1250, 600));
         setResizable(false);
         setSize(new java.awt.Dimension(1200, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -497,7 +496,7 @@ public class GestionPersonnel extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setForeground(jPanel4.getBackground());
-        jLabel4.setText("Secretaire administrative");
+        jLabel4.setText("Secrétaire administrative");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -693,6 +692,11 @@ public class GestionPersonnel extends javax.swing.JFrame {
         metierCombo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 metierComboItemStateChanged(evt);
+            }
+        });
+        metierCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                metierComboActionPerformed(evt);
             }
         });
 
@@ -907,15 +911,16 @@ public class GestionPersonnel extends javax.swing.JFrame {
                             .addComponent(jLabel40)
                             .addComponent(typeVoieText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(anneeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(moisText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(joursText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel16)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nomVoieText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel35))
+                            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(anneeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(moisText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(joursText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel14)
+                                .addComponent(jLabel10)
+                                .addComponent(jLabel16)
+                                .addComponent(jLabel35)))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel36)
                         .addGap(16, 16, 16)
@@ -1061,7 +1066,7 @@ public class GestionPersonnel extends javax.swing.JFrame {
             this.remplirChamps(listePersonnel.get(i));
 
         } else {
-            JOptionPane.showMessageDialog(this, "Aucun membre du personnel n'à cette identifient");
+            JOptionPane.showMessageDialog(this, "Aucun membre du personnel ne possède cet identifiant");
         }
 
     }//GEN-LAST:event_okButtonActionPerformed
@@ -1084,23 +1089,23 @@ public class GestionPersonnel extends javax.swing.JFrame {
         if (!date.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")) {
             JOptionPane.showMessageDialog(this, "La date de naissance n'est pas au format : jj/mm/aaaa");
         } else if (((String) this.metierCombo.getSelectedItem()).equals(" ")) {
-            JOptionPane.showMessageDialog(this, "Aucun métier n'est séléctioné");
+            JOptionPane.showMessageDialog(this, "Aucun métier n'est sélectionné");
         } else if (this.identifiant.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "L'identfiant spécifié est inncorect");
+            JOptionPane.showMessageDialog(this, "L'identifiant spécifié est incorrect");
         } else if (this.mdp.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Le mot de passe spécifié est inncorect");
+            JOptionPane.showMessageDialog(this, "Le mot de passe spécifié est incorrect");
         } else {
             int numVoie = 0;
             int cp = 0;
             try {
                 numVoie = Integer.parseInt(this.numVoieText.getText());
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Le numéros de voie saisie n'est pas un chiffre");
+                JOptionPane.showMessageDialog(this, "Le numéro de voie saisi n'est pas un chiffre");
             }
             try {
                 cp = Integer.parseInt(this.codePostalText.getText());
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Le code postal saisie n'est pas un chiffre");
+                JOptionPane.showMessageDialog(this, "Le code postal saisi n'est pas un chiffre");
             }
 
             //Création du personnel
@@ -1192,7 +1197,7 @@ public class GestionPersonnel extends javax.swing.JFrame {
         String date = this.anneeText.getText() + "-" + this.moisText.getText() + "-" + this.joursText.getText();
         //Gestion de toute les erreures
         if (this.JListPersonnel.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(this, "Aucun personnel n'est séléctioné");
+            JOptionPane.showMessageDialog(this, "Aucun personnel n'est sélectionné");
         } else if (!date.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")) {
             JOptionPane.showMessageDialog(this, "La date de naissance n'est pas au format : jj/mm/aaaa");
         } else {
@@ -1201,12 +1206,12 @@ public class GestionPersonnel extends javax.swing.JFrame {
             try {
                 numVoie = Integer.parseInt(this.numVoieText.getText());
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Le numéros de voie saisie n'est pas un chiffre");
+                JOptionPane.showMessageDialog(this, "Le numéro de voie saisi n'est pas un chiffre");
             }
             try {
                 cp = Integer.parseInt(this.codePostalText.getText());
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Le code postal saisie n'est pas un chiffre");
+                JOptionPane.showMessageDialog(this, "Le code postal saisi n'est pas un chiffre");
             }
             //Mise a jours du personnel
             Personnel persoModifier = this.JListPersonnel.getSelectedValue();
@@ -1336,6 +1341,10 @@ public class GestionPersonnel extends javax.swing.JFrame {
     private void identifiantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_identifiantActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_identifiantActionPerformed
+
+    private void metierComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_metierComboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_metierComboActionPerformed
 
     /**
      * @param args the command line arguments
