@@ -249,11 +249,11 @@ public class AudreyGestionPersonnel extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(jPanel4.getBackground());
-        jLabel3.setText("Exit");
+        jLabel3.setText("Déconnexion");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setForeground(jPanel4.getBackground());
-        jLabel4.setText("Secretaire administrative");
+        jLabel4.setText("Secrétaire administrative");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -265,7 +265,7 @@ public class AudreyGestionPersonnel extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addGap(18, 18, 18)
+                .addGap(344, 344, 344)
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
