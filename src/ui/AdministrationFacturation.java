@@ -35,7 +35,7 @@ public class AdministrationFacturation extends javax.swing.JFrame {
         
         
         this.numeroSejourLabel.setText("Numéro de séjour : " + sejour.getNumeroDeSejour());
-        this.PHResponsableLabel.setText("PH résponsable : " + this.sejour.getMedecinResponsable().getNom() + " " + this.sejour.getMedecinResponsable().getPrenom());
+        this.PHResponsableLabel.setText("PH responsable : " + this.sejour.getMedecinResponsable().getNom() + " " + this.sejour.getMedecinResponsable().getPrenom());
         this.dateDebutLabel.setText("Date de début : " + this.sejour.getDateDebut().getC().get(Calendar.DAY_OF_MONTH) + "/"+ String.format("%1$02d",this.sejour.getDateDebut().getC().get(Calendar.MONTH)+1) + "/" + this.sejour.getDateDebut().getC().get(Calendar.YEAR));
         if(sejour.isEnCours()){
             this.dateFinLabel.setText("Date de fin : Le séjour n'est pas terminé");
@@ -44,7 +44,7 @@ public class AdministrationFacturation extends javax.swing.JFrame {
         }
         this.serviceLabel.setText("Service : " + this.sejour.getMedecinResponsable().getService().getNomService());
         
-        String listeFeuilleDeSoins = "Liste des fiche de soins :\n";
+        String listeFeuilleDeSoins = "Liste des fiches de soins :\n";
         for(FicheDeSoins fds : this.sejour.getlFicheDeSoins()){
             listeFeuilleDeSoins += "Fiche de soins N°" +fds.getIdFicheDeSoins()+ " fait par : " +fds.getCreateur().getNom() + " "+fds.getCreateur().getPrenom() + " coûte : " + fds.calculerCoutFiche() + "€\n";
          }

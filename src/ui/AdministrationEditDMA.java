@@ -1166,7 +1166,7 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
             AdministrationFacturation admDet = new AdministrationFacturation(sejSelec,this);
             admDet.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(this, "Aucun séjour n'est séléctioné");
+            JOptionPane.showMessageDialog(this, "Aucun séjour n'est sélectionné");
 
         }
     }//GEN-LAST:event_facturerActionPerformed
@@ -1176,7 +1176,7 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
             AdministrationCreationSejour adminCrea = new AdministrationCreationSejour(this.getDpiEnEdition().getMyDMA(), this);
             adminCrea.setVisible(true);
         } else {//Si un sejour est en cours
-            JOptionPane.showMessageDialog(this, "Un séjour est déjà en cours, il est impossible d'en ajouter un nouveau tant que ce dernier n'est pas terminer !");
+            JOptionPane.showMessageDialog(this, "Un séjour est déjà en cours, il est impossible d'en ajouter un nouveau tant que ce dernier n'est pas terminé !");
         }
     }//GEN-LAST:event_creationSejourActionPerformed
 
