@@ -37,6 +37,7 @@ public class ReceptionPatient extends javax.swing.JFrame {
     private DPI patient;
     private final DAO<DPI> dpiDAO = DAOFactory.getDpiDAO();
     private Date ddn;
+    private Sexe sex;
 
     /**
      * Creates new form Connexion
@@ -364,9 +365,16 @@ public class ReceptionPatient extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         IPP = jLabel9.getText();
         nom = jLabel11.getText();
+        System.out.println("nom : " + nom);
         prenom = jLabel12.getText();
+        System.out.println("prenom: " + prenom);
         date = jLabel13.getText();
         sexe = jLabel15.getText();
+        if(!sexe.equals("F")){
+            sex = Sexe.HOMME;
+        }else{
+            sex = Sexe.FEMME;
+        }
         ArrayList<String> listarg = new ArrayList();
         listarg.add("nomUsage");
         listarg.add("prenom");
@@ -415,15 +423,6 @@ public class ReceptionPatient extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        
-        //    public DPI(String, String, String, Adresse, IPP, DateT, NSS, InformationDeContact, Location, DM, DMA, Sexe)
-        Sexe sex;
-        if(sexe.equals("H")){
-            sex = Sexe.HOMME;
-        }else{
-            sex = Sexe.FEMME;
-        }
-        
         DPI p = new DPI("", nom, prenom, new Adresse("", "", 0, "", 0, "", ""), new IPP(0), new DateT(ddn), new NSS(0), new InformationDeContact("", "", "", ""), new Location("", false, ' ', new Localisation("", 0, ""), "", 0), null, null, sex);
         System.out.println("" + p.toString());
         dpiDAO.create(p);

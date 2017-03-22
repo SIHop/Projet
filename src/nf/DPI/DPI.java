@@ -152,7 +152,7 @@ public class DPI {
      * @return
      */
     public Patient dpiToPatient() {
-        Patient p = new Patient(iPP.getIPP(), prenom, 'I');
+        Patient p = new Patient(iPP.getIPP(), nomUsage, 'I');
         p.setBirth(this.dateDeNaissance.getC().getTime());
         if (this.myDMA.getListeDeSejour().get(this.myDMA.getListeDeSejour().size() - 1).isEnCours()) {
             p.setDateDicharge(null);
@@ -166,11 +166,11 @@ public class DPI {
         } else {
             p.setDeath(false);
         }
-        p.setFirstName(nomUsage);
+        p.setFirstName(prenom);
         if (this.sexe == Sexe.FEMME) {
             p.setSex('F');
         } else {
-            p.setSex('H');
+            p.setSex('M');
         }
         PatientLocation patientLocation = new PatientLocation(p);
         p.setAssignedPatLocation(patientLocation);
