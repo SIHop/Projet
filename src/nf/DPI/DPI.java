@@ -232,7 +232,7 @@ public class DPI {
      */
     @Override
     public String toString() {
-        return nomUsage + " " + prenom + ", " + sexe + ", né(e) le  " + dateDeNaissance + " IPP : " + iPP.getIPP();
+        return nomUsage + " " + prenom + ", " + sexe + ", né(e) le  " + dateDeNaissance +" à " + this.getLieuNaissance() + " IPP : " + iPP.getIPP();
     }
 
     /**

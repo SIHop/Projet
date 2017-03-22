@@ -555,12 +555,6 @@
                                               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                                   <Component id="codePostal" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
-                                                  <Component id="ville" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="pays" min="-2" pref="117" max="-2" attributes="0"/>
-                                                      <EmptySpace max="32767" attributes="0"/>
-                                                      <Component id="edit" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Group type="103" groupAlignment="0" attributes="0">
                                                           <Component id="numeroVoie" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
@@ -595,6 +589,17 @@
                                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                               <Component id="IPP" min="-2" pref="117" max="-2" attributes="0"/>
                                                           </Group>
+                                                      </Group>
+                                                  </Group>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="pays" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
+                                                          <Component id="ville" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace min="101" max="32767" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                          <Component id="edit" max="32767" attributes="0"/>
+                                                          <Component id="envoieButton" max="32767" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                               </Group>
@@ -691,6 +696,8 @@
                                           <Component id="jLabel46" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="envoieButton" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Component id="edit" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -1187,6 +1194,11 @@
               <Events>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="LabelMisAjoursFocusLost"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="envoieButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Envoie par HL7"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
