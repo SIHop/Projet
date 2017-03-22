@@ -211,7 +211,7 @@ public class ServiceCliniqueDossierExterieur extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Raleway Medium", 0, 18)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(26, 188, 156));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("ENVOYER UN PATIENT");
+        jLabel16.setText("ENVOI PATIENT");
         jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel16MouseClicked(evt);

@@ -206,7 +206,7 @@ public class ServiceCliniqueObservationE extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Raleway Medium", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(26, 188, 156));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("DOSSIER EXT");
+        jLabel8.setText("ENVOI PATIENT");
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel8MouseClicked(evt);
@@ -771,6 +771,9 @@ public class ServiceCliniqueObservationE extends javax.swing.JFrame {
             edit.setLocationRelativeTo(this);
             this.dispose();
         }
+        else{
+            JOptionPane.showMessageDialog(this, "Remplir le champs avant d'enregistrer");
+        }
     }//GEN-LAST:event_jLabel17MouseClicked
 
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
@@ -781,10 +784,8 @@ public class ServiceCliniqueObservationE extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel13MouseClicked
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        ServiceCliniqueDossierExterieur dosExt=new ServiceCliniqueDossierExterieur(this.p,this.listeDPI);
-        dosExt.setVisible(true);
-        dosExt.setLocationRelativeTo(this);
-        this.dispose();
+       EnvoiePatient envoie=new EnvoiePatient();
+        envoie.setVisible(true);
     }//GEN-LAST:event_jLabel8MouseClicked
 
     /**

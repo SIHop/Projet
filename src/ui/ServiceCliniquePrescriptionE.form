@@ -288,7 +288,7 @@
                           <Color blue="9c" green="bc" red="1a" type="rgb"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="DOSSIER EXT"/>
+                        <Property name="text" type="java.lang.String" value="ENVOI PATIENT"/>
                       </Properties>
                       <Events>
                         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel8MouseClicked"/>

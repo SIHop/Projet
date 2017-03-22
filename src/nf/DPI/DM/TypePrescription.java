@@ -27,6 +27,6 @@ public enum TypePrescription {
     public String getLabelle() {
         return labelle;
     }
-    
+
     
 }
