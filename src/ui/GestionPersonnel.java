@@ -261,7 +261,7 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jLabel45 = new javax.swing.JLabel();
         emailText = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        JListPersonnel = new javax.swing.JList<Personnel>();
+        JListPersonnel = new javax.swing.JList<>();
         ajoutButton = new javax.swing.JButton();
         validationButton = new javax.swing.JButton();
         joursText = new javax.swing.JTextField();
@@ -270,13 +270,13 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
-        metierCombo = new javax.swing.JComboBox<String>();
+        metierCombo = new javax.swing.JComboBox<>();
         serviceText = new javax.swing.JLabel();
         spé1Text = new javax.swing.JLabel();
-        serviceCombo = new javax.swing.JComboBox<Service>();
+        serviceCombo = new javax.swing.JComboBox<>();
         spé1Panel = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
-        sexe = new javax.swing.JComboBox<Sexe>();
+        sexe = new javax.swing.JComboBox<>();
         effacerButton = new javax.swing.JButton();
         jLabel40 = new javax.swing.JLabel();
         typeVoieText = new javax.swing.JTextField();
@@ -687,7 +687,7 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jLabel46.setForeground(new java.awt.Color(240, 240, 240));
         jLabel46.setText("Métier");
 
-        metierCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aide-soignant(e)", "Infirmier(ère)", "Médecin", "Secrétaire Administratif(ve)", "Secrétaire Médical", " " }));
+        metierCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aide-soignant(e)", "Infirmier(ère)", "Médecin", "Secrétaire Administratif(ve)", "Secrétaire Médical", " " }));
         metierCombo.setSelectedIndex(5);
         metierCombo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -960,14 +960,14 @@ public class GestionPersonnel extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 1265, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 1263, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1253, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 992, Short.MAX_VALUE)))
+                                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 996, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
