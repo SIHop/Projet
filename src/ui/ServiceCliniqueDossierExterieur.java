@@ -5,94 +5,40 @@
  */
 package ui;
 
-import db.GestionnaireDB.DAO;
-import db.GestionnaireDB.DAOFactory;
-import db.GestionnaireDB.SejourDAO;
-import db.GestionnaireDB.ServiceDAO;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import nf.Adresse.Adresse;
-import nf.Adresse.DateT;
-import nf.DPI.DMA.DMA;
-import nf.DPI.DMA.Sejour;
 import nf.DPI.DPI;
-import nf.GestionDexploitation.Infirmier;
-import nf.GestionDexploitation.Medecin;
 import nf.GestionDexploitation.Personnel;
-import nf.GestionDexploitation.RangMedecin;
-import nf.GestionDexploitation.SecretaireMedicale;
-import nf.GestionDexploitation.Service;
-import nf.GestionDexploitation.Sexe;
-import nf.GestionDexploitation.TypeInfirmier;
 
 /**
  *
  * @author quentin
  */
-public class ServiceCliniqueAccueil extends javax.swing.JFrame {
+
+
+
+public class ServiceCliniqueDossierExterieur extends javax.swing.JFrame {
 
     /**
      * Creates new form Administration
      */
     private Personnel p;
-    private ArrayList<DPI> listeDPI = new ArrayList<>();
-
-    public ServiceCliniqueAccueil(Personnel p) {
+    private ArrayList<DPI> listeDPI ;
+    
+    public ServiceCliniqueDossierExterieur(Personnel p, ArrayList<DPI> listeDPI) {
         initComponents();
- 
+        this.listeDPI =listeDPI;
+        this.p=p;
+        
         //mise en reliefe des boutons correspondants a la situation courante
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
-        this.jLabel5.setFont(myFont);
-        this.jLabel5.setForeground(Color.GRAY);
-        
+        this.jLabel8.setFont(myFont);
+        this.jLabel8.setForeground(Color.GRAY);
         //entête page
-        this.p = p;
-        this.jLabel1.setText("Bonjour " + this.p.getNom() + " " + this.p.getPrenom());
-        
-        //trouver le service de l'utilisateur
-        Service service;
-        if (this.p instanceof Medecin) {
-            Medecin med = (Medecin) this.p;
-            service = med.getService();
-        } else {
-            if (this.p instanceof Infirmier) {
-                Infirmier inf = (Infirmier) this.p;
-                service = inf.getService();
-            } else {
-                SecretaireMedicale sm = (SecretaireMedicale) this.p;
-                service = sm.getService();
-            }
-        }
-        
-        // selection de tout les sejour en cours dont le service du ph resp = service de l'utilisateur
-        String idRespoService = service.getResponsable().getIdPersonel();
-        ArrayList<Sejour> lsej = DAOFactory.getSejourDAO().findMultiple(new ArrayList<>(Arrays.asList("idPersonnel", "enCours")), new ArrayList<>(Arrays.asList(idRespoService, "1")));
-
-        for (Sejour s : lsej) {
-            DMA dma = DAOFactory.getDmaDAO().find(new ArrayList<>(Arrays.asList("numeroSejour")), new ArrayList<>(Arrays.asList(s.getNumeroDeSejour())));
-            String ipp = dma.getIPP();
-            this.listeDPI.add(DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList(ipp))));
-        }
-        //affichage des séjours
-        Vector vResult = new Vector(this.listeDPI);
-        this.jList1.setListData(vResult);
-    }
-    
-    public ServiceCliniqueAccueil(Personnel p,ArrayList<DPI> listeDPI) {
-        initComponents();
-        //entête page
-        this.p = p;
-        this.listeDPI=listeDPI;
-        this.jLabel1.setText("Bonjour " + this.p.getNom() + " " + this.p.getPrenom());
-        // chargement des sejour en cours
-        Vector vResult = new Vector(listeDPI);
-        this.jList1.setListData(vResult);
+        this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
     }
 
     /**
@@ -116,9 +62,10 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jPanel17 = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        jPanel19 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -164,27 +111,23 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 1152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 1152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 44, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1240, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1199, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,6 +146,11 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(26, 188, 156));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("SEJOURS ACTUELS");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -221,11 +169,6 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(26, 188, 156));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("DOSSIER EXT");
-        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel8MouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -258,47 +201,78 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(380, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel10.setBackground(jPanel2.getBackground());
 
-        jButton1.setText("Détails");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        jPanel17.setBackground(new java.awt.Color(19, 29, 38));
+
+        jLabel16.setFont(new java.awt.Font("Raleway Medium", 0, 18)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(26, 188, 156));
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setText("ENVOYER UN PATIENT");
+        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel16MouseClicked(evt);
             }
         });
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+        );
+
+        jPanel19.setBackground(new java.awt.Color(19, 29, 38));
+
+        jLabel17.setFont(new java.awt.Font("Raleway Medium", 0, 18)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(26, 188, 156));
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setText("RECUPERER UN PATIENT");
+        jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel17MouseClicked(evt);
+            }
         });
-        jScrollPane1.setViewportView(jList1);
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(429, 429, 429)
-                        .addComponent(jButton1))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 939, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addGap(239, 239, 239)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(261, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(137, 137, 137)
+                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(245, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -306,9 +280,9 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(1, 1, 1)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,11 +298,11 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1191, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 2, Short.MAX_VALUE)
+            .addGap(0, 3, Short.MAX_VALUE)
         );
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -338,11 +312,6 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(jPanel4.getBackground());
         jLabel3.setText("Déconnexion");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
-            }
-        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setForeground(jPanel4.getBackground());
@@ -357,17 +326,15 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 327, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(304, 304, 304)
-                        .addComponent(jLabel3))
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -377,7 +344,7 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -387,12 +354,12 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1240, Short.MAX_VALUE)))
-                .addGap(0, 0, 0))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1199, Short.MAX_VALUE)))
+                .addGap(130, 130, 130))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -415,9 +382,9 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
 
     private int tx;
     private int ty;
-
+    
     private void jLabel7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseDragged
-        this.setLocation(evt.getXOnScreen() - tx, evt.getYOnScreen() - ty);
+        this.setLocation(evt.getXOnScreen()-tx,evt.getYOnScreen()-ty);
     }//GEN-LAST:event_jLabel7MouseDragged
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
@@ -430,43 +397,33 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        // Titre de la page = service clinique => si on clique dessus retour à ServiceCliniqueAceuil 
+        ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
+        ac.setVisible(true);
+        ac.setLocationRelativeTo(this);
+        this.dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(this.jList1.getSelectedValue()!=null){
-        int position =this.jList1.getSelectedIndex();
-        DPI dpi = this.listeDPI.get(position);
-        String numSej = dpi.getMyDM().getLastSejour().getNumeroDeSejour();
-        
-        ServiceClinique serviceClinique = new ServiceClinique(this.p,dpi,numSej,this.listeDPI);
-        serviceClinique.setVisible(true);
-        serviceClinique.setLocationRelativeTo(this);
-        this.dispose();
-        }
-        else{
-            JOptionPane.showMessageDialog(this, "Selectionnez un DPI");
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
+        EnvoiePatient envoie=new EnvoiePatient();
+        envoie.setVisible(true);
+    }//GEN-LAST:event_jLabel16MouseClicked
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        Connection conection =new Connection();
-        conection.setVisible(true);
-        conection.setLocationRelativeTo(this);
-        this.dispose();
-    }//GEN-LAST:event_jLabel3MouseClicked
+    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
+        ReceptionPatient recep = new ReceptionPatient();
+        recep.setVisible(true);
+    }//GEN-LAST:event_jLabel17MouseClicked
 
-    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        ServiceCliniqueDossierExterieur dosExt=new ServiceCliniqueDossierExterieur(this.p,this.listeDPI);
-        dosExt.setVisible(true);
-        dosExt.setLocationRelativeTo(this);
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
+        ac.setVisible(true);
+        ac.setLocationRelativeTo(this);
         this.dispose();
-    }//GEN-LAST:event_jLabel8MouseClicked
+    }//GEN-LAST:event_jLabel5MouseClicked
 
 //    /**
 //     * @param args the command line arguments
 //     */
-////    public static void main(String args[]) {
+//    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
 //        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -491,31 +448,27 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
 //        //</editor-fold>
 //
 //        /* Create and display the form */
-////        java.awt.EventQueue.invokeLater(new Runnable() {
-////            public void run() {
-//
-////                Personnel p = DAOFactory., val);
-//                Adresse ad = new Adresse("pays", "ville", 38100, "nomVoie", 3, "typeVoie", "complement");
-//                DateT d = new DateT("04-02-16");
-//                Personnel p2 = new Infirmier(null, TypeInfirmier.IADE, "capes", "jule", "2222", Sexe.FEMME, ad, d, "identifient", null, null);
-//
-//                new ServiceCliniqueAccueil(p).setVisible(true);
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new ServiceCliniqueDossierExterieur().setVisible(true);
 //            }
 //        });
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -524,6 +477,5 @@ public class ServiceCliniqueAccueil extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

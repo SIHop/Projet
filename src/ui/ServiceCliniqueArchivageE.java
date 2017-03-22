@@ -178,7 +178,7 @@ public class ServiceCliniqueArchivageE extends javax.swing.JFrame {
 
         jTextPane1.setBackground(new java.awt.Color(102, 102, 102));
         jTextPane1.setForeground(new java.awt.Color(0, 204, 204));
-        jTextPane1.setText("ATTENTION!! Vous etes sur le point d'archiver un dossier patient. Les dossiers archivés correspondent aux dossiers des patients décédés.");
+        jTextPane1.setText("ATTENTION ! Vous êtes sur le point d’archiver un dossier patient. Les dossiers archivés correspondent aux dossiers des patients décédés. ");
         jScrollPane1.setViewportView(jTextPane1);
 
         jButton1.setText("ARCHIVER");

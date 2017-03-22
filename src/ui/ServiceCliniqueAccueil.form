@@ -54,7 +54,7 @@
                       <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jPanel1" alignment="0" pref="1222" max="32767" attributes="0"/>
+                          <Component id="jPanel1" alignment="0" pref="1240" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
@@ -88,7 +88,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel2" alignment="0" pref="1222" max="32767" attributes="0"/>
+                  <Component id="jPanel2" alignment="0" pref="1240" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -286,8 +286,11 @@
                           <Color blue="9c" green="bc" red="1a" type="rgb"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="RECUPERER UN DM"/>
+                        <Property name="text" type="java.lang.String" value="DOSSIER EXT"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel8MouseClicked"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -314,7 +317,7 @@
                                   <Component id="jScrollPane1" min="-2" pref="939" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="70" max="32767" attributes="0"/>
+                          <EmptySpace pref="74" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

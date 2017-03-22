@@ -113,7 +113,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="1138" max="32767" attributes="0"/>
+                          <EmptySpace pref="1133" max="32767" attributes="0"/>
                           <Component id="jLabel6" min="-2" pref="48" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -287,8 +287,11 @@
                           <Color blue="9c" green="bc" red="1a" type="rgb"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="RECUPERER UN DM"/>
+                        <Property name="text" type="java.lang.String" value="DOSSIER EXT"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel8MouseClicked"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -347,7 +350,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="jPanel11" min="-2" pref="38" max="-2" attributes="0"/>
+                                  <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
@@ -369,7 +372,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextPane1" pref="282" max="32767" attributes="0"/>
+                          <Component id="jTextPane1" pref="274" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jPanel19" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -590,7 +593,7 @@
                 <Component class="javax.swing.JTextPane" name="jTextPane1">
                   <Properties>
                     <Property name="contentType" type="java.lang.String" value="Examen fait le : DATE_EXAMEN&#xa;Par : Laboratoire d&apos;anatomopathologie&#xa;Type : Annalyse sanguine&#xa; &#xa;Demander par :ID_DEMENDEUR&#xa;Effectuer par : ID_ACTEUR&#xa; &#xa; &#xa;Details des resultats (Enumeration sanguine)" noResource="true"/>
-                    <Property name="text" type="java.lang.String" value="Examen fait le : DATE_EXAMEN&#xa;Par : Laboratoire d&apos;anatomopathologie&#xa;Type : Annalyse sanguine&#xa; &#xa;Demander par :ID_DEMENDEUR&#xa;Effectuer par : ID_ACTEUR&#xa; &#xa; &#xa;Details des resultats (Enumeration sanguine)"/>
+                    <Property name="text" type="java.lang.String" value="Examen fait le : DATE_EXAMEN&#xa;&#xa;Type : Analyse sanguine &#xa;Demand&#xe9; par : ID_Demandeur &#xa;Effectu&#xe9; par : ID_Acteur &#xa;D&#xe9;tails des r&#xe9;sultats (Enum&#xe9;ration sanguine)&#xa;"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JPanel" name="jPanel22">
@@ -654,33 +657,27 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                                  <Component id="jLabel18" min="-2" pref="254" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
-                                  <Component id="jLabel20" min="-2" pref="153" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel19" min="-2" pref="319" max="-2" attributes="0"/>
-                                  <EmptySpace pref="43" max="32767" attributes="0"/>
-                              </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel18" min="-2" pref="254" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jLabel20" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel19" min="-2" pref="230" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -699,7 +696,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Tahoma" size="18" style="1"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="LIT :"/>
+                        <Property name="text" type="java.lang.String" value="Pas de lit attribu&#xe9;"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel19">
