@@ -6,28 +6,24 @@
 package interoperabilite;
 
 import api.Parser;
-import db.GestionnaireDB.DAOFactory;
-import java.util.ArrayList;
-import java.util.Arrays;
 import library.interfaces.Patient;
-import nf.DPI.DPI;
 
 /**
- *Tests pour l'intéropérabilité 
- * @author Loïc
+ *
+ * @author quentin
  */
-public class TestHL7 {
+public class TestHL7Serveur {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String adresse = "localhost";
-        int port = 6566;
+        int port = 6565;//port d'écoute de mon serveur
         new Thread(() -> {
             Serveur serveur = new Serveur(port);
             Patient ps;
 
+            System.out.println("TestHL7Serveur");
             String messageHL7 = serveur.getMessageHL7();
             String messageHL7final = serveur.getMessageHL7lisible();
             System.out.println("---------------------------------------");
@@ -50,30 +46,5 @@ public class TestHL7 {
             System.out.println("Patient serveur date de naissance : " + ps.getBirth());
             System.out.println("---------------------------------------");
         }).start();
-
-        DPI dpi = DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList("170000001")));
-
-        Client client = new Client(dpi, adresse, 6566);
-
-        System.out.println("---------------------------------------");
-        System.out.println("Patient de la base de donnée: " + dpi.toString());
-        System.out.println("---------------------------------------");
-
-        System.out.println("---------------------------------------");
-        System.out.println("test : ");
-        Patient p = client.getP();
-        System.out.println("---------------------------------------");
-
-        System.out.println("---------------------------------------");
-        System.out.println("Patient client nom de famille : " + p.getFamillyName()
-                + "\nPatient client prénom : " + p.getFirstName()
-                + "\nPatient client sexe : " + p.getCharSex()
-                + "\nPatient client date de naissance : " + p.getBirth()
-                + "\nPatient clientIPP : " + p.getID()
-                + "\nPatient client est mort : " + p.isDeath()
-                + "\nPatient client date de décès : " + p.getDeath()
-                + "\nPatient client est parti le : " + p.getDateDicharge());
-        System.out.println("---------------------------------------");
-
     }
 }

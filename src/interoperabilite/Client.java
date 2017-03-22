@@ -5,9 +5,6 @@
  */
 package interoperabilite;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.util.Date;
 import library.interfaces.ClientHL7;
 import library.interfaces.Patient;
 import nf.DPI.DPI;
@@ -25,6 +22,7 @@ public class Client {
         this.dpi = dpi;
         this.p = dpi.dpiToPatient();
         client.connexion(adresse, portEnvoie);
+        System.out.println("-----------testConnexion------------");
         client.admit(p);
     }
 
