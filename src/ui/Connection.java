@@ -397,7 +397,7 @@ public class Connection extends javax.swing.JFrame {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(this, "La combinaison Identifiant / Mot de passe entré ne correspond à aucun profil");
+            JOptionPane.showMessageDialog(this, "La combinaison Identifiant / Mot de passe entrée ne correspond à aucun profil");
             jTextField4.setText("");
             jPasswordField1.setText("");
             jPasswordField1.setBackground(Color.red);

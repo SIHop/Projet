@@ -54,7 +54,7 @@ public class ServiceCliniqueOperationInfE extends javax.swing.JFrame {
        if(this.dpi.getLit()!=null){
             this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
         }
-        this.jLabel19.setText("N°sejour: "+this.numSej);
+        this.jLabel19.setText("N°séjour: "+this.numSej);
         
         //mise en reliefe des boutons correspondants a la situation courante
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
@@ -67,8 +67,8 @@ public class ServiceCliniqueOperationInfE extends javax.swing.JFrame {
         this.jComboBox1.removeAll();
         this.jComboBox1.addItem("actes infirmiers de soins");
         this.jComboBox1.addItem("actes infirmiers");
-        this.jComboBox1.addItem("demarche des soins infirmiers");
-        this.jComboBox1.addItem("prelvement ponction veineuse");
+        this.jComboBox1.addItem("démarche des soins infirmiers");
+        this.jComboBox1.addItem("prélèvement ponction veineuse");
         this.jComboBox1.addItem("soins infirmiers par sage femme");
         this.jComboBox2.removeAll();
         this.jComboBox2.addItem("DIAGNOSTIQUE");
@@ -256,7 +256,7 @@ public class ServiceCliniqueOperationInfE extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -511,7 +511,7 @@ public class ServiceCliniqueOperationInfE extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextArea1);
 
         jLabel9.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel9.setText("Type de prescrition");
+        jLabel9.setText("Type de prescription");
 
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -526,7 +526,7 @@ public class ServiceCliniqueOperationInfE extends javax.swing.JFrame {
         jLabel15.setText("Type d'acte");
 
         jLabel21.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel21.setText("Coeffitient");
+        jLabel21.setText("Coefficient ");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -606,7 +606,7 @@ public class ServiceCliniqueOperationInfE extends javax.swing.JFrame {
                         .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(86, Short.MAX_VALUE))))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -731,7 +731,7 @@ public class ServiceCliniqueOperationInfE extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1197, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 1197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(85, 85, 85))
         );
@@ -851,14 +851,14 @@ public class ServiceCliniqueOperationInfE extends javax.swing.JFrame {
                     else{acteInf = new Acte(idFiche,Code.AMI,coef,obs,TypeActe.THERAPEUTIQUE);}
                 }
                 else{
-                    if(this.jComboBox1.getSelectedItem().toString()=="demarche des soins infirmiers"){
+                    if(this.jComboBox1.getSelectedItem().toString()=="démarche des soins infirmiers"){
                         if(this.jComboBox2.getSelectedItem().toString()=="DIAGNOSTIQUE"){
                             acteInf = new Acte(idFiche,Code.DI,coef,obs,TypeActe.DIAGNOSTIQUE);
                         }
                         else{acteInf = new Acte(idFiche,Code.DI,coef,obs,TypeActe.THERAPEUTIQUE);}
                     }
                     else{
-                        if(this.jComboBox1.getSelectedItem().toString()=="prelvement ponction veineuse"){
+                        if(this.jComboBox1.getSelectedItem().toString()=="prélèvement ponction veineuse"){
                             if(this.jComboBox2.getSelectedItem().toString()=="DIAGNOSTIQUE"){
                                 acteInf = new Acte(idFiche,Code.KMB,coef,obs,TypeActe.DIAGNOSTIQUE);
                             }

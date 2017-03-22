@@ -51,7 +51,7 @@ public class ServiceCliniquePrescriptionE extends javax.swing.JFrame {
         if(this.dpi.getLit()!=null){
             this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
         }
-        this.jLabel19.setText("N°sejour: "+this.numSej);
+        this.jLabel19.setText("N°séjour: "+this.numSej);
         
         //mise en reliefe des boutons correspondants a la situation courante
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
@@ -164,7 +164,7 @@ public class ServiceCliniquePrescriptionE extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(1132, Short.MAX_VALUE)
+                .addContainerGap(1137, Short.MAX_VALUE)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -503,7 +503,7 @@ public class ServiceCliniquePrescriptionE extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextArea1);
 
         jLabel9.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel9.setText("Type de prescrition");
+        jLabel9.setText("Type de prescription");
 
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -512,7 +512,7 @@ public class ServiceCliniquePrescriptionE extends javax.swing.JFrame {
         });
 
         jLabel13.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel13.setText("Contenue");
+        jLabel13.setText("Contenu");
 
         jLabel15.setForeground(new java.awt.Color(204, 204, 204));
         jLabel15.setText("Remarques");
@@ -590,7 +590,7 @@ public class ServiceCliniquePrescriptionE extends javax.swing.JFrame {
                                     .addComponent(jLabel13)
                                     .addGap(30, 30, 30)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 833, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 44, Short.MAX_VALUE))))
+                        .addGap(0, 72, Short.MAX_VALUE))))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

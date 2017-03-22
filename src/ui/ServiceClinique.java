@@ -70,16 +70,16 @@ public class ServiceClinique extends javax.swing.JFrame {
         if(this.dpi.getLit()!=null){
             this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
         }
-        this.jLabel19.setText("N°sejour: "+this.numSej);
+        this.jLabel19.setText("N°séjour: "+this.numSej);
         
 // Résumé DM
         this.jTextPane1.setText("iPP : "+dpi.getiPP().toString()+"\n"+"Sexe : "+dpi.getSexe().toString()+ "\n"
-                +"Date de Naissance : "+dpi.getDateDeNaissance().toString()+"\n"+ "Nom d'usage : "+dpi.getNomUsage()+ "\n" 
+                +"Date de naissance : "+dpi.getDateDeNaissance().toString()+"\n"+ "Nom d'usage : "+dpi.getNomUsage()+ "\n" 
                 +"Nom de naissance : "+dpi.getNomNaissance()+"\n" +"Prénom : "+dpi.getPrenom()+"\n"+"\n"+"\n"+"\n"
                 +"PH responsable : "+ "\n"+"\t"+"Id : "+this.dpi.getMyDM().getLastSejour().getMedecinResponsable().getIdPersonel()
                 +"\n"+"\t"+"Nom : "+ this.dpi.getMyDM().getLastSejour().getMedecinResponsable().getNom()
-                +"\n"+"\t"+"Prènom : "+this.dpi.getMyDM().getLastSejour().getMedecinResponsable().getPrenom()+"\n"
-                +"N° de sejour : "+this.numSej);
+                +"\n"+"\t"+"Prénom : "+this.dpi.getMyDM().getLastSejour().getMedecinResponsable().getPrenom()+"\n"
+                +"N° de séjour : "+this.numSej);
         
     }
 
