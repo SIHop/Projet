@@ -22,8 +22,16 @@ public class Serveur {
 
     public Serveur(int portEcoute) {
         this.serveur.connection(portEcoute);
-        this.serveur.ecoute();
-        this.messageHL7 = this.serveur.protocole();
+        int k = 0;
+        String str = "";
+        while (k == 0) {
+            this.serveur.ecoute();
+            str = this.serveur.protocole();
+            if (!str.isEmpty()) {
+                k = 1;
+            }
+        }
+        this.messageHL7 = str;
         String messageHL7final = "";
         for (int i = 0; i < messageHL7.length(); i++) {
             char ch = messageHL7.charAt(i);
@@ -36,12 +44,12 @@ public class Serveur {
         this.messageHL7lisible = messageHL7final;
         this.ps = this.serveur.getPatient();
         Date ddn = this.ps.getBirth();
-        int année = ddn.getYear()-1900;
-        int mois = ddn.getMonth()-1;
+        int année = ddn.getYear() - 1900;
+        int mois = ddn.getMonth() - 1;
         ddn.setMonth(mois);
         ddn.setYear(année);
         this.ps.setBirth(ddn);
-        System.out.println("date de naissance"+this.ps.getBirth());
+        System.out.println("date de naissance" + this.ps.getBirth());
     }
 
     public Patient getPs() {
@@ -59,8 +67,8 @@ public class Serveur {
     public String getMessageHL7lisible() {
         return messageHL7lisible;
     }
-    
-    public void fermeture(){
+
+    public void fermeture() {
         this.serveur.fermer();
     }
 }

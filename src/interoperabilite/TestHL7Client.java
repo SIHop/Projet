@@ -14,46 +14,30 @@ import nf.DPI.DPI;
 
 /**
  *
- * @author Loïc
+ * @author quentin
  */
-public class TestHL7 {
+public class TestHL7Client {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String adresse = "localhost";
-        int port = 6566;
+        String adresse = "192.168.43.91"; //adresse du serveur à joindre
+        int port = 6565; //port d'écoute du serveur
         new Thread(() -> {
-            Serveur serveur = new Serveur(port);
-            Patient ps;
-
-            String messageHL7 = serveur.getMessageHL7();
-            String messageHL7final = serveur.getMessageHL7lisible();
-            System.out.println("---------------------------------------");
-            System.out.println("messageHL7final : ");
-            System.out.println(messageHL7final);
-            System.out.println("---------------------------------------");
-            ps = serveur.getPs();
-            Parser parse = new Parser(messageHL7);
-            System.out.println("---------------------------------------");
-            System.out.println("parser : ");
-            System.out.println(parse.getPatient().getBirth());
-            System.out.println("---------------------------------------");
-            serveur.fermeture();
-            System.out.println("---------------------------------------");
-            System.out.println("Patient serveur nom de famille : " + ps.getFamillyName());
-            System.out.println("Patient serveur prénom : " + ps.getFirstName());
-            System.out.println("Patient serveur IPP : " + ps.getID());
-            System.out.println("Patient serveur est mort : " + ps.isDeath());
-            System.out.println("Patient serveur sexe : " + ps.getCharSex());
-            System.out.println("Patient serveur date de naissance : " + ps.getBirth());
-            System.out.println("---------------------------------------");
+            int i = 0;
+            while(i < 200000){
+                i++;
+            }
+//            Serveur serveur = new Serveur(6566);
+//            Patient ps;
+//            String messageHL7 = serveur.getMessageHL7();
+//            String messageHL7final = serveur.getMessageHL7lisible();
+//            serveur.fermeture();
         }).start();
-
         DPI dpi = DAOFactory.getDpiDAO().find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList("170000001")));
 
-        Client client = new Client(dpi, adresse, 6566);
+        Client client = new Client(dpi, adresse, port);
 
         System.out.println("---------------------------------------");
         System.out.println("Patient de la base de donnée: " + dpi.toString());
@@ -74,6 +58,6 @@ public class TestHL7 {
                 + "\nPatient client date de décès : " + p.getDeath()
                 + "\nPatient client est parti le : " + p.getDateDicharge());
         System.out.println("---------------------------------------");
-
     }
+    
 }
