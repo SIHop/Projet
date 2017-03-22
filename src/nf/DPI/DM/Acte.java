@@ -51,7 +51,7 @@ public class Acte {
         if (!observations.isEmpty()) {
             this.observations = observations;
         } else {
-            this.observations = "Aucune observations";
+            this.observations = "Aucune observation";
         }
         this.typeActe = typeActe;
         this.idFicheDeSoins = idFicheDeSoins;
@@ -71,7 +71,7 @@ public class Acte {
         if (!observations.isEmpty()) {
             this.observations = observations;
         } else {
-            this.observations = "Aucune observations";
+            this.observations = "Aucune observation";
         }
         this.typeActe = typeActe;
         this.idFicheDeSoins = idFicheDeSoins;

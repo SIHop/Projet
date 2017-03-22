@@ -73,7 +73,7 @@ public class Historique {
  */
     @Override
     public String toString() {
-        return "Historique ipp = " + this.ipp.getIPP() + " date de déces = '" + this.dateDeces.toString() + "' date de fin d'archivage = '" + this.dateFinArchivage.toString()+"'";
+        return "Historique ipp = " + this.ipp.getIPP() + " date de décès = '" + this.dateDeces.toString() + "' date de fin d'archivage = '" + this.dateFinArchivage.toString()+"'";
     }
 
 }

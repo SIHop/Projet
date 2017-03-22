@@ -43,12 +43,12 @@ public class ActeDAO implements DAO<Acte> {
                 rs.first();
                 return new Acte(rs.getInt("idActe"), rs.getInt("idFicheDeSoins"), Code.valueOf(rs.getString("code")), rs.getInt("coef"), rs.getString("observation"), TypeActe.valueOf(rs.getString("typeActe")));
             } else {
-                System.out.println("Aucun résultat n'a était trouver");
+                System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultats correspondent");
+            System.out.println("Pas de résultat correspondant");
         }
         return null;
     }
@@ -77,12 +77,12 @@ public class ActeDAO implements DAO<Acte> {
                 }
                 
             } else {
-                System.out.println("Aucun résultat n'a était trouver");
+                System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultats correspondent");
+            System.out.println("Pas de résultat correspondant");
         }
         return retour;
     }

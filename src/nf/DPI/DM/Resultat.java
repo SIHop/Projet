@@ -61,12 +61,12 @@ public class Resultat {
     @Override
     public String toString() {
 
-        String retour = "Resultat   ";
+        String retour = "Résultat ";
         for(String[] s : listeResultats){
-            retour += " -  Examen : " + s[0] + "  -   Resultat : " + s[1];
+            retour += " -   Examen : " + s[0] + "  -   Résultat : " + s[1];
 
         }
-        retour  += "|   idResultat=" + idResultat + "|  idPrescription=" + idPrescription ;
+        retour  += "|   idResultat = " + idResultat + "|  idPrescription = " + idPrescription ;
         return retour;
     }
 

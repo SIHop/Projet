@@ -42,12 +42,12 @@ public class LitDAO implements DAO<Location> {
                 rs.first();
                 return new Location(rs.getString("idLit"), rs.getBoolean("estOccuper"), rs.getString("cote").charAt(0), new Localisation(rs.getString("batiment"), rs.getInt("etage"), rs.getString("couloir")), rs.getString("idService"), rs.getInt("IPP"));
             } else {
-                System.out.println("Aucun résultat n'a était trouver");
+                System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultats correspondent");
+            System.out.println("Pas de résultat correspondant");
         }
         return null;
     }
@@ -76,12 +76,12 @@ public class LitDAO implements DAO<Location> {
                 }
 
             } else {
-                System.out.println("Aucun résultat n'a était trouver");
+                System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultats correspondent");
+            System.out.println("Pas de résultat correspondant");
         }
         return retour;
     }

@@ -24,7 +24,7 @@ public class DMA {
  */
     @Override
     public String toString() {
-        String retour = "DMA{" + "IPP=" + IPP + " liste de sejour :" + '}';
+        String retour = "DMA{" + "IPP = " + IPP + " liste de séjour : " + '}';
         
             for(Sejour s : this.listeDeSejour) {
                 if(s != null){

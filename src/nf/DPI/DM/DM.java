@@ -41,7 +41,7 @@ public class DM {
  */
     @Override
     public String toString() {
-        return "DM{" + "lSejour=" + lSejour + '}';
+        return "DM{" + "liste de séjour=" + lSejour + '}';
     }
     
     

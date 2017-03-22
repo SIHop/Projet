@@ -43,12 +43,12 @@ public class HistoriqueDAO implements DAO<Historique>{
                 return new Historique(new IPP(rs.getInt("IPP")),new DateT(rs.getString("dateDeces")),new DateT(rs.getString("dateFinArchivage")));
             } 
             else {
-                System.out.println("Aucun résultat n'a était trouver");
+                System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(HistoriqueDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultats correspondent");
+            System.out.println("Pas de résultat correspondant");
         }
         return null;  
     }
@@ -77,12 +77,12 @@ public class HistoriqueDAO implements DAO<Historique>{
                 }
 
             } else {
-                System.out.println("Aucun résultat n'a était trouver");
+                System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(HistoriqueDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultats correspondent");
+            System.out.println("Pas de résultat correspondant");
         }
         return retour;
     }

@@ -153,8 +153,8 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
         jLabel45 = new javax.swing.JLabel();
         email = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listSejour = new javax.swing.JList<Sejour>();
-        sexe = new javax.swing.JComboBox<Sexe>();
+        listSejour = new javax.swing.JList<>();
+        sexe = new javax.swing.JComboBox<>();
         edit = new javax.swing.JButton();
         jLabel40 = new javax.swing.JLabel();
         nomVoie = new javax.swing.JTextField();
@@ -166,7 +166,7 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
         detail = new javax.swing.JButton();
         facturer = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        sejourEnCoursList = new javax.swing.JList<Sejour>();
+        sejourEnCoursList = new javax.swing.JList<>();
         creationSejour = new javax.swing.JButton();
         IPP = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
@@ -740,18 +740,18 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
 
         jLabel19.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel19.setText("Sejour en cours :");
+        jLabel19.setText("Séjour en cours :");
 
         jLabel20.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel20.setText("Liste des sejour terminer : ");
+        jLabel20.setText("Liste des séjours terminés : ");
 
         jLabel46.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
         jLabel46.setForeground(new java.awt.Color(240, 240, 240));
         jLabel46.setText("IPP");
 
         LabelMisAjours.setForeground(new java.awt.Color(255, 51, 0));
-        LabelMisAjours.setText("Les données on été mise à jour");
+        LabelMisAjours.setText("Les données ont été mise à jour");
         LabelMisAjours.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 LabelMisAjoursFocusLost(evt);
