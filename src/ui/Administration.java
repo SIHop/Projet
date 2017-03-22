@@ -42,17 +42,16 @@ public class Administration extends javax.swing.JFrame {
     private ArrayList<Service> listeService;
 
     /**
-     * Constructeur appeler une fois à l'ouverture de la seission, récupère toutes les données utile en db
-     * @param sa 
+     * Constructeur appeler une fois à l'ouverture de la seission, récupère
+     * toutes les données utile en db
+     *
+     * @param sa
      */
     public Administration(SecretaireAdministratif sa) {
         initComponents();
         this.sa = sa;
         this.jLabel1.setText("Bienvenue " + sa.getPrenom() + " " + sa.getNom().toUpperCase());
 
-        
-        
-        
         //récupération de tout les dpi
         this.ldpi = ((DpiDAO) DAOFactory.getDpiDAO()).findAll();
         DPI[] aDpi = new DPI[ldpi.size()];
@@ -60,11 +59,11 @@ public class Administration extends javax.swing.JFrame {
         this.listPatient.setListData(aDpi);
 
         //récupération de tout les personnel
-        this.listePersonnel = ((PersonnelDAO)DAOFactory.getPersonelDAO()).findAll();
-        
+        this.listePersonnel = ((PersonnelDAO) DAOFactory.getPersonelDAO()).findAll();
+
         //récupération de tout les services
-        this.listeService = ((ServiceDAO)DAOFactory.getServiceDAO()).findAll();
-        
+        this.listeService = ((ServiceDAO) DAOFactory.getServiceDAO()).findAll();
+
         //mise en relief de la situation courrante
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
         this.jLabel16.setFont(myFont);
@@ -80,7 +79,6 @@ public class Administration extends javax.swing.JFrame {
 
         this.jLabel1.setText("Bienvenue " + sa.getPrenom() + " " + sa.getNom().toUpperCase());
 
-        
         DPI[] aDpi = new DPI[ldpi.size()];
         this.ldpi.toArray(aDpi);
         this.listPatient.setListData(aDpi);
@@ -872,6 +870,7 @@ public class Administration extends javax.swing.JFrame {
     private int tx;
     private int ty;
 
+
     private void jLabel7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseDragged
         this.setLocation(evt.getXOnScreen() - tx, evt.getYOnScreen() - ty);
     }//GEN-LAST:event_jLabel7MouseDragged
@@ -886,9 +885,14 @@ public class Administration extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
-        AdministrationEditDMA edit = new AdministrationEditDMA(sa, ldpi, listPatient.getSelectedValue(),this.listePersonnel,this.listeService);
-        edit.setVisible(true);
-        this.dispose();
+        if (this.listPatient.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Aucun patent n'est séléctionner");
+        } else {
+            AdministrationEditDMA edit = new AdministrationEditDMA(sa, ldpi, listPatient.getSelectedValue(), this.listePersonnel, this.listeService);
+            edit.setVisible(true);
+            this.dispose();
+        }
+
     }//GEN-LAST:event_editActionPerformed
 
     private void creationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creationActionPerformed
@@ -899,20 +903,20 @@ public class Administration extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Le prénom doit être renseigné");
         } else {
             try {
-              
+
                 int cp;
                 int numVoie;
-                if(codePostal.getText().equals("")){
+                if (codePostal.getText().equals("")) {
                     cp = 0;
-                }else{
+                } else {
                     cp = Integer.parseInt(this.codePostal.getText());
                 }
-                if (numeroVoie.getText().equals("")){
+                if (numeroVoie.getText().equals("")) {
                     numVoie = 0;
-                }else {
+                } else {
                     numVoie = Integer.parseInt(numeroVoie.getText());
-                }                
-                
+                }
+
                 Adresse adresse = new Adresse(pays.getText(), ville.getText(), cp, nomVoie.getText(), numVoie, typeVoie.getText(), complement.getText());
 
                 InformationDeContact infoDeContact = new InformationDeContact(numeroFixe.getText(), numeroPortable.getText(), email.getText(), null);
@@ -929,17 +933,34 @@ public class Administration extends javax.swing.JFrame {
                 } else {
                     if (valid) {
                         ArrayList<Sejour> lsej = new ArrayList<>();
+                        ArrayList<DPI> lDpiSimillaire = new ArrayList<>();
                         IPP ipp = new IPP(0);
                         DPI patient = new DPI(nomNaissance.getText(), nomUsage.getText(), prenom.getText(), adresse, ipp, new DateT(date), null, infoDeContact, null, new DM(lsej, ipp), new DMA(lsej, ipp.toString()), (Sexe) this.sexe.getSelectedItem(), lieuNaissance.getText());
-                        ldpi.add(patient);
+                        for (DPI d : ldpi) {
+                            if ((d.getNomNaissance().equalsIgnoreCase(patient.getNomNaissance())
+                                    || d.getNomUsage().equalsIgnoreCase(patient.getNomUsage())
+                                    || d.getPrenom().equalsIgnoreCase(patient.getPrenom()))
+                                    && d.getLieuNaissance().equalsIgnoreCase(patient.getLieuNaissance())
+                                    && d.getDateDeNaissance().equals(patient.getDateDeNaissance())) {
+                                lDpiSimillaire.add(d);
+                            }
+                        }
 
-                        //mise en mémoire DB
-                        dpiDAO.create(patient);
-                        DAOFactory.getAdressePatientDAO().create(adresse, patient.getiPP().getIPP());
-                        //ouverture de la fenetre d'edition de ce dm
-                        AdministrationEditDMA editDMA = new AdministrationEditDMA(sa, ldpi, patient,this.listePersonnel,this.listeService);
-                        editDMA.setVisible(true);
-                        this.dispose();
+                        if (!lDpiSimillaire.isEmpty()) {
+                            AdministrationGestionDPI admDPISim = new AdministrationGestionDPI(this, patient, lDpiSimillaire, sa, ldpi, listePersonnel, listeService);
+                            admDPISim.setVisible(true);
+                            this.setVisible(false);
+                        } else {
+                            ldpi.add(patient);
+                            //mise en mémoire DB
+                            dpiDAO.create(patient);
+                            DAOFactory.getAdressePatientDAO().create(adresse, patient.getiPP().getIPP());
+                            //ouverture de la fenetre d'edition de ce dm
+                            AdministrationEditDMA editDMA = new AdministrationEditDMA(sa, ldpi, patient, this.listePersonnel, this.listeService);
+                            editDMA.setVisible(true);
+                            this.dispose();
+                        }
+
                     }
 
                 }
@@ -985,7 +1006,7 @@ public class Administration extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseExited
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        Administration adm = new Administration(this.sa, this.ldpi,this.listePersonnel,this.listeService);
+        Administration adm = new Administration(this.sa, this.ldpi, this.listePersonnel, this.listeService);
         adm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
@@ -1015,7 +1036,7 @@ public class Administration extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseExited
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        GestionPersonnel gp = new GestionPersonnel(sa, this.ldpi,this.listePersonnel,this.listeService);
+        GestionPersonnel gp = new GestionPersonnel(sa, this.ldpi, this.listePersonnel, this.listeService);
         gp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel8MouseClicked
