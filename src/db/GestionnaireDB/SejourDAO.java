@@ -85,7 +85,7 @@ public class SejourDAO implements DAO<Sejour> {
                         rs.getString("numeroSejour"), new ArrayList<>(Arrays.asList(rs.getString("naturePrestation").split("\\s*;\\s*"))), new DateT(rs.getString("dateDebut")),
                         dateFin, medecinResp, lfds, enCours, facturer, new ArrayList<>(Arrays.asList(rs.getString("observation").split("\\s*;\\s*"))));
             } else {
-                System.out.println("Aucun résultat n'a était trouver");
+                System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -165,12 +165,12 @@ public class SejourDAO implements DAO<Sejour> {
                 }
 
             } else {
-                System.out.println("Aucun résultat n'a était trouver");
+                System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultats correspondent");
+            System.out.println("Pas de résultat correspondant");
         }
         return retour;
     }

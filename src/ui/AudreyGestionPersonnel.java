@@ -379,7 +379,7 @@ public class AudreyGestionPersonnel extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jList1);
 
-        jButton2.setText("ajout du personnel");
+        jButton2.setText("Ajout du personnel");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
