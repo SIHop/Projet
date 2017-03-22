@@ -106,7 +106,7 @@ public class Acte {
  */
     @Override
     public String toString() {
-        return "Code: " + this.code.name() +"   |   libellé: "+this.code.getLibelle()+"    |    Type: " + this.typeActe.toString()+"   |    Observation: "+this.observations;
+        return "Type: " + this.typeActe.toString()+"    |    Code: " + this.code.name() +"   |   libellé: "+this.code.getLibelle()+"   |    Observation: "+this.observations;
     }
 
     public int getCout() {

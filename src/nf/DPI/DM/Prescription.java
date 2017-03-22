@@ -70,9 +70,12 @@ public class Prescription {
      * @return 
      */
     public String toString(){
-        return "id "+ this.idPrescription + " fiche de soins :" + this.idFicheDeSoins + " prescription : "+ this.getPrescription()+ " observation : " +this.observation+ " type de prescription : " + this.typePrescription.toString() ;
+        return "id "+ this.idPrescription + ", fiche de soins :" + this.idFicheDeSoins + ", prescription : "+ this.getPrescription()+ ", observation : " +this.observation+ " type de prescription : " + this.typePrescription.toString() ;
     }
 
+    public String toStringBis(){
+        return " type: " + this.typePrescription.toString()+"   |   idPrescription: "+ this.idPrescription + "   |   fiche de soins: " + this.idFicheDeSoins + ", prescription : "+ this.getPrescription()  ;
+    }
     /**
      * @param prescription the prescription to set
      */

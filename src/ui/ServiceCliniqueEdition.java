@@ -7,18 +7,25 @@ package ui;
 
 import db.GestionnaireDB.DAOFactory;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import nf.DPI.DM.Acte;
 import nf.DPI.DM.Code;
 import nf.DPI.DM.FicheDeSoins;
 import nf.DPI.DM.Prescription;
 import nf.DPI.DM.Resultat;
 import nf.DPI.DM.TypeActe;
+import nf.DPI.DM.TypePrescription;
 import nf.DPI.DPI;
+import nf.GestionDexploitation.Infirmier;
+import nf.GestionDexploitation.Medecin;
 import nf.GestionDexploitation.Personnel;
+import nf.GestionDexploitation.SecretaireMedicale;
+import nf.GestionDexploitation.Service;
 
 /**
  *
@@ -46,6 +53,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     private ArrayList<String> lactes = new ArrayList<>();
     private ArrayList<String> lactesConfondu = new ArrayList<>();
     private ArrayList<String> listeObservation = new ArrayList<>();
+    private ArrayList<String> ltypeExam = new ArrayList<>();
     
 
     public ServiceCliniqueEdition(Personnel p, DPI dpi, String numSej, int instance, ArrayList<DPI> listeDPI) {
@@ -70,6 +78,18 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
             this.jLabel20.setText("Service"+this.dpi.getLit().getService().getNomService()+", Chambre: "+this.dpi.getLit().getLocalisation().getEtage()+this.dpi.getLit().getCote());
         }
         this.jLabel19.setText("N°séjour: " + numSej);
+        
+        //mise a jour des options de recherche
+        //remplissage du combobox avec les types de prescriptions
+        this.jComboBox1.removeAll();
+        this.ltypeExam.add("");
+        for(TypePrescription  tp:TypePrescription.values()){
+            this.ltypeExam.add(tp.toString());            
+        }
+     
+        for(String ltp:this.ltypeExam){
+            this.jComboBox1.addItem(ltp);
+        }
 
         
         
@@ -99,7 +119,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
 
     //chargement résumé prescription   
         for (int i = 0; i < this.listePrescription.size(); i++) {
-            this.lprescription.add(this.listePrescription.get(i).getPrescription());
+            this.lprescription.add(this.listePrescription.get(i).toStringBis());
         }
 
     //chargement résumé operation inf
@@ -118,9 +138,12 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
             this.jLabel10.setForeground(Color.GRAY);
             this.jLabel21.setVisible(false);
             this.jPanel20.setVisible(false);
+            
+            this.jButton2.setVisible(false);
             //Affichage des résultat
             Vector vResult = new Vector(this.result);
             this.jList1.setListData(vResult);
+            
             
         } 
         else {
@@ -129,6 +152,9 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                 this.jLabel14.setFont(myFont);
                 this.jLabel14.setForeground(Color.GRAY);
                 this.jButton2.setVisible(false);
+                this.jComboBox1.setVisible(false);
+                this.jLabel9.setVisible(false);
+                this.jButton1.setVisible(false);
                 // Affichage des observation
                 Vector vobs = new Vector(this.listeObservation);
                 this.jList1.setListData(vobs);
@@ -148,15 +174,22 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                         this.jLabel11.setFont(myFont);
                         this.jLabel11.setForeground(Color.GRAY);
                         this.jButton2.setVisible(false);
+                        this.jComboBox1.setVisible(false);
+                        this.jLabel9.setVisible(false);
+                        this.jButton1.setVisible(false);
                         //Affichage des operation infirmiere
                         Vector vop = new Vector(this.lactes);
                         this.jList1.setListData(vop);
+                        
                     }
                     else{
                         //mise en reliefe des boutons correspondants a la situation courante
                         this.jLabel13.setFont(myFont);
                         this.jLabel13.setForeground(Color.GRAY);
                         this.jButton2.setVisible(false);
+                        this.jComboBox1.setVisible(false);
+                        this.jLabel9.setVisible(false);
+                        this.jButton1.setVisible(false);
                         //Affichage des operation infirmiere
                         Vector vacteconf = new Vector(this.lactesConfondu);
                         this.jList1.setListData(vacteconf);
@@ -203,8 +236,6 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         jList1 = new javax.swing.JList<>();
         jPanel18 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
@@ -263,7 +294,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 1188, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
@@ -281,7 +312,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1218, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1199, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,7 +353,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Raleway Medium", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(26, 188, 156));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("DOSSIER EXT");
+        jLabel8.setText("ENVOI PATIENT");
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel8MouseClicked(evt);
@@ -532,6 +563,11 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                     .addGap(9, 9, 9)))
         );
 
+        jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jList1ValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         jPanel18.setBackground(new java.awt.Color(19, 29, 38));
@@ -560,13 +596,8 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Date d'examen");
-
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Type d'examen");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton1.setText("Rechercher");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -687,6 +718,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -700,20 +732,6 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel10Layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel10Layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2))
-                            .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -724,10 +742,17 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2)))
                         .addGap(0, 90, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -742,18 +767,15 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                     .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1)
+                        .addComponent(jButton2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -845,12 +867,11 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1199, Short.MAX_VALUE)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(38, 38, 38))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1199, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1199, Short.MAX_VALUE))
+                .addGap(57, 57, 57))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -858,6 +879,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -888,7 +910,44 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        if(this.jComboBox1.getSelectedItem()==""){
+            if(this.instance==1){
+                Vector vResult = new Vector(this.result);
+                this.jList1.setListData(vResult); 
+            }
+            else{
+                Vector vprescrip = new Vector(this.lprescription);
+                this.jList1.setListData(vprescrip);
+            }
+        }
+        else{
+            if(this.jComboBox1.getSelectedItem()!=null){
+                if(this.instance==1){
+                    ArrayList<String> resBis =new ArrayList<>();
+                    for(Resultat res :this.result){
+                        for(Prescription pres:this.listePrescription){
+                           if(res.getIdPrescription()==pres.getIdPrescription()) {
+                               if(this.jComboBox1.getSelectedItem()==pres.getTypePrescription().toString()){
+                                    resBis.add(res.toString());
+                               }
+                           }
+                        }
+                    }
+                    Vector vResultbis = new Vector(resBis);
+                    this.jList1.setListData(vResultbis);
+                }
+                else{
+                    ArrayList<String> presBis =new ArrayList<>();
+                    for(Prescription pres :this.listePrescription){
+                        if(this.jComboBox1.getSelectedItem()==pres.getTypePrescription().toString()){
+                                 presBis.add(pres.toStringBis());
+                        }
+                    }
+                    Vector vResultbis = new Vector(presBis);
+                    this.jList1.setListData(vResultbis);
+                }
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
@@ -896,6 +955,9 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         this.jButton2.setVisible(true);
         this.jLabel21.setVisible(true);
         this.jPanel20.setVisible(true);
+        this.jComboBox1.setVisible(true);
+        this.jLabel9.setVisible(true);
+        this.jButton1.setVisible(true);
         //mise en relief de la situation courante
         Font myFont2 = new Font("Raleway Meduim", Font.PLAIN, 18);
         this.jLabel10.setFont(myFont2);
@@ -946,9 +1008,12 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         this.instance=1;
-        this.jButton2.setVisible(true);
+        this.jButton2.setVisible(false);
         this.jLabel21.setVisible(false);
         this.jPanel20.setVisible(false);
+        this.jComboBox1.setVisible(true);
+        this.jLabel9.setVisible(true);
+        this.jButton1.setVisible(true);
         //mise en relief de la situation courante
         Font myFont2 = new Font("Raleway Meduim", Font.PLAIN, 18);
         this.jLabel16.setFont(myFont2);
@@ -971,6 +1036,9 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         this.jButton2.setVisible(false);
         this.jLabel21.setVisible(true);
         this.jPanel20.setVisible(true);
+        this.jComboBox1.setVisible(false);
+        this.jLabel9.setVisible(false);
+        this.jButton1.setVisible(false);
         this.instance=2;
         //mise en relief de la situation courante
         Font myFont2 = new Font("Raleway Meduim", Font.PLAIN, 18);
@@ -991,6 +1059,9 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         this.instance=4;
+        this.jComboBox1.setVisible(false);
+        this.jLabel9.setVisible(false);
+        this.jButton1.setVisible(false);
         this.jButton2.setVisible(false);
         this.jLabel21.setVisible(true);
         this.jPanel20.setVisible(true);
@@ -1085,6 +1156,9 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         this.jButton2.setVisible(false);
         this.jLabel21.setVisible(true);
         this.jPanel20.setVisible(true);
+        this.jComboBox1.setVisible(false);
+        this.jLabel9.setVisible(false);
+        this.jButton1.setVisible(false);
         //mise en relief de la situation courante
         Font myFont2 = new Font("Raleway Meduim", Font.PLAIN, 18);
         this.jLabel10.setFont(myFont2);
@@ -1106,11 +1180,31 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel13MouseClicked
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        ServiceCliniqueDossierExterieur dosExt=new ServiceCliniqueDossierExterieur(this.p,this.listeDPI);
-        dosExt.setVisible(true);
-        dosExt.setLocationRelativeTo(this);
-        this.dispose();
+       EnvoiePatient envoie=new EnvoiePatient();
+        envoie.setVisible(true);
     }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
+        if(this.instance == 1){
+            
+            Resultat res = this.result.get(this.jList1.getSelectedIndex());
+            
+            Boolean servicePrescripteur=false;
+            int i=0;
+            System.out.println(this.listePrescription.size());
+            while((i<this.listePrescription.size())&&(servicePrescripteur==false)){
+                if(this.listePrescription.get(i).getIdPrescription()==res.getIdPrescription()){
+                    servicePrescripteur=true;
+                    System.out.println("::::::::::::::::::::::::::::"+this.listePrescription.get(i).getIdPrescription()+":::::::::::::::::::"+res.getIdPrescription());
+                }
+                i=i+1;
+            }
+
+            if(servicePrescripteur==true){
+                this.jButton2.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_jList1ValueChanged
 
     /**
      * @param args the command line arguments
@@ -1166,7 +1260,6 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1199,6 +1292,5 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

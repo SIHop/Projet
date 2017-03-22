@@ -59,7 +59,7 @@ public class ServiceCliniqueResultatD extends javax.swing.JFrame {
         String text = "type de résultat: ";
         for (String[] rs:this.result.getListeResultats()){
             
-            text=text+" -   Examen : " + rs[0] + "  -   Résultat : " + rs[1];
+            text=text+" |   Examen: " + rs[0] + "   |   Résultat : " + rs[1];
         }
         this.jTextPane1.setText(text);
 
@@ -214,7 +214,7 @@ public class ServiceCliniqueResultatD extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Raleway Medium", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(26, 188, 156));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("DOSSIER EXT");
+        jLabel8.setText("ENVOI PATIENT");
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel8MouseClicked(evt);
@@ -762,10 +762,8 @@ public class ServiceCliniqueResultatD extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel13MouseClicked
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        ServiceCliniqueDossierExterieur dosExt=new ServiceCliniqueDossierExterieur(this.p,this.listeDPI);
-        dosExt.setVisible(true);
-        dosExt.setLocationRelativeTo(this);
-        this.dispose();
+       EnvoiePatient envoie=new EnvoiePatient();
+        envoie.setVisible(true);
     }//GEN-LAST:event_jLabel8MouseClicked
 
     /**

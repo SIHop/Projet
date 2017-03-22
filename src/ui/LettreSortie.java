@@ -194,7 +194,12 @@ public class LettreSortie extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Raleway Medium", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(26, 188, 156));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("RECUPERER UN DM");
+        jLabel8.setText("ENVOI PATIENT");
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -346,7 +351,7 @@ public class LettreSortie extends javax.swing.JFrame {
         jLabel22.setText("NOM PRENOM PATIENT");
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel24.setText("LIT :");
+        jLabel24.setText("Pas de lit attribué");
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel25.setText("NUMERO DE SEJOUR:");
@@ -619,6 +624,11 @@ public class LettreSortie extends javax.swing.JFrame {
         ac.setLocationRelativeTo(this);
         this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+       EnvoiePatient envoie=new EnvoiePatient();
+        envoie.setVisible(true);
+    }//GEN-LAST:event_jLabel8MouseClicked
 
     /**
      * @param args the command line arguments
