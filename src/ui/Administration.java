@@ -923,7 +923,7 @@ public class Administration extends javax.swing.JFrame {
 
                 }
             } catch (java.lang.NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Le code postal où le numéros de voie fournis n'est pas un nombre");
+                JOptionPane.showMessageDialog(this, "Le code postal ou le numéro de voie fournit n'est pas un nombre");
                 valid = false;
                 codePostal.setBackground(Color.red);
                 numeroVoie.setBackground(Color.red);

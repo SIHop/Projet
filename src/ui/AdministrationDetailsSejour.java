@@ -27,7 +27,7 @@ public class AdministrationDetailsSejour extends javax.swing.JFrame {
         this.sejour = sejour;
         
         this.numeroSejourLabel.setText("Numéro de séjour : " + sejour.getNumeroDeSejour());
-        this.PHResponsableLabel.setText("PH résponsable : " + this.sejour.getMedecinResponsable().getNom() + " " + this.sejour.getMedecinResponsable().getPrenom());
+        this.PHResponsableLabel.setText("PH responsable : " + this.sejour.getMedecinResponsable().getNom() + " " + this.sejour.getMedecinResponsable().getPrenom());
         this.dateDebutLabel.setText("Date de début : " + this.sejour.getDateDebut().getC().get(Calendar.DAY_OF_MONTH) + "/"+ String.format("%1$02d",this.sejour.getDateDebut().getC().get(Calendar.MONTH)+1) + "/" + this.sejour.getDateDebut().getC().get(Calendar.YEAR));
         if(sejour.isEnCours()){
             this.dateFinLabel.setText("Date de fin : Le séjour n'est pas terminé");
@@ -63,7 +63,7 @@ public class AdministrationDetailsSejour extends javax.swing.JFrame {
         serviceLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        naturePrestationJList = new javax.swing.JList<String>();
+        naturePrestationJList = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 600));
@@ -144,7 +144,7 @@ public class AdministrationDetailsSejour extends javax.swing.JFrame {
 
         numeroSejourLabel.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
         numeroSejourLabel.setForeground(new java.awt.Color(240, 240, 240));
-        numeroSejourLabel.setText("Numero de Séjour : ");
+        numeroSejourLabel.setText("Numéro de Séjour : ");
 
         PHResponsableLabel.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
         PHResponsableLabel.setForeground(new java.awt.Color(240, 240, 240));
@@ -166,10 +166,10 @@ public class AdministrationDetailsSejour extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(240, 240, 240));
         jLabel1.setText("Nature des prestations :");
 
-        naturePrestationJList.setModel(new javax.swing.AbstractListModel() {
+        naturePrestationJList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "test", "test2", "test3" };
             public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            public String getElementAt(int i) { return strings[i]; }
         });
         naturePrestationJList.setEnabled(false);
         jScrollPane1.setViewportView(naturePrestationJList);
