@@ -57,8 +57,8 @@ public class ServiceCliniquePrescriptionE extends javax.swing.JFrame {
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
         this.jLabel5.setFont(myFont);
         this.jLabel5.setForeground(Color.GRAY);
-        this.jLabel10.setFont(myFont);
-        this.jLabel10.setForeground(Color.GRAY);
+        this.jLabel16.setFont(myFont);
+        this.jLabel16.setForeground(Color.GRAY);
         
 //remplissage du combobox avec les types de prescription
         this.jComboBox1.removeAll();
@@ -853,6 +853,9 @@ public class ServiceCliniquePrescriptionE extends javax.swing.JFrame {
             edit.setVisible(true);
             edit.setLocationRelativeTo(this);
             this.dispose();
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Merci de renseigne le type de prescirption et du contenue");
         }
     }//GEN-LAST:event_jLabel17MouseClicked
 
