@@ -547,7 +547,7 @@ public class EnvoiePatient extends javax.swing.JFrame {
         ArrayList<String> listval = new ArrayList();
         listval.add("'" + IPP + "'");
         patient = dpiDAO.find(listarg, listval);
-        System.out.println("patient selectionné : " + patient.getiPP() + " " + patient.getNomUsage() + " " + patient.getPrenom());
+        System.out.println("patient sélectionné : " + patient.getiPP() + " " + patient.getNomUsage() + " " + patient.getPrenom());
     }//GEN-LAST:event_jTable4MouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
