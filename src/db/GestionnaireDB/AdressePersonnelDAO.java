@@ -31,7 +31,7 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
         try {
             Statement stmt = AdressePersonnelDAO.connect.createStatement();
@@ -62,7 +62,7 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+       
 
         ArrayList<Adresse> retour = new ArrayList<>();
 
@@ -88,8 +88,9 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
 
     public Adresse create(Adresse obj, int idPersonnel) {
         this.query = "INSERT INTO adressepersonnel (idPersonnel, pays, numeroVoie,typeVoie,nomVoie,codePostal, ville)"
-                + " VALUES (" + idPersonnel + ", '" + obj.getPays().replace("'", "''") + "'," + obj.getNumeroVoie() + ",'" + obj.getTypeVoie().replace("'", "''") + "','" + obj.getNomVoie().replace("'", "''") + "'," + obj.getCodePostal() + ",'" + obj.getVille().replace("'", "''") + "')";
+                + " VALUES (" + idPersonnel + ", '" + obj.getPays().replace("'", "''").toUpperCase() + "'," + obj.getNumeroVoie() + ",'" + obj.getTypeVoie().replace("'", "''") + "','" + obj.getNomVoie().replace("'", "''") + "'," + obj.getCodePostal() + ",'" + obj.getVille().replace("'", "''").toUpperCase() + "')";
 
+        
         Statement stmt;
         try {
             stmt = AdressePersonnelDAO.connect.createStatement();
@@ -101,8 +102,8 @@ public class AdressePersonnelDAO implements DAO<Adresse> {
     }
 
     public Adresse update(Adresse obj, int idPersonnel) {
-        this.query = "UPDATE adressepersonnel SET Pays = '" + obj.getPays().replace("'", "''") + "', numeroVoie = " + obj.getNumeroVoie() + ", typeVoie = '" + obj.getTypeVoie().replace("'", "''")
-                + "', nomVoie = '" + obj.getNomVoie().replace("'", "''") + "', codePostal = " + obj.getCodePostal() + ", ville = '" + obj.getVille().replace("'", "''") + "' WHERE idPersonnel = " + idPersonnel;
+        this.query = "UPDATE adressepersonnel SET Pays = '" + obj.getPays().replace("'", "''").toUpperCase() + "', numeroVoie = " + obj.getNumeroVoie() + ", typeVoie = '" + obj.getTypeVoie().replace("'", "''")
+                + "', nomVoie = '" + obj.getNomVoie().replace("'", "''") + "', codePostal = " + obj.getCodePostal() + ", ville = '" + obj.getVille().replace("'", "''").toUpperCase() + "' WHERE idPersonnel = " + idPersonnel;
         Statement stmt;
         try {
             stmt = AdressePersonnelDAO.connect.createStatement();

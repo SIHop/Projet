@@ -5,8 +5,9 @@
  */
 package db.GestionnaireDB;
 
-import java.util.ArrayList;
-import nf.DPI.DPI;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -171,7 +172,7 @@ public class testDB {
 //        histDAO.delete(histAjouter);
         
 //        //dpiDAO
-        DpiDAO dpiDAO = (DpiDAO)DAOFactory.getDpiDAO();
+//        DpiDAO dpiDAO = (DpiDAO)DAOFactory.getDpiDAO();
 //        //**find OK
 //        DPI dpi = dpiDAO.find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList("170000001")));
 //        System.out.println(dpi.getLit().getService().getCodeService());
@@ -296,6 +297,12 @@ public class testDB {
 //        //**findSejourActuel
 //        Sejour s = ((DmaDAO)DAOFactory.getDmaDAO()).findSejourActuel(170000001);
 //        System.out.println(s.toString());
+        JLabel idLabel = new JLabel("Identifiant :");
+        JTextField idText = new JTextField();
+        JLabel mdpLabel = new JLabel("Mot de passe :");
+        JTextField mdpText = new JTextField();
+        Object[] obj = {idLabel,idText,mdpLabel,mdpText};
+        
         
         
     }

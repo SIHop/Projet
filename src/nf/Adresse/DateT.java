@@ -46,4 +46,10 @@ public class DateT {
     public void setC(Calendar c) {
         this.c = c;
     }
+    
+    public boolean equals(DateT dateRecus){
+        return this.getC().get(Calendar.DAY_OF_MONTH) == dateRecus.getC().get(Calendar.DAY_OF_MONTH) && 
+                this.getC().get(Calendar.MONTH) == dateRecus.getC().get(Calendar.MONTH) && 
+                this.getC().get(Calendar.YEAR) == dateRecus.getC().get(Calendar.YEAR);
+    }
 }

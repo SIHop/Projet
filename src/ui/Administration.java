@@ -8,6 +8,7 @@ package ui;
 import db.GestionnaireDB.DAOFactory;
 import db.GestionnaireDB.DpiDAO;
 import db.GestionnaireDB.PersonnelDAO;
+import db.GestionnaireDB.ServiceDAO;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -23,6 +24,7 @@ import nf.DPI.DPI;
 import nf.GestionDexploitation.InformationDeContact;
 import nf.GestionDexploitation.Personnel;
 import nf.GestionDexploitation.SecretaireAdministratif;
+import nf.GestionDexploitation.Service;
 import nf.GestionDexploitation.Sexe;
 
 /**
@@ -37,7 +39,12 @@ public class Administration extends javax.swing.JFrame {
     private SecretaireAdministratif sa;
     private ArrayList<DPI> ldpi;
     private ArrayList<Personnel> listePersonnel;
+    private ArrayList<Service> listeService;
 
+    /**
+     * Constructeur appeler une fois à l'ouverture de la seission, récupère toutes les données utile en db
+     * @param sa 
+     */
     public Administration(SecretaireAdministratif sa) {
         initComponents();
         this.sa = sa;
@@ -55,17 +62,21 @@ public class Administration extends javax.swing.JFrame {
         //récupération de tout les personnel
         this.listePersonnel = ((PersonnelDAO)DAOFactory.getPersonelDAO()).findAll();
         
+        //récupération de tout les services
+        this.listeService = ((ServiceDAO)DAOFactory.getServiceDAO()).findAll();
+        
         //mise en relief de la situation courrante
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
         this.jLabel16.setFont(myFont);
         this.jLabel16.setForeground(Color.GRAY);
     }
 
-    public Administration(SecretaireAdministratif sa, ArrayList<DPI> ldpi, ArrayList<Personnel> listePersonnel) {
+    public Administration(SecretaireAdministratif sa, ArrayList<DPI> ldpi, ArrayList<Personnel> listePersonnel, ArrayList<Service> listeService) {
         initComponents();
         this.sa = sa;
         this.ldpi = ldpi;
         this.listePersonnel = listePersonnel;
+        this.listeService = listeService;
 
         this.jLabel1.setText("Bienvenue " + sa.getPrenom() + " " + sa.getNom().toUpperCase());
 
@@ -875,7 +886,7 @@ public class Administration extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
-        AdministrationEditDMA edit = new AdministrationEditDMA(sa, ldpi, listPatient.getSelectedValue(),this.listePersonnel);
+        AdministrationEditDMA edit = new AdministrationEditDMA(sa, ldpi, listPatient.getSelectedValue(),this.listePersonnel,this.listeService);
         edit.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_editActionPerformed
@@ -926,7 +937,7 @@ public class Administration extends javax.swing.JFrame {
                         dpiDAO.create(patient);
                         DAOFactory.getAdressePatientDAO().create(adresse, patient.getiPP().getIPP());
                         //ouverture de la fenetre d'edition de ce dm
-                        AdministrationEditDMA editDMA = new AdministrationEditDMA(sa, ldpi, patient,this.listePersonnel);
+                        AdministrationEditDMA editDMA = new AdministrationEditDMA(sa, ldpi, patient,this.listePersonnel,this.listeService);
                         editDMA.setVisible(true);
                         this.dispose();
                     }
@@ -974,7 +985,7 @@ public class Administration extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseExited
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        Administration adm = new Administration(this.sa, this.ldpi,this.listePersonnel);
+        Administration adm = new Administration(this.sa, this.ldpi,this.listePersonnel,this.listeService);
         adm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
@@ -1004,7 +1015,7 @@ public class Administration extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseExited
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        GestionPersonnel gp = new GestionPersonnel(sa, this.ldpi,this.listePersonnel);
+        GestionPersonnel gp = new GestionPersonnel(sa, this.ldpi,this.listePersonnel,this.listeService);
         gp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel8MouseClicked
