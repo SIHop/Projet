@@ -7,6 +7,7 @@ package ui;
 
 import db.GestionnaireDB.DAOFactory;
 import db.GestionnaireDB.DpiDAO;
+import db.GestionnaireDB.PersonnelDAO;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -20,6 +21,7 @@ import nf.DPI.DMA.IPP;
 import nf.DPI.DMA.Sejour;
 import nf.DPI.DPI;
 import nf.GestionDexploitation.InformationDeContact;
+import nf.GestionDexploitation.Personnel;
 import nf.GestionDexploitation.SecretaireAdministratif;
 import nf.GestionDexploitation.Sexe;
 
@@ -34,31 +36,40 @@ public class Administration extends javax.swing.JFrame {
      */
     private SecretaireAdministratif sa;
     private ArrayList<DPI> ldpi;
+    private ArrayList<Personnel> listePersonnel;
 
     public Administration(SecretaireAdministratif sa) {
         initComponents();
         this.sa = sa;
-
         this.jLabel1.setText("Bienvenue " + sa.getPrenom() + " " + sa.getNom().toUpperCase());
 
+        
+        
+        
+        //récupération de tout les dpi
         this.ldpi = ((DpiDAO) DAOFactory.getDpiDAO()).findAll();
         DPI[] aDpi = new DPI[ldpi.size()];
         this.ldpi.toArray(aDpi);
         this.listPatient.setListData(aDpi);
 
+        //récupération de tout les personnel
+        this.listePersonnel = ((PersonnelDAO)DAOFactory.getPersonelDAO()).findAll();
+        
         //mise en relief de la situation courrante
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
         this.jLabel16.setFont(myFont);
         this.jLabel16.setForeground(Color.GRAY);
     }
 
-    public Administration(SecretaireAdministratif sa, ArrayList<DPI> ldpi) {
+    public Administration(SecretaireAdministratif sa, ArrayList<DPI> ldpi, ArrayList<Personnel> listePersonnel) {
         initComponents();
         this.sa = sa;
         this.ldpi = ldpi;
+        this.listePersonnel = listePersonnel;
 
         this.jLabel1.setText("Bienvenue " + sa.getPrenom() + " " + sa.getNom().toUpperCase());
 
+        
         DPI[] aDpi = new DPI[ldpi.size()];
         this.ldpi.toArray(aDpi);
         this.listPatient.setListData(aDpi);
@@ -316,6 +327,7 @@ public class Administration extends javax.swing.JFrame {
         jLabel18.setForeground(new java.awt.Color(26, 188, 156));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("EDITION DMA");
+        jLabel18.setEnabled(false);
         jLabel18.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel18MouseClicked(evt);
@@ -863,7 +875,7 @@ public class Administration extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseClicked
 
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
-        AdministrationEditDMA edit = new AdministrationEditDMA(sa, ldpi, listPatient.getSelectedValue());
+        AdministrationEditDMA edit = new AdministrationEditDMA(sa, ldpi, listPatient.getSelectedValue(),this.listePersonnel);
         edit.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_editActionPerformed
@@ -914,7 +926,7 @@ public class Administration extends javax.swing.JFrame {
                         dpiDAO.create(patient);
                         DAOFactory.getAdressePatientDAO().create(adresse, patient.getiPP().getIPP());
                         //ouverture de la fenetre d'edition de ce dm
-                        AdministrationEditDMA editDMA = new AdministrationEditDMA(sa, ldpi, patient);
+                        AdministrationEditDMA editDMA = new AdministrationEditDMA(sa, ldpi, patient,this.listePersonnel);
                         editDMA.setVisible(true);
                         this.dispose();
                     }
@@ -962,7 +974,7 @@ public class Administration extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseExited
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        Administration adm = new Administration(this.sa, this.ldpi);
+        Administration adm = new Administration(this.sa, this.ldpi,this.listePersonnel);
         adm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
@@ -992,7 +1004,7 @@ public class Administration extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseExited
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        GestionPersonnel gp = new GestionPersonnel(sa, this.ldpi);
+        GestionPersonnel gp = new GestionPersonnel(sa, this.ldpi,this.listePersonnel);
         gp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel8MouseClicked

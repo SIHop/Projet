@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import nf.DPI.DMA.Sejour;
 import nf.DPI.DPI;
+import nf.GestionDexploitation.Personnel;
 import nf.GestionDexploitation.SecretaireAdministratif;
 import nf.GestionDexploitation.Sexe;
 
@@ -37,13 +38,15 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
     private DPI dpiEnEdition;
     private Sejour sejourEnCours = null;
     private ArrayList<Sejour> lsej = null;
+    private ArrayList<Personnel> listePersonnel;
 
-    public AdministrationEditDMA(SecretaireAdministratif sa, ArrayList<DPI> ldpi, DPI dpiEnEdition) {
+    public AdministrationEditDMA(SecretaireAdministratif sa, ArrayList<DPI> ldpi, DPI dpiEnEdition, ArrayList<Personnel> listePersonnel) {
         initComponents();
         this.sa = sa;
-        this.ldpi = ldpi;
+        this.ldpi = ldpi;        
         this.dpiEnEdition = dpiEnEdition;
         this.lsej = dpiEnEdition.getMyDMA().getListeDeSejour();
+        this.listePersonnel = listePersonnel;
         this.LabelMisAjours.setVisible(false);
 
         //mise en relief de la situation courrante
@@ -153,8 +156,8 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
         jLabel45 = new javax.swing.JLabel();
         email = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listSejour = new javax.swing.JList<>();
-        sexe = new javax.swing.JComboBox<>();
+        listSejour = new javax.swing.JList<Sejour>();
+        sexe = new javax.swing.JComboBox<Sexe>();
         edit = new javax.swing.JButton();
         jLabel40 = new javax.swing.JLabel();
         nomVoie = new javax.swing.JTextField();
@@ -166,7 +169,7 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
         detail = new javax.swing.JButton();
         facturer = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        sejourEnCoursList = new javax.swing.JList<>();
+        sejourEnCoursList = new javax.swing.JList<Sejour>();
         creationSejour = new javax.swing.JButton();
         IPP = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
@@ -177,7 +180,6 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 600));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1200, 600));
         setResizable(false);
         setSize(new java.awt.Dimension(1200, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1025,7 +1027,7 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseExited
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        Administration adm = new Administration(this.sa, this.ldpi);
+        Administration adm = new Administration(this.sa, this.ldpi,this.listePersonnel);
         adm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
@@ -1055,7 +1057,7 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseExited
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        GestionPersonnel gp = new GestionPersonnel(this.sa, this.ldpi);
+        GestionPersonnel gp = new GestionPersonnel(this.sa, this.ldpi,this.listePersonnel);
         gp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel8MouseClicked
@@ -1261,11 +1263,11 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel16MouseExited
 
     private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
-        // TODO add your handling code here:
+        this.repaint();
     }//GEN-LAST:event_jLabel17MouseClicked
 
     private void jLabel17MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseEntered
-        this.jLabel16.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        this.jLabel17.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jLabel17MouseEntered
 
     private void jLabel17MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseExited
