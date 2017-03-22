@@ -57,9 +57,7 @@ public class PersonnelDAO implements DAO<Personnel> {
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NullPointerException e) {
-            System.out.println("Pas de résultat correspondant");
-        }
+        } 
         return null;
     }
 
@@ -73,7 +71,7 @@ public class PersonnelDAO implements DAO<Personnel> {
         DAO<Service> serviceDAO = DAOFactory.getServiceDAO();
         AdressePersonnelDAO adresseDAO = DAOFactory.getAdressePersonnelDAO();
 
-//        rs.first();
+
         String type = rs.getString("typePersonnel");
 
         ArrayList<String> argSer = new ArrayList<>();
@@ -85,18 +83,23 @@ public class PersonnelDAO implements DAO<Personnel> {
         argAdr.add("idPersonnel");
         ArrayList<String> valAdr = new ArrayList<>();
         valAdr.add(rs.getString("idPersonnel"));
+        
+        String bureau = rs.getString("bureau");
+        if(bureau == null){
+            bureau = "";
+        }
 
         if (type.equalsIgnoreCase("Medecin")) {
-            return new Medecin("123", RangMedecin.valueOf(rs.getString("niveauSpecialisation")), serviceDAO.find(argSer, valSer), rs.getString("nomUsage"), rs.getString("prenom"), rs.getString("idPersonnel"), Sexe.valueOf(rs.getString("sexe")), adresseDAO.find(argAdr, valAdr), new DateT(rs.getString("dateNaissance")),rs.getString("identifiantHygie"), new MotDePasse(rs.getString("motDePasse"), true), new InformationDeContact(rs.getString("telephone"), "00", rs.getString("mail"), "00"));
+            return new Medecin("123", RangMedecin.valueOf(rs.getString("niveauSpecialisation")), serviceDAO.find(argSer, valSer), rs.getString("nomUsage"), rs.getString("prenom"), rs.getString("idPersonnel"), Sexe.valueOf(rs.getString("sexe")), adresseDAO.find(argAdr, valAdr), new DateT(rs.getString("dateNaissance")),rs.getString("identifiantHygie"), new MotDePasse(rs.getString("motDePasse"), false), new InformationDeContact(rs.getString("telephone"), "00", rs.getString("mail"), "00"));
         } else if (type.equalsIgnoreCase("Infirmier")) {
-            return new Infirmier(serviceDAO.find(argSer, valSer), TypeInfirmier.valueOf(rs.getString("niveauSpecialisation")), rs.getString("nomUsage"), rs.getString("prenom"), rs.getString("idPersonnel"), Sexe.valueOf(rs.getString("sexe")), adresseDAO.find(argAdr, valAdr), new DateT(rs.getString("dateNaissance")),rs.getString("identifiantHygie"), new MotDePasse(rs.getString("motDePasse"), true), new InformationDeContact(rs.getString("telephone"), "00", rs.getString("mail"), "00"));
+            return new Infirmier(serviceDAO.find(argSer, valSer), TypeInfirmier.valueOf(rs.getString("niveauSpecialisation")), rs.getString("nomUsage"), rs.getString("prenom"), rs.getString("idPersonnel"), Sexe.valueOf(rs.getString("sexe")), adresseDAO.find(argAdr, valAdr), new DateT(rs.getString("dateNaissance")),rs.getString("identifiantHygie"), new MotDePasse(rs.getString("motDePasse"), false), new InformationDeContact(rs.getString("telephone"), "00", rs.getString("mail"), "00"));
         } else if (type.equalsIgnoreCase("AS")) {
-            return new AideSoignante(serviceDAO.find(argSer, valSer), rs.getString("nomUsage"), rs.getString("prenom"), rs.getString("idPersonnel"), Sexe.valueOf(rs.getString("sexe")), adresseDAO.find(argAdr, valAdr), new DateT(rs.getString("dateNaissance")), rs.getString("identifiantHygie"),new MotDePasse(rs.getString("motDePasse"), true), new InformationDeContact(rs.getString("telephone"), "00", rs.getString("mail"), "00"));
+            return new AideSoignante(serviceDAO.find(argSer, valSer), rs.getString("nomUsage"), rs.getString("prenom"), rs.getString("idPersonnel"), Sexe.valueOf(rs.getString("sexe")), adresseDAO.find(argAdr, valAdr), new DateT(rs.getString("dateNaissance")), rs.getString("identifiantHygie"),new MotDePasse(rs.getString("motDePasse"), false), new InformationDeContact(rs.getString("telephone"), "00", rs.getString("mail"), "00"));
         } else if (type.equalsIgnoreCase("SM")) {
-            return new SecretaireMedicale(serviceDAO.find(argSer, valSer), rs.getString("nomUsage"), rs.getString("prenom"), rs.getString("idPersonnel"), Sexe.valueOf(rs.getString("sexe")), adresseDAO.find(argAdr, valAdr), new DateT(rs.getString("dateNaissance")), rs.getString("identifiantHygie"),new MotDePasse(rs.getString("motDePasse"), true), new InformationDeContact(rs.getString("telephone"), "00", rs.getString("mail"), "00"));
+            return new SecretaireMedicale(serviceDAO.find(argSer, valSer), rs.getString("nomUsage"), rs.getString("prenom"), rs.getString("idPersonnel"), Sexe.valueOf(rs.getString("sexe")), adresseDAO.find(argAdr, valAdr), new DateT(rs.getString("dateNaissance")), rs.getString("identifiantHygie"),new MotDePasse(rs.getString("motDePasse"), false), new InformationDeContact(rs.getString("telephone"), "00", rs.getString("mail"), "00"));
         } else//SA
         {
-            return new SecretaireAdministratif(rs.getString("bureau"), serviceDAO.find(argSer, valSer), rs.getString("nomUsage"), rs.getString("prenom"), rs.getString("idPersonnel"), Sexe.valueOf(rs.getString("sexe")), adresseDAO.find(argAdr, valAdr), new DateT(rs.getString("dateNaissance")),rs.getString("identifiantHygie"), new MotDePasse(rs.getString("motDePasse"), true), new InformationDeContact(rs.getString("telephone"), "00", rs.getString("mail"), "00"));
+            return new SecretaireAdministratif(bureau, serviceDAO.find(argSer, valSer), rs.getString("nomUsage"), rs.getString("prenom"), rs.getString("idPersonnel"), Sexe.valueOf(rs.getString("sexe")), adresseDAO.find(argAdr, valAdr), new DateT(rs.getString("dateNaissance")),rs.getString("identifiantHygie"), new MotDePasse(rs.getString("motDePasse"), false), new InformationDeContact(rs.getString("telephone"), "00", rs.getString("mail"), "00"));
 
         }
     }
@@ -128,9 +131,7 @@ public class PersonnelDAO implements DAO<Personnel> {
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NullPointerException e) {
-            System.out.println("Pas de résultat correspondant");
-        }
+        } 
         return retour;
     }
 
@@ -146,7 +147,7 @@ public class PersonnelDAO implements DAO<Personnel> {
             this.query = "INSERT INTO personnel (niveauSpecialisation, typePersonnel, idPersonnel,idService,identifiantHygie,motDePasse,prenom,nomNaissance,nomUsage,sexe,dateNaissance,telephone,mail)"
                     + "VALUES ('"
                     + ((Infirmier) obj).getType().toString() + "','Infirmier'," + obj.getIdPersonel() + "," + ((Infirmier) obj).getService().getCodeService() + ",'" +obj.getIdentifient() +"','" +  obj.getPassword().getMdp()+ "','"
-                    + obj.getPrenom().replace("'", "''") + "','" + obj.getNom().replace("'", "''") + "','" + obj.getNom().replace("'", "''") + "','" + obj.getSexe().toString() + "'," + obj.getDateDeNaissance().toString() + ",'" + obj.getInfoDeContact().getNumeroFixe() + "','" + obj.getInfoDeContact().getEmail()
+                    + obj.getPrenom().replace("'", "''") + "','" + obj.getNom().replace("'", "''") + "','" + obj.getNom().replace("'", "''") + "','" + obj.getSexe().toString() + "','" + obj.getDateDeNaissance().toString() + ",'" + obj.getInfoDeContact().getNumeroFixe() + "','" + obj.getInfoDeContact().getEmail()
                     + "')";
 
         } else if (obj instanceof AideSoignante) {
@@ -158,14 +159,14 @@ public class PersonnelDAO implements DAO<Personnel> {
         } else if (obj instanceof SecretaireMedicale) {
             this.query = "INSERT INTO personnel (typePersonnel, idPersonnel,idService,identifiantHygie,motDePasse,prenom,nomNaissance,nomUsage,sexe,dateNaissance,telephone,mail)"
                     + "VALUES ("
-                    + "'SM'," + obj.getIdPersonel() + "," + ((SecretaireMedicale) obj).getService().getCodeService() + ",'" +obj.getIdentifient() +"','" +  obj.getPassword().getMdp() + "',"
-                    + obj.getPrenom().replace("'", "''") + "','" + obj.getNom().replace("'", "''") + "','" + obj.getNom().replace("'", "''") + "','" + obj.getSexe().toString() + "'," + obj.getDateDeNaissance().toString() + "','" + obj.getInfoDeContact().getNumeroFixe() + "','" + obj.getInfoDeContact().getEmail()
+                    + "'SM'," + obj.getIdPersonel() + "," + ((SecretaireMedicale) obj).getService().getCodeService() + ",'" +obj.getIdentifient() +"','" +  obj.getPassword().getMdp() + "','"
+                    + obj.getPrenom().replace("'", "''") + "','" + obj.getNom().replace("'", "''") + "','" + obj.getNom().replace("'", "''") + "','" + obj.getSexe().toString() + "','" + obj.getDateDeNaissance().toString() + "','" + obj.getInfoDeContact().getNumeroFixe() + "','" + obj.getInfoDeContact().getEmail()
                     + "')";
         } else {//SA
             this.query = "INSERT INTO personnel (bureau,typePersonnel, idPersonnel,idService,identifiantHygie,motDePasse,prenom,nomNaissance,nomUsage,sexe,dateNaissance,telephone,mail)"
                     + "VALUES ('"
                     + ((SecretaireAdministratif) obj).getBureau() + "','SA'," + obj.getIdPersonel() + "," + ((SecretaireAdministratif) obj).getService().getCodeService() + ",'" +obj.getIdentifient() +"','" +  obj.getPassword().getMdp() + "','"
-                    + obj.getPrenom().replace("'", "''") + "','" + obj.getNom().replace("'", "''") + "','" + obj.getNom().replace("'", "''") + "','" + obj.getSexe().toString() + "'," + obj.getDateDeNaissance().toString() + "','" + obj.getInfoDeContact().getNumeroFixe() + "','" + obj.getInfoDeContact().getEmail()
+                    + obj.getPrenom().replace("'", "''") + "','" + obj.getNom().replace("'", "''") + "','" + obj.getNom().replace("'", "''") + "','" + obj.getSexe().toString() + "','" + obj.getDateDeNaissance().toString() + "','" + obj.getInfoDeContact().getNumeroFixe() + "','" + obj.getInfoDeContact().getEmail()
                     + "')";
         }
         
@@ -270,9 +271,7 @@ public class PersonnelDAO implements DAO<Personnel> {
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NullPointerException e) {
-            System.out.println("Pas de résultat correspondant");
-        }
+        } 
         return retour;
     }
 }

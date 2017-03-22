@@ -22,6 +22,7 @@ import nf.DPI.DMA.Sejour;
 import nf.DPI.DPI;
 import nf.GestionDexploitation.Personnel;
 import nf.GestionDexploitation.SecretaireAdministratif;
+import nf.GestionDexploitation.Service;
 import nf.GestionDexploitation.Sexe;
 
 /**
@@ -39,14 +40,17 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
     private Sejour sejourEnCours = null;
     private ArrayList<Sejour> lsej = null;
     private ArrayList<Personnel> listePersonnel;
+    private ArrayList<Service> listeService;
 
-    public AdministrationEditDMA(SecretaireAdministratif sa, ArrayList<DPI> ldpi, DPI dpiEnEdition, ArrayList<Personnel> listePersonnel) {
+    public AdministrationEditDMA(SecretaireAdministratif sa, ArrayList<DPI> ldpi, DPI dpiEnEdition, ArrayList<Personnel> listePersonnel,ArrayList<Service>listeService) {
         initComponents();
         this.sa = sa;
         this.ldpi = ldpi;        
         this.dpiEnEdition = dpiEnEdition;
         this.lsej = dpiEnEdition.getMyDMA().getListeDeSejour();
         this.listePersonnel = listePersonnel;
+        this.listeService = listeService;
+                
         this.LabelMisAjours.setVisible(false);
 
         //mise en relief de la situation courrante
@@ -1027,7 +1031,7 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseExited
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        Administration adm = new Administration(this.sa, this.ldpi,this.listePersonnel);
+        Administration adm = new Administration(this.sa, this.ldpi,this.listePersonnel,this.listeService);
         adm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
@@ -1057,7 +1061,7 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseExited
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        GestionPersonnel gp = new GestionPersonnel(this.sa, this.ldpi,this.listePersonnel);
+        GestionPersonnel gp = new GestionPersonnel(this.sa, this.ldpi,this.listePersonnel,this.listeService);
         gp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel8MouseClicked

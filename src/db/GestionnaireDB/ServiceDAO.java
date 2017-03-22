@@ -159,5 +159,37 @@ public class ServiceDAO implements DAO<Service> {
 
         return -1;
     }
+    
+    public ArrayList<Service> findAll(){
+        //Créer la requête pour récupérer les personels qui respecte toutes les contraintes
+        this.query = "SELECT * FROM service";        
+        
+        
+
+        ArrayList<Service> retour = new ArrayList<>();
+
+        try {
+            Statement stmt = ServiceDAO.connect.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            if (rs.isBeforeFirst()) {
+                while (rs.next()) {
+                    //Récolte des informations pour instancier la liste de lit
+                    ArrayList<String> argL = new ArrayList<>();
+                    argL.add("idService");
+                    ArrayList<String> valL = new ArrayList<>();
+                    valL.add(rs.getString("idService"));
+                    retour.add(new Service(rs.getString("idService"), rs.getString("nomService"), "1", new Localisation("bat", 1, "couloir"), litDAO.findMultiple(argL, valL), null, TypeService.valueOf(rs.getString("typeService"))));
+                }
+            } else {
+                System.out.println("Aucun résultat n'a été trouvé");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException e) {
+            System.out.println("Pas de résultat correspondant");
+        }
+        return retour;
+    }
 
 }

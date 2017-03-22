@@ -5,11 +5,33 @@
  */
 package ui;
 
+import com.sun.scenario.animation.shared.InfiniteClipEnvelope;
+import db.GestionnaireDB.AdressePersonnelDAO;
+import db.GestionnaireDB.DAOFactory;
+import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Vector;
+import java.util.concurrent.locks.ReentrantLock;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import nf.Adresse.Adresse;
+import nf.Adresse.DateT;
 import nf.DPI.DPI;
+import nf.GestionDexploitation.AideSoignante;
+import nf.GestionDexploitation.Infirmier;
+import nf.GestionDexploitation.InformationDeContact;
+import nf.GestionDexploitation.Medecin;
+import nf.GestionDexploitation.MotDePasse;
 import nf.GestionDexploitation.Personnel;
+import nf.GestionDexploitation.RangMedecin;
 import nf.GestionDexploitation.SecretaireAdministratif;
+import nf.GestionDexploitation.SecretaireMedicale;
+import nf.GestionDexploitation.Service;
+import nf.GestionDexploitation.Sexe;
+import nf.GestionDexploitation.TypeInfirmier;
 
 /**
  *
@@ -23,17 +45,167 @@ public class GestionPersonnel extends javax.swing.JFrame {
     private SecretaireAdministratif sa;
     private ArrayList<DPI> lDpi;
     private ArrayList<Personnel> listePersonnel;
+    private ArrayList<Service> listeService;
+    private JComboBox<TypeInfirmier> spe1Combo;
+    private JComboBox<RangMedecin> spe2Combo;
+    private JTextField bureauText;
+    
+    
 
-    public GestionPersonnel(SecretaireAdministratif sa, ArrayList<DPI> lDpi,ArrayList<Personnel> listePersonnel) {
+    public GestionPersonnel(SecretaireAdministratif sa, ArrayList<DPI> lDpi, ArrayList<Personnel> listePersonnel, ArrayList<Service> listeService) {
         initComponents();
-        this.sa = sa;      
+        this.sa = sa;
         this.lDpi = lDpi;
         this.listePersonnel = listePersonnel;
+        this.listeService = listeService;
         this.jLabel1.setText("Bienvenue " + sa.getPrenom() + " " + sa.getNom().toUpperCase());
 
+        //remplissage combo service
+        for (Service s : listeService) {
+            serviceCombo.addItem(s);
+        }
+        this.spe1Combo = new JComboBox<>(new TypeInfirmier[]{TypeInfirmier.IADE, TypeInfirmier.IBODE, TypeInfirmier.IDE});
+        this.spe2Combo = new JComboBox<>(new RangMedecin[]{RangMedecin.CHEF_DE_CLINIQUE, RangMedecin.CHEF_DE_SERVICE, RangMedecin.EXTERNE, RangMedecin.INTERNE, RangMedecin.MCU_PH, RangMedecin.MEDECIN_ATTACHE, RangMedecin.MEDECIN_VACATAIRE, RangMedecin.PH, RangMedecin.PU_PH});
+        this.bureauText = new JTextField("");
+
+        //Premier metier choisi = AS, pas de casse spé
+        this.spé1Panel.setVisible(false);
+        this.spé1Panel.setLayout(new BorderLayout());
+        this.spé1Panel.setBackground(jPanel10.getBackground());
+        this.spé1Text.setVisible(false);
+        this.miseAJoursJListPersonnel();
+
     }
+
     
-    
+
+    /**
+     * Cette fonction met à jours la liste en fonction des information des
+     * champs : Nom usage, prénom, date de naissance (jours,mois,année), metier
+     */
+    public void miseAJoursJListPersonnel() {
+        boolean aNomUsage = !nomUsageText.getText().equals("");
+
+        boolean aPrenom = !prenomText.getText().equals("");
+
+        //cas de la date
+        String date = this.anneeText.getText() + "-" + this.moisText.getText() + "-" + this.joursText.getText();
+
+        boolean aDate;
+        if (date.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")) {
+            aDate = true;
+        } else {
+            aDate = false;
+            if (!date.equals("aaaa-mm-jj")) {
+                JOptionPane.showMessageDialog(this, "Le format de la date renseigné ne respecte pas la mise en forme jj/mm/aaaa");
+            }
+        }
+
+        String metier = (String) this.metierCombo.getSelectedItem();
+        boolean aMetier = !metier.equals(" ");
+
+        Vector<Personnel> vPerso = new Vector<Personnel>();
+        for (Personnel p : listePersonnel) {
+            if ((!aNomUsage || p.getNom().equalsIgnoreCase(nomUsageText.getText()))
+                    && (!aPrenom || p.getPrenom().equalsIgnoreCase(prenomText.getText())) && (!aDate || p.getDateDeNaissance().equals(new DateT(date)))
+                    && (!aMetier || p.getMetier().equalsIgnoreCase(metier))) {
+
+                vPerso.add(p);
+            }
+        }
+
+        this.JListPersonnel.setListData(vPerso);
+        this.JListPersonnel.repaint();
+        if (JListPersonnel.getModel().getSize() == 1) {
+            JListPersonnel.setSelectedIndex(0);
+        }
+    }
+
+    /**
+     * remplis tout les champs en fonction du personnel recus, ou les clear si p
+     * = null;
+     *
+     * @param p
+     */
+    public void remplirChamps(Personnel p) {
+        if (p != null) {
+            this.nPersonnelText.setText(p.getIdPersonel());
+            this.nomUsageText.setText(p.getNom());
+            this.prenomText.setText(p.getPrenom());
+            this.joursText.setText(String.format("%1$02d", p.getDateDeNaissance().getC().get(Calendar.DAY_OF_MONTH)));
+            this.moisText.setText(String.format("%1$02d", p.getDateDeNaissance().getC().get(Calendar.MONTH) + 1));
+            this.anneeText.setText(Integer.toString(p.getDateDeNaissance().getC().get(Calendar.YEAR)));
+            this.sexe.setSelectedItem(p.getSexe());
+            if (p.getAdresse() != null) {
+                this.numVoieText.setText(Integer.toString(p.getAdresse().getNumeroVoie()));
+                this.typeVoieText.setText(p.getAdresse().getTypeVoie());
+                this.nomVoieText.setText(p.getAdresse().getNomVoie());
+                this.complementText.setText(p.getAdresse().getComplement());
+                this.codePostalText.setText(Integer.toString(p.getAdresse().getCodePostal()));
+                this.villeText.setText(p.getAdresse().getVille());
+                this.paysText.setText(p.getAdresse().getPays());
+            } else {
+                this.numVoieText.setText("");
+                this.typeVoieText.setText("");
+                this.nomVoieText.setText("");
+                this.complementText.setText("");
+                this.codePostalText.setText("");
+                this.villeText.setText("");
+                this.paysText.setText("");
+            }
+
+            if (p.getInfoDeContact() != null) {
+                this.numPortableText.setText(p.getInfoDeContact().getNumeroPortable());
+                this.numFixeText.setText(p.getInfoDeContact().getNumeroFixe());
+                this.emailText.setText(p.getInfoDeContact().getEmail());
+            } else {
+                this.numPortableText.setText("");
+                this.numFixeText.setText("");
+                this.emailText.setText("");
+            }
+
+            this.metierCombo.setSelectedItem(p.getMetier());
+            if (p instanceof Infirmier) {
+                this.serviceCombo.setSelectedItem(((Infirmier) p).getService());
+                this.spe1Combo.setSelectedItem(((Infirmier) p).getType());
+            } else if (p instanceof Medecin) {
+                this.serviceCombo.setSelectedItem(((Medecin) p).getService());
+                this.spe2Combo.setSelectedItem(((Medecin) p).getType());
+            } else if (p instanceof SecretaireAdministratif) {
+                this.serviceCombo.setSelectedItem(((SecretaireAdministratif) p).getService());
+                this.bureauText.setText(((SecretaireAdministratif) p).getBureau());
+            } else if (p instanceof AideSoignante) {
+                this.serviceCombo.setSelectedItem(((AideSoignante) p).getService());
+            } else {
+                this.serviceCombo.setSelectedItem(((SecretaireMedicale) p).getService());
+            }
+        } else {
+            this.nPersonnelText.setText("");
+            this.nomUsageText.setText("");
+            this.prenomText.setText("");
+            this.joursText.setText("jj");
+            this.moisText.setText("mm");
+            this.anneeText.setText("aaaa");
+            this.sexe.setSelectedIndex(0);
+
+            this.numVoieText.setText("");
+            this.typeVoieText.setText("");
+            this.nomVoieText.setText("");
+            this.complementText.setText("");
+            this.codePostalText.setText("");
+            this.villeText.setText("");
+            this.paysText.setText("");
+
+            this.numPortableText.setText("");
+            this.numFixeText.setText("");
+            this.emailText.setText("");
+
+            this.metierCombo.setSelectedIndex(5);
+            this.serviceCombo.setSelectedIndex(0);
+
+        }
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,13 +237,9 @@ public class GestionPersonnel extends javax.swing.JFrame {
         nPersonnelText = new javax.swing.JTextField();
         okButton = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         nomUsageText = new javax.swing.JTextField();
-        nomNaissanceText = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         prenomText = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        lieuNaissanceText = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
@@ -93,20 +261,40 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jLabel45 = new javax.swing.JLabel();
         emailText = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<String>();
+        JListPersonnel = new javax.swing.JList<Personnel>();
         ajoutButton = new javax.swing.JButton();
         validationButton = new javax.swing.JButton();
-        delButton = new javax.swing.JButton();
-        sexeCombo = new javax.swing.JComboBox<String>();
+        joursText = new javax.swing.JTextField();
+        moisText = new javax.swing.JTextField();
+        anneeText = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        metierCombo = new javax.swing.JComboBox<String>();
+        serviceText = new javax.swing.JLabel();
+        spé1Text = new javax.swing.JLabel();
+        serviceCombo = new javax.swing.JComboBox<Service>();
+        spé1Panel = new javax.swing.JPanel();
+        jComboBox1 = new javax.swing.JComboBox();
+        sexe = new javax.swing.JComboBox<Sexe>();
+        effacerButton = new javax.swing.JButton();
+        jLabel40 = new javax.swing.JLabel();
+        typeVoieText = new javax.swing.JTextField();
+        mdp = new javax.swing.JPasswordField();
+        jLabel41 = new javax.swing.JLabel();
+        identifiant = new javax.swing.JTextField();
+        jLabel42 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 600));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1250, 600));
         setResizable(false);
         setSize(new java.awt.Dimension(1200, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(jPanel2.getBackground());
+        jPanel3.setPreferredSize(new java.awt.Dimension(1250, 600));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1200, 33));
 
@@ -145,12 +333,12 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 1170, Short.MAX_VALUE)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 1226, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 1170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 30, Short.MAX_VALUE)))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 1229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 24, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,7 +351,9 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,7 +444,7 @@ public class GestionPersonnel extends javax.swing.JFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(414, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -271,6 +461,7 @@ public class GestionPersonnel extends javax.swing.JFrame {
         );
 
         jPanel8.setBackground(jPanel2.getBackground());
+        jPanel8.setPreferredSize(new java.awt.Dimension(1200, 55));
 
         jPanel9.setBackground(jPanel4.getBackground());
 
@@ -316,11 +507,11 @@ public class GestionPersonnel extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 259, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addGap(269, 269, 269)
+                .addGap(326, 326, 326)
                 .addComponent(jLabel3)
-                .addGap(92, 92, 92))
+                .addGap(35, 35, 35))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -335,6 +526,7 @@ public class GestionPersonnel extends javax.swing.JFrame {
         );
 
         jPanel10.setBackground(jPanel2.getBackground());
+        jPanel10.setPreferredSize(new java.awt.Dimension(900, 600));
 
         jLabel2.setFont(new java.awt.Font("Raleway", 0, 18)); // NOI18N
         jLabel2.setText("n°Personnel");
@@ -350,13 +542,9 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(240, 240, 240));
         jLabel9.setText("Nom d'usage");
 
-        jLabel11.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel11.setText("Nom de naissance");
-
-        nomNaissanceText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomNaissanceTextActionPerformed(evt);
+        nomUsageText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                nomUsageTextFocusLost(evt);
             }
         });
 
@@ -364,9 +552,11 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(240, 240, 240));
         jLabel12.setText("Prénom");
 
-        jLabel13.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel13.setText("Lieu de naissance");
+        prenomText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                prenomTextFocusLost(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(240, 240, 240));
@@ -424,12 +614,18 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jLabel45.setForeground(new java.awt.Color(240, 240, 240));
         jLabel45.setText("Mail");
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+        JListPersonnel.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        JListPersonnel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JListPersonnelMouseClicked(evt);
+            }
         });
-        jScrollPane1.setViewportView(jList1);
+        JListPersonnel.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                JListPersonnelValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(JListPersonnel);
 
         ajoutButton.setText("Ajout du personnel");
         ajoutButton.addActionListener(new java.awt.event.ActionListener() {
@@ -445,14 +641,117 @@ public class GestionPersonnel extends javax.swing.JFrame {
             }
         });
 
-        delButton.setText("Suppression du personnel");
-        delButton.addActionListener(new java.awt.event.ActionListener() {
+        joursText.setText("jj");
+        joursText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                joursTextFocusGained(evt);
+            }
+        });
+        joursText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                delButtonActionPerformed(evt);
+                joursTextActionPerformed(evt);
             }
         });
 
-        sexeCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sexe", "FEMME", "HOMME" }));
+        moisText.setText("mm");
+        moisText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                moisTextFocusGained(evt);
+            }
+        });
+        moisText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                moisTextActionPerformed(evt);
+            }
+        });
+
+        anneeText.setText("aaaa");
+        anneeText.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                anneeTextFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                anneeTextFocusLost(evt);
+            }
+        });
+        anneeText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anneeTextActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setText("/");
+
+        jLabel16.setText("/");
+
+        jLabel46.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
+        jLabel46.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel46.setText("Métier");
+
+        metierCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aide-soignant(e)", "Infirmier(ère)", "Médecin", "Secrétaire Administratif(ve)", "Secrétaire Médical", " " }));
+        metierCombo.setSelectedIndex(5);
+        metierCombo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                metierComboItemStateChanged(evt);
+            }
+        });
+
+        serviceText.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
+        serviceText.setForeground(new java.awt.Color(240, 240, 240));
+        serviceText.setText("Service");
+
+        spé1Text.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
+        spé1Text.setForeground(new java.awt.Color(240, 240, 240));
+        spé1Text.setText("Grade");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout spé1PanelLayout = new javax.swing.GroupLayout(spé1Panel);
+        spé1Panel.setLayout(spé1PanelLayout);
+        spé1PanelLayout.setHorizontalGroup(
+            spé1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        spé1PanelLayout.setVerticalGroup(
+            spé1PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(spé1PanelLayout.createSequentialGroup()
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        sexe.setModel(new javax.swing.DefaultComboBoxModel<>(new Sexe[] { Sexe.FEMME, Sexe.HOMME }));
+        sexe.setName(""); // NOI18N
+        sexe.setOpaque(false);
+        sexe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sexeActionPerformed(evt);
+            }
+        });
+
+        effacerButton.setText("Effacer le formulaire");
+        effacerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                effacerButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel40.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
+        jLabel40.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel40.setText("Type de voie");
+
+        jLabel41.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
+        jLabel41.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel41.setText("Mot de passe :");
+
+        identifiant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                identifiantActionPerformed(evt);
+            }
+        });
+
+        jLabel42.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
+        jLabel42.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel42.setText("Identifiant");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -461,64 +760,99 @@ public class GestionPersonnel extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel10Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(nPersonnelText, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(okButton))
-                        .addGroup(jPanel10Layout.createSequentialGroup()
-                            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addComponent(jLabel14)
-                                .addComponent(jLabel15))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(nomUsageText, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                                .addComponent(nomNaissanceText, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                                .addComponent(prenomText, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                                .addComponent(lieuNaissanceText, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                                .addComponent(sexeCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel34)
-                                .addComponent(jLabel36)
-                                .addComponent(jLabel37)
-                                .addComponent(jLabel35)
-                                .addComponent(jLabel38)
-                                .addComponent(jLabel39))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(codePostalText, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(villeText, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(paysText, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel10Layout.createSequentialGroup()
-                                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(numVoieText, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(nomVoieText, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(complementText, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel43)
-                                        .addComponent(jLabel45)
-                                        .addComponent(jLabel44))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(numPortableText, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(numFixeText, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(emailText, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addComponent(jScrollPane1))
                     .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nPersonnelText, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(okButton)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jLabel42)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(identifiant)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel41)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mdp, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ajoutButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(validationButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(delButton)))
+                        .addGap(300, 300, 300))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel10Layout.createSequentialGroup()
+                                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel14)
+                                            .addComponent(jLabel15)
+                                            .addComponent(jLabel39))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(paysText, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel10Layout.createSequentialGroup()
+                                                .addComponent(joursText, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel10)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(moisText, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel16)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(anneeText, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(sexe, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addGroup(jPanel10Layout.createSequentialGroup()
+                                        .addGap(36, 36, 36)
+                                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jLabel12))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(prenomText, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                                            .addComponent(nomUsageText))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel37)
+                                            .addComponent(jLabel38)
+                                            .addComponent(jLabel36))
+                                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel40)
+                                            .addComponent(jLabel35)))
+                                    .addComponent(jLabel34))
+                                .addGap(29, 29, 29)
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(typeVoieText)
+                                    .addComponent(villeText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                                    .addComponent(codePostalText)
+                                    .addComponent(numVoieText)
+                                    .addComponent(nomVoieText)
+                                    .addComponent(complementText))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel43)
+                                    .addComponent(jLabel45)
+                                    .addComponent(jLabel46)
+                                    .addComponent(serviceText)
+                                    .addComponent(spé1Text)
+                                    .addComponent(jLabel44))
+                                .addGap(28, 28, 28)
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(numPortableText)
+                                    .addComponent(numFixeText)
+                                    .addComponent(emailText)
+                                    .addComponent(metierCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(serviceCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(spé1Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(effacerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(validationButton))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 922, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
@@ -530,22 +864,10 @@ public class GestionPersonnel extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(okButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel34)
-                                    .addComponent(numVoieText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel35)
-                                    .addComponent(nomVoieText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(complementText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel36)))
-                            .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel43)
                                     .addComponent(numPortableText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -556,49 +878,74 @@ public class GestionPersonnel extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(emailText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel45))))
+                                    .addComponent(jLabel45)))
+                            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel9)
+                                .addComponent(nomUsageText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(codePostalText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel37))
+                            .addComponent(metierCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel46)
+                            .addComponent(sexe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15)
+                            .addComponent(complementText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(villeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel38))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(paysText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel39)))
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(serviceText)
+                                .addComponent(paysText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel39))
+                            .addComponent(serviceCombo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(nomUsageText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(nomNaissanceText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel34)
+                            .addComponent(numVoieText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(prenomText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel40)
+                            .addComponent(typeVoieText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lieuNaissanceText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel15)
-                            .addComponent(sexeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(anneeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(moisText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(joursText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel16)
+                            .addComponent(nomVoieText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel35))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel36)
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(codePostalText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel37))))
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(spé1Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(spé1Text)
+                                .addComponent(villeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel38)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ajoutButton)
                     .addComponent(validationButton)
-                    .addComponent(delButton))
-                .addContainerGap(86, Short.MAX_VALUE))
+                    .addComponent(jLabel42)
+                    .addComponent(identifiant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel41)
+                    .addComponent(mdp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ajoutButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(effacerButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -606,14 +953,17 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 1265, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1253, Short.MAX_VALUE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 992, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -623,13 +973,13 @@ public class GestionPersonnel extends javax.swing.JFrame {
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)))
         );
 
         jPanel1.getAccessibleContext().setAccessibleName("");
         jPanel1.getAccessibleContext().setAccessibleDescription("");
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 600));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -666,7 +1016,7 @@ public class GestionPersonnel extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseExited
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        Administration adm = new Administration(this.sa,this.lDpi,this.listePersonnel);
+        Administration adm = new Administration(this.sa, this.lDpi, this.listePersonnel, this.listeService);
         adm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
@@ -696,18 +1046,25 @@ public class GestionPersonnel extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseExited
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        GestionPersonnel gp = new GestionPersonnel(sa,this.lDpi,this.listePersonnel);
-        gp.setVisible(true);        
+        GestionPersonnel gp = new GestionPersonnel(sa, this.lDpi, this.listePersonnel, this.listeService);
+        gp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_okButtonActionPerformed
+        int i = 0;
+        while (i < listePersonnel.size() && !listePersonnel.get(i).getIdPersonel().equals(this.nPersonnelText.getText())) {
+            i++;
+        }
 
-    private void nomNaissanceTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomNaissanceTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomNaissanceTextActionPerformed
+        if (i < listePersonnel.size()) {
+            this.remplirChamps(listePersonnel.get(i));
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Aucun membre du personnel n'à cette identifient");
+        }
+
+    }//GEN-LAST:event_okButtonActionPerformed
 
     private void villeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_villeTextActionPerformed
         // TODO add your handling code here:
@@ -718,16 +1075,267 @@ public class GestionPersonnel extends javax.swing.JFrame {
     }//GEN-LAST:event_numPortableTextActionPerformed
 
     private void ajoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutButtonActionPerformed
-        // TODO add your handling code here:
+        String date = this.anneeText.getText() + "-" + this.moisText.getText() + "-" + this.joursText.getText();
+        //récupération id et mdp
+        
+        
+        
+        //Gestion de toute les erreures
+        if (!date.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")) {
+            JOptionPane.showMessageDialog(this, "La date de naissance n'est pas au format : jj/mm/aaaa");
+        } else if (((String) this.metierCombo.getSelectedItem()).equals(" ")) {
+            JOptionPane.showMessageDialog(this, "Aucun métier n'est séléctioné");
+        } else if (this.identifiant.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "L'identfiant spécifié est inncorect");
+        } else if (this.mdp.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Le mot de passe spécifié est inncorect");
+        } else {
+            int numVoie = 0;
+            int cp = 0;
+            try {
+                numVoie = Integer.parseInt(this.numVoieText.getText());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Le numéros de voie saisie n'est pas un chiffre");
+            }
+            try {
+                cp = Integer.parseInt(this.codePostalText.getText());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Le code postal saisie n'est pas un chiffre");
+            }
+
+            //Création du personnel
+            Personnel persoCree;
+            switch ((String) this.metierCombo.getSelectedItem()) {
+                case "Aide-soignant(e)":
+                    persoCree = new AideSoignante((Service) this.serviceCombo.getSelectedItem(),
+                            this.nomUsageText.getText(),
+                            this.prenomText.getText(),
+                            Integer.toString(DAOFactory.getPersonelDAO().getMaxId()+1),
+                            (Sexe) this.sexe.getSelectedItem(),
+                            new Adresse(this.paysText.getText(), this.villeText.getText(), cp, this.nomVoieText.getText(), numVoie, this.typeVoieText.getText(), this.complementText.getText()),
+                            new DateT(date),
+                            this.identifiant.getText(),
+                            new MotDePasse(this.mdp.getText(), true),
+                            new InformationDeContact(this.numFixeText.getText(), this.numPortableText.getText(), this.emailText.getText(), "")
+                    );
+                    break;
+                case "Infirmier(ère)":
+                    persoCree = new Infirmier((Service) this.serviceCombo.getSelectedItem(),
+                            (TypeInfirmier) this.spe1Combo.getSelectedItem(),
+                            this.nomUsageText.getText(),
+                            this.prenomText.getText(),
+                            Integer.toString(DAOFactory.getPersonelDAO().getMaxId()+1),
+                            (Sexe) this.sexe.getSelectedItem(),
+                            new Adresse(this.paysText.getText(), this.villeText.getText(), cp, this.nomVoieText.getText(), numVoie, this.typeVoieText.getText(), this.complementText.getText()),
+                            new DateT(date),
+                            this.identifiant.getText(),
+                            new MotDePasse(this.mdp.getText(), true),
+                            new InformationDeContact(this.numFixeText.getText(), this.numPortableText.getText(), this.emailText.getText(), "")
+                    );
+                    break;
+                case "Médecin":
+                    persoCree = new Medecin("",
+                            (RangMedecin) this.spe2Combo.getSelectedItem(),
+                            (Service) this.serviceCombo.getSelectedItem(),
+                            this.nomUsageText.getText(),
+                            this.prenomText.getText(),
+                            Integer.toString(DAOFactory.getPersonelDAO().getMaxId()+1),
+                            (Sexe) this.sexe.getSelectedItem(),
+                            new Adresse(this.paysText.getText(), this.villeText.getText(), cp, this.nomVoieText.getText(), numVoie, this.typeVoieText.getText(), this.complementText.getText()),
+                            new DateT(date),
+                            this.identifiant.getText(),
+                            new MotDePasse(this.mdp.getText(), true),
+                            new InformationDeContact(this.numFixeText.getText(), this.numPortableText.getText(), this.emailText.getText(), "")
+                    );
+                    break;
+                case "Secrétaire Administratif(ve)":
+                    persoCree = new SecretaireAdministratif(this.bureauText.getText(),
+                            (Service) this.serviceCombo.getSelectedItem(),
+                            this.nomUsageText.getText(),
+                            this.prenomText.getText(),
+                            Integer.toString(DAOFactory.getPersonelDAO().getMaxId()+1),
+                            (Sexe) this.sexe.getSelectedItem(),
+                            new Adresse(this.paysText.getText(), this.villeText.getText(), cp, this.nomVoieText.getText(), numVoie, this.typeVoieText.getText(), this.complementText.getText()),
+                            new DateT(date),
+                            this.identifiant.getText(),
+                            new MotDePasse(this.mdp.getText(), true),
+                            new InformationDeContact(this.numFixeText.getText(), this.numPortableText.getText(), this.emailText.getText(), "")
+                    );
+                    break;
+                default:
+                    //Secretaire Medical
+                    persoCree = new SecretaireMedicale((Service) this.serviceCombo.getSelectedItem(),
+                            this.nomUsageText.getText(),
+                            this.prenomText.getText(),
+                            Integer.toString(DAOFactory.getPersonelDAO().getMaxId()+1),
+                            (Sexe) this.sexe.getSelectedItem(),
+                            new Adresse(this.paysText.getText(), this.villeText.getText(), cp, this.nomVoieText.getText(), numVoie, this.typeVoieText.getText(), this.complementText.getText()),
+                            new DateT(date),
+                            this.identifiant.getText(),
+                            new MotDePasse(this.mdp.getText(), true),
+                            new InformationDeContact(this.numFixeText.getText(), this.numPortableText.getText(), this.emailText.getText(), "")
+                    );
+                    break;
+            }
+
+            //sauvegarde dans la db
+            DAOFactory.getPersonelDAO().create(persoCree);
+            ((AdressePersonnelDAO) DAOFactory.getAdressePersonnelDAO()).create(persoCree.getAdresse(), Integer.parseInt(persoCree.getIdPersonel()));
+
+            this.listePersonnel.add(persoCree);
+            this.miseAJoursJListPersonnel();
+
+        }
     }//GEN-LAST:event_ajoutButtonActionPerformed
 
     private void validationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validationButtonActionPerformed
-        // TODO add your handling code here:
+        String date = this.anneeText.getText() + "-" + this.moisText.getText() + "-" + this.joursText.getText();
+        //Gestion de toute les erreures
+        if (this.JListPersonnel.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Aucun personnel n'est séléctioné");
+        } else if (!date.matches("\\d\\d\\d\\d-\\d\\d-\\d\\d")) {
+            JOptionPane.showMessageDialog(this, "La date de naissance n'est pas au format : jj/mm/aaaa");
+        } else {
+            int numVoie = 0;
+            int cp = 0;
+            try {
+                numVoie = Integer.parseInt(this.numVoieText.getText());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Le numéros de voie saisie n'est pas un chiffre");
+            }
+            try {
+                cp = Integer.parseInt(this.codePostalText.getText());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Le code postal saisie n'est pas un chiffre");
+            }
+            //Mise a jours du personnel
+            Personnel persoModifier = this.JListPersonnel.getSelectedValue();
+            persoModifier.setNom(this.nomUsageText.getText());
+            persoModifier.setPrenom(this.prenomText.getText());
+            persoModifier.setDateDeNaissance(new DateT(date));
+            persoModifier.setSexe((Sexe) this.sexe.getSelectedItem());
+            persoModifier.setAdresse(new Adresse(this.paysText.getText(), this.villeText.getText(), cp, this.nomVoieText.getText(), numVoie, this.typeVoieText.getText(), this.complementText.getText()));
+            persoModifier.setInfoDeContact(new InformationDeContact(this.numFixeText.getText(), this.numPortableText.getText(), this.emailText.getText(), ""));
+
+            if (persoModifier instanceof Infirmier) {
+                ((Infirmier) persoModifier).setService((Service) this.serviceCombo.getSelectedItem());
+                ((Infirmier) persoModifier).setType((TypeInfirmier) this.spe1Combo.getSelectedItem());
+            } else if (persoModifier instanceof Medecin) {
+                ((Medecin) persoModifier).setService((Service) this.serviceCombo.getSelectedItem());
+                ((Medecin) persoModifier).setType((RangMedecin) this.spe2Combo.getSelectedItem());
+            } else if (persoModifier instanceof SecretaireAdministratif) {
+                ((SecretaireAdministratif) persoModifier).setService((Service) this.serviceCombo.getSelectedItem());
+                ((SecretaireAdministratif) persoModifier).setBureau(this.bureauText.getText());
+            } else if (persoModifier instanceof AideSoignante) {
+                ((AideSoignante) persoModifier).setService((Service) this.serviceCombo.getSelectedItem());
+            } else {
+                ((SecretaireMedicale) persoModifier).setService((Service) this.serviceCombo.getSelectedItem());
+            }
+
+            //mise a jours de la DB
+            DAOFactory.getPersonelDAO().update(persoModifier);
+            ((AdressePersonnelDAO) DAOFactory.getAdressePersonnelDAO()).update(persoModifier.getAdresse(), Integer.parseInt(persoModifier.getIdPersonel()));
+
+            this.miseAJoursJListPersonnel();
+        }
     }//GEN-LAST:event_validationButtonActionPerformed
 
-    private void delButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delButtonActionPerformed
+    private void joursTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joursTextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_delButtonActionPerformed
+    }//GEN-LAST:event_joursTextActionPerformed
+
+    private void moisTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moisTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_moisTextActionPerformed
+
+    private void anneeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anneeTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_anneeTextActionPerformed
+
+    private void sexeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sexeActionPerformed
+
+    private void nomUsageTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nomUsageTextFocusLost
+        this.miseAJoursJListPersonnel();
+    }//GEN-LAST:event_nomUsageTextFocusLost
+
+    private void prenomTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_prenomTextFocusLost
+        this.miseAJoursJListPersonnel();
+    }//GEN-LAST:event_prenomTextFocusLost
+
+    private void anneeTextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_anneeTextFocusLost
+        this.miseAJoursJListPersonnel();
+    }//GEN-LAST:event_anneeTextFocusLost
+
+    private void joursTextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_joursTextFocusGained
+        this.joursText.selectAll();
+    }//GEN-LAST:event_joursTextFocusGained
+
+    private void moisTextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_moisTextFocusGained
+        this.moisText.selectAll();
+    }//GEN-LAST:event_moisTextFocusGained
+
+    private void anneeTextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_anneeTextFocusGained
+        this.anneeText.selectAll();
+    }//GEN-LAST:event_anneeTextFocusGained
+
+    private void metierComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_metierComboItemStateChanged
+        this.miseAJoursJListPersonnel();
+        switch (metierCombo.getSelectedIndex()) {
+            default://AS et SM
+                this.spé1Panel.setVisible(false);
+                this.spé1Text.setVisible(false);
+                break;
+            case 1://infirmier
+                this.spé1Text.setText("Spécialité");
+                this.spé1Text.setVisible(true);
+
+                spé1Panel.removeAll();
+                spé1Panel.add(spe1Combo, BorderLayout.CENTER);
+                spé1Panel.validate();
+                spé1Panel.setVisible(true);
+
+                break;
+            case 2: //medecin
+                this.spé1Text.setText("Grade");
+                this.spé1Text.setVisible(true);
+
+                spé1Panel.removeAll();
+                spé1Panel.add(spe2Combo, BorderLayout.CENTER);
+                spé1Panel.validate();
+                spé1Panel.setVisible(true);
+                break;
+            case 3: //Secrétaire Administrative
+                this.spé1Text.setText("Bureau");
+                this.spé1Text.setVisible(true);
+
+                spé1Panel.removeAll();
+                spé1Panel.add(bureauText, BorderLayout.CENTER);
+                spé1Panel.validate();
+                spé1Panel.setVisible(true);
+                break;
+
+        }
+    }//GEN-LAST:event_metierComboItemStateChanged
+
+    private void effacerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_effacerButtonActionPerformed
+        this.remplirChamps(null);
+    }//GEN-LAST:event_effacerButtonActionPerformed
+
+    private void JListPersonnelValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_JListPersonnelValueChanged
+
+    }//GEN-LAST:event_JListPersonnelValueChanged
+
+    private void JListPersonnelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JListPersonnelMouseClicked
+        if (evt.getClickCount() == 2) {
+            this.remplirChamps(this.JListPersonnel.getSelectedValue());
+        }
+    }//GEN-LAST:event_JListPersonnelMouseClicked
+
+    private void identifiantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_identifiantActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_identifiantActionPerformed
 
     /**
      * @param args the command line arguments
@@ -765,17 +1373,21 @@ public class GestionPersonnel extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList<Personnel> JListPersonnel;
     private javax.swing.JButton ajoutButton;
+    private javax.swing.JTextField anneeText;
     private javax.swing.JTextField codePostalText;
     private javax.swing.JTextField complementText;
-    private javax.swing.JButton delButton;
+    private javax.swing.JButton effacerButton;
     private javax.swing.JTextField emailText;
+    private javax.swing.JTextField identifiant;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel34;
@@ -785,15 +1397,18 @@ public class GestionPersonnel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
@@ -805,9 +1420,11 @@ public class GestionPersonnel extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField lieuNaissanceText;
+    private javax.swing.JTextField joursText;
+    private javax.swing.JPasswordField mdp;
+    private javax.swing.JComboBox<String> metierCombo;
+    private javax.swing.JTextField moisText;
     private javax.swing.JTextField nPersonnelText;
-    private javax.swing.JTextField nomNaissanceText;
     private javax.swing.JTextField nomUsageText;
     private javax.swing.JTextField nomVoieText;
     private javax.swing.JTextField numFixeText;
@@ -816,8 +1433,15 @@ public class GestionPersonnel extends javax.swing.JFrame {
     private javax.swing.JButton okButton;
     private javax.swing.JTextField paysText;
     private javax.swing.JTextField prenomText;
-    private javax.swing.JComboBox<String> sexeCombo;
+    private javax.swing.JComboBox<Service> serviceCombo;
+    private javax.swing.JLabel serviceText;
+    private javax.swing.JComboBox<Sexe> sexe;
+    private javax.swing.JPanel spé1Panel;
+    private javax.swing.JLabel spé1Text;
+    private javax.swing.JTextField typeVoieText;
     private javax.swing.JButton validationButton;
     private javax.swing.JTextField villeText;
     // End of variables declaration//GEN-END:variables
+
+
 }
