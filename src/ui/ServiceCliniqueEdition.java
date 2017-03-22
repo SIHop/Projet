@@ -69,7 +69,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         if(this.dpi.getLit()!=null){
             this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
         }
-        this.jLabel19.setText("N°sejour: " + numSej);
+        this.jLabel19.setText("N°séjour: " + numSej);
 
         
         

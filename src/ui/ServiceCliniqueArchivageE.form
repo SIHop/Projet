@@ -240,7 +240,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="f0" green="f0" red="f0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Date de d&#xe9;ces "/>
+                <Property name="text" type="java.lang.String" value="Date de d&#xe9;c&#xe8;s "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="dateDebutLabel">
@@ -269,7 +269,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="ans (entre 30 et 50ans)"/>
+                <Property name="text" type="java.lang.String" value="ans (entre 20 et 50)"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane1">

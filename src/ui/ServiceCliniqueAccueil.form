@@ -314,7 +314,7 @@
                                   <Component id="jScrollPane1" min="-2" pref="939" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="52" max="32767" attributes="0"/>
+                          <EmptySpace pref="70" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -333,7 +333,7 @@
               <SubComponents>
                 <Component class="javax.swing.JButton" name="jButton1">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="D&#xe9;tail"/>
+                    <Property name="text" type="java.lang.String" value="D&#xe9;tails"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>

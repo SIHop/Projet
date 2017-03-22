@@ -44,7 +44,7 @@ public class ServiceCliniqueResultatD extends javax.swing.JFrame {
         if(this.dpi.getLit()!=null){
             this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
         }
-        this.jLabel19.setText("N°sejour: "+this.numSej);
+        this.jLabel19.setText("N°séjour: "+this.numSej);
         
         //mise en reliefe des boutons correspondants a la situation courante
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
@@ -54,12 +54,12 @@ public class ServiceCliniqueResultatD extends javax.swing.JFrame {
         this.jLabel10.setForeground(Color.GRAY);
         
         //Affichage des details de la prescription
-        this.jLabel2.setText("Detail du resultat N°"+this.result.getIdResultat()+" correspondant à la prescription N°"+ this.result.getIdPrescription());
+        this.jLabel2.setText("Détails du résultat N°"+this.result.getIdResultat()+" correspondant à la prescription N°"+ this.result.getIdPrescription());
         
         String text = "type de résultat: ";
         for (String[] rs:this.result.getListeResultats()){
             
-            text=text+" -   Examen : " + rs[0] + "  -   Resultat : " + rs[1];
+            text=text+" -   Examen : " + rs[0] + "  -   Résultat : " + rs[1];
         }
         this.jTextPane1.setText(text);
 
@@ -154,7 +154,7 @@ public class ServiceCliniqueResultatD extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(1133, Short.MAX_VALUE)
+                .addContainerGap(1138, Short.MAX_VALUE)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -456,7 +456,7 @@ public class ServiceCliniqueResultatD extends javax.swing.JFrame {
         );
 
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel2.setText("Detail du resultat : Examen sanguin");
+        jLabel2.setText("Detail du résultat : Examen sanguin");
 
         jPanel18.setBackground(new java.awt.Color(19, 29, 38));
 
@@ -546,7 +546,7 @@ public class ServiceCliniqueResultatD extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jTextPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 948, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(26, Short.MAX_VALUE))))
+                        .addContainerGap(28, Short.MAX_VALUE))))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -40,7 +40,7 @@ public class ServiceCliniqueLitD extends javax.swing.JFrame {
        if(this.dpi.getLit()!=null){
             this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
         }
-        this.jLabel19.setText("N°sejour: "+this.numSej);
+        this.jLabel19.setText("N°séjour: "+this.numSej);
         
         //mise en relief de la situation courante
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
@@ -231,7 +231,7 @@ public class ServiceCliniqueLitD extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -457,7 +457,7 @@ public class ServiceCliniqueLitD extends javax.swing.JFrame {
         );
 
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel2.setText("Detail sur la localité");
+        jLabel2.setText("Détail sur la localité");
 
         jPanel18.setBackground(new java.awt.Color(19, 29, 38));
 
@@ -525,7 +525,7 @@ public class ServiceCliniqueLitD extends javax.swing.JFrame {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 953, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 23, Short.MAX_VALUE))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel10Layout.createSequentialGroup()

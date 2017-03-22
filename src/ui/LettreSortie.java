@@ -49,7 +49,7 @@ public class LettreSortie extends javax.swing.JFrame {
             this.jLabel24.setText("Lit : "+this.dpi.getLit().getIdLit());
         }
         int maxSejour= this.dpi.getMyDM().getlSejour().size();
-        this.jLabel25.setText("N°sejour: "+this.numSej);
+        this.jLabel25.setText("N°séjour: "+this.numSej);
     }
 
     /**

@@ -44,7 +44,7 @@ public class ServiceCliniquePrescripD extends javax.swing.JFrame {
         if(this.dpi.getLit()!=null){
             this.jLabel20.setText("Lit : "+this.dpi.getLit().getIdLit());
         }
-        this.jLabel19.setText("N°sejour: "+this.numSej);
+        this.jLabel19.setText("N°séjour: "+this.numSej);
         
         //mise en reliefe des boutons correspondants a la situation courante
         Font myFont = new Font("Raleway Meduim", Font.BOLD, 18);
@@ -56,8 +56,8 @@ public class ServiceCliniquePrescripD extends javax.swing.JFrame {
         
         
         //Affichage des details de la prescription
-        this.jLabel2.setText("Detail de la prescription N°:"+this.prescrip.getIdPrescription());
-        String text = "type de prescrption: ";
+        this.jLabel2.setText("Détails de la prescription N°:"+this.prescrip.getIdPrescription());
+        String text = "type de prescription: ";
         text=text+this.prescrip.getTypePrescription().toString()+"\n"+this.prescrip.getPrescription();
         this.jTextPane1.setText(text);
         this.jTextPane2.setText(this.prescrip.getObservation());
