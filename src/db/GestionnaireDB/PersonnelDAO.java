@@ -250,4 +250,29 @@ public class PersonnelDAO implements DAO<Personnel> {
         return -1;
     }
 
+    public ArrayList<Personnel> findAll(){
+        //Créer la requête pour récupérer les personels qui respecte toutes les contraintes
+        this.query = "SELECT * FROM personnel";
+        
+
+        ArrayList<Personnel> retour = new ArrayList<>();
+
+        try {
+            Statement stmt = PersonnelDAO.connect.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            if (rs.isBeforeFirst()) {
+                while (rs.next()) {
+                    retour.add(this.instancier(rs));
+                }
+            } else {
+                System.out.println("Aucun résultat n'a été trouvé");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException e) {
+            System.out.println("Pas de résultat correspondant");
+        }
+        return retour;
+    }
 }

@@ -5,16 +5,11 @@
  */
 package ui;
 
-import db.GestionnaireDB.DAOFactory;
-import db.GestionnaireDB.DpiDAO;
 import java.awt.Cursor;
 import java.util.ArrayList;
-import nf.Adresse.Adresse;
-import nf.Adresse.DateT;
 import nf.DPI.DPI;
-import nf.GestionDexploitation.InformationDeContact;
+import nf.GestionDexploitation.Personnel;
 import nf.GestionDexploitation.SecretaireAdministratif;
-import nf.GestionDexploitation.Sexe;
 
 /**
  *
@@ -27,11 +22,13 @@ public class GestionPersonnel extends javax.swing.JFrame {
      */
     private SecretaireAdministratif sa;
     private ArrayList<DPI> lDpi;
+    private ArrayList<Personnel> listePersonnel;
 
-    public GestionPersonnel(SecretaireAdministratif sa, ArrayList<DPI> lDpi) {
+    public GestionPersonnel(SecretaireAdministratif sa, ArrayList<DPI> lDpi,ArrayList<Personnel> listePersonnel) {
         initComponents();
         this.sa = sa;      
         this.lDpi = lDpi;
+        this.listePersonnel = listePersonnel;
         this.jLabel1.setText("Bienvenue " + sa.getPrenom() + " " + sa.getNom().toUpperCase());
 
     }
@@ -669,7 +666,7 @@ public class GestionPersonnel extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseExited
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        Administration adm = new Administration(this.sa);
+        Administration adm = new Administration(this.sa,this.lDpi,this.listePersonnel);
         adm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
@@ -699,7 +696,7 @@ public class GestionPersonnel extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel6MouseExited
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        GestionPersonnel gp = new GestionPersonnel(sa,this.lDpi);
+        GestionPersonnel gp = new GestionPersonnel(sa,this.lDpi,this.listePersonnel);
         gp.setVisible(true);        
         this.dispose();
     }//GEN-LAST:event_jLabel8MouseClicked
