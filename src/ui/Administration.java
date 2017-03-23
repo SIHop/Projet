@@ -95,8 +95,8 @@ public class Administration extends javax.swing.JFrame {
         this.nomUsage.setText(dpi.getNomUsage());
         this.prenom.setText(dpi.getPrenom());
         this.jour.setText(String.format("%1$02d", dpi.getDateDeNaissance().getC().get(Calendar.DAY_OF_MONTH)));
-        this.mois.setText(String.format("%1$02d", dpi.getDateDeNaissance().getC().get(Calendar.DAY_OF_MONTH)));
-        this.année.setText(Integer.toString(dpi.getDateDeNaissance().getC().get(Calendar.DAY_OF_MONTH)));
+        this.mois.setText(String.format("%1$02d", dpi.getDateDeNaissance().getC().get(Calendar.MONTH)));
+        this.année.setText(Integer.toString(dpi.getDateDeNaissance().getC().get(Calendar.YEAR)));
         this.sexe.setSelectedItem(dpi.getSexe());
         this.codePostal.setText("0");
         this.numeroVoie.setText("0");
