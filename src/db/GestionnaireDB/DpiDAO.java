@@ -41,7 +41,7 @@ public class DpiDAO implements DAO<DPI> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
         try {
             Statement stmt = DpiDAO.connect.createStatement();
@@ -95,7 +95,7 @@ public class DpiDAO implements DAO<DPI> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
         try {
             Statement stmt = DpiDAO.connect.createStatement();
@@ -180,7 +180,7 @@ public class DpiDAO implements DAO<DPI> {
         }
         this.query = "UPDATE dpi SET prenom = '" + obj.getPrenom().replace("'", "''") + "', nomNaissance = '" + obj.getNomNaissance().replace("'", "''") + "', nomUsage = '" + obj.getNomUsage().replace("'", "''") + "', sexe = '" + obj.getSexe().toString() + "', dateNaissance = '" + obj.getDateDeNaissance().toString() + "', telephonePortable = '" + obj.getInfoDeContact().getNumeroPortable() + "', telephoneFixe = '" + obj.getInfoDeContact().getNumeroFixe() + "', mail = '" + obj.getInfoDeContact().getEmail() + "', lit = " + lit + ", lieuNaissance = '" + obj.getLieuNaissance().replace("'", "''").toUpperCase() + "' WHERE IPP = " + obj.getiPP().getIPP() + " AND idCentreDeSoin =" + "38100111";
 
-        System.out.println(query);
+        
         Statement stmt;
         try {
             stmt = DpiDAO.connect.createStatement();
@@ -232,7 +232,7 @@ public class DpiDAO implements DAO<DPI> {
 
         //Créer la requête pour récupérer la liste de tous les DPI
         this.query = "SELECT * FROM dpi";
-        System.out.println(query);
+        
 
         try {
             Statement stmt = DpiDAO.connect.createStatement();

@@ -35,7 +35,7 @@ public class ServiceDAO implements DAO<Service> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
         try {
             Statement stmt = ServiceDAO.connect.createStatement();
@@ -71,7 +71,7 @@ public class ServiceDAO implements DAO<Service> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
         ArrayList<Service> retour = new ArrayList<>();
 
@@ -103,7 +103,7 @@ public class ServiceDAO implements DAO<Service> {
     public Service create(Service obj) {
         this.query = "INSERT INTO service (idService, idCentreDeSoin, typeService,nomService,idResponsable)"
                 + " VALUES (" + obj.getCodeService() + ",1,'" + obj.getTypeService().toString() + "','" + obj.getNomService().replace("'", "''") + "'," + obj.getResponsable().getIdPersonel() + ")";
-        System.out.println(query);
+        
         Statement stmt;
         try {
             stmt = ServiceDAO.connect.createStatement();

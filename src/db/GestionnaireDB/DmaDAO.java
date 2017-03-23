@@ -34,7 +34,7 @@ public class DmaDAO implements DAO<DMA> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
         ArrayList<Sejour> listeSejour = new ArrayList<>();
         try {
             Statement stmt = DmaDAO.connect.createStatement();
@@ -88,7 +88,7 @@ public class DmaDAO implements DAO<DMA> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
         ArrayList<Sejour> listeSejour = new ArrayList<>();
         try {
             Statement stmt = DmaDAO.connect.createStatement();
@@ -154,7 +154,7 @@ public class DmaDAO implements DAO<DMA> {
     public DMA update(DMA obj) {
         for (Sejour s : obj.getListeDeSejour()) {
             this.query = "UPDATE dma SET IPP = " + obj.getIPP() + " WHERE numeroSejour = " + s.getNumeroDeSejour() + ";\n";
-            System.out.println(query);
+            
 
             Statement stmt;
             try {

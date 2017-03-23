@@ -32,7 +32,7 @@ public class ResultatDAO implements DAO<Resultat> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
         try {
             Statement stmt = ResultatDAO.connect.createStatement();
@@ -65,7 +65,7 @@ public class ResultatDAO implements DAO<Resultat> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
         ArrayList<Resultat> retour = new ArrayList<>();
 
@@ -105,7 +105,7 @@ public class ResultatDAO implements DAO<Resultat> {
         this.query = "INSERT INTO resultat (idresultat, idFicheDeSoins, idPrescription, annalyse,contenuResultat)"
                 + " VALUES (" + obj.getIdResultat() + "," + obj.getIdFicheDeSoins() + "," + obj.getIdPrescription() + ",'" + annalyse.replace("'", "''") + "','" + resultat.replace("'", "''") + "')";
 
-        System.out.println(query);
+       
         Statement stmt;
         try {
             stmt = ResultatDAO.connect.createStatement();

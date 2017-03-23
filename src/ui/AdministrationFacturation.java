@@ -340,8 +340,8 @@ public class AdministrationFacturation extends javax.swing.JFrame {
                          listeFicheDesSoins.getText();
         
         JTextArea jText = new JTextArea(message);
-        MessageFormat entete = new MessageFormat("Facturation");
-        print.impression(jText, message);
+        String entete = "Facturation";
+        print.impression(jText, entete);
         
     }//GEN-LAST:event_printButtonActionPerformed
 

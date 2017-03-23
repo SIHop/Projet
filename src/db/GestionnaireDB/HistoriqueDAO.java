@@ -32,7 +32,7 @@ public class HistoriqueDAO implements DAO<Historique>{
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
         try {
             Statement stmt = HistoriqueDAO.connect.createStatement();
@@ -65,7 +65,7 @@ public class HistoriqueDAO implements DAO<Historique>{
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
         try {
             Statement stmt = HistoriqueDAO.connect.createStatement();
@@ -92,7 +92,7 @@ public class HistoriqueDAO implements DAO<Historique>{
         this.query = "INSERT INTO historique (IPP,dateDeces,dateFinArchivage)" 
                 + " VALUES (" + obj.getIpp().getIPP()+ ",'" + obj.getDateDeces().toString()+ "','" + obj.getDateFinArchivage().toString()+"')";
 
-        System.out.println(query);
+        
         Statement stmt;
         try {
             stmt = HistoriqueDAO.connect.createStatement();
@@ -107,7 +107,7 @@ public class HistoriqueDAO implements DAO<Historique>{
     public Historique update(Historique obj) {
         this.query = "UPDATE historique SET dateDeces = '"+obj.getDateDeces().toString() + "', dateFinArchivage = '"+ obj.getDateFinArchivage().toString()+"' WHERE IPP = " + obj.getIpp().getIPP();
 
-        System.out.println(query);
+        
         Statement stmt;
         try {
             stmt = HistoriqueDAO.connect.createStatement();
