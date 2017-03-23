@@ -565,10 +565,10 @@ public class LettreSortie extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
-        if((this.jTextField1==null)||(this.jTextArea1==null)){
-            JOptionPane.showMessageDialog(this, "Tous les champs doivent être remplis");
-        }
-        else{
+//        if((this.jTextField1==null)||(this.jTextArea1==null)){
+//            JOptionPane.showMessageDialog(this, "Tous les champs doivent être remplis");
+//        }
+//        else{
             //rédaction d'une nouvelle lettre et de la date de sortie
             Sejour lastSej =this.dpi.getMyDM().getLastSejour();
             int idRespo = Integer.parseInt(lastSej.getMedecinResponsable().getIdPersonel());
@@ -591,8 +591,8 @@ public class LettreSortie extends javax.swing.JFrame {
                 if(this.listeDPI.get(i).getiPP()== this.dpi.getiPP()){
                     position=i;
                     trouve=true;
-                    i++;
                 }
+                i++;
             }
             if(position>=0){
                         this.listeDPI.remove(position);
@@ -608,7 +608,7 @@ public class LettreSortie extends javax.swing.JFrame {
             serviceClinique.setVisible(true);
             serviceClinique.setLocationRelativeTo(this);
             this.dispose();
-        }
+//        }
     }//GEN-LAST:event_jLabel21MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
