@@ -65,7 +65,7 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
         nomNaissance.setText(this.dpiEnEdition.getNomNaissance());
         prenom.setText(this.dpiEnEdition.getPrenom());
         lieuNaissance.setText(this.dpiEnEdition.getLieuNaissance());
-        jour.setText(Integer.toString(this.dpiEnEdition.getDateDeNaissance().getC().get(Calendar.DAY_OF_MONTH)));
+        jour.setText(String.format("%1$02d",this.dpiEnEdition.getDateDeNaissance().getC().get(Calendar.DAY_OF_MONTH)));
         mois.setText(String.format("%1$02d", this.dpiEnEdition.getDateDeNaissance().getC().get(Calendar.MONTH) + 1));
         année.setText(Integer.toString(this.dpiEnEdition.getDateDeNaissance().getC().get(Calendar.YEAR)));
         sexe.setSelectedItem(this.dpiEnEdition.getSexe());
@@ -766,6 +766,11 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
         });
 
         envoieButton.setText("Envoie par HL7");
+        envoieButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                envoieButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -1289,6 +1294,13 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
     private void sexeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sexeFocusLost
         this.getDpiEnEdition().setSexe((Sexe) this.sexe.getSelectedItem());
     }//GEN-LAST:event_sexeFocusLost
+
+    private void envoieButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envoieButtonActionPerformed
+        EnvoiePatient ep = new EnvoiePatient(this.dpiEnEdition);
+        ep.setVisible(true);
+        
+        
+    }//GEN-LAST:event_envoieButtonActionPerformed
 
     /**
      * @param args the command line arguments

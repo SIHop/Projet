@@ -16,6 +16,7 @@ import java.awt.Graphics;
 import java.awt.PrintJob;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -56,6 +57,32 @@ public class EnvoiePatient extends javax.swing.JFrame {
     public EnvoiePatient() {
         initComponents();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+    
+    /**
+     * Constructeur de Loic, seul modification de cette classe
+     * initialise juste les champs par es info du dpi, doit cliquer sur recherche avant de pouvoir envoyer !
+     * @param dpi 
+     */
+    public EnvoiePatient(DPI dpi){
+        initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
+        this.jTextField4.setText(Integer.toString(dpi.getiPP().getIPP()));
+        this.jTextField5.setText(dpi.getNomUsage());
+        this.jTextField6.setText(dpi.getPrenom());
+        
+        if(dpi.getSexe() == Sexe.FEMME){
+            jRadioButton4.setSelected(true);
+        }else{
+            jRadioButton3.setSelected(true);
+        }
+        
+        this.jComboBox4.setSelectedIndex(dpi.getDateDeNaissance().getC().get(Calendar.DAY_OF_MONTH)-1);
+        this.jComboBox5.setSelectedIndex(dpi.getDateDeNaissance().getC().get(Calendar.MONTH));
+        this.jComboBox6.setSelectedIndex(dpi.getDateDeNaissance().getC().get(Calendar.YEAR)-1900);
+        this.jButton8ActionPerformed(null);
+        
     }
 
     /**

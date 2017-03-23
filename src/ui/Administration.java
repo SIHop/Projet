@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import nf.Adresse.Adresse;
 import nf.Adresse.DateT;
@@ -90,6 +91,17 @@ public class Administration extends javax.swing.JFrame {
 
     }
 
+    public void recuperationInfoHL7(DPI dpi) {
+        this.nomUsage.setText(dpi.getNomUsage());
+        this.prenom.setText(dpi.getPrenom());
+        this.jour.setText(String.format("%1$02d", dpi.getDateDeNaissance().getC().get(Calendar.DAY_OF_MONTH)));
+        this.mois.setText(String.format("%1$02d", dpi.getDateDeNaissance().getC().get(Calendar.DAY_OF_MONTH)));
+        this.année.setText(Integer.toString(dpi.getDateDeNaissance().getC().get(Calendar.DAY_OF_MONTH)));
+        this.sexe.setSelectedItem(dpi.getSexe());
+        this.codePostal.setText("0");
+        this.numeroVoie.setText("0");
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -161,6 +173,8 @@ public class Administration extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
+        envoieButton = new javax.swing.JButton();
+        recuperationHL7Button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 600));
@@ -226,7 +240,7 @@ public class Administration extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1309, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1313, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -454,7 +468,7 @@ public class Administration extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 359, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 363, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addGap(260, 260, 260)
                 .addComponent(jLabel3)
@@ -661,6 +675,20 @@ public class Administration extends javax.swing.JFrame {
         jLabel17.setForeground(new java.awt.Color(240, 240, 240));
         jLabel17.setText("Liste des patients :");
 
+        envoieButton.setText("Envoie par HL7");
+        envoieButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                envoieButtonActionPerformed(evt);
+            }
+        });
+
+        recuperationHL7Button.setText("Récupéré par HL7");
+        recuperationHL7Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recuperationHL7ButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -740,9 +768,14 @@ public class Administration extends javax.swing.JFrame {
                                                 .addGroup(jPanel10Layout.createSequentialGroup()
                                                     .addComponent(jLabel45)
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))))))
-                    .addComponent(edit))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(recuperationHL7Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(email))))))))))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(edit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(envoieButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(318, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -775,14 +808,19 @@ public class Administration extends javax.swing.JFrame {
                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel45))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(complement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel36))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(codePostal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel37))
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(complement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel36))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(codePostal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel37)))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(recuperationHL7Button)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(ville, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -829,8 +867,10 @@ public class Administration extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(edit)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(edit)
+                    .addComponent(envoieButton))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -844,7 +884,7 @@ public class Administration extends javax.swing.JFrame {
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1309, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1313, Short.MAX_VALUE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
@@ -1096,6 +1136,22 @@ public class Administration extends javax.swing.JFrame {
         this.jLabel18.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_jLabel18MouseExited
 
+    private void envoieButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envoieButtonActionPerformed
+        if (this.listPatient.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Aucun patient n'est séléctioné pour l'envoie");
+        } else {
+            EnvoiePatient ep = new EnvoiePatient(this.listPatient.getSelectedValue());
+            ep.setVisible(true);
+        }
+
+
+    }//GEN-LAST:event_envoieButtonActionPerformed
+
+    private void recuperationHL7ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recuperationHL7ButtonActionPerformed
+        ReceptionPatient rp = new ReceptionPatient(this);
+        rp.setVisible(true);
+    }//GEN-LAST:event_recuperationHL7ButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1138,6 +1194,7 @@ public class Administration extends javax.swing.JFrame {
     private javax.swing.JButton creation;
     private javax.swing.JButton edit;
     private javax.swing.JTextField email;
+    private javax.swing.JButton envoieButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1191,6 +1248,7 @@ public class Administration extends javax.swing.JFrame {
     private javax.swing.JTextField numeroVoie;
     private javax.swing.JTextField pays;
     private javax.swing.JTextField prenom;
+    private javax.swing.JButton recuperationHL7Button;
     private javax.swing.JComboBox<Sexe> sexe;
     private javax.swing.JTextField typeVoie;
     private javax.swing.JTextField ville;
