@@ -157,7 +157,7 @@ public class DPI {
         if (this.myDMA.getListeDeSejour().get(this.myDMA.getListeDeSejour().size() - 1).isEnCours()) {
             p.setDateDicharge(null);
         } else {
-            p.setDateDicharge(this.myDM.getLastSejour().getDateDeFin().getC().getTime());
+            p.setDateDicharge(null);
         }
         Historique hist = Historique.getHistoriqueByIPP(iPP.getIPP());
         if (hist != null) {

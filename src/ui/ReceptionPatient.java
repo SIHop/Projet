@@ -10,6 +10,7 @@ import db.GestionnaireDB.DAO;
 import db.GestionnaireDB.DAOFactory;
 import interoperabilite.Serveur;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
@@ -455,8 +456,6 @@ public class ReceptionPatient extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        
         int port = Integer.parseInt(jTextField3.getText());
         
         new Thread(() -> {
@@ -468,8 +467,13 @@ public class ReceptionPatient extends javax.swing.JFrame {
             jLabel11.setText(ps.getFamillyName());
             jLabel12.setText(ps.getFirstName());
             ddn = ps.getBirth();
-            String date = "" + (ps.getBirth().getYear() + 1900) + "-" + String.format("%1$02d",(ps.getBirth().getMonth() + 1)) + "-" + String.format("%1$02d",ps.getBirth().getDate());
-            jLabel13.setText(date);
+            Calendar c = Calendar.getInstance();
+            c.setTime(ddn);
+            int annee = c.get(Calendar.YEAR) + 1900;
+            int mois = c.get(Calendar.MONTH) + 1;
+            int jour = c.get(Calendar.DAY_OF_MONTH);
+            String ddnTexte = "" + annee + "-" + String.format("%1$02d",mois) + "-" + String.format("%1$02d",jour);
+            jLabel13.setText(ddnTexte);
             jLabel15.setText("" + ps.getCharSex());
         }).start();
 
@@ -493,80 +497,6 @@ public class ReceptionPatient extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_recuperationButtonActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReceptionPatient.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReceptionPatient.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReceptionPatient.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReceptionPatient.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ReceptionPatient().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton4;

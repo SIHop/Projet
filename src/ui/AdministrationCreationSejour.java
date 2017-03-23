@@ -53,6 +53,7 @@ public class AdministrationCreationSejour extends javax.swing.JFrame {
         for(Personnel p : listMed){
             this.listeMedecinCombo.addItem((Medecin)p);
         }
+        
         this.serviceJText.setText(((Medecin)this.listeMedecinCombo.getSelectedItem()).getService().getNomService());
         
         

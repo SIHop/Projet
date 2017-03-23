@@ -22,7 +22,6 @@ public class Client {
         this.dpi = dpi;
         this.p = dpi.dpiToPatient();
         client.connexion(adresse, portEnvoie);
-        System.out.println("-----------testConnexion------------");
         client.admit(p);
     }
 

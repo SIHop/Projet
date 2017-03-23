@@ -51,12 +51,12 @@ public class ServiceDAO implements DAO<Service> {
 
                 return new Service(rs.getString("idService"), rs.getString("nomService"), rs.getString("idResponsable"), new Localisation(rs.getString("batiment"),rs.getInt("etage"), rs.getString("couloir")), litDAO.findMultiple(argL, valL), null, TypeService.valueOf(rs.getString("typeService")));
             } else {
-                System.out.println("Aucun résultat n'a été trouvé");
+                //System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultat correspondant");
+            //System.out.println("Pas de résultat correspondant");
         }
         return null;
     }
@@ -89,12 +89,12 @@ public class ServiceDAO implements DAO<Service> {
                     retour.add(new Service(rs.getString("idService"), rs.getString("nomService"), "1", new Localisation("bat", 1, "couloir"), litDAO.findMultiple(argL, valL), null, TypeService.valueOf(rs.getString("typeService"))));
                 }
             } else {
-                System.out.println("Aucun résultat n'a été trouvé");
+                //System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultat correspondant");
+            //System.out.println("Pas de résultat correspondant");
         }
         return retour;
     }
@@ -182,12 +182,12 @@ public class ServiceDAO implements DAO<Service> {
                     retour.add(new Service(rs.getString("idService"), rs.getString("nomService"), "1", new Localisation("bat", 1, "couloir"), litDAO.findMultiple(argL, valL), null, TypeService.valueOf(rs.getString("typeService"))));
                 }
             } else {
-                System.out.println("Aucun résultat n'a été trouvé");
+                //System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultat correspondant");
+            //System.out.println("Pas de résultat correspondant");
         }
         return retour;
     }
