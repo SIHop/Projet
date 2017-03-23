@@ -468,7 +468,7 @@ public class ReceptionPatient extends javax.swing.JFrame {
             jLabel11.setText(ps.getFamillyName());
             jLabel12.setText(ps.getFirstName());
             ddn = ps.getBirth();
-            String date = "" + (ps.getBirth().getYear() + 1900) + "-" + (ps.getBirth().getMonth() + 1) + "-" + ps.getBirth().getDate();
+            String date = "" + (ps.getBirth().getYear() + 1900) + "-" + String.format("1$02d",(ps.getBirth().getMonth() + 1)) + "-" + String.format("1$02d",ps.getBirth().getDate());
             jLabel13.setText(date);
             jLabel15.setText("" + ps.getCharSex());
         }).start();

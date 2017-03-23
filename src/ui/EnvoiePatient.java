@@ -570,7 +570,7 @@ public class EnvoiePatient extends javax.swing.JFrame {
     private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
         int ligneSelectionne = jTable4.getSelectedRow();
         System.out.println("" + ligneSelectionne);
-        IPP = (int) jTable4.getValueAt(ligneSelectionne, 0);
+        IPP = ((IPP)jTable4.getValueAt(ligneSelectionne, 0)).getIPP();
         System.out.println("" + IPP);
         System.out.println("identifient du patient selectionné: " + IPP);
         ArrayList<String> listarg = new ArrayList();
