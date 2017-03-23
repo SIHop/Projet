@@ -36,7 +36,7 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        //System.out.println(query);
 
         //Instanciation des DAO nécessaire à la création d'une fiche de soins
         DAO<Acte> acteDao = DAOFactory.getActeDAO();
@@ -66,12 +66,12 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
                 return new FicheDeSoins(rs.getInt("idFicheDeSoins"), acteDao.findMultiple(argData, valData), prescriptionDao.findMultiple(argData, valData), resultatDao.findMultiple(argData, valData), p,
                         new DateT(rs.getString("dateCreationFiche")), rs.getString("numeroSejour"));
             } else {
-                System.out.println("Aucun résultat n'a été trouvé");
+                //System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultat correspondant");
+            //System.out.println("Pas de résultat correspondant");
         }
         return null;
     }
@@ -88,7 +88,7 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        //System.out.println(query);
 
         //Instanciation des DAO nécessaire à la création d'une fiche de soins
         DAO<Acte> acteDao = DAOFactory.getActeDAO();
@@ -119,12 +119,12 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
                 }
 
             } else {
-                System.out.println("Aucun résultat n'a été trouvé");
+                //System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultat correspondant");
+            //System.out.println("Pas de résultat correspondant");
         }
         return lfds;
     }

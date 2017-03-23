@@ -32,7 +32,7 @@ public class ResultatDAO implements DAO<Resultat> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        //System.out.println(query);
 
         try {
             Statement stmt = ResultatDAO.connect.createStatement();
@@ -45,12 +45,12 @@ public class ResultatDAO implements DAO<Resultat> {
                 ArrayList<String> listeResultat = new ArrayList<>(Arrays.asList(rs.getString("contenuResultat").split("\\s*;\\s*")));
                 return new Resultat(rs.getInt("idresultat"), rs.getInt("idPrescription"), rs.getInt("idFicheDeSoins"), listeAnnalyse, listeResultat);
             } else {
-                System.out.println("Aucun résultat n'a été trouvé");
+                //System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultat correspondant");
+            //System.out.println("Pas de résultat correspondant");
         }
         return null;
     }
@@ -65,7 +65,7 @@ public class ResultatDAO implements DAO<Resultat> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        //System.out.println(query);
 
         ArrayList<Resultat> retour = new ArrayList<>();
 
@@ -82,12 +82,12 @@ public class ResultatDAO implements DAO<Resultat> {
                 }
 
             } else {
-                System.out.println("Aucun résultat n'a été trouvé");
+                //System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultat correspondant");
+            //System.out.println("Pas de résultat correspondant");
         }
         return retour;
     }
@@ -105,7 +105,7 @@ public class ResultatDAO implements DAO<Resultat> {
         this.query = "INSERT INTO resultat (idresultat, idFicheDeSoins, idPrescription, annalyse,contenuResultat)"
                 + " VALUES (" + obj.getIdResultat() + "," + obj.getIdFicheDeSoins() + "," + obj.getIdPrescription() + ",'" + annalyse.replace("'", "''") + "','" + resultat.replace("'", "''") + "')";
 
-        System.out.println(query);
+        //System.out.println(query);
         Statement stmt;
         try {
             stmt = ResultatDAO.connect.createStatement();

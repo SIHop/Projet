@@ -33,7 +33,7 @@ public class PrescriptionDAO implements DAO<Prescription>{
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        //System.out.println(query);
 
         try {
             Statement stmt = PrescriptionDAO.connect.createStatement();
@@ -43,12 +43,12 @@ public class PrescriptionDAO implements DAO<Prescription>{
                 rs.first();
                 return new Prescription(rs.getInt("idprescription"),rs.getInt("idFicheDeSoins"), rs.getString("contenuePrescription"),rs.getString("observation"), TypePrescription.valueOf(rs.getString("typePrescription")));
             } else {
-                System.out.println("Aucun résultat n'a été trouvé");
+                //System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultat correspondant");
+            //System.out.println("Pas de résultat correspondant");
         }
         return null;
     }
@@ -63,7 +63,7 @@ public class PrescriptionDAO implements DAO<Prescription>{
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        //System.out.println(query);
         
         ArrayList<Prescription> retour = new ArrayList<>();
 
@@ -77,12 +77,12 @@ public class PrescriptionDAO implements DAO<Prescription>{
                 }
                 
             } else {
-                System.out.println("Aucun résultat n'a été trouvé");
+                //System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultat correspondant");
+            //System.out.println("Pas de résultat correspondant");
         }
         return retour;
     }
@@ -93,7 +93,7 @@ public class PrescriptionDAO implements DAO<Prescription>{
                 + " VALUES (" + obj.getIdPrescription()+ "," + obj.getIdFicheDeSoins() + ",'" + obj.getTypePrescription().getLabelle() + "','" + obj.getPrescription().replace("'", "''") + "','"  + obj.getObservation().replace("'", "''")+ "')";
 
         ;
-        System.out.println(query);
+        //System.out.println(query);
         Statement stmt;
         try {
             stmt = PrescriptionDAO.connect.createStatement();

@@ -44,12 +44,12 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     private ArrayList<DPI> listeDPI;
     private ArrayList<FicheDeSoins> listeFicheSoins;
     private ArrayList<Resultat> result = new ArrayList<>();
-    private ArrayList<Resultat> listeResult = new ArrayList();
-    private ArrayList<Resultat> lresultat=new ArrayList();
-    private ArrayList<Prescription> listePrescription = new ArrayList();
+    private ArrayList<Resultat> listeResult = new ArrayList<>();
+    private ArrayList<Resultat> lresultat=new ArrayList<>();
+    private ArrayList<Prescription> listePrescription = new ArrayList<>();
     private ArrayList<String> lprescription = new ArrayList<>();
-    private ArrayList<Acte> listeActe = new ArrayList();
-    private ArrayList<Acte> listeActeConfondu = new ArrayList();
+    private ArrayList<Acte> listeActe = new ArrayList<>();
+    private ArrayList<Acte> listeActeConfondu = new ArrayList<>();
     private ArrayList<String> lactes = new ArrayList<>();
     private ArrayList<String> lactesConfondu = new ArrayList<>();
     private ArrayList<String> listeObservation = new ArrayList<>();

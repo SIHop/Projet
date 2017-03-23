@@ -34,7 +34,7 @@ public class DmaDAO implements DAO<DMA> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        //System.out.println(query);
         ArrayList<Sejour> listeSejour = new ArrayList<>();
         try {
             Statement stmt = DmaDAO.connect.createStatement();
@@ -45,7 +45,7 @@ public class DmaDAO implements DAO<DMA> {
                 rs.first();
                 IPP = rs.getString("IPP");
                 String query2 = "SELECT numeroSejour FROM dma WHERE IPP = " + rs.getString("IPP");
-                System.out.println(query2);
+                //System.out.println(query2);
                 ResultSet rs2 = stmt.executeQuery(query2);
 
                 ArrayList<String> argSejour = new ArrayList<>();
@@ -66,12 +66,12 @@ public class DmaDAO implements DAO<DMA> {
 
                 return new DMA(listeSejour, IPP);
             } else {
-                System.out.println("Aucun résultat n'a été trouvé");
+                //System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultat correspondant");
+            //System.out.println("Pas de résultat correspondant");
         }
         return null;
     }
@@ -88,7 +88,7 @@ public class DmaDAO implements DAO<DMA> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        //System.out.println(query);
         ArrayList<Sejour> listeSejour = new ArrayList<>();
         try {
             Statement stmt = DmaDAO.connect.createStatement();
@@ -100,7 +100,7 @@ public class DmaDAO implements DAO<DMA> {
 
                     IPP = rs.getString("IPP");
                     String query2 = "SELECT numeroSejour FROM dma WHERE IPP = " + rs.getString("IPP");
-                    System.out.println(query2);
+                    //System.out.println(query2);
                     Statement stmt2 = DmaDAO.connect.createStatement();
                     ResultSet rs2 = stmt2.executeQuery(query2);
 
@@ -122,12 +122,12 @@ public class DmaDAO implements DAO<DMA> {
                 }
 
             } else {
-                System.out.println("Aucun résultat n'a été trouvé");
+                //System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(DmaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultat correspondant");
+            //System.out.println("Pas de résultat correspondant");
         }
         return lDma;
     }
@@ -154,7 +154,7 @@ public class DmaDAO implements DAO<DMA> {
     public DMA update(DMA obj) {
         for (Sejour s : obj.getListeDeSejour()) {
             this.query = "UPDATE dma SET IPP = " + obj.getIPP() + " WHERE numeroSejour = " + s.getNumeroDeSejour() + ";\n";
-            System.out.println(query);
+            //System.out.println(query);
 
             Statement stmt;
             try {

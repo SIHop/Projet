@@ -43,7 +43,7 @@ public class PersonnelDAO implements DAO<Personnel> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        //System.out.println(query);
 
         try {
             Statement stmt = PersonnelDAO.connect.createStatement();
@@ -53,7 +53,7 @@ public class PersonnelDAO implements DAO<Personnel> {
                 rs.next();
                 return this.instancier(rs);
             } else {
-                System.out.println("Aucun résultat n'a été trouvé");
+                //System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -114,7 +114,7 @@ public class PersonnelDAO implements DAO<Personnel> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        //System.out.println(query);
 
         ArrayList<Personnel> retour = new ArrayList<>();
 
@@ -127,7 +127,7 @@ public class PersonnelDAO implements DAO<Personnel> {
                     retour.add(this.instancier(rs));
                 }
             } else {
-                System.out.println("Aucun résultat n'a été trouvé");
+                //System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -170,7 +170,7 @@ public class PersonnelDAO implements DAO<Personnel> {
                     + "')";
         }
         
-        System.out.println(query);
+        //System.out.println(query);
 
         Statement stmt;
         try {
@@ -207,7 +207,7 @@ public class PersonnelDAO implements DAO<Personnel> {
                     + "',dateNaissance ='" + obj.getDateDeNaissance().toString() + "',telephone ='" + obj.getInfoDeContact().getNumeroFixe() + "',mail ='" + obj.getInfoDeContact().getEmail() + "' WHERE idPersonnel = " + obj.getIdPersonel();
         }
 
-        System.out.println(query);
+        //System.out.println(query);
         Statement stmt;
         try {
             stmt = PersonnelDAO.connect.createStatement();
@@ -267,7 +267,7 @@ public class PersonnelDAO implements DAO<Personnel> {
                     retour.add(this.instancier(rs));
                 }
             } else {
-                System.out.println("Aucun résultat n'a été trouvé");
+                //System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);

@@ -33,7 +33,7 @@ public class ActeDAO implements DAO<Acte> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        //System.out.println(query);
 
         try {
             Statement stmt = ActeDAO.connect.createStatement();
@@ -43,12 +43,12 @@ public class ActeDAO implements DAO<Acte> {
                 rs.first();
                 return new Acte(rs.getInt("idActe"), rs.getInt("idFicheDeSoins"), Code.valueOf(rs.getString("code")), rs.getInt("coef"), rs.getString("observation"), TypeActe.valueOf(rs.getString("typeActe")));
             } else {
-                System.out.println("Aucun résultat n'a été trouvé");
+                //System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultat correspondant");
+            //System.out.println("Pas de résultat correspondant");
         }
         return null;
     }
@@ -65,7 +65,7 @@ public class ActeDAO implements DAO<Acte> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        //System.out.println(query);
 
         try {
             Statement stmt = ActeDAO.connect.createStatement();
@@ -77,12 +77,12 @@ public class ActeDAO implements DAO<Acte> {
                 }
                 
             } else {
-                System.out.println("Aucun résultat n'a été trouvé");
+                //System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultat correspondant");
+            //System.out.println("Pas de résultat correspondant");
         }
         return retour;
     }
@@ -92,7 +92,7 @@ public class ActeDAO implements DAO<Acte> {
         this.query = "INSERT INTO acte(idActe, idFicheDeSoins, code, coef, typeActe, observation) "
                 + "VALUES (" + obj.getIdActe() + "," + obj.getIdFicheDeSoins() + ", '" + obj.getCode().getCode()+ "' ," + obj.getCoef() + ", '" + obj.getTypeActe().getTypeActe() + "' , '" + obj.getObservations().replace("'", "''") + "' )";
 
-        System.out.println(query);
+        //System.out.println(query);
         Statement stmt;
         try {
             stmt = ActeDAO.connect.createStatement();
