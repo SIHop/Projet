@@ -174,7 +174,7 @@ public class ServiceCliniqueArchivageE extends javax.swing.JFrame {
         });
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("ans (entre 30 et 50)");
+        jLabel1.setText("ans (entre 20 et 50)");
 
         jTextPane1.setBackground(new java.awt.Color(102, 102, 102));
         jTextPane1.setForeground(new java.awt.Color(0, 204, 204));
@@ -306,13 +306,13 @@ public class ServiceCliniqueArchivageE extends javax.swing.JFrame {
             }
             else{
                 if(!this.jTextField2.getText().matches("\\d\\d")){
-                    JOptionPane.showMessageDialog(this, "Entrer un nombre entre 30 et 50");
+                    JOptionPane.showMessageDialog(this, "Entrer un nombre entre 20 et 50");
                     this.jTextField2.setBackground(Color.red);
                 }
                 else{
               
-                    if((!(Integer.parseInt(this.jTextField2.getText().toString())>=30)&&!(Integer.parseInt(this.jTextField2.getText().toString())<=50))){
-                        JOptionPane.showMessageDialog(this, "Choisissez un temps d'archivage entre 30 et 50 ans");
+                    if((!(Integer.parseInt(this.jTextField2.getText().toString())>=20)&&!(Integer.parseInt(this.jTextField2.getText().toString())<=50))){
+                        JOptionPane.showMessageDialog(this, "Choisissez un temps d'archivage entre 20 et 50 ans");
                         this.jTextField2.setBackground(Color.red); 
                     }
                     else{

@@ -161,9 +161,9 @@ public class Administration extends javax.swing.JFrame {
         jLabel45 = new javax.swing.JLabel();
         email = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listPatient = new javax.swing.JList<DPI>();
+        listPatient = new javax.swing.JList<>();
         creation = new javax.swing.JButton();
-        sexe = new javax.swing.JComboBox<Sexe>();
+        sexe = new javax.swing.JComboBox<>();
         edit = new javax.swing.JButton();
         jLabel40 = new javax.swing.JLabel();
         nomVoie = new javax.swing.JTextField();
@@ -473,7 +473,7 @@ public class Administration extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 363, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 365, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addGap(260, 260, 260)
                 .addComponent(jLabel3)
@@ -687,7 +687,7 @@ public class Administration extends javax.swing.JFrame {
             }
         });
 
-        recuperationHL7Button.setText("Récupéré par HL7");
+        recuperationHL7Button.setText("Récupérer par HL7");
         recuperationHL7Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 recuperationHL7ButtonActionPerformed(evt);
@@ -780,7 +780,7 @@ public class Administration extends javax.swing.JFrame {
                         .addComponent(edit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(envoieButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(318, Short.MAX_VALUE))
+                .addContainerGap(391, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
