@@ -45,7 +45,7 @@ public class DmaDAO implements DAO<DMA> {
                 rs.first();
                 IPP = rs.getString("IPP");
                 String query2 = "SELECT numeroSejour FROM dma WHERE IPP = " + rs.getString("IPP");
-                System.out.println(query2);
+                
                 ResultSet rs2 = stmt.executeQuery(query2);
 
                 ArrayList<String> argSejour = new ArrayList<>();
@@ -100,7 +100,7 @@ public class DmaDAO implements DAO<DMA> {
 
                     IPP = rs.getString("IPP");
                     String query2 = "SELECT numeroSejour FROM dma WHERE IPP = " + rs.getString("IPP");
-                    System.out.println(query2);
+                    
                     Statement stmt2 = DmaDAO.connect.createStatement();
                     ResultSet rs2 = stmt2.executeQuery(query2);
 
