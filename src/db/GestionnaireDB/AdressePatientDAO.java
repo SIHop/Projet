@@ -30,7 +30,7 @@ public class AdressePatientDAO implements DAO<Adresse>{
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
        
 
@@ -63,7 +63,7 @@ public class AdressePatientDAO implements DAO<Adresse>{
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
         ArrayList<Adresse> retour = new ArrayList<>();
 

@@ -33,7 +33,7 @@ public class PrescriptionDAO implements DAO<Prescription>{
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
         try {
             Statement stmt = PrescriptionDAO.connect.createStatement();
@@ -63,7 +63,7 @@ public class PrescriptionDAO implements DAO<Prescription>{
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
         
         ArrayList<Prescription> retour = new ArrayList<>();
 
@@ -92,8 +92,8 @@ public class PrescriptionDAO implements DAO<Prescription>{
         this.query = "INSERT INTO prescription (idprescription, idFicheDeSoins, typePrescription, contenuePrescription, observation)"
                 + " VALUES (" + obj.getIdPrescription()+ "," + obj.getIdFicheDeSoins() + ",'" + obj.getTypePrescription().getLabelle() + "','" + obj.getPrescription().replace("'", "''") + "','"  + obj.getObservation().replace("'", "''")+ "')";
 
-        ;
-        System.out.println(query);
+        
+       
         Statement stmt;
         try {
             stmt = PrescriptionDAO.connect.createStatement();

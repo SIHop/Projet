@@ -32,7 +32,7 @@ public class LitDAO implements DAO<Location> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
         try {
             Statement stmt = LitDAO.connect.createStatement();
@@ -64,7 +64,7 @@ public class LitDAO implements DAO<Location> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
         try {
             Statement stmt = LitDAO.connect.createStatement();
@@ -102,7 +102,7 @@ public class LitDAO implements DAO<Location> {
                 + " VALUES ('" + obj.getIdLit() + "'," + ipp + "," + obj.getService().getCodeService() + "," + occuper + ",'" + obj.getCote() + "','"
                 + obj.getLocalisation().getBatiment().replace("'", "''") + "'," + obj.getLocalisation().getEtage() + ",'" + obj.getLocalisation().getCouloir() + "')";
 
-        System.out.println(query);
+       
         Statement stmt;
         try {
             stmt = LitDAO.connect.createStatement();

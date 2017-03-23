@@ -36,7 +36,7 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
         //Instanciation des DAO nécessaire à la création d'une fiche de soins
         DAO<Acte> acteDao = DAOFactory.getActeDAO();
@@ -88,7 +88,7 @@ public class FicheDeSoinsDAO implements DAO<FicheDeSoins> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+      
 
         //Instanciation des DAO nécessaire à la création d'une fiche de soins
         DAO<Acte> acteDao = DAOFactory.getActeDAO();

@@ -43,7 +43,7 @@ public class PersonnelDAO implements DAO<Personnel> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
         try {
             Statement stmt = PersonnelDAO.connect.createStatement();
@@ -114,7 +114,7 @@ public class PersonnelDAO implements DAO<Personnel> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
         ArrayList<Personnel> retour = new ArrayList<>();
 
@@ -170,7 +170,7 @@ public class PersonnelDAO implements DAO<Personnel> {
                     + "')";
         }
         
-        System.out.println(query);
+        
 
         Statement stmt;
         try {
@@ -207,7 +207,7 @@ public class PersonnelDAO implements DAO<Personnel> {
                     + "',dateNaissance ='" + obj.getDateDeNaissance().toString() + "',telephone ='" + obj.getInfoDeContact().getNumeroFixe() + "',mail ='" + obj.getInfoDeContact().getEmail() + "' WHERE idPersonnel = " + obj.getIdPersonel();
         }
 
-        System.out.println(query);
+        
         Statement stmt;
         try {
             stmt = PersonnelDAO.connect.createStatement();
