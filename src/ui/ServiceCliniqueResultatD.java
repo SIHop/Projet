@@ -394,6 +394,7 @@ public class ServiceCliniqueResultatD extends javax.swing.JFrame {
 
         jTextPane1.setContentType("Examen fait le : DATE_EXAMEN\nPar : Laboratoire d'anatomopathologie\nType : Annalyse sanguine\n \nDemander par :ID_DEMENDEUR\nEffectuer par : ID_ACTEUR\n \n \nDetails des resultats (Enumeration sanguine)"); // NOI18N
         jTextPane1.setText("Examen fait le : DATE_EXAMEN\n\nType : Analyse sanguine \nDemandé par : ID_Demandeur \nEffectué par : ID_Acteur \nDétails des résultats (Enumération sanguine)\n");
+        jTextPane1.setEnabled(false);
 
         jPanel22.setBackground(new java.awt.Color(19, 29, 38));
 

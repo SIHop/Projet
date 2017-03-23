@@ -113,7 +113,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="1138" max="32767" attributes="0"/>
+                          <EmptySpace pref="1133" max="32767" attributes="0"/>
                           <Component id="jLabel6" min="-2" pref="48" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -597,6 +597,7 @@
                   <Properties>
                     <Property name="contentType" type="java.lang.String" value="Examen fait le : DATE_EXAMEN&#xa;Par : Laboratoire d&apos;anatomopathologie&#xa;Type : Annalyse sanguine&#xa; &#xa;Demander par :ID_DEMENDEUR&#xa;Effectuer par : ID_ACTEUR&#xa; &#xa; &#xa;Details des resultats (Enumeration sanguine)" noResource="true"/>
                     <Property name="text" type="java.lang.String" value="Examen fait le : DATE_EXAMEN&#xa;&#xa;Type : Analyse sanguine &#xa;Demand&#xe9; par : ID_Demandeur &#xa;Effectu&#xe9; par : ID_Acteur &#xa;D&#xe9;tails des r&#xe9;sultats (Enum&#xe9;ration sanguine)&#xa;"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JPanel" name="jPanel22">

@@ -395,6 +395,7 @@ public class ServiceCliniquePrescripD extends javax.swing.JFrame {
         );
 
         jTextPane1.setContentType("Examen fait le : DATE_EXAMEN\nPar : Laboratoire d'anatomopathologie\nType : Annalyse sanguine\n \nDemander par :ID_DEMENDEUR\nEffectuer par : ID_ACTEUR\n \n \nDetails des resultats (Enumeration sanguine)"); // NOI18N
+        jTextPane1.setEnabled(false);
 
         jPanel22.setBackground(new java.awt.Color(19, 29, 38));
 
@@ -468,6 +469,7 @@ public class ServiceCliniquePrescripD extends javax.swing.JFrame {
         jLabel2.setText("Detail de la prescription N°:");
 
         jTextPane2.setText("Le patient est désorienté et peut avoir des difficultés à observer son traitement, penser à vérifier chaque prise. ");
+        jTextPane2.setEnabled(false);
         jScrollPane1.setViewportView(jTextPane2);
 
         jLabel9.setForeground(new java.awt.Color(204, 204, 204));

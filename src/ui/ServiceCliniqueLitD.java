@@ -486,6 +486,7 @@ public class ServiceCliniqueLitD extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jTextArea1.setText("Lit actuel :\n");
+        jTextArea1.setEnabled(false);
         jScrollPane1.setViewportView(jTextArea1);
 
         jPanel19.setBackground(new java.awt.Color(19, 29, 38));
