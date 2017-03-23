@@ -33,7 +33,7 @@ public class ActeDAO implements DAO<Acte> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
         try {
             Statement stmt = ActeDAO.connect.createStatement();
@@ -65,7 +65,7 @@ public class ActeDAO implements DAO<Acte> {
                 query += " && " + arg.get(i) + " = " + val.get(i);
             }
         }
-        System.out.println(query);
+        
 
         try {
             Statement stmt = ActeDAO.connect.createStatement();
@@ -92,7 +92,7 @@ public class ActeDAO implements DAO<Acte> {
         this.query = "INSERT INTO acte(idActe, idFicheDeSoins, code, coef, typeActe, observation) "
                 + "VALUES (" + obj.getIdActe() + "," + obj.getIdFicheDeSoins() + ", '" + obj.getCode().getCode()+ "' ," + obj.getCoef() + ", '" + obj.getTypeActe().getTypeActe() + "' , '" + obj.getObservations().replace("'", "''") + "' )";
 
-        System.out.println(query);
+        
         Statement stmt;
         try {
             stmt = ActeDAO.connect.createStatement();
