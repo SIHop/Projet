@@ -405,7 +405,7 @@ public class ReceptionPatient extends javax.swing.JFrame {
         //TODO add your handling code here:
         int ligneSelectionne = jTable2.getSelectedRow();
         System.out.println("" + ligneSelectionne);
-        IPP =  (String)jTable2.getValueAt(ligneSelectionne, 0);
+        IPP =  Integer.toString((int)jTable2.getValueAt(ligneSelectionne, 0));
         System.out.println("" + IPP);
         System.out.println("identifiant du patient sélectionné: " + IPP);
         patient = listePatient.get(0);
@@ -436,7 +436,7 @@ public class ReceptionPatient extends javax.swing.JFrame {
         listval.add("'"+nom+"'");
         listval.add("'"+prenom+"'");
         listval.add("'"+date+"'");
-        listval.add("'"+sexe+"'");
+        listval.add("'"+sex+"'");
         listePatient = dpiDAO.findMultiple(listarg, listval);
         DefaultTableModel model2 = (DefaultTableModel) jTable2.getModel();
         jTable2.removeAll();
@@ -468,7 +468,7 @@ public class ReceptionPatient extends javax.swing.JFrame {
             jLabel11.setText(ps.getFamillyName());
             jLabel12.setText(ps.getFirstName());
             ddn = ps.getBirth();
-            String date = "" + (ps.getBirth().getYear() + 1900) + "-" + String.format("1$02d",(ps.getBirth().getMonth() + 1)) + "-" + String.format("1$02d",ps.getBirth().getDate());
+            String date = "" + (ps.getBirth().getYear() + 1900) + "-" + String.format("%1$02d",(ps.getBirth().getMonth() + 1)) + "-" + String.format("%1$02d",ps.getBirth().getDate());
             jLabel13.setText(date);
             jLabel15.setText("" + ps.getCharSex());
         }).start();
