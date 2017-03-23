@@ -6,9 +6,12 @@
 package ui;
 
 import java.awt.Cursor;
+import java.text.MessageFormat;
 import java.util.Calendar;
+import javax.swing.JTextArea;
 import nf.DPI.DM.FicheDeSoins;
 import nf.DPI.DMA.Sejour;
+import nf.GestionDexploitation.Imprimer;
 
 /**
  *
@@ -330,7 +333,16 @@ public class AdministrationFacturation extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void printButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printButtonActionPerformed
-        // TODO add your handling code here:
+        Imprimer print = new Imprimer();
+        String message= numeroSejourLabel.getText() + "\t" + PHResponsableLabel.getText() + "\n" +
+                "Du " + dateDebutLabel.getText().substring(dateDebutLabel.getText().indexOf(":")) + " au " + dateDebutLabel.getText().substring(dateFinLabel.getText().indexOf(":")) +"\n" +
+                "Au service " + this.serviceLabel.getText().substring(serviceLabel.getText().indexOf(":")) + "\n" + 
+                         listeFicheDesSoins.getText();
+        
+        JTextArea jText = new JTextArea(message);
+        MessageFormat entete = new MessageFormat("Facturation");
+        print.impression(jText, message);
+        
     }//GEN-LAST:event_printButtonActionPerformed
 
     private void facturerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facturerButtonActionPerformed
