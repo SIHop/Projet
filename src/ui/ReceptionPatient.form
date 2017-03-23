@@ -196,7 +196,7 @@
                   <Color blue="9c" green="bc" red="1a" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Patient receptionn&#xe9;"/>
+                <Property name="text" type="java.lang.String" value="Patient r&#xe9;ceptionn&#xe9;"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
