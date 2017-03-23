@@ -422,7 +422,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="363" max="32767" attributes="0"/>
+                      <EmptySpace pref="365" max="32767" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="260" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
@@ -624,7 +624,7 @@
                               <Component id="envoieButton" min="-2" pref="116" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="318" max="32767" attributes="0"/>
+                      <EmptySpace pref="391" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1153,7 +1153,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="recuperationHL7Button">
               <Properties>
-                <Property name="text" type="java.lang.String" value="R&#xe9;cup&#xe9;r&#xe9; par HL7"/>
+                <Property name="text" type="java.lang.String" value="R&#xe9;cup&#xe9;rer par HL7"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="recuperationHL7ButtonActionPerformed"/>
