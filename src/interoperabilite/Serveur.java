@@ -45,18 +45,14 @@ public class Serveur {
         this.messageHL7lisible = messageHL7final;
         this.ps = this.serveur.getPatient();
         Date ddn = this.ps.getBirth();
-        int annee = ddn.getYear() - 1900;
-        int mois = ddn.getMonth() - 1;
-        ddn.setMonth(mois);
-        ddn.setYear(annee);
-        this.ps.setBirth(ddn);
-//        Calendar c = Calendar.getInstance(Locale.FRANCE);
-//        c.setTime(ddn);
-//        int annee = c.get(Calendar.YEAR) - 1900;
-//        int mois = c.get(Calendar.MONTH) - 1;
-//        int jour = c.get(Calendar.DAY_OF_MONTH);
-//        c.set(annee, mois, jour);
-//        this.ps.setBirth(c.getTime());
+        System.out.println("Test : "+ ddn);
+        Calendar c = Calendar.getInstance();
+        c.setTime(ddn);
+        int annee = c.get(Calendar.YEAR) - 1900;
+        int mois = c.get(Calendar.MONTH) - 1;
+        int jour = c.get(Calendar.DAY_OF_MONTH);
+        c.set(annee, mois, jour);
+        this.ps.setBirth(c.getTime());
         System.out.println("date de naissance : " + this.ps.getBirth());
     }
 
