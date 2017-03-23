@@ -793,8 +793,8 @@ public class ServiceCliniquePrescripD extends javax.swing.JFrame {
 
     private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
             Imprimer print = new Imprimer();
-            String message = "                          prescription"+"\n"+"\n"+this.jTextPane1 + "\n"+"Remarque: "
-                    +this.jTextPane2+ "\n"+"\n"+"Dr"+this.p.getNom()+" "+this.p.getPrenom();
+            String message = "                          prescription"+"\n"+"\n"+this.jTextPane1.getText() + "\n"+"Remarque: "
+                    +this.jTextPane2.getText()+ "\n"+"\n"+"Dr"+this.p.getNom()+" "+this.p.getPrenom();
             JTextArea jText = new JTextArea(message);
             String entete = "Prescription";
             print.impression(jText, entete);

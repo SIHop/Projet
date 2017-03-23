@@ -1062,7 +1062,8 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      if (this.instance == 1) {
+      if(this.jList1.getSelectedValue()!=null){
+        if (this.instance == 1) {
             //recuperation des résultats
             
             int position = this.jList1.getSelectedIndex();
@@ -1075,7 +1076,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
         } 
         else {
             if (this.instance == 3) {
-                //recuperation des résultats
+                //recuperation des prescription
                 int position = this.jList1.getSelectedIndex();
                 Prescription prescrip = this.listePrescription.get(position);
                 // affichage des details
@@ -1085,6 +1086,10 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
                 this.dispose();
             }
         }
+      }
+      else{
+          JOptionPane.showMessageDialog(this, "selectionner un item");
+      }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
@@ -1162,7 +1167,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
             while((i<this.listePrescription.size())&&(servicePrescripteur==false)){
                 if(this.listePrescription.get(i).getIdPrescription()==res.getIdPrescription()){
                     servicePrescripteur=true;
-                    System.out.println("::::::::::::::::::::::::::::"+this.listePrescription.get(i).getIdPrescription()+":::::::::::::::::::"+res.getIdPrescription());
+                    
                 }
                 i=i+1;
             }
@@ -1170,6 +1175,7 @@ public class ServiceCliniqueEdition extends javax.swing.JFrame {
             if(servicePrescripteur==true){
                 this.jButton2.setVisible(true);
             }
+            
         }
     }//GEN-LAST:event_jList1ValueChanged
 
