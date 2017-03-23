@@ -337,7 +337,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="40" green="31" red="21" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Reception"/>
+                <Property name="text" type="java.lang.String" value="R&#xe9;ception"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
@@ -473,7 +473,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="40" green="31" red="21" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="R&#xe9;cup&#xe9;re les informations"/>
+                <Property name="text" type="java.lang.String" value="R&#xe9;cup&#xe8;re les informations"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="recuperationButtonActionPerformed"/>
