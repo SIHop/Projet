@@ -66,12 +66,12 @@ public class DmaDAO implements DAO<DMA> {
 
                 return new DMA(listeSejour, IPP);
             } else {
-                System.out.println("Aucun résultat n'a été trouvé");
+                //System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultat correspondant");
+            //System.out.println("Pas de résultat correspondant");
         }
         return null;
     }
@@ -122,12 +122,12 @@ public class DmaDAO implements DAO<DMA> {
                 }
 
             } else {
-                System.out.println("Aucun résultat n'a été trouvé");
+                //System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(DmaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultat correspondant");
+            //System.out.println("Pas de résultat correspondant");
         }
         return lDma;
     }

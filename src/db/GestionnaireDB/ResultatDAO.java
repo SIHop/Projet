@@ -45,12 +45,12 @@ public class ResultatDAO implements DAO<Resultat> {
                 ArrayList<String> listeResultat = new ArrayList<>(Arrays.asList(rs.getString("contenuResultat").split("\\s*;\\s*")));
                 return new Resultat(rs.getInt("idresultat"), rs.getInt("idPrescription"), rs.getInt("idFicheDeSoins"), listeAnnalyse, listeResultat);
             } else {
-                System.out.println("Aucun résultat n'a été trouvé");
+                //System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultat correspondant");
+            //System.out.println("Pas de résultat correspondant");
         }
         return null;
     }
@@ -82,12 +82,12 @@ public class ResultatDAO implements DAO<Resultat> {
                 }
 
             } else {
-                System.out.println("Aucun résultat n'a été trouvé");
+                //System.out.println("Aucun résultat n'a été trouvé");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PersonnelDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
-            System.out.println("Pas de résultat correspondant");
+            //System.out.println("Pas de résultat correspondant");
         }
         return retour;
     }

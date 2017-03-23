@@ -56,7 +56,7 @@ public class EnvoiePatient extends javax.swing.JFrame {
      */
     public EnvoiePatient() {
         initComponents();
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     
     /**
@@ -267,6 +267,11 @@ public class EnvoiePatient extends javax.swing.JFrame {
         jComboBox4.setFont(new java.awt.Font("Raleway", 0, 24)); // NOI18N
         jComboBox4.setForeground(new java.awt.Color(33, 49, 64));
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox4ActionPerformed(evt);
+            }
+        });
 
         jComboBox5.setFont(new java.awt.Font("Raleway", 0, 24)); // NOI18N
         jComboBox5.setForeground(new java.awt.Color(33, 49, 64));
@@ -460,7 +465,7 @@ public class EnvoiePatient extends javax.swing.JFrame {
             int i = 0;
 
             model2.setRowCount(1);
-            jTable4.setValueAt(dpirecherche.getiPP(), 0, 0);
+            jTable4.setValueAt(dpirecherche.getiPP().getIPP(), 0, 0);
             jTable4.setValueAt(dpirecherche.getNomUsage(), 0, 1);
             jTable4.setValueAt(dpirecherche.getPrenom(), 0, 2);
             jTable4.setValueAt(dpirecherche.getDateDeNaissance(), 0, 3);
@@ -506,7 +511,7 @@ public class EnvoiePatient extends javax.swing.JFrame {
 
             model2.setRowCount(listePatient.size());
             for (int j = 0; j < listePatient.size(); j++) {
-                jTable4.setValueAt(listePatient.get(j).getiPP(), i, 0);
+                jTable4.setValueAt(listePatient.get(j).getiPP().getIPP(), i, 0);
                 jTable4.setValueAt(listePatient.get(j).getNomUsage(), i, 1);
                 jTable4.setValueAt(listePatient.get(j).getPrenom(), i, 2);
                 jTable4.setValueAt(listePatient.get(j).getDateDeNaissance().toString(), i, 3);
@@ -534,7 +539,7 @@ public class EnvoiePatient extends javax.swing.JFrame {
 
             model2.setRowCount(listePatient.size());
             for (int j = 0; j < listePatient.size(); j++) {
-                jTable4.setValueAt(listePatient.get(j).getiPP(), i, 0);
+                jTable4.setValueAt(listePatient.get(j).getiPP().getIPP(), i, 0);
                 jTable4.setValueAt(listePatient.get(j).getNomUsage(), i, 1);
                 jTable4.setValueAt(listePatient.get(j).getPrenom(), i, 2);
                 jTable4.setValueAt(listePatient.get(j).getDateDeNaissance().toString(), i, 3);
@@ -552,7 +557,7 @@ public class EnvoiePatient extends javax.swing.JFrame {
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
         if (jRadioButton3.isSelected() == true) {
             jRadioButton4.setSelected(false);
-            sexe = "H";
+            sexe = "M";
         }
     }//GEN-LAST:event_jRadioButton3ActionPerformed
 
@@ -569,16 +574,12 @@ public class EnvoiePatient extends javax.swing.JFrame {
 
     private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
         int ligneSelectionne = jTable4.getSelectedRow();
-        System.out.println("" + ligneSelectionne);
-        IPP = ((IPP)jTable4.getValueAt(ligneSelectionne, 0)).getIPP();
-        System.out.println("" + IPP);
-        System.out.println("identifient du patient selectionné: " + IPP);
+        IPP = (int)jTable4.getValueAt(ligneSelectionne, 0);
         ArrayList<String> listarg = new ArrayList();
         listarg.add("IPP");
         ArrayList<String> listval = new ArrayList();
         listval.add("'" + IPP + "'");
         patient = dpiDAO.find(listarg, listval);
-        System.out.println("patient sélectionné : " + patient.getiPP() + " " + patient.getNomUsage() + " " + patient.getPrenom());
     }//GEN-LAST:event_jTable4MouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -619,79 +620,9 @@ public class EnvoiePatient extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EnvoiePatient.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EnvoiePatient.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EnvoiePatient.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EnvoiePatient.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EnvoiePatient().setVisible(true);
-            }
-        });
-    }
+    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox4ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton5;
