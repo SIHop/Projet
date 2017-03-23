@@ -9,9 +9,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import nf.DPI.DM.Resultat;
 import nf.DPI.DPI;
+import nf.GestionDexploitation.Imprimer;
 import nf.GestionDexploitation.Personnel;
 
 /**
@@ -367,6 +369,11 @@ public class ServiceCliniqueResultatD extends javax.swing.JFrame {
         jLabel17.setForeground(new java.awt.Color(26, 188, 156));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("IMPRIMER");
+        jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel17MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
@@ -765,6 +772,19 @@ public class ServiceCliniqueResultatD extends javax.swing.JFrame {
        EnvoiePatient envoie=new EnvoiePatient();
         envoie.setVisible(true);
     }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
+            Imprimer print = new Imprimer();
+            String message = "Détails du résultat N°"+this.result.getIdResultat()+" correspondant à la prescription N°"+ this.result.getIdPrescription()
+                    +"\n"+"\n"+"                          Resultat"+"\n"+"\n";
+            for (String[] rs:this.result.getListeResultats()){
+
+                message = message +" |   Examen: " + rs[0] + "   |   Résultat : " + rs[1]+"\n";
+            }
+            JTextArea jText = new JTextArea(message);
+            String entete = "Resultat";
+            print.impression(jText, entete);
+    }//GEN-LAST:event_jLabel17MouseClicked
 
     /**
      * @param args the command line arguments

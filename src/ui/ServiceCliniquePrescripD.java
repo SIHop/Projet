@@ -7,11 +7,14 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import nf.DPI.DM.Prescription;
 import nf.DPI.DPI;
+import nf.GestionDexploitation.Imprimer;
 import nf.GestionDexploitation.Personnel;
 
 /**
@@ -368,6 +371,11 @@ public class ServiceCliniquePrescripD extends javax.swing.JFrame {
         jLabel17.setForeground(new java.awt.Color(26, 188, 156));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("IMPRIMER");
+        jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel17MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
@@ -782,6 +790,15 @@ public class ServiceCliniquePrescripD extends javax.swing.JFrame {
        EnvoiePatient envoie=new EnvoiePatient();
         envoie.setVisible(true);
     }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
+            Imprimer print = new Imprimer();
+            String message = "                          prescription"+"\n"+"\n"+this.jTextPane1 + "\n"+"Remarque: "
+                    +this.jTextPane2+ "\n"+"\n"+"Dr"+this.p.getNom()+" "+this.p.getPrenom();
+            JTextArea jText = new JTextArea(message);
+            String entete = "Prescription";
+            print.impression(jText, entete);
+    }//GEN-LAST:event_jLabel17MouseClicked
 
     /**
      * @param args the command line arguments

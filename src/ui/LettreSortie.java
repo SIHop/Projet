@@ -6,15 +6,18 @@
 package ui;
 
 import db.GestionnaireDB.DAOFactory;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import nf.Adresse.Adresse;
 import nf.Adresse.DateT;
 import nf.DPI.DMA.LettreDeSortie;
 import nf.DPI.DMA.Sejour;
 import nf.DPI.DPI;
+import nf.GestionDexploitation.Imprimer;
 import nf.GestionDexploitation.Personnel;
 
 /**
@@ -31,25 +34,25 @@ public class LettreSortie extends javax.swing.JFrame {
     private String numSej;
     private ArrayList<DPI> listeDPI = new ArrayList<>();
 
-    public LettreSortie(Personnel p, DPI dpi,String numSej,ArrayList<DPI> listeDPI) {
+    public LettreSortie(Personnel p, DPI dpi, String numSej, ArrayList<DPI> listeDPI) {
         initComponents();
-        this.numSej=numSej;
-        this.listeDPI=listeDPI;
-        
-        Calendar c= Calendar.getInstance();
+        this.numSej = numSej;
+        this.listeDPI = listeDPI;
+
+        Calendar c = Calendar.getInstance();
         DateT dateJour = new DateT(c.getTime());
         this.jTextField1.setText(dateJour.toString());
 //entête page
-        this.p=p;
-        this.jLabel1.setText("Bonjour "+this.p.getNom()+" " +this.p.getPrenom());
+        this.p = p;
+        this.jLabel1.setText("Bonjour " + this.p.getNom() + " " + this.p.getPrenom());
 //Entête DM 
-        this.dpi=dpi;
-        this.jLabel22.setText("Patient : "+this.dpi.getNomUsage()+" "+this.dpi.getPrenom());
-        if(this.dpi.getLit()!=null){
-            this.jLabel24.setText("Service"+this.dpi.getLit().getService().getNomService()+", Chambre: "+this.dpi.getLit().getLocalisation().getEtage()+this.dpi.getLit().getCote());        
+        this.dpi = dpi;
+        this.jLabel22.setText("Patient : " + this.dpi.getNomUsage() + " " + this.dpi.getPrenom());
+        if (this.dpi.getLit() != null) {
+            this.jLabel24.setText("Service" + this.dpi.getLit().getService().getNomService() + ", Chambre: " + this.dpi.getLit().getLocalisation().getEtage() + this.dpi.getLit().getCote());
         }
-        int maxSejour= this.dpi.getMyDM().getlSejour().size();
-        this.jLabel25.setText("N°séjour: "+this.numSej);
+        int maxSejour = this.dpi.getMyDM().getlSejour().size();
+        this.jLabel25.setText("N°séjour: " + this.numSej);
     }
 
     /**
@@ -73,8 +76,6 @@ public class LettreSortie extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
-        jPanel19 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -237,34 +238,6 @@ public class LettreSortie extends javax.swing.JFrame {
 
         jPanel10.setBackground(jPanel2.getBackground());
 
-        jPanel19.setBackground(new java.awt.Color(19, 29, 38));
-
-        jLabel17.setFont(new java.awt.Font("Raleway Medium", 0, 18)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(26, 188, 156));
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText("IMPRIMER LE DPI");
-
-        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
-        jPanel19.setLayout(jPanel19Layout);
-        jPanel19Layout.setHorizontalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 179, Short.MAX_VALUE)
-            .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel19Layout.createSequentialGroup()
-                    .addGap(8, 8, 8)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        jPanel19Layout.setVerticalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 56, Short.MAX_VALUE)
-            .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel19Layout.createSequentialGroup()
-                    .addGap(9, 9, 9)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addGap(9, 9, 9)))
-        );
-
         jPanel20.setBackground(new java.awt.Color(19, 29, 38));
 
         jLabel21.setFont(new java.awt.Font("Raleway Medium", 0, 18)); // NOI18N
@@ -390,9 +363,7 @@ public class LettreSortie extends javax.swing.JFrame {
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(0, 297, Short.MAX_VALUE)
                         .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(103, 103, 103)
-                        .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(291, 291, 291)
                         .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -415,7 +386,6 @@ public class LettreSortie extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -532,9 +502,9 @@ public class LettreSortie extends javax.swing.JFrame {
 
     private int tx;
     private int ty;
-    
+
     private void jLabel7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseDragged
-        this.setLocation(evt.getXOnScreen()-tx,evt.getYOnScreen()-ty);
+        this.setLocation(evt.getXOnScreen() - tx, evt.getYOnScreen() - ty);
     }//GEN-LAST:event_jLabel7MouseDragged
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
@@ -551,82 +521,92 @@ public class LettreSortie extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jLabel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23MouseClicked
-        ServiceClinique serviceClinique = new ServiceClinique(this.p,this.dpi,this.numSej,this.listeDPI);
+        ServiceClinique serviceClinique = new ServiceClinique(this.p, this.dpi, this.numSej, this.listeDPI);
         serviceClinique.setVisible(true);
         serviceClinique.setLocationRelativeTo(this);
         this.dispose();
     }//GEN-LAST:event_jLabel23MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        Connection conection =new Connection();
+        Connection conection = new Connection();
         conection.setVisible(true);
         conection.setLocationRelativeTo(this);
         this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
-//        if((this.jTextField1==null)||(this.jTextArea1==null)){
-//            JOptionPane.showMessageDialog(this, "Tous les champs doivent être remplis");
-//        }
-//        else{
+        if ((this.jTextField1 == null) || (this.jTextArea1 == null)) {
+            JOptionPane.showMessageDialog(this, "Tous les champs doivent être remplis");
+        } else {
             //rédaction d'une nouvelle lettre et de la date de sortie
-            Sejour lastSej =this.dpi.getMyDM().getLastSejour();
+            Sejour lastSej = this.dpi.getMyDM().getLastSejour();
             int idRespo = Integer.parseInt(lastSej.getMedecinResponsable().getIdPersonel());
-            
-            LettreDeSortie lettre =new LettreDeSortie(idRespo,this.dpi.getAdresse(),Integer.parseInt(numSej),jTextArea1.getText());
+
+            LettreDeSortie lettre = new LettreDeSortie(idRespo, this.dpi.getAdresse(), Integer.parseInt(numSej), jTextArea1.getText());
             DateT dateF = new DateT(this.jTextField1.getText());
-            
+
             // update du sejour
             this.dpi.getMyDM().getLastSejour().setDateDeFin(dateF);
             this.dpi.getMyDM().getLastSejour().setLettreDeSortie(lettre);
             lastSej.setDateDeFin(dateF);
-            if(this.dpi.getLit()!=null){
+            if (this.dpi.getLit() != null) {
                 this.dpi.getLit().setIPPoccupent(0);
                 this.dpi.getLit().setIsOccuped(false);
             }
-            int position=-1;
-            boolean trouve =false;
-            int i=0;
-            while ((i<this.listeDPI.size())&&(trouve==false)){
-                if(this.listeDPI.get(i).getiPP()== this.dpi.getiPP()){
-                    position=i;
-                    trouve=true;
+            int position = -1;
+            boolean trouve = false;
+            int i = 0;
+            while ((i < this.listeDPI.size()) && (trouve == false)) {
+                if (this.listeDPI.get(i).getiPP() == this.dpi.getiPP()) {
+                    position = i;
+                    trouve = true;
                 }
                 i++;
             }
-            if(position>=0){
-                        this.listeDPI.remove(position);
+            if (position >= 0) {
+                this.listeDPI.remove(position);
             }
             //mise a jour de la BD
             DAOFactory.getSejourDAO().update(lastSej);
-            if(this.dpi.getLit()!=null){
+            if (this.dpi.getLit() != null) {
                 DAOFactory.getLitDAO().update(this.dpi.getLit());
                 this.dpi.setLit(null);
                 DAOFactory.getDpiDAO().update(dpi);
             }
-            ServiceCliniqueAccueil serviceClinique = new ServiceCliniqueAccueil(this.p,this.listeDPI);
+
+            ServiceCliniqueAccueil serviceClinique = new ServiceCliniqueAccueil(this.p, this.listeDPI);
             serviceClinique.setVisible(true);
+
             serviceClinique.setLocationRelativeTo(this);
             this.dispose();
-//        }
+
+            Imprimer print = new Imprimer();
+            String message = dateF.toString() + "\n" + "\n"
+                    + "                          Lettre de sortie" + "\n" + "\n" + "patient" + this.dpi.getNomUsage() + " " + this.dpi.getPrenom() + "\n" + "\n" + jTextArea1.getText()
+                    + "\n" + "\n" + "\n" + "               Dr " + lastSej.getMedecinResponsable().getNom() + " " + lastSej.getMedecinResponsable().getPrenom();
+
+            JTextArea jText = new JTextArea(message);
+            String entete = "Lettre de Sortie";
+            print.impression(jText, message);
+        }
     }//GEN-LAST:event_jLabel21MouseClicked
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
+        ServiceCliniqueAccueil ac = new ServiceCliniqueAccueil(this.p, this.listeDPI);
         ac.setVisible(true);
         ac.setLocationRelativeTo(this);
         this.dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
+        ServiceCliniqueAccueil ac = new ServiceCliniqueAccueil(this.p, this.listeDPI);
         ac.setVisible(true);
         ac.setLocationRelativeTo(this);
         this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-       EnvoiePatient envoie=new EnvoiePatient();
+        EnvoiePatient envoie = new EnvoiePatient();
         envoie.setVisible(true);
     }//GEN-LAST:event_jLabel8MouseClicked
 
@@ -669,7 +649,6 @@ public class LettreSortie extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -685,7 +664,6 @@ public class LettreSortie extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel22;
