@@ -166,7 +166,7 @@ public class ReceptionPatient extends javax.swing.JFrame {
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setFont(new java.awt.Font("Raleway", 0, 24)); // NOI18N
         jButton5.setForeground(new java.awt.Color(33, 49, 64));
-        jButton5.setText("Reception");
+        jButton5.setText("Réception");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -308,7 +308,7 @@ public class ReceptionPatient extends javax.swing.JFrame {
         recuperationButton.setBackground(new java.awt.Color(255, 255, 255));
         recuperationButton.setFont(new java.awt.Font("Raleway", 0, 24)); // NOI18N
         recuperationButton.setForeground(new java.awt.Color(33, 49, 64));
-        recuperationButton.setText("Récupére les informations");
+        recuperationButton.setText("Récupère les informations");
         recuperationButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 recuperationButtonActionPerformed(evt);
