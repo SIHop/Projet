@@ -200,6 +200,9 @@ public class GestionPersonnel extends javax.swing.JFrame {
 
             this.metierCombo.setSelectedIndex(5);
             this.serviceCombo.setSelectedIndex(0);
+            
+            this.identifiant.setText("");
+            this.mdp.setText("");
 
         }
 
@@ -259,7 +262,7 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jLabel45 = new javax.swing.JLabel();
         emailText = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        JListPersonnel = new javax.swing.JList<>();
+        JListPersonnel = new javax.swing.JList<Personnel>();
         ajoutButton = new javax.swing.JButton();
         validationButton = new javax.swing.JButton();
         joursText = new javax.swing.JTextField();
@@ -268,13 +271,13 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
-        metierCombo = new javax.swing.JComboBox<>();
+        metierCombo = new javax.swing.JComboBox<String>();
         serviceText = new javax.swing.JLabel();
         spé1Text = new javax.swing.JLabel();
-        serviceCombo = new javax.swing.JComboBox<>();
+        serviceCombo = new javax.swing.JComboBox<Service>();
         spé1Panel = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
-        sexe = new javax.swing.JComboBox<>();
+        sexe = new javax.swing.JComboBox<Sexe>();
         effacerButton = new javax.swing.JButton();
         jLabel40 = new javax.swing.JLabel();
         typeVoieText = new javax.swing.JTextField();
@@ -495,6 +498,11 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setForeground(jPanel4.getBackground());
         jLabel4.setText("Secrétaire administrative");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -528,6 +536,8 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Raleway", 0, 18)); // NOI18N
         jLabel2.setText("n°Personnel");
 
+        nPersonnelText.setNextFocusableComponent(nomUsageText);
+
         okButton.setText("OK");
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -539,6 +549,7 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(240, 240, 240));
         jLabel9.setText("Nom d'usage");
 
+        nomUsageText.setNextFocusableComponent(prenomText);
         nomUsageText.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 nomUsageTextFocusLost(evt);
@@ -549,6 +560,7 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(240, 240, 240));
         jLabel12.setText("Prénom");
 
+        prenomText.setNextFocusableComponent(joursText);
         prenomText.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 prenomTextFocusLost(evt);
@@ -663,6 +675,7 @@ public class GestionPersonnel extends javax.swing.JFrame {
         });
 
         anneeText.setText("aaaa");
+        anneeText.setNextFocusableComponent(sexe);
         anneeText.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 anneeTextFocusGained(evt);
@@ -685,7 +698,7 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jLabel46.setForeground(new java.awt.Color(240, 240, 240));
         jLabel46.setText("Métier");
 
-        metierCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aide-soignant(e)", "Infirmier(ère)", "Médecin", "Secrétaire Administratif(ve)", "Secrétaire Médical", " " }));
+        metierCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aide-soignant(e)", "Infirmier(ère)", "Médecin", "Secrétaire Administratif(ve)", "Secrétaire Médical", " " }));
         metierCombo.setSelectedIndex(5);
         metierCombo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -723,6 +736,7 @@ public class GestionPersonnel extends javax.swing.JFrame {
 
         sexe.setModel(new javax.swing.DefaultComboBoxModel<>(new Sexe[] { Sexe.FEMME, Sexe.HOMME }));
         sexe.setName(""); // NOI18N
+        sexe.setNextFocusableComponent(paysText);
         sexe.setOpaque(false);
         sexe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -958,14 +972,14 @@ public class GestionPersonnel extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 1263, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 1265, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1253, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 996, Short.MAX_VALUE)))
+                                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 992, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
@@ -1343,6 +1357,12 @@ public class GestionPersonnel extends javax.swing.JFrame {
     private void metierComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_metierComboActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_metierComboActionPerformed
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        Administration adm = new Administration(this.sa, this.lDpi, this.listePersonnel, this.listeService);
+        adm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel4MouseClicked
 
     /**
      * @param args the command line arguments
