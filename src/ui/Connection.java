@@ -24,6 +24,7 @@ import javax.swing.Timer;
 import nf.GestionDexploitation.AideSoignante;
 import nf.GestionDexploitation.Infirmier;
 import nf.GestionDexploitation.Medecin;
+import nf.GestionDexploitation.MotDePasse;
 import nf.GestionDexploitation.Personnel;
 import nf.GestionDexploitation.SecretaireAdministratif;
 import nf.GestionDexploitation.SecretaireMedicale;
@@ -375,8 +376,10 @@ public class Connection extends javax.swing.JFrame {
         colonneDB.add("identifiantHygie");
         colonneDB.add("motDePasse");
         ArrayList<String> val = new ArrayList<>();
+        //encodage mot de passe
+        MotDePasse mdp = new MotDePasse(jPasswordField1.getText(), true);
         val.add("'" + jTextField4.getText() + "'");
-        val.add("'" + jPasswordField1.getText() + "'");
+        val.add("'" + mdp.getMdp()+ "'");
         DAO<Personnel> persoDAO = DAOFactory.getPersonelDAO();
 
 //choix de la page de destination en fonction du statut    
