@@ -69,6 +69,17 @@ public class Resultat {
         retour  += "    |   idResultat: " + idResultat + "   |  idPrescription: " + idPrescription ;
         return retour;
     }
+    
+       public String toStringCourt() {
+
+        String retour = "Résultat";
+        for(String[] s : listeResultats){
+            retour += " |   Examen: " + s[0] ;
+
+        }
+        retour  += "    |   idResultat: " + idResultat + "   |  idPrescription: " + idPrescription ;
+        return retour;
+    }
 
     
 

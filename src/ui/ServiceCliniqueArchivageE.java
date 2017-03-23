@@ -174,7 +174,7 @@ public class ServiceCliniqueArchivageE extends javax.swing.JFrame {
         });
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("ans (entre 20 et 50)");
+        jLabel1.setText("ans (entre 30 et 50)");
 
         jTextPane1.setBackground(new java.awt.Color(102, 102, 102));
         jTextPane1.setForeground(new java.awt.Color(0, 204, 204));
@@ -189,6 +189,11 @@ public class ServiceCliniqueArchivageE extends javax.swing.JFrame {
         });
 
         jButton2.setText("ANNULER");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -300,52 +305,63 @@ public class ServiceCliniqueArchivageE extends javax.swing.JFrame {
                 this.jTextField1.setBackground(Color.red);
             }
             else{
-                if((!(Integer.parseInt(this.jTextField2.getText().toString())>=30)&&!(Integer.parseInt(this.jTextField2.getText().toString())<=50))){
-                    JOptionPane.showMessageDialog(this, "Choisissez un temps d'archivage entre 20 et 50 ans");
-                    this.jTextField2.setBackground(Color.red); 
+                if(!this.jTextField2.getText().matches("\\d\\d")){
+                    JOptionPane.showMessageDialog(this, "Entrer un nombre entre 30 et 50");
+                    this.jTextField2.setBackground(Color.red);
                 }
                 else{
-                    int tps = Integer.parseInt(this.jTextField2.getText().toString());
-                    DateT dDece = new DateT(this.jTextField1.getText());
-                    Calendar c= Calendar.getInstance();
-                    c.add(Calendar.YEAR, +tps);
-                    Date dateArchive = c.getTime();
-                    DateT dArchive = new DateT(dateArchive);
-                    
-                    Historique archive = new Historique(this.dpi.getiPP(),dDece,dArchive);
-                    
-                    System.out.println(dDece);
-                    Sejour lastSejour = this.dpi.getMyDM().getLastSejour();
-                    lastSejour.setDateDeFin(dDece);
-                    this.dpi.getLit().setIPPoccupent(0);
-                    this.dpi.getLit().setIsOccuped(false);
+              
+                    if((!(Integer.parseInt(this.jTextField2.getText().toString())>=30)&&!(Integer.parseInt(this.jTextField2.getText().toString())<=50))){
+                        JOptionPane.showMessageDialog(this, "Choisissez un temps d'archivage entre 30 et 50 ans");
+                        this.jTextField2.setBackground(Color.red); 
+                    }
+                    else{
+                        int tps = Integer.parseInt(this.jTextField2.getText().toString());
+                        DateT dDece = new DateT(this.jTextField1.getText());
+                        Calendar c= Calendar.getInstance();
+                        c.add(Calendar.YEAR, +tps);
+                        Date dateArchive = c.getTime();
+                        DateT dArchive = new DateT(dateArchive);
 
-                    
-                    int position=-1;
-                    boolean trouve =false;
-                    int i=0;
-                    while ((i<this.listeDPI.size())&&(trouve==false)){
-                        if(this.listeDPI.get(i).getiPP()== this.dpi.getiPP()){
-                            position=i;
-                            trouve=true;
+                        Historique archive = new Historique(this.dpi.getiPP(),dDece,dArchive);
+
+                        Sejour lastSejour = this.dpi.getMyDM().getLastSejour();
+                        lastSejour.setDateDeFin(dDece);
+                        if(this.dpi.getLit()!=null){
+                            this.dpi.getLit().setIPPoccupent(0);
+                            this.dpi.getLit().setIsOccuped(false);
+                        }
+
+
+                        int position=-1;
+                        boolean trouve =false;
+                        int i=0;
+                        while ((i<this.listeDPI.size())&&(trouve==false)){
+                            if(this.listeDPI.get(i).getiPP()== this.dpi.getiPP()){
+                                position=i;
+                                trouve=true; 
+                            }
                             i++;
                         }
+                        if(position>=0){
+                            this.listeDPI.remove(position);
+                        }
+
+                        DAOFactory.getHistoriqueDAO().create(archive);
+                        DAOFactory.getSejourDAO().update(lastSejour);
+                        if(this.dpi.getLit()!=null){
+                            DAOFactory.getLitDAO().update(this.dpi.getLit());
+                            this.dpi.setLit(null);
+                        }
+                        DAOFactory.getDpiDAO().update(dpi);
+
+                        JOptionPane.showMessageDialog(this, "Le dossier du patient"+this.dpi.getNomUsage()+" "+this.dpi.getPrenom()+"est archivé");
+                        ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
+                        ac.setVisible(true);
+                        ac.setLocationRelativeTo(this);
+                        sc.dispose();
+                        this.dispose(); 
                     }
-                    if(position>=0){
-                        this.listeDPI.remove(position);
-                    }
-                    
-                    DAOFactory.getHistoriqueDAO().create(archive);
-                    DAOFactory.getSejourDAO().update(lastSejour);
-                    DAOFactory.getLitDAO().update(this.dpi.getLit());
-                    this.dpi.setLit(null);
-                    DAOFactory.getDpiDAO().update(dpi);
-                    
-                    ServiceCliniqueAccueil ac=new ServiceCliniqueAccueil(this.p,this.listeDPI );
-                    ac.setVisible(true);
-                    ac.setLocationRelativeTo(this);
-                    sc.dispose();
-                    this.dispose(); 
                 }
             }
         }
@@ -354,6 +370,10 @@ public class ServiceCliniqueArchivageE extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private int tx;
     private int ty;
