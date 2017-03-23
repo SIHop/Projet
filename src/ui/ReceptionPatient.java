@@ -111,7 +111,7 @@ public class ReceptionPatient extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Raleway", 0, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(26, 188, 156));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Patient receptionné");
+        jLabel4.setText("Patient réceptionné");
 
         jLabel6.setFont(new java.awt.Font("Raleway", 0, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(26, 188, 156));
