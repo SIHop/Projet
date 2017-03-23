@@ -579,22 +579,31 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jLabel34.setForeground(new java.awt.Color(240, 240, 240));
         jLabel34.setText("Numéro de voie");
 
+        numVoieText.setNextFocusableComponent(typeVoieText);
+
         jLabel35.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
         jLabel35.setForeground(new java.awt.Color(240, 240, 240));
         jLabel35.setText("Nom de voie");
+
+        nomVoieText.setNextFocusableComponent(complementText);
 
         jLabel36.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(240, 240, 240));
         jLabel36.setText("Complément");
 
+        complementText.setNextFocusableComponent(codePostalText);
+
         jLabel37.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
         jLabel37.setForeground(new java.awt.Color(240, 240, 240));
         jLabel37.setText("Code postal");
+
+        codePostalText.setNextFocusableComponent(villeText);
 
         jLabel38.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(240, 240, 240));
         jLabel38.setText("Ville");
 
+        villeText.setNextFocusableComponent(numPortableText);
         villeText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 villeTextActionPerformed(evt);
@@ -605,10 +614,13 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jLabel39.setForeground(new java.awt.Color(240, 240, 240));
         jLabel39.setText("Pays");
 
+        paysText.setNextFocusableComponent(numVoieText);
+
         jLabel43.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
         jLabel43.setForeground(new java.awt.Color(240, 240, 240));
         jLabel43.setText("Portable");
 
+        numPortableText.setNextFocusableComponent(numFixeText);
         numPortableText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 numPortableTextActionPerformed(evt);
@@ -619,9 +631,13 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jLabel44.setForeground(new java.awt.Color(240, 240, 240));
         jLabel44.setText("Fixe");
 
+        numFixeText.setNextFocusableComponent(emailText);
+
         jLabel45.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
         jLabel45.setForeground(new java.awt.Color(240, 240, 240));
         jLabel45.setText("Mail");
+
+        emailText.setNextFocusableComponent(metierCombo);
 
         JListPersonnel.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         JListPersonnel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -700,6 +716,7 @@ public class GestionPersonnel extends javax.swing.JFrame {
 
         metierCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aide-soignant(e)", "Infirmier(ère)", "Médecin", "Secrétaire Administratif(ve)", "Secrétaire Médical", " " }));
         metierCombo.setSelectedIndex(5);
+        metierCombo.setNextFocusableComponent(serviceCombo);
         metierCombo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 metierComboItemStateChanged(evt);
@@ -718,6 +735,15 @@ public class GestionPersonnel extends javax.swing.JFrame {
         spé1Text.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
         spé1Text.setForeground(new java.awt.Color(240, 240, 240));
         spé1Text.setText("Grade");
+
+        serviceCombo.setNextFocusableComponent(spé1Panel);
+
+        spé1Panel.setNextFocusableComponent(identifiant);
+        spé1Panel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                spé1PanelFocusGained(evt);
+            }
+        });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -755,10 +781,13 @@ public class GestionPersonnel extends javax.swing.JFrame {
         jLabel40.setForeground(new java.awt.Color(240, 240, 240));
         jLabel40.setText("Type de voie");
 
+        typeVoieText.setNextFocusableComponent(nomVoieText);
+
         jLabel41.setFont(new java.awt.Font("Raleway Medium", 0, 14)); // NOI18N
         jLabel41.setForeground(new java.awt.Color(240, 240, 240));
         jLabel41.setText("Mot de passe :");
 
+        identifiant.setNextFocusableComponent(mdp);
         identifiant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 identifiantActionPerformed(evt);
@@ -1363,6 +1392,10 @@ public class GestionPersonnel extends javax.swing.JFrame {
         adm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void spé1PanelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_spé1PanelFocusGained
+        
+    }//GEN-LAST:event_spé1PanelFocusGained
 
     /**
      * @param args the command line arguments

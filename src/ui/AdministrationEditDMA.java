@@ -8,12 +8,14 @@ package ui;
 import db.GestionnaireDB.AdressePatientDAO;
 import db.GestionnaireDB.DAOFactory;
 import db.GestionnaireDB.DpiDAO;
+import db.GestionnaireDB.HistoriqueDAO;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -99,6 +101,12 @@ public class AdministrationEditDMA extends javax.swing.JFrame {
 
         this.sejourEnCoursList.setListData(sejEnCour);
         this.listSejour.setListData(sejTerminer);
+        
+       if(DAOFactory.getHistoriqueDAO().find(new ArrayList<>(Arrays.asList("IPP")), new ArrayList<>(Arrays.asList(Integer.toString(this.dpiEnEdition.getiPP().getIPP())))) != null){
+           JOptionPane.showMessageDialog(this, "Ce patient est archiver");
+           this.creationSejour.setEnabled(false);
+       }
+       
 
     }
 
