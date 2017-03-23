@@ -776,13 +776,13 @@ public class ServiceCliniqueResultatD extends javax.swing.JFrame {
     private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
             Imprimer print = new Imprimer();
             String message = "Détails du résultat N°"+this.result.getIdResultat()+" correspondant à la prescription N°"+ this.result.getIdPrescription()
-                    +"\n"+"\n"+"                          Resultat"+"\n"+"\n";
+                    +"\n"+"\n"+"                          Résultat"+"\n"+"\n";
             for (String[] rs:this.result.getListeResultats()){
 
                 message = message +" |   Examen: " + rs[0] + "   |   Résultat : " + rs[1]+"\n";
             }
             JTextArea jText = new JTextArea(message);
-            String entete = "Resultat";
+            String entete = "Résultat";
             print.impression(jText, entete);
     }//GEN-LAST:event_jLabel17MouseClicked
 
