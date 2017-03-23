@@ -11,6 +11,7 @@ import db.GestionnaireDB.DAOFactory;
 import interoperabilite.Serveur;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import library.interfaces.Patient;
 import nf.Adresse.Adresse;
@@ -38,6 +39,8 @@ public class ReceptionPatient extends javax.swing.JFrame {
     private final DAO<DPI> dpiDAO = DAOFactory.getDpiDAO();
     private Date ddn;
     private Sexe sex;
+    
+    private JFrame caller;//Ajouter par loic, supr si bug
 
     /**
      * Creates new form Connexion
@@ -45,6 +48,20 @@ public class ReceptionPatient extends javax.swing.JFrame {
     public ReceptionPatient() {
         initComponents();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        this.recuperationButton.setVisible(false);//ajouter par loic, a supr si bug
+    }
+    
+    /**
+     * Ajouter par loic, suprimer si bug
+     * set juste caller avec la fenetre recus et change en dispose on close
+     */
+    public ReceptionPatient(JFrame caller){
+        initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.caller = caller;
+        this.recuperationButton.setVisible(true);
+        this.jButton6.setVisible(false);
     }
 
     /**
@@ -77,6 +94,7 @@ public class ReceptionPatient extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jButton6 = new javax.swing.JButton();
+        recuperationButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -265,6 +283,16 @@ public class ReceptionPatient extends javax.swing.JFrame {
             }
         });
 
+        recuperationButton.setBackground(new java.awt.Color(255, 255, 255));
+        recuperationButton.setFont(new java.awt.Font("Raleway", 0, 24)); // NOI18N
+        recuperationButton.setForeground(new java.awt.Color(33, 49, 64));
+        recuperationButton.setText("Récupére les informations");
+        recuperationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recuperationButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -273,7 +301,8 @@ public class ReceptionPatient extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(recuperationButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -283,6 +312,8 @@ public class ReceptionPatient extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(recuperationButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -428,6 +459,15 @@ public class ReceptionPatient extends javax.swing.JFrame {
         dpiDAO.create(p);
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    
+    private void recuperationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recuperationButtonActionPerformed
+        DPI p = new DPI("", nom, prenom, new Adresse("", "", 0, "", 0, "", ""), new IPP(0), new DateT(ddn), new NSS(0), new InformationDeContact("", "", "", ""), new Location("", false, ' ', new Localisation("", 0, ""), "", 0), null, null, sex);
+        if(caller instanceof Administration){
+            ((Administration)caller).recuperationInfoHL7(p);
+            this.dispose();
+        }
+    }//GEN-LAST:event_recuperationButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -526,5 +566,6 @@ public class ReceptionPatient extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable2;
+    private javax.swing.JButton recuperationButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,7 +5,6 @@
  */
 package ui;
 
-import com.sun.scenario.animation.shared.InfiniteClipEnvelope;
 import db.GestionnaireDB.AdressePersonnelDAO;
 import db.GestionnaireDB.DAOFactory;
 import java.awt.BorderLayout;
@@ -13,7 +12,6 @@ import java.awt.Cursor;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Vector;
-import java.util.concurrent.locks.ReentrantLock;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
