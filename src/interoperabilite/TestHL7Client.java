@@ -40,7 +40,7 @@ public class TestHL7Client {
         Client client = new Client(dpi, adresse, port);
 
         System.out.println("---------------------------------------");
-        System.out.println("Patient de la base de donnée: " + dpi.toString());
+        System.out.println("Patient de la base de donnée : " + dpi.toString());
         System.out.println("---------------------------------------");
 
         System.out.println("---------------------------------------");
