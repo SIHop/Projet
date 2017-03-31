@@ -18,7 +18,7 @@ import nf.GestionDexploitation.Personnel;
 
 /**
  *
- * @author quentin
+ * @author SIHop coding team
  */
 public class ServiceCliniqueResultatD extends javax.swing.JFrame {
 

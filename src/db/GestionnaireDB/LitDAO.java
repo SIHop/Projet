@@ -16,7 +16,7 @@ import nf.GestionDexploitation.Localisation;
 
 /**
  *
- * @author Loïc
+ * @author SIHop coding team
  */
 public class LitDAO implements DAO<Location> {
 

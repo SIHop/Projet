@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author quentin
+ * @author SIHop coding team
  */
 public class Resultat {
 

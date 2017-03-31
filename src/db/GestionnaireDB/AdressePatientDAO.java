@@ -15,7 +15,7 @@ import nf.Adresse.Adresse;
 
 /**
  *
- * @author Loïc
+ * @author SIHop coding team
  */
 public class AdressePatientDAO implements DAO<Adresse>{
     private String query = "";

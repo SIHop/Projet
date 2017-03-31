@@ -16,7 +16,7 @@ import nf.DPI.DMA.IPP;
  */
 /**
  *
- * @author audre
+ * @author SIHop coding team
  */
 public class Historique {
 

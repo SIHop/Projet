@@ -12,7 +12,7 @@ import library.interfaces.ServeurHL7;
 
 /**
  *
- * @author Loïc
+ * @author SIHop coding team
  */
 public class Serveur {
 

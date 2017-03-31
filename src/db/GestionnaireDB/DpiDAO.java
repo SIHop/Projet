@@ -25,7 +25,7 @@ import nf.GestionDexploitation.Sexe;
 
 /**
  *
- * @author audrey
+ * @author SIHop coding team
  */
 public class DpiDAO implements DAO<DPI> {
 

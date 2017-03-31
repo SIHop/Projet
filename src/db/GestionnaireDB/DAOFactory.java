@@ -20,7 +20,7 @@ import nf.GestionDexploitation.Service;
 
 /**
  *
- * @author Loïc
+ * @author SIHop coding team
  */
 public class DAOFactory {
 

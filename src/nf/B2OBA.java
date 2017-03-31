@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nf.GestionDexploitation;
+package nf;
 
 /**
  *
- * @author SIHop coding team
+ * @author quentin
  */
-public class CentreDeSoin {
+public class B2OBA {
     
 }

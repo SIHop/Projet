@@ -11,7 +11,7 @@ import nf.DPI.DPI;
 
 /**
  *
- * @author Loïc
+ * @author SIHop coding team
  */
 public class Client {
     private final ClientHL7 client = new ClientHL7();

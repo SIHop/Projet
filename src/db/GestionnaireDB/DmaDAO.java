@@ -17,7 +17,7 @@ import nf.DPI.DMA.Sejour;
 
 /**
  *
- * @author Loïc
+ * @author SIHop coding team
  */
 public class DmaDAO implements DAO<DMA> {
 

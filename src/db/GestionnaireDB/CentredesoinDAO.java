@@ -11,7 +11,7 @@ import nf.GestionDexploitation.CentreDeSoin;
 
 /**
  *
- * @author Loïc
+ * @author SIHop coding team
  */
 public class CentredesoinDAO implements DAO<CentreDeSoin>{
 

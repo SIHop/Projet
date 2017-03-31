@@ -17,7 +17,7 @@ import nf.DPI.DM.TypePrescription;
 
 /**
  *
- * @author Loïc
+ * @author SIHop coding team
  */
 public class PrescriptionDAO implements DAO<Prescription>{
 
