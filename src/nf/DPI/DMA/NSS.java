@@ -1,7 +1,7 @@
 package nf.DPI.DMA;
 /**
  * classe numéro de sécurité social 
- * @author Deniz
+ * @author SIHop coding team
  */
 public class NSS {
 

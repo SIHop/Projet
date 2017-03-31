@@ -7,7 +7,7 @@ package nf.DPI.DM;
 
 /**
  *
- * @author Deniz
+ * @author SIHop coding team
  */
 public enum Code {
 

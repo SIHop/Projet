@@ -19,7 +19,7 @@ import nf.GestionDexploitation.Personnel;
 
 /**
  *
- * @author quentin
+ * @author SIHop coding team
  */
 public class ServiceCliniquePrescripD extends javax.swing.JFrame {
 

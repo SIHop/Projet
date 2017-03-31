@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Loïc
+ * @author SIHop coding team
  * @param <T>
  */
 public interface DAO<T> {

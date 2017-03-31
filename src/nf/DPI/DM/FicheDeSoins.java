@@ -13,7 +13,7 @@ import nf.GestionDexploitation.Personnel;
 
 /**
  *
- * @author Deniz
+ * @author SIHop coding team
  */
 public class FicheDeSoins {
     private final ArrayList<Acte> listeActes;

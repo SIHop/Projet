@@ -7,7 +7,7 @@ package nf.DPI.DM;
 
 /**
  *
- * @author Loïc
+ * @author SIHop coding team
  */
 public enum TypeActe {
     // valeurs de l'enum :

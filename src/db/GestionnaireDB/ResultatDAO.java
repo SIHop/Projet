@@ -16,7 +16,7 @@ import nf.DPI.DM.Resultat;
 
 /**
  *
- * @author Loïc
+ * @author SIHop coding team
  */
 public class ResultatDAO implements DAO<Resultat> {
 

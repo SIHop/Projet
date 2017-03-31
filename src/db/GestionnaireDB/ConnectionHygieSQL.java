@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Loïc
+ * @author SIHop coding team
  */
 public class ConnectionHygieSQL {
 

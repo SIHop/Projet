@@ -26,7 +26,7 @@ import nf.GestionDexploitation.Sexe;
 
 /**
  *
- * @author Alexia
+ * @author SIHop coding team
  */
 public class ReceptionPatient extends javax.swing.JFrame {
 

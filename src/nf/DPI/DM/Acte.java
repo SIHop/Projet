@@ -4,7 +4,7 @@ import db.GestionnaireDB.DAOFactory;
 
 /**
  *
- * @author Deniz
+ * @author SIHop coding team
  */
 public class Acte {
 

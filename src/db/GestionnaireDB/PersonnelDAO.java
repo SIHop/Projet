@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Loïc
+ * @author SIHop coding team
  */
 public class PersonnelDAO implements DAO<Personnel> {
 

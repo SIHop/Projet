@@ -17,7 +17,7 @@ import nf.DPI.DMA.IPP;
 
 /**
  *
- * @author Loïc
+ * @author SIHop coding team
  */
 public class HistoriqueDAO implements DAO<Historique>{
     private String query = "";

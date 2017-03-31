@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Loïc
+ * @author SIHop coding team
  */
 public class AdressePersonnelDAO implements DAO<Adresse> {
 

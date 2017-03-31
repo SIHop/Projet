@@ -17,7 +17,7 @@ import nf.DPI.DM.TypeActe;
 
 /**
  *
- * @author Loïc
+ * @author SIHop coding team
  */
 public class ActeDAO implements DAO<Acte> {
 

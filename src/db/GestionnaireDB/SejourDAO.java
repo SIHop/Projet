@@ -23,7 +23,7 @@ import nf.GestionDexploitation.Personnel;
 
 /**
  *
- * @author Loïc
+ * @author SIHop coding team
  */
 public class SejourDAO implements DAO<Sejour> {
 
